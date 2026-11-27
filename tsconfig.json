@@ -7,6 +7,6 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["eslint.config.js", "scripts/**/*"],
+  "include": ["eslint.config.js", "vitest.config.ts", "scripts/**/*"],
   "exclude": [".venv", "dist", "coverage", "node_modules", "docs", "hopwatch"]
 }
