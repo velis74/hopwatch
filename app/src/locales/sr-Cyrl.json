@@ -31,6 +31,12 @@
     },
     "settings": {
       "title": "Подешавања"
+    },
+    "ride": {
+      "title": "Детаљи вожње"
+    },
+    "journey": {
+      "title": "Детаљи путовања"
     }
   },
   "settings": {
@@ -138,7 +144,9 @@
   "map": {
     "title": "Мапа",
     "textEquivalent": "Мапа станице {stop}. Списак полазака је текстуална верзија ове мапе.",
-    "journeyTextEquivalent": "Мапа изабране везе. Списак веза је текстуална верзија ове мапе."
+    "journeyTextEquivalent": "Мапа изабране везе. Списак веза је текстуална верзија ове мапе.",
+    "rideTextEquivalent": "Мапа изабране вожње. Детаљи вожње су текстуална верзија ове мапе.",
+    "journeyDetailsTextEquivalent": "Мапа изабраног путовања. Детаљи путовања су текстуална верзија ове мапе."
   },
   "refresh": {
     "staleSince": "Није ажурирано од {time}"
@@ -173,7 +181,8 @@
     "walk": "Пешачење",
     "walkDistance": "Пешачење {distance} м",
     "legFromTo": "{departure} {from} – {arrival} {to}",
-    "tickets": "Карте"
+    "tickets": "Карте",
+    "details": "Детаљи"
   },
   "nearby": {
     "legend": "Оближње станице",
@@ -267,5 +276,58 @@
   "operators": {
     "favourite": "Омиљени",
     "favouriteToggle": "Омиљени превозник: {operator}"
+  },
+  "home": {
+    "showDepartures": "Прикажи поласке",
+    "showJourneys": "Пронађи везе",
+    "change": "Промени",
+    "summaryDepartures": "Поласци: {from}",
+    "summaryJourney": "{from} → {to}, {when}",
+    "whenNow": "полазак сада",
+    "whenDepart": "полазак {time}",
+    "whenArrive": "долазак до {time}",
+    "views": {
+      "filter": "Претрага",
+      "list": "Списак: {heading}"
+    }
+  },
+  "details": {
+    "backToList": "Назад на списак"
+  },
+  "ride": {
+    "title": "Вожња",
+    "loading": "Учитавам вожњу…",
+    "unavailable": "Детаљи вожње тренутно нису доступни. Покушајте поново касније.",
+    "notFound": "Ове вожње нема у реду вожње.",
+    "stopsUnavailable": "Станице ове вожње тренутно нису доступне.",
+    "cancelled": "Ова вожња је отказана.",
+    "departure": "Полазак",
+    "arrival": "Долазак",
+    "travelTime": "Време вожње",
+    "platformUnknown": "Перон није познат",
+    "amenities": "У возилу",
+    "bikes": "Превоз бицикала дозвољен",
+    "noBikes": "Без превоза бицикала",
+    "wheelchair": "Приступачно за инвалидска колица",
+    "noWheelchair": "Није приступачно за инвалидска колица",
+    "buyTicket": "Купи карту",
+    "opensNewWindow": "(отвара се у новом прозору)",
+    "stopsLabel": "Станице: {ride}",
+    "boardHere": "Улаз",
+    "getOffHere": "Излаз",
+    "arrivesDeparts": "дол. {arrival}, пол. {departure}",
+    "passed": "Прошло",
+    "stopCancelled": "Заустављање отказано",
+    "announceDelay": "{ride}, {stop}: кашњење сада {delay}."
+  },
+  "journeyDetails": {
+    "title": "Путовање",
+    "titleFromTo": "Путовање {from} – {to}",
+    "notAvailable": "Ово путовање више није доступно. Вратите се на списак и изаберите путовање.",
+    "duration": "Трајање",
+    "transfers": "Преседања",
+    "transfer": "Преседање: {stop}, {minutes} мин",
+    "walkMinutes": "Пешке до {to}, {minutes} мин",
+    "walkDistanceMinutes": "Пешке {distance} м до {to}, {minutes} мин"
   }
 }

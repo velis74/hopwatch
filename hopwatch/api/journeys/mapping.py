@@ -9,6 +9,7 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, Field
 
 from hopwatch.api.departures.mapping import DelaySource, transport_mode
+from hopwatch.api.geometry import simplify
 from hopwatch.api.operators.mapping import Operator, operator_from
 from hopwatch.motis import JsonObject
 
@@ -174,7 +175,7 @@ def leg_from(leg: JsonObject) -> Leg:
         # The IJPP real-time feed (derp-si) predicts delays from vehicle positions (TransitClock).
         delay_source=DelaySource.ESTIMATE if delay is not None else None,
         intermediate_stops=[place.get("name") or "" for place in leg.get("intermediateStops") or []],
-        geometry=decode_polyline(geometry.get("points") or "", geometry.get("precision", 5)),
+        geometry=simplify(decode_polyline(geometry.get("points") or "", geometry.get("precision", 5))),
         distance_m=round(leg["distance"]) if walk and leg.get("distance") is not None else None,
         ticket_url=(leg.get("ticketUrls") or {}).get("web") or None,
     )

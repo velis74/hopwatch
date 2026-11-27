@@ -1,11 +1,22 @@
 import { config } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { defineComponent, h } from 'vue';
+import { type Router, RouterView } from 'vue-router';
 
 import type { Departure } from '../api/hopwatch-api';
 import { usePreferencesStore } from '../stores/preferences';
-import { itinerary, journeysPage } from '../test-journeys';
-import { flushPromises, HttpResponse, maplibreFake, mockApi, mockGeolocation, mountApp } from '../test-utils';
+import { useTripDetailsStore } from '../stores/trip-details';
+import { itinerary, journeysPage, trip } from '../test-journeys';
+import {
+  APP_ROUTES,
+  flushPromises,
+  HttpResponse,
+  maplibreFake,
+  mockApi,
+  mockGeolocation,
+  mountApp,
+} from '../test-utils';
 
 import HomePage from './home-page.vue';
 
@@ -15,9 +26,29 @@ vi.mock('maplibre-gl', async () => (await import('../test-utils')).maplibreFake.
 config.global.stubs = { ...config.global.stubs, 'transition-group': false };
 
 const HERE = { lat: 46.0569, lon: 14.5058 };
-const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, modes: ['rail'], distance_m: 150 };
-const LJUBLJANA_AP = { id: 'si:3', name: 'Ljubljana AP', lat: 46.058, lon: 14.5147, modes: ['bus'], distance_m: 162 };
-const KOPER = { id: 'si:2', name: 'Koper', lat: 45.548, lon: 13.7302, modes: ['rail'] };
+const LJUBLJANA = {
+  id: 'si:1',
+  name: 'Ljubljana',
+  lat: 46.0569,
+  lon: 14.5058,
+  modes: ['rail'],
+  distance_m: 150,
+};
+const LJUBLJANA_AP = {
+  id: 'si:3',
+  name: 'Ljubljana AP',
+  lat: 46.058,
+  lon: 14.5147,
+  modes: ['bus'],
+  distance_m: 162,
+};
+const KOPER = {
+  id: 'si:2',
+  name: 'Koper',
+  lat: 45.548,
+  lon: 13.7302,
+  modes: ['rail'],
+};
 
 function departure(overrides: Partial<Departure> = {}): Departure {
   return {
@@ -249,7 +280,15 @@ describe('HomePage', () => {
     const departures = mockApi('get', '/departures', ({ request }: { request: Request }) =>
       HttpResponse.json(
         new URL(request.url).searchParams.getAll('stop_id').length > 1
-          ? [departure(), departure({ trip_id: 'b', stop_id: 'si:3', stop_name: 'Ljubljana AP', mode: 'bus' })]
+          ? [
+              departure(),
+              departure({
+                trip_id: 'b',
+                stop_id: 'si:3',
+                stop_name: 'Ljubljana AP',
+                mode: 'bus',
+              }),
+            ]
           : [departure()],
       ),
     );
@@ -351,5 +390,244 @@ describe('HomePage', () => {
       'https://nap.si',
       'https://creativecommons.org/licenses/by-sa/4.0/',
     ]);
+  });
+});
+
+/** The app's routes rendered as the app does, so that the start page shows its details views. */
+const Root = defineComponent(() => () => h(RouterView));
+
+async function renderApp(route = '/') {
+  const mounted = await mountApp(Root, { routes: APP_ROUTES, route });
+  await settle();
+  return mounted;
+}
+
+/** Waits until the router is at `path`: a details page loads lazily. */
+async function arrive(router: { currentRoute: { value: { fullPath: string } } }, path: string): Promise<void> {
+  for (let attempt = 0; attempt < 200 && router.currentRoute.value.fullPath !== path; attempt += 1) await wait(10);
+  await settle();
+}
+
+/** The address of the ride of the mocked departure. */
+function ridePath(router: Router): string {
+  return router.resolve({
+    name: 'ride',
+    params: { tripId: 'trip-1' },
+    query: { from: 's2', at: '2026-11-27T10:05:00+01:00' },
+  }).fullPath;
+}
+
+function liveText(): string {
+  return document.querySelector('.home-page > [aria-live="polite"]')?.textContent ?? '';
+}
+
+function shown(selector: string): boolean {
+  const element = document.querySelector<HTMLElement>(selector);
+  if (!element) return false;
+  for (let node: HTMLElement | null = element; node; node = node.parentElement) {
+    if (node.style.display === 'none') return false;
+  }
+  return true;
+}
+
+describe('HomePage views', () => {
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval', 'Date'] });
+    mockGeolocation(HERE);
+    mockNearby();
+    mockApi('get', '/departures', [departure({ trip_id: 'trip-1', stop_id: 's2' })]);
+    mockApi('get', '/trips/:id', trip());
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('puts the list and the map side by side on a wide screen', async () => {
+    await renderApp();
+
+    expect(document.querySelector('.home-page--wide')).not.toBeNull();
+    expect(document.querySelector('.home-list-column [role="list"]')).not.toBeNull();
+    expect(document.querySelector('.home-map-column section[aria-label="Map"]')).not.toBeNull();
+    expect(document.querySelector('button[type="submit"]')).toBeNull();
+  });
+
+  it('opens the ride of a departure in place of the list, keeps the form, and goes back to the list', async () => {
+    const { router } = await renderApp();
+
+    document.querySelector<HTMLAnchorElement>('a.departure-link')!.click();
+    await arrive(router, ridePath(router));
+
+    expect(router.currentRoute.value.fullPath).toBe(ridePath(router));
+    const heading = document.querySelector<HTMLElement>('.ride-page h2')!;
+    expect(heading.textContent?.trim()).toBe('Train RG 2100 to Jesenice');
+    expect(document.activeElement).toBe(heading);
+    expect(liveText()).toBe('Train RG 2100 to Jesenice');
+    expect(shown('.departures-board')).toBe(false);
+    expect(shown('.journey-form')).toBe(true);
+    expect(useTripDetailsStore().mapRoute?.kind).toBe('ride');
+    expect(document.querySelector('.home-map-column')?.textContent).toContain('Map of the selected ride.');
+
+    document.querySelector<HTMLButtonElement>('.back-to-list')!.click();
+    await settle();
+
+    expect(router.currentRoute.value.fullPath).toBe('/');
+    expect(shown('.departures-board')).toBe(true);
+    expect(document.activeElement?.textContent?.trim()).toBe('Ljubljana');
+    expect(useTripDetailsStore().mapRoute).toBeNull();
+  });
+
+  it('closes the details when the search changes', async () => {
+    mockApi('get', '/stops', [KOPER]);
+    mockApi('get', '/journeys', journeysPage([itinerary()]));
+    const { router } = await renderApp('/ride/trip-1?from=s2');
+    expect(document.querySelector('.ride-page')).not.toBeNull();
+
+    await pickStop('To', 'Koper');
+
+    expect(router.currentRoute.value.name).toBe('home');
+    expect(document.querySelector('.ride-page')).toBeNull();
+  });
+
+  it('keeps details opened from an address while the location fills From', async () => {
+    const { router } = await renderApp('/ride/trip-1');
+
+    expect(router.currentRoute.value.name).toBe('ride');
+    expect(stopField('From').closest('.v-autocomplete')?.textContent).toContain('Ljubljana');
+  });
+
+  it('focuses the heading of details opened from an address and announces the ride once it has loaded', async () => {
+    await renderApp('/ride/trip-1?from=s2');
+
+    const heading = document.querySelector<HTMLElement>('.ride-page h2')!;
+    expect(document.activeElement).toBe(heading);
+    expect(liveText()).toBe('Train RG 2100 to Jesenice');
+  });
+
+  it('announces the list beside the form when the details close on a wide screen', async () => {
+    const { router } = await renderApp();
+    document.querySelector<HTMLAnchorElement>('a.departure-link')!.click();
+    await arrive(router, ridePath(router));
+
+    document.querySelector<HTMLButtonElement>('.back-to-list')!.click();
+    await settle();
+
+    expect(liveText()).toBe('List: Ljubljana');
+  });
+
+  it('opens the details of a journey', async () => {
+    mockApi('get', '/stops', [KOPER]);
+    mockApi('get', '/journeys', journeysPage([itinerary()]));
+    const { router } = await renderApp();
+    await pickStop('To', 'Koper');
+
+    button('Details').click();
+    await arrive(router, '/journey?id=it-1');
+
+    expect(router.currentRoute.value.fullPath).toBe('/journey?id=it-1');
+    expect(document.activeElement?.textContent?.trim()).toBe('Journey from Ljubljana to Koper');
+    expect(useTripDetailsStore().mapRoute?.id).toBe('journey:it-1');
+  });
+
+  describe('on a narrow screen', () => {
+    beforeEach(() => {
+      vi.stubGlobal('innerWidth', 400);
+    });
+
+    it('goes from the form to the list with a summary of the search, and back', async () => {
+      const { router } = await renderApp();
+      expect(document.querySelector('.home-page--wide')).toBeNull();
+
+      button('Show departures').click();
+      await settle();
+
+      expect(router.currentRoute.value.fullPath).toBe('/?view=list');
+      expect(shown('.journey-form')).toBe(false);
+      expect(document.querySelector('.search-summary')?.textContent).toContain('Departures from Ljubljana');
+      expect(document.activeElement?.textContent?.trim()).toBe('Ljubljana');
+      expect(liveText()).toBe('List: Ljubljana');
+
+      button('Change').click();
+      await settle();
+
+      expect(router.currentRoute.value.fullPath).toBe('/');
+      expect(shown('.journey-form')).toBe(true);
+      expect(document.querySelector('.search-summary')).toBeNull();
+      expect(document.activeElement?.textContent?.trim()).toBe('Departures');
+    });
+
+    it('summarises a journey search', async () => {
+      mockApi('get', '/stops', [KOPER]);
+      mockApi('get', '/journeys', journeysPage([itinerary()]));
+      await renderApp();
+      await pickStop('To', 'Koper');
+
+      button('Find journeys').click();
+      await settle();
+
+      expect(document.querySelector('.search-summary-text')?.textContent).toBe('Ljubljana → Koper, leave now');
+    });
+
+    it('shows the details alone, and returns to the list with the browser Back', async () => {
+      const { router } = await renderApp();
+      button('Show departures').click();
+      await settle();
+
+      document.querySelector<HTMLAnchorElement>('a.departure-link')!.click();
+      await arrive(router, ridePath(router));
+
+      expect(shown('.journey-form')).toBe(false);
+      expect(document.querySelector('.search-summary')).toBeNull();
+      expect(shown('.departures-board')).toBe(false);
+      expect(document.querySelector('.ride-page')).not.toBeNull();
+
+      router.back();
+      await settle();
+
+      expect(router.currentRoute.value.fullPath).toBe('/?view=list');
+      expect(shown('.departures-board')).toBe(true);
+      expect(document.querySelector('.search-summary')).not.toBeNull();
+
+      router.back();
+      await settle();
+
+      expect(router.currentRoute.value.fullPath).toBe('/');
+      expect(shown('.journey-form')).toBe(true);
+    });
+
+    it('goes back in the history from details opened by a link in the list', async () => {
+      const { router } = await renderApp();
+      button('Show departures').click();
+      await settle();
+      document.querySelector<HTMLAnchorElement>('a.departure-link')!.click();
+      await arrive(router, ridePath(router));
+      // The browser history keeps the location a view was opened from; the memory history of the tests does not.
+      Object.assign(router.options.history.state, { back: '/?view=list' });
+      const back = vi.spyOn(router, 'back');
+
+      document.querySelector<HTMLButtonElement>('.back-to-list')!.click();
+      await settle();
+
+      expect(back).toHaveBeenCalledOnce();
+      expect(router.currentRoute.value.fullPath).toBe('/?view=list');
+      Object.assign(router.options.history.state, { back: undefined });
+    });
+
+    it('shows the form for a list address while From is not known', async () => {
+      mockGeolocation('pending');
+      const { router } = await renderApp('/?view=list');
+
+      expect(router.currentRoute.value.fullPath).toBe('/?view=list');
+      expect(shown('.journey-form')).toBe(true);
+      expect(document.querySelector('.search-summary')).toBeNull();
+    });
+
+    it('goes back to the list from details opened from an address', async () => {
+      const { router } = await renderApp('/ride/trip-1');
+
+      document.querySelector<HTMLButtonElement>('.back-to-list')!.click();
+      await settle();
+
+      expect(router.currentRoute.value.fullPath).toBe('/?view=list');
+    });
   });
 });

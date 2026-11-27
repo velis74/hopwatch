@@ -39,6 +39,7 @@ sanitiser strips it from `<a>`."""
 # Error codes of this API (`detail_code`, or `code` of a field error), with the status and when they occur.
 ERROR_CODES: dict[str, tuple[str, str]] = {
     "hopwatch.stop_not_found": ("404", "No stop has the given id (`detail_params.stop_id`)."),
+    "hopwatch.trip_not_found": ("404", "No ride has the given trip id (`detail_params.trip_id`)."),
     "hopwatch.timetable_unavailable": ("502", "The timetable service did not answer; retry later."),
     "hopwatch.csrf_failed": ("403", "A browser `POST` without a valid `X-CSRFToken` header or from a foreign origin."),
     "hopwatch.unknown_host": ("400", "The request's host is not one this server serves."),
@@ -77,7 +78,7 @@ ERRORS_SECTION = (
 
 def api_description(cookie_name: str) -> str:
     return f"""
-Stops, departures, journey planning, transport operators and the user's account.
+Stops, departures, rides, journey planning, transport operators and the user's account.
 
 **Authentication.** `POST /api/v1/account/login` (or `signup`, or a social login) starts a session. A browser
 client's session is the `{cookie_name}` cookie; its `POST` calls send the CSRF token in the `X-CSRFToken` header,

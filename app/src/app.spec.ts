@@ -185,7 +185,7 @@ describe('app', () => {
     });
     await mountApp(App, {
       locale: 'sl',
-      routes: [{ path: '/', name: 'home', component: Page }, ...STUB_ROUTES.filter((route) => route.name !== 'home')],
+      routes: [{ path: '/', name: 'home', component: Page }, ...STUB_ROUTES.filter((route) => route.path !== '/')],
     });
 
     expect(navigation().getAttribute('aria-label')).toBe('Glavna navigacija');

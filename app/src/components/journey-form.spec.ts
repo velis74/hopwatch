@@ -111,4 +111,29 @@ describe('JourneyForm', () => {
 
     expect(wrapper.props('time')).toBe('2026-11-27T18:30');
   });
+
+  it('submits with the button it is given, only with From', async () => {
+    const { wrapper } = await mountApp(JourneyForm, {
+      props: { submitLabel: 'Show departures' },
+      models: { from: LJUBLJANA, to: null, timeMode: 'now', time: '' },
+    });
+
+    const submit = wrapper.get('button[type="submit"]');
+    expect(submit.text()).toBe('Show departures');
+    await wrapper.get('form').trigger('submit');
+    expect(wrapper.emitted('submit')).toHaveLength(1);
+
+    await wrapper.setProps({ from: null });
+    expect(submit.attributes('disabled')).toBeDefined();
+    await wrapper.get('form').trigger('submit');
+    expect(wrapper.emitted('submit')).toHaveLength(1);
+  });
+
+  it('has no submit button without a label', async () => {
+    const wrapper = await render();
+
+    expect(wrapper.find('button[type="submit"]').exists()).toBe(false);
+    await wrapper.get('form').trigger('submit');
+    expect(wrapper.emitted('submit')).toBeUndefined();
+  });
 });

@@ -88,10 +88,13 @@ semantics (see below).
   grid mode with keyboard navigation and selection, name props, item slot attributes). Specification handed to the
   library's developer. Then the departures list and the journey list move to `df-grid`, with row animations through
   `useRecentlyAdded`.
-- `@dynamicforms/vuetify-inputs` `df-select`: `subtitle` of a choice (accessible name "<text>, <subtitle>"),
-  `noDataText` / `minQueryLength` / `minQueryText`, and typing over a chosen value replacing it. Then the stop search
-  (`stop-search.vue`, a Vuetify `v-autocomplete` today) and the language select move to `df-select`; the "Time"
-  field to `df-date-time`. The "When" and "Experience" radio groups stay Vuetify `v-radio-group` bound to vue-forms.
+- `@dynamicforms/vuetify-inputs` 0.16.5 (in preparation): `df-select` choice `text` as `RenderContent` (name and
+  modes on two lines, named by its text), `noDataText`, `minQueryLength` / `minQueryText` and `fetchDebounce`. Once
+  released, the stop search (`stop-search.vue`, a Vuetify `v-autocomplete` today), the "Add a stop" field (drop its
+  own debounce and minimum length) and the language select move to `df-select`, the "Time" field to `df-date-time`.
+  `df-select` keeps the chosen value's text when the user types into the field (by design); the stop search's
+  select-on-focus goes with the move. The "When" and "Experience" radio groups
+  stay Vuetify `v-radio-group` bound to vue-forms.
 - `dynamicforms-fastapi-viewsets`: the `ApiErrorBody` and `ApiFieldError` schema descriptions name Django and
   pydantic; let the application replace them or word them neutrally. `hopwatch/api/main_test.py` exempts the two
   schemas from the infrastructure check until then.
@@ -104,3 +107,12 @@ semantics (see below).
 - "Support this project" screen (one-time, monthly, yearly support through in-app purchases; a small supporter perk
   so that subscriptions pass store review) belongs to the Capacitor app PR. The app stays free for everyone.
 - The German, Croatian and Serbian texts need a native speaker's review before release.
+
+## Platforms reported by riders
+
+2026-11-27, session 1164b4e8-b9fc-4415-a3b0-91e0f3dba77a.
+
+Where the timetable has no platform (IJPP has none), ask the rider after the departure whether they found the vehicle
+and at which platform, and show the platform to other riders of the same stop and line. Needs a server-side store
+of reports, a consistency rule before a platform is shown (several reports agree, recent), the source named as
+"riders" like rider delays, and the reports under the rider-derived data licence (ODbL).

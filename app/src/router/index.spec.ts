@@ -98,4 +98,25 @@ describe('router', () => {
     expect(document.title).toBe('Settings – Hopwatch');
     expect(document.activeElement).not.toBe(main);
   });
+
+  it.each([
+    ['/ride/trip-1', 'Ride details – Hopwatch'],
+    ['/journey', 'Journey details – Hopwatch'],
+  ])('titles the details at %s', async (path, title) => {
+    await go(path);
+
+    expect(document.title).toBe(title);
+  });
+
+  it('leaves focus to the start page when it changes between its list and its details', async () => {
+    await go('/settings');
+    await go('/');
+    main.blur();
+
+    await go('/ride/trip-1');
+    expect(document.activeElement).not.toBe(main);
+
+    await go('/');
+    expect(document.activeElement).not.toBe(main);
+  });
 });

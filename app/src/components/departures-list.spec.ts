@@ -30,7 +30,10 @@ function departure(overrides: Partial<Departure> = {}): Departure {
 }
 
 function time(iso: string): string {
-  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+  return new Intl.DateTimeFormat('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(iso));
 }
 
 async function render(departures: Departure[], showStop?: boolean) {
@@ -92,7 +95,11 @@ describe('DeparturesList', () => {
 
   it('shows an early departure reported by riders', async () => {
     const wrapper = await render([
-      departure({ expected_departure: '2026-11-27T10:03:00+01:00', delay_minutes: -2, delay_source: 'riders' }),
+      departure({
+        expected_departure: '2026-11-27T10:03:00+01:00',
+        delay_minutes: -2,
+        delay_source: 'riders',
+      }),
     ]);
 
     const text = wrapper.get('li').text();
@@ -102,7 +109,11 @@ describe('DeparturesList', () => {
 
   it('shows "on time" without an expected time when there is no delay', async () => {
     const wrapper = await render([
-      departure({ expected_departure: '2026-11-27T10:05:00+01:00', delay_minutes: 0, delay_source: 'estimate' }),
+      departure({
+        expected_departure: '2026-11-27T10:05:00+01:00',
+        delay_minutes: 0,
+        delay_source: 'estimate',
+      }),
     ]);
 
     const text = wrapper.get('li').text();
@@ -120,7 +131,9 @@ describe('DeparturesList', () => {
 
   it('lists at most four later stops', async () => {
     const wrapper = await render([
-      departure({ next_stops: ['Brezovica', 'Preserje', 'Borovnica', 'Logatec', 'Postojna'] }),
+      departure({
+        next_stops: ['Brezovica', 'Preserje', 'Borovnica', 'Logatec', 'Postojna'],
+      }),
     ]);
 
     const text = wrapper.get('li').text();
@@ -130,7 +143,15 @@ describe('DeparturesList', () => {
 
   it('names the stop of each departure when asked to', async () => {
     const wrapper = await render(
-      [departure(), departure({ stop_id: 'si:3', stop_name: 'Ljubljana AP', mode: 'bus', line: '6' })],
+      [
+        departure(),
+        departure({
+          stop_id: 'si:3',
+          stop_name: 'Ljubljana AP',
+          mode: 'bus',
+          line: '6',
+        }),
+      ],
       true,
     );
 
@@ -166,8 +187,18 @@ describe('DeparturesList', () => {
   it('names the operator and tags a favourite one', async () => {
     window.localStorage.setItem('hopwatch.favouriteOperators', '["1161"]');
     const wrapper = await render([
-      departure({ operator: { id: '1161', name: 'SŽ - Potniški promet, d.o.o.', url: null } }),
-      departure({ trip_id: 'trip-2', mode: 'bus', operator: { id: '1123', name: 'Arriva d.o.o.', url: null } }),
+      departure({
+        operator: {
+          id: '1161',
+          name: 'SŽ - Potniški promet, d.o.o.',
+          url: null,
+        },
+      }),
+      departure({
+        trip_id: 'trip-2',
+        mode: 'bus',
+        operator: { id: '1123', name: 'Arriva d.o.o.', url: null },
+      }),
     ]);
 
     const [train, bus] = wrapper.findAll('li');
@@ -197,5 +228,20 @@ describe('DeparturesList', () => {
 
     expect(wrapper.find('.departure-operator').exists()).toBe(false);
     expect(wrapper.find('li button').exists()).toBe(false);
+  });
+
+  it('links each departure to the details of its ride, boarding at its stop at the time of the departure', async () => {
+    const wrapper = await render([departure({ trip_id: '20261127_14:42_ijpp/1', stop_id: 'si:3' })]);
+
+    const link = wrapper.get('li a.departure-link');
+    expect(link.text()).toBe('Details');
+    const main = wrapper.get(`#${link.attributes('aria-describedby')}`);
+    expect(main.text()).toContain('IC 502');
+    const href = new URL(link.attributes('href')!, 'http://localhost');
+    expect(href.pathname).toBe('/ride/20261127_14:42_ijpp%2F1');
+    expect(Object.fromEntries(href.searchParams)).toEqual({
+      from: 'si:3',
+      at: departure().scheduled_departure,
+    });
   });
 });

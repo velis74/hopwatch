@@ -31,6 +31,12 @@
     },
     "settings": {
       "title": "Einstellungen"
+    },
+    "ride": {
+      "title": "Fahrtdetails"
+    },
+    "journey": {
+      "title": "Reisedetails"
     }
   },
   "settings": {
@@ -138,7 +144,9 @@
   "map": {
     "title": "Karte",
     "textEquivalent": "Karte der Haltestelle {stop}. Die Liste der Abfahrten ist die Textfassung dieser Karte.",
-    "journeyTextEquivalent": "Karte der ausgewählten Verbindung. Die Liste der Verbindungen ist die Textfassung dieser Karte."
+    "journeyTextEquivalent": "Karte der ausgewählten Verbindung. Die Liste der Verbindungen ist die Textfassung dieser Karte.",
+    "rideTextEquivalent": "Karte der ausgewählten Fahrt. Die Fahrtdetails sind die Textfassung dieser Karte.",
+    "journeyDetailsTextEquivalent": "Karte der ausgewählten Reise. Die Reisedetails sind die Textfassung dieser Karte."
   },
   "refresh": {
     "staleSince": "Nicht aktualisiert seit {time}"
@@ -173,7 +181,8 @@
     "walk": "Fußweg",
     "walkDistance": "Fußweg {distance} m",
     "legFromTo": "{departure} {from} – {arrival} {to}",
-    "tickets": "Fahrkarten"
+    "tickets": "Fahrkarten",
+    "details": "Details"
   },
   "nearby": {
     "legend": "Haltestellen in der Nähe",
@@ -267,5 +276,58 @@
   "operators": {
     "favourite": "Favorit",
     "favouriteToggle": "Lieblingsverkehrsunternehmen: {operator}"
+  },
+  "home": {
+    "showDepartures": "Abfahrten anzeigen",
+    "showJourneys": "Verbindungen suchen",
+    "change": "Ändern",
+    "summaryDepartures": "Abfahrten ab {from}",
+    "summaryJourney": "{from} → {to}, {when}",
+    "whenNow": "jetzt losfahren",
+    "whenDepart": "Abfahrt {time}",
+    "whenArrive": "Ankunft bis {time}",
+    "views": {
+      "filter": "Suche",
+      "list": "Liste: {heading}"
+    }
+  },
+  "details": {
+    "backToList": "Zurück zur Liste"
+  },
+  "ride": {
+    "title": "Fahrt",
+    "loading": "Fahrt wird geladen…",
+    "unavailable": "Die Fahrtdetails sind gerade nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "notFound": "Diese Fahrt steht nicht im Fahrplan.",
+    "stopsUnavailable": "Die Halte dieser Fahrt sind gerade nicht verfügbar.",
+    "cancelled": "Diese Fahrt fällt aus.",
+    "departure": "Abfahrt",
+    "arrival": "Ankunft",
+    "travelTime": "Fahrzeit",
+    "platformUnknown": "Gleis unbekannt",
+    "amenities": "An Bord",
+    "bikes": "Fahrradmitnahme möglich",
+    "noBikes": "Keine Fahrradmitnahme",
+    "wheelchair": "Rollstuhlgerecht",
+    "noWheelchair": "Nicht rollstuhlgerecht",
+    "buyTicket": "Fahrkarte kaufen",
+    "opensNewWindow": "(öffnet in einem neuen Fenster)",
+    "stopsLabel": "Halte von {ride}",
+    "boardHere": "Hier einsteigen",
+    "getOffHere": "Hier aussteigen",
+    "arrivesDeparts": "an {arrival}, ab {departure}",
+    "passed": "Vorbei",
+    "stopCancelled": "Halt entfällt",
+    "announceDelay": "{ride} in {stop}: Verspätung jetzt {delay}."
+  },
+  "journeyDetails": {
+    "title": "Reise",
+    "titleFromTo": "Reise von {from} nach {to}",
+    "notAvailable": "Diese Reise ist nicht mehr verfügbar. Gehen Sie zurück zur Liste und wählen Sie eine Reise.",
+    "duration": "Dauer",
+    "transfers": "Umstiege",
+    "transfer": "Umstieg in {stop}, {minutes} min",
+    "walkMinutes": "Fußweg nach {to}, {minutes} min",
+    "walkDistanceMinutes": "Fußweg {distance} m nach {to}, {minutes} min"
   }
 }

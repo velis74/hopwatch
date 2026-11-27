@@ -94,7 +94,8 @@ def place_modes(motis_modes: list[str] | None) -> list[TransportMode]:
     return [mode for mode in TransportMode if mode in found]
 
 
-def _zone(name: str | None) -> ZoneInfo:
+def stop_zone(name: str | None) -> ZoneInfo:
+    """The time zone named by a MOTIS place (`tz`); UTC when it is missing or unknown."""
     try:
         return ZoneInfo(name) if name else ZoneInfo("UTC")
     except (ZoneInfoNotFoundError, ValueError):
@@ -147,7 +148,7 @@ def departure_from(
     place = stop_time["place"]
     if stop_time.get("cancelled") or stop_time.get("tripCancelled") or place.get("cancelled"):
         return None
-    zone = _zone(place.get("tz"))
+    zone = stop_zone(place.get("tz"))
     scheduled = _time(place.get("scheduledDeparture"), zone)
     if scheduled is None:
         return None

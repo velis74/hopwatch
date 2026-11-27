@@ -38,7 +38,8 @@ All times are UTC (ISO 8601). Stop ids carry the dataset tag as prefix (`ijpp_11
 | Stops nearest to a coordinate | `GET /api/v1/reverse-geocode?place={lat},{lon}&type=STOP&numResults=3` | `samples/reverse-geocode.json` |
 | Stop search by name | `GET /api/v1/geocode?text={text}&type=STOP` (optional `place={lat},{lon}` bias, `language=sl`) | `samples/geocode.json` |
 | Departures with real time | `GET /api/v6/stoptimes?stopId={id}&n={count}&fetchStops=true` | `samples/stoptimes.json` |
-| Later stops of a trip | `GET /api/v6/trip?tripId={tripId}` | `samples/trip.json` |
+| Later stops of a trip | `GET /api/v6/trip?tripId={tripId}&detailedLegs=false` | `samples/trip.json` |
+| Ride details with the path | `GET /api/v6/trip?tripId={tripId}` | `samples/trip-detailed.json` |
 | Journey planning | `GET /api/v5/plan?fromPlace={stopId or lat,lon}&toPlace={stopId}&time={ISO}&arriveBy={bool}` (optional `pageCursor`) | `samples/plan.json` |
 | Routes serving a stop | `GET /api/v6/stop?stopId={id}` | `samples/stop.json` |
 
@@ -51,7 +52,9 @@ All times are UTC (ISO 8601). Stop ids carry the dataset tag as prefix (`ijpp_11
   `mode` (e.g. `RAIL,BUS`), `radius`, `pageCursor` (`nextPageCursor` / `previousPageCursor` in the response).
 - `trip` returns the trip as an itinerary with one leg per trip segment; `legs[].intermediateStops` hold the stops
   between `from` and `to`, each with real-time and scheduled times. `tripId` comes from a stop time or leg and
-  includes the service date (`20261127_08:56_ijpp_465929`), so it is valid only for that day.
+  includes the service date (`20261127_08:56_ijpp_465929`), so it is valid only for that day. An unknown trip
+  answers 404, a malformed `tripId` 400. `legGeometry` (encoded polyline) is empty with `detailedLegs=false`.
+  `bikesAllowed` and `wheelchairAccessible` (`ACCESSIBLE`, `NOT_ACCESSIBLE`, `UNKNOWN`) describe the vehicle.
 - The full API description is the `openapi.yaml` of the MOTIS release.
 
 ## Data sources, licences and attribution

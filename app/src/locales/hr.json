@@ -31,6 +31,12 @@
     },
     "settings": {
       "title": "Postavke"
+    },
+    "ride": {
+      "title": "Pojedinosti vožnje"
+    },
+    "journey": {
+      "title": "Pojedinosti putovanja"
     }
   },
   "settings": {
@@ -138,7 +144,9 @@
   "map": {
     "title": "Karta",
     "textEquivalent": "Karta stanice {stop}. Popis polazaka tekstualna je inačica ove karte.",
-    "journeyTextEquivalent": "Karta odabrane veze. Popis veza tekstualna je inačica ove karte."
+    "journeyTextEquivalent": "Karta odabrane veze. Popis veza tekstualna je inačica ove karte.",
+    "rideTextEquivalent": "Karta odabrane vožnje. Pojedinosti vožnje tekstualna su inačica ove karte.",
+    "journeyDetailsTextEquivalent": "Karta odabranog putovanja. Pojedinosti putovanja tekstualna su inačica ove karte."
   },
   "refresh": {
     "staleSince": "Nije ažurirano od {time}"
@@ -173,7 +181,8 @@
     "walk": "Pješačenje",
     "walkDistance": "Pješačenje {distance} m",
     "legFromTo": "{departure} {from} – {arrival} {to}",
-    "tickets": "Karte"
+    "tickets": "Karte",
+    "details": "Pojedinosti"
   },
   "nearby": {
     "legend": "Obližnje stanice",
@@ -267,5 +276,58 @@
   "operators": {
     "favourite": "Omiljeni",
     "favouriteToggle": "Omiljeni prijevoznik: {operator}"
+  },
+  "home": {
+    "showDepartures": "Prikaži polaske",
+    "showJourneys": "Pronađi veze",
+    "change": "Promijeni",
+    "summaryDepartures": "Polasci: {from}",
+    "summaryJourney": "{from} → {to}, {when}",
+    "whenNow": "polazak sada",
+    "whenDepart": "polazak {time}",
+    "whenArrive": "dolazak do {time}",
+    "views": {
+      "filter": "Pretraga",
+      "list": "Popis: {heading}"
+    }
+  },
+  "details": {
+    "backToList": "Natrag na popis"
+  },
+  "ride": {
+    "title": "Vožnja",
+    "loading": "Učitavam vožnju…",
+    "unavailable": "Pojedinosti vožnje trenutačno nisu dostupne. Pokušajte ponovno kasnije.",
+    "notFound": "Ove vožnje nema u voznom redu.",
+    "stopsUnavailable": "Stajališta ove vožnje trenutačno nisu dostupna.",
+    "cancelled": "Ova vožnja je otkazana.",
+    "departure": "Polazak",
+    "arrival": "Dolazak",
+    "travelTime": "Vrijeme vožnje",
+    "platformUnknown": "Peron nije poznat",
+    "amenities": "U vozilu",
+    "bikes": "Prijevoz bicikala dopušten",
+    "noBikes": "Bez prijevoza bicikala",
+    "wheelchair": "Pristupačno invalidskim kolicima",
+    "noWheelchair": "Nije pristupačno invalidskim kolicima",
+    "buyTicket": "Kupi kartu",
+    "opensNewWindow": "(otvara se u novom prozoru)",
+    "stopsLabel": "Stajališta: {ride}",
+    "boardHere": "Ulaz",
+    "getOffHere": "Izlaz",
+    "arrivesDeparts": "dol. {arrival}, pol. {departure}",
+    "passed": "Prošlo",
+    "stopCancelled": "Zaustavljanje otkazano",
+    "announceDelay": "{ride}, {stop}: kašnjenje sada {delay}."
+  },
+  "journeyDetails": {
+    "title": "Putovanje",
+    "titleFromTo": "Putovanje {from} – {to}",
+    "notAvailable": "Ovo putovanje više nije dostupno. Vratite se na popis i odaberite putovanje.",
+    "duration": "Trajanje",
+    "transfers": "Presjedanja",
+    "transfer": "Presjedanje: {stop}, {minutes} min",
+    "walkMinutes": "Pješice do {to}, {minutes} min",
+    "walkDistanceMinutes": "Pješice {distance} m do {to}, {minutes} min"
   }
 }

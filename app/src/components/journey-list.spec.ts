@@ -181,4 +181,15 @@ describe('JourneyList', () => {
     expect(bus.get('.journey-leg-operator').text()).toBe('Arriva d.o.o. Favourite');
     expect(bus.get('.favourite-tag').text()).toBe('Favourite');
   });
+
+  it('opens the details of each itinerary', async () => {
+    const wrapper = await render({ journeys: journeysPage([itinerary(), itinerary({ id: 'it-2' })]) });
+
+    const buttons = button(wrapper, 'Details');
+    expect(buttons[1].attributes('aria-describedby')).toBe(wrapper.findAll('.journey-summary')[1].attributes('id'));
+
+    await buttons[1].trigger('click');
+
+    expect(wrapper.emitted('details')).toEqual([['it-2']]);
+  });
 });

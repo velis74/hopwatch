@@ -12,10 +12,24 @@ declare module 'vue-router' {
 
 const routes: RouteRecordRaw[] = [
   {
+    // The start page keeps the search while its list gives way to the details of a ride or a journey.
     path: '/',
-    name: 'home',
     component: () => import('../pages/home-page.vue'),
-    meta: { titleKey: 'pages.home.title' },
+    children: [
+      { path: '', name: 'home', component: { render: () => null }, meta: { titleKey: 'pages.home.title' } },
+      {
+        path: 'ride/:tripId',
+        name: 'ride',
+        component: () => import('../pages/ride-page.vue'),
+        meta: { titleKey: 'pages.ride.title' },
+      },
+      {
+        path: 'journey',
+        name: 'journey',
+        component: () => import('../pages/journey-page.vue'),
+        meta: { titleKey: 'pages.journey.title' },
+      },
+    ],
   },
   {
     path: '/login',
@@ -52,8 +66,9 @@ router.afterEach((to, from, failure) => {
   if (failure) return;
   void nextTick(() => {
     applyDocumentTitle();
-    // A route change moves focus to the main region, so screen readers announce the new page.
-    if (from !== START_LOCATION && to.path !== from.path) document.getElementById('main-content')?.focus();
+    // A page change moves focus to the main region, so screen readers announce the new page. Within a page that
+    // shows several views (the start page), the page moves focus to the heading of the view.
+    if (from !== START_LOCATION && to.matched[0] !== from.matched[0]) document.getElementById('main-content')?.focus();
   });
 });
 

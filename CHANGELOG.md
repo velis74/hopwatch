@@ -29,6 +29,11 @@ All notable changes to this project are documented in this file. The format is b
 - Web app: favourite operators, marked from a departure or in the settings and kept on the device; their
   departures and journey legs carry a "Favourite" tag.
 
+- API: ride details (`/trips/{trip_id}`): every stop with times, delay, platform and whether it is passed, operator,
+  amenities, ticket link and route line; route lines are simplified and answers compressed.
+- Web app: on wide screens the map beside the list; on narrow screens filter, list and details as successive views
+  with browser Back; ride and journey details with a stop timeline, transfers and walks.
+
 ### Changed
 
 - Delays from the IJPP real-time feed are labelled as estimates.

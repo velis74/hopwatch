@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { toOffsetIso } from '../composables/local-time';
+import { useTripDetailsStore } from '../stores/trip-details';
 import { itinerary, journeysPage } from '../test-journeys';
 import { flushPromises, HttpResponse, mockApi, mountApp } from '../test-utils';
 
@@ -187,5 +188,28 @@ describe('JourneyResults', () => {
 
     expect(wrapper.findAll('ol > li')).toHaveLength(1);
     expect(wrapper.get('.stale-notice [role="alert"]').text()).toMatch(/^Not updated since \d\d:\d\d$/u);
+  });
+
+  it('opens the details of a journey and keeps them up to date with the refreshes', async () => {
+    let transfers = 1;
+    mockApi('get', '/journeys', () => HttpResponse.json(journeysPage([itinerary({ transfers })])));
+    const { wrapper, router } = await mountApp(JourneyResults, {
+      props: { from: LJUBLJANA, to: KOPER, timeMode: 'now', time: '' },
+      models: { itinerary: null },
+    });
+    await settle();
+    const details = useTripDetailsStore();
+
+    await button(wrapper, 'Details')[0].trigger('click');
+    await settle();
+
+    expect(router.currentRoute.value.fullPath).toBe('/journey?id=it-1');
+    expect(details.itinerary?.transfers).toBe(1);
+
+    transfers = 2;
+    await vi.advanceTimersByTimeAsync(REFRESH_MS + 500);
+    await settle();
+
+    expect(details.itinerary?.transfers).toBe(2);
   });
 });

@@ -73,13 +73,13 @@ class MotisClient:
     async def aclose(self) -> None:
         await self._http.aclose()
 
-    async def _get(self, path: str, params: dict[str, Any], *, not_found_ok: bool = False) -> Any:
-        """GET `path`; a 404 raises `MotisNotFoundError` when `not_found_ok`, else `MotisUnavailableError`."""
+    async def _get(self, path: str, params: dict[str, Any], *, not_found: tuple[int, ...] = ()) -> Any:
+        """GET `path`; a status in `not_found` raises `MotisNotFoundError`, any other error `MotisUnavailableError`."""
         try:
             response = await self._http.get(path, params=params)
         except httpx.HTTPError as error:
             raise MotisUnavailableError(type(error).__name__) from error
-        if response.status_code == 404 and not_found_ok:
+        if response.status_code in not_found:
             raise MotisNotFoundError(response.text)
         if response.is_error:
             raise MotisUnavailableError(f"http_{response.status_code}")
@@ -111,7 +111,7 @@ class MotisClient:
                 "fetchStops": "true",
                 "withAlerts": "false",
             },
-            not_found_ok=True,
+            not_found=(404,),
         )
 
     async def trip(self, trip_id: str) -> JsonObject:
@@ -119,7 +119,14 @@ class MotisClient:
         The trip as an itinerary (`legs[]` with `from`, `intermediateStops`, `to`). Raises `MotisNotFoundError` for an
         unknown trip.
         """
-        return await self._get("/api/v6/trip", {"tripId": trip_id, "detailedLegs": "false"}, not_found_ok=True)
+        return await self._get("/api/v6/trip", {"tripId": trip_id, "detailedLegs": "false"}, not_found=(404,))
+
+    async def trip_details(self, trip_id: str) -> JsonObject:
+        """
+        The trip as an itinerary with each leg's path (`legGeometry`). Raises `MotisNotFoundError` for an unknown trip
+        and for a malformed trip id (MOTIS answers 400 to it).
+        """
+        return await self._get("/api/v6/trip", {"tripId": trip_id}, not_found=(400, 404))
 
     async def plan(
         self,
@@ -140,7 +147,7 @@ class MotisClient:
             params["time"] = motis_time(at)
         if page_cursor:
             params["pageCursor"] = page_cursor
-        return await self._get("/api/v5/plan", params, not_found_ok=True)
+        return await self._get("/api/v5/plan", params, not_found=(404,))
 
 
 _clients: "weakref.WeakKeyDictionary[asyncio.AbstractEventLoop, MotisClient]" = weakref.WeakKeyDictionary()

@@ -2,17 +2,40 @@
   <transition-group tag="ul" name="departure" role="list" :aria-label="label" class="departures-list">
     <li v-for="departure in departures" :key="`${departure.stop_id}:${departure.trip_id}`" class="departure">
       <div class="departure-main">
-        <v-icon :icon="MODE_ICONS[departure.mode]" aria-hidden="true" class="mr-2" />
-        <span class="departure-mode text-body-2 text-medium-emphasis">
-          {{ t(`departures.modes.${departure.mode}`) }}
+        <span :id="mainId(departure)" class="departure-name">
+          <v-icon :icon="MODE_ICONS[departure.mode]" aria-hidden="true" class="mr-2" />
+          <span class="departure-mode text-body-2 text-medium-emphasis">
+            {{ t(`departures.modes.${departure.mode}`) }}
+          </span>
+          <strong class="departure-line">{{ departure.line }}</strong>
+          <span class="departure-headsign">{{ t('departures.toHeadsign', { headsign: departure.headsign }) }}</span>
         </span>
-        <strong class="departure-line">{{ departure.line }}</strong>
-        <span class="departure-headsign">{{ t('departures.toHeadsign', { headsign: departure.headsign }) }}</span>
+        <v-btn
+          :to="rideLocation(departure)"
+          size="small"
+          variant="tonal"
+          color="primary"
+          append-icon="mdi-chevron-right"
+          :aria-describedby="mainId(departure)"
+          class="departure-link"
+        >
+          {{ t('journey.details') }}
+        </v-btn>
       </div>
       <div class="departure-details text-body-2">
-        <span>{{ t('departures.scheduled', { time: formatTime(departure.scheduled_departure) }) }}</span>
+        <span>
+          {{
+            t('departures.scheduled', {
+              time: formatTime(departure.scheduled_departure),
+            })
+          }}
+        </span>
         <span v-if="departure.expected_departure && departure.delay_minutes !== 0">
-          {{ t('departures.expected', { time: formatTime(departure.expected_departure) }) }}
+          {{
+            t('departures.expected', {
+              time: formatTime(departure.expected_departure),
+            })
+          }}
         </span>
         <span v-if="departure.delay_minutes !== null" :class="delayClass(departure.delay_minutes)">
           <v-icon
@@ -24,13 +47,21 @@
           />
           {{ delayText(departure.delay_minutes) }}
           <template v-if="departure.delay_source">
-            {{ t('departures.delaySource', { source: t(`departures.sources.${departure.delay_source}`) }) }}
+            {{
+              t('departures.delaySource', {
+                source: t(`departures.sources.${departure.delay_source}`),
+              })
+            }}
           </template>
         </span>
         <span v-if="departure.platform">{{ t('departures.platform', { platform: departure.platform }) }}</span>
       </div>
       <div v-if="departure.next_stops.length" class="departure-via text-body-2 text-medium-emphasis">
-        {{ t('departures.via', { stops: departure.next_stops.slice(0, VIA_STOPS).join(', ') }) }}
+        {{
+          t('departures.via', {
+            stops: departure.next_stops.slice(0, VIA_STOPS).join(', '),
+          })
+        }}
       </div>
       <div v-if="departure.operator" class="departure-operator text-body-2">
         <operator-name :operator="departure.operator" />
@@ -44,7 +75,9 @@
 </template>
 
 <script setup lang="ts">
+import { useId } from 'vue';
 import { useI18n } from 'vue-i18n';
+import type { RouteLocationRaw } from 'vue-router';
 
 import type { Departure, TransportMode } from '../api/hopwatch-api';
 import { useTimeFormat } from '../composables/use-time-format';
@@ -56,6 +89,7 @@ defineProps<{ departures: Departure[]; label: string; showStop?: boolean }>();
 
 const { t } = useI18n();
 const formatTime = useTimeFormat();
+const idPrefix = useId();
 
 const MODE_ICONS: Record<TransportMode, string> = {
   rail: 'mdi-train',
@@ -65,6 +99,19 @@ const MODE_ICONS: Record<TransportMode, string> = {
 };
 
 const VIA_STOPS = 4;
+
+function mainId(departure: Departure): string {
+  return `${idPrefix}-${departure.stop_id}-${departure.trip_id}`.replace(/[^\w-]/gu, '_');
+}
+
+/** The details of the departure's ride, boarding at its stop at the time of the departure. */
+function rideLocation(departure: Departure): RouteLocationRaw {
+  return {
+    name: 'ride',
+    params: { tripId: departure.trip_id },
+    query: { from: departure.stop_id, at: departure.scheduled_departure },
+  };
+}
 
 function delayText(minutes: number): string {
   if (minutes > 0) return t('departures.delay', { minutes });
@@ -95,6 +142,17 @@ function delayClass(minutes: number): string {
   align-items: center;
   gap: 4px 8px;
   font-size: 1.125rem;
+}
+
+.departure-name {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+}
+
+.departure-link {
+  margin-left: auto;
 }
 
 .departure-details {

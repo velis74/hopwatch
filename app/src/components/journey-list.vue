@@ -1,6 +1,6 @@
 <template>
   <section ref="root" :aria-labelledby="headingId" class="journey-list">
-    <h2 :id="headingId" class="text-h5 mb-2">{{ t('journey.title') }}</h2>
+    <h2 :id="headingId" tabindex="-1" class="text-h5 mb-2">{{ t('journey.title') }}</h2>
 
     <v-alert v-if="error && !journeys" type="warning" variant="tonal" class="mb-4">
       {{ t('journey.unavailable') }}
@@ -70,6 +70,17 @@
           >
             {{ t('journey.showOnMap') }}
           </v-btn>
+          <v-btn
+            size="small"
+            variant="tonal"
+            color="primary"
+            append-icon="mdi-chevron-right"
+            :aria-describedby="summaryId(itinerary)"
+            class="mt-1 ml-2 journey-details-button"
+            @click="emit('details', itinerary.id)"
+          >
+            {{ t('journey.details') }}
+          </v-btn>
         </li>
       </ol>
       <p v-else class="my-2">{{ t('journey.empty') }}</p>
@@ -90,7 +101,7 @@ import { useTimeFormat } from '../composables/use-time-format';
 import OperatorName from './operator-name.vue';
 
 defineProps<{ journeys: Journeys | null; error?: boolean; selectedId: string | null }>();
-const emit = defineEmits<{ select: [id: string]; earlier: []; later: [] }>();
+const emit = defineEmits<{ select: [id: string]; details: [id: string]; earlier: []; later: [] }>();
 
 const LEG_ICONS: Record<Leg['mode'], string> = {
   rail: 'mdi-train',

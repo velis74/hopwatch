@@ -1,5 +1,5 @@
 <template>
-  <form class="journey-form" :aria-label="t('journey.formLabel')" @submit.prevent>
+  <form class="journey-form" :aria-label="t('journey.formLabel')" @submit.prevent="submit">
     <div class="journey-form-stops">
       <stop-search v-model="from" :label="t('journey.from')" />
       <v-btn
@@ -24,6 +24,16 @@
       hide-details
       class="journey-form-time mt-2"
     />
+    <v-btn
+      v-if="submitLabel"
+      type="submit"
+      color="primary"
+      prepend-icon="mdi-magnify"
+      :disabled="!from"
+      class="journey-form-submit mt-4"
+    >
+      {{ submitLabel }}
+    </v-btn>
   </form>
 </template>
 
@@ -45,6 +55,10 @@ const TIME_MODE_LABELS: Record<TimeMode, string> = {
   arrive: 'journey.arriveBy',
 };
 
+/** `submitLabel` adds a submit button with that text; without it the form has none. */
+const props = defineProps<{ submitLabel?: string }>();
+const emit = defineEmits<{ submit: [] }>();
+
 const from = defineModel<Stop | null>('from', { required: true });
 const to = defineModel<Stop | null>('to', { required: true });
 const timeMode = defineModel<TimeMode>('timeMode', { required: true });
@@ -52,6 +66,10 @@ const timeMode = defineModel<TimeMode>('timeMode', { required: true });
 const time = defineModel<string>('time', { required: true });
 
 const { t } = useI18n();
+
+function submit(): void {
+  if (props.submitLabel && from.value) emit('submit');
+}
 
 function swap(): void {
   [from.value, to.value] = [to.value, from.value];

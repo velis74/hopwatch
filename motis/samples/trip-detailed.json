@@ -1,0 +1,1360 @@
+{
+  "duration": 21660,
+  "startTime": "2026-11-27T14:05:00Z",
+  "endTime": "2026-11-27T20:06:00Z",
+  "transfers": 0,
+  "id": "CoEBCgZJQyA1MDISGjIwMjYxMTI3XzE1OjA1X2lqcHBfNDYyMTQ2GgxpanBwXzExMjMwMTIhvsKB/PzERkAp0n/JKyF6K0AyDGlqcHBfMTEyMjk2MjkvpmEu+mhHQEFwI5SvUFQwQEiMnKbYBlDAwqfYBloNUkVHSU9OQUxfUkFJTGAB",
+  "legs": [
+    {
+      "mode": "REGIONAL_RAIL",
+      "from": {
+        "name": "Koper",
+        "stopId": "ijpp_1123012",
+        "importance": 0.07377990335226059,
+        "lat": 45.53897053085301,
+        "lon": 13.738534324977,
+        "tz": "Europe/Belgrade",
+        "departure": "2026-11-27T14:05:00Z",
+        "scheduledDeparture": "2026-11-27T14:05:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NORMAL",
+        "dropoffType": "NORMAL",
+        "cancelled": false,
+        "departureTimestampReason": "NO_RT_DATA",
+        "modes": [
+          "REGIONAL_RAIL",
+          "BUS"
+        ]
+      },
+      "to": {
+        "name": "Hodoš",
+        "stopId": "ijpp_1122962",
+        "importance": 0.13799042999744415,
+        "lat": 46.82013492363,
+        "lon": 16.329356168429,
+        "tz": "Europe/Belgrade",
+        "arrival": "2026-11-27T20:06:00Z",
+        "scheduledArrival": "2026-11-27T20:00:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NORMAL",
+        "dropoffType": "NORMAL",
+        "cancelled": false,
+        "arrivalTimestampReason": "PROPAGATED",
+        "modes": [
+          "REGIONAL_RAIL",
+          "BUS"
+        ]
+      },
+      "duration": 21660,
+      "startTime": "2026-11-27T14:05:00Z",
+      "endTime": "2026-11-27T20:06:00Z",
+      "scheduledStartTime": "2026-11-27T14:05:00Z",
+      "scheduledEndTime": "2026-11-27T20:00:00Z",
+      "realTime": true,
+      "scheduled": true,
+      "interlineWithPreviousLeg": false,
+      "headsign": "Koper - Hodoš",
+      "tripFrom": {
+        "name": "Koper",
+        "stopId": "ijpp_1123012",
+        "importance": 0.07377990335226059,
+        "lat": 45.53897053085301,
+        "lon": 13.738534324977,
+        "tz": "Europe/Belgrade",
+        "departure": "2026-11-27T14:05:00Z",
+        "scheduledDeparture": "2026-11-27T14:05:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NORMAL",
+        "dropoffType": "NORMAL",
+        "cancelled": false,
+        "departureTimestampReason": "NO_RT_DATA",
+        "modes": [
+          "REGIONAL_RAIL",
+          "BUS"
+        ]
+      },
+      "tripTo": {
+        "name": "Hodoš",
+        "stopId": "ijpp_1122962",
+        "importance": 0.13799042999744415,
+        "lat": 46.82013492363,
+        "lon": 16.329356168429,
+        "tz": "Europe/Belgrade",
+        "arrival": "2026-11-27T20:06:00Z",
+        "scheduledArrival": "2026-11-27T20:00:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NORMAL",
+        "dropoffType": "NORMAL",
+        "cancelled": false,
+        "arrivalTimestampReason": "PROPAGATED",
+        "modes": [
+          "REGIONAL_RAIL",
+          "BUS"
+        ]
+      },
+      "routeId": "ijpp_65038",
+      "routeUrl": "",
+      "directionId": "0",
+      "routeColor": "29ace2",
+      "routeTextColor": "ffffff",
+      "routeType": 2,
+      "agencyName": "SŽ - Potniški promet, d.o.o.",
+      "agencyUrl": "https://potniski.sz.si/",
+      "agencyFareUrl": "",
+      "agencyId": "1161",
+      "tripId": "20261127_15:05_ijpp_462146",
+      "routeShortName": "IC 502",
+      "routeLongName": "",
+      "tripShortName": "",
+      "displayName": "IC 502",
+      "cancelled": false,
+      "source": "gtfs/ijpp.zip/stop_times.txt:124217:124241",
+      "intermediateStops": [
+        {
+          "name": "Hrpelje-Kozina",
+          "stopId": "ijpp_1123006",
+          "importance": 0.004700253251940012,
+          "lat": 45.60370432850401,
+          "lon": 13.93530413258,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T14:40:00Z",
+          "departure": "2026-11-27T14:41:00Z",
+          "scheduledArrival": "2026-11-27T14:40:00Z",
+          "scheduledDeparture": "2026-11-27T14:41:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "NO_RT_DATA",
+          "departureTimestampReason": "NO_RT_DATA",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Divača",
+          "stopId": "ijpp_1123004",
+          "importance": 0.039197299629449844,
+          "lat": 45.681624238303996,
+          "lon": 13.96477636668,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T14:52:00Z",
+          "departure": "2026-11-27T15:02:00Z",
+          "scheduledArrival": "2026-11-27T14:52:00Z",
+          "scheduledDeparture": "2026-11-27T14:56:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "NO_RT_DATA",
+          "departureTimestampReason": "PREDICTED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Pivka",
+          "stopId": "ijpp_1123001",
+          "importance": 0.045313820242881775,
+          "lat": 45.67526407229099,
+          "lon": 14.191257921250997,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T15:23:00Z",
+          "departure": "2026-11-27T15:24:00Z",
+          "scheduledArrival": "2026-11-27T15:17:00Z",
+          "scheduledDeparture": "2026-11-27T15:18:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Postojna",
+          "stopId": "ijpp_1122998",
+          "importance": 0.032704755663871765,
+          "lat": 45.77306612766199,
+          "lon": 14.221720458213998,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T15:36:00Z",
+          "departure": "2026-11-27T15:37:00Z",
+          "scheduledArrival": "2026-11-27T15:30:00Z",
+          "scheduledDeparture": "2026-11-27T15:31:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Rakek",
+          "stopId": "ijpp_1122997",
+          "importance": 0.029833942651748657,
+          "lat": 45.815274057028994,
+          "lon": 14.313185786847,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T15:48:00Z",
+          "departure": "2026-11-27T15:49:00Z",
+          "scheduledArrival": "2026-11-27T15:42:00Z",
+          "scheduledDeparture": "2026-11-27T15:43:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Logatec",
+          "stopId": "ijpp_1122995",
+          "importance": 0.031196171417832375,
+          "lat": 45.91768912894199,
+          "lon": 14.235851532348,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T16:02:00Z",
+          "departure": "2026-11-27T16:03:00Z",
+          "scheduledArrival": "2026-11-27T15:56:00Z",
+          "scheduledDeparture": "2026-11-27T15:57:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Borovnica",
+          "stopId": "ijpp_1122993",
+          "importance": 0.02277511917054653,
+          "lat": 45.92144775598899,
+          "lon": 14.36814314424,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T16:23:00Z",
+          "departure": "2026-11-27T16:24:00Z",
+          "scheduledArrival": "2026-11-27T16:17:00Z",
+          "scheduledDeparture": "2026-11-27T16:18:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Ljubljana",
+          "stopId": "ijpp_1122804",
+          "importance": 0.49244582653045654,
+          "lat": 46.058508924440005,
+          "lon": 14.512923641400999,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T16:52:00Z",
+          "departure": "2026-11-27T16:56:00Z",
+          "scheduledArrival": "2026-11-27T16:46:00Z",
+          "scheduledDeparture": "2026-11-27T16:50:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Litija",
+          "stopId": "ijpp_1122797",
+          "importance": 0.11038558930158615,
+          "lat": 46.058125192560006,
+          "lon": 14.825156414406003,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T17:22:00Z",
+          "departure": "2026-11-27T17:23:00Z",
+          "scheduledArrival": "2026-11-27T17:16:00Z",
+          "scheduledDeparture": "2026-11-27T17:17:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Zagorje",
+          "stopId": "ijpp_1122795",
+          "importance": 0.17162960767745972,
+          "lat": 46.120557955637,
+          "lon": 14.991143749226,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T17:37:00Z",
+          "departure": "2026-11-27T17:38:00Z",
+          "scheduledArrival": "2026-11-27T17:31:00Z",
+          "scheduledDeparture": "2026-11-27T17:32:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Trbovlje",
+          "stopId": "ijpp_1122794",
+          "importance": 0.19133126735687256,
+          "lat": 46.126259113751004,
+          "lon": 15.036914012016,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T17:42:00Z",
+          "departure": "2026-11-27T17:43:00Z",
+          "scheduledArrival": "2026-11-27T17:36:00Z",
+          "scheduledDeparture": "2026-11-27T17:37:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Hrastnik",
+          "stopId": "ijpp_1122793",
+          "importance": 0.06597241759300232,
+          "lat": 46.12255037737201,
+          "lon": 15.093540264623002,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T17:47:00Z",
+          "departure": "2026-11-27T17:48:00Z",
+          "scheduledArrival": "2026-11-27T17:41:00Z",
+          "scheduledDeparture": "2026-11-27T17:42:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Zidani Most",
+          "stopId": "ijpp_1122792",
+          "importance": 0.3717872202396393,
+          "lat": 46.08532062078,
+          "lon": 15.170453399877001,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T17:55:00Z",
+          "departure": "2026-11-27T17:57:00Z",
+          "scheduledArrival": "2026-11-27T17:49:00Z",
+          "scheduledDeparture": "2026-11-27T17:51:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Laško",
+          "stopId": "ijpp_1122887",
+          "importance": 0.21116577088832855,
+          "lat": 46.154510915532,
+          "lon": 15.232055054077,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T18:10:00Z",
+          "departure": "2026-11-27T18:11:00Z",
+          "scheduledArrival": "2026-11-27T18:04:00Z",
+          "scheduledDeparture": "2026-11-27T18:05:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Celje",
+          "stopId": "ijpp_1122888",
+          "importance": 0.3125302493572235,
+          "lat": 46.228480770952004,
+          "lon": 15.268322846928,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T18:19:00Z",
+          "departure": "2026-11-27T18:21:00Z",
+          "scheduledArrival": "2026-11-27T18:13:00Z",
+          "scheduledDeparture": "2026-11-27T18:15:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Šentjur",
+          "stopId": "ijpp_1122890",
+          "importance": 0.05781030282378197,
+          "lat": 46.212977989822,
+          "lon": 15.396251823707,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T18:28:00Z",
+          "departure": "2026-11-27T18:29:00Z",
+          "scheduledArrival": "2026-11-27T18:22:00Z",
+          "scheduledDeparture": "2026-11-27T18:23:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Poljčane",
+          "stopId": "ijpp_1122894",
+          "importance": 0.1132001131772995,
+          "lat": 46.31344422151699,
+          "lon": 15.576583927966002,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T18:47:00Z",
+          "departure": "2026-11-27T18:47:00Z",
+          "scheduledArrival": "2026-11-27T18:41:00Z",
+          "scheduledDeparture": "2026-11-27T18:41:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Pragersko",
+          "stopId": "ijpp_1122899",
+          "importance": 0.2927666902542114,
+          "lat": 46.395415071224,
+          "lon": 15.662162701137,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T18:58:00Z",
+          "departure": "2026-11-27T19:00:00Z",
+          "scheduledArrival": "2026-11-27T18:52:00Z",
+          "scheduledDeparture": "2026-11-27T18:54:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Kidričevo",
+          "stopId": "ijpp_1122905",
+          "importance": 0.03212383762001991,
+          "lat": 46.40067264803,
+          "lon": 15.800455417088003,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T19:07:00Z",
+          "departure": "2026-11-27T19:08:00Z",
+          "scheduledArrival": "2026-11-27T19:01:00Z",
+          "scheduledDeparture": "2026-11-27T19:02:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Ptuj",
+          "stopId": "ijpp_1122907",
+          "importance": 0.06433999538421631,
+          "lat": 46.422303915642,
+          "lon": 15.87891305925,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T19:12:00Z",
+          "departure": "2026-11-27T19:13:00Z",
+          "scheduledArrival": "2026-11-27T19:06:00Z",
+          "scheduledDeparture": "2026-11-27T19:07:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Ormož",
+          "stopId": "ijpp_1122943",
+          "importance": 0.0771179273724556,
+          "lat": 46.40317809440901,
+          "lon": 16.156081897943,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T19:24:00Z",
+          "departure": "2026-11-27T19:25:00Z",
+          "scheduledArrival": "2026-11-27T19:18:00Z",
+          "scheduledDeparture": "2026-11-27T19:19:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Ljutomer mesto",
+          "stopId": "ijpp_1122948",
+          "importance": 0.05983675643801689,
+          "lat": 46.52106910560399,
+          "lon": 16.199703233005998,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T19:37:00Z",
+          "departure": "2026-11-27T19:38:00Z",
+          "scheduledArrival": "2026-11-27T19:31:00Z",
+          "scheduledDeparture": "2026-11-27T19:32:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Murska Sobota",
+          "stopId": "ijpp_1122956",
+          "importance": 0.06282015144824982,
+          "lat": 46.658984500577,
+          "lon": 16.171654816350003,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T19:49:00Z",
+          "departure": "2026-11-27T19:50:00Z",
+          "scheduledArrival": "2026-11-27T19:43:00Z",
+          "scheduledDeparture": "2026-11-27T19:44:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        }
+      ],
+      "legGeometry": {
+        "points": "uhnzuAkapeY??m@eDcMsq@qJ_h@qJgh@wJki@qJ{h@cKsi@wJ_j@wJch@mH_`@aBqJsBqKeA}G_G{ZoGq]sFgZyG}^iGi\\sHia@_I}b@cGo\\cIqc@aBmIkEcVwG_^aG}[kGw\\eFgY{EwW_E{SgDoQqD}OqDkNcCaJkKc\\{Nga@iO}a@eQme@kIyTeDsI_D{IqBuFkDmJ_EuKoE_MyEuMeF_NsCwH{BuFuCgHwCeHyC_HkDiHsDuHiE{IsEaJoE}ImEsI{DsHiEmIaEgIqE}I}DuHoDmHuDqHyCoGoCqGoCwGcEwKoBwF{AmEoCsIgC{IcAoD_BaGuAqFqBcJoBgKcB}HcByJuAyIw@qFm@cEoB_MuAyJmBiMqBoMoBgMgBkL_BcJyBwK{B_KeCsJ{BcIyBoHyBaHuCqHeC_HiCuGuC}FsDkIiFwJcFsJwFwJoFwJiFwJ}EiJiFcJ_FeJoE}HaEsHiE_IcEuHiDiGeCqEiBeDmBoDwEsIsEqIyEaJuEsIcEeHiDiGeC{EeB}CyBwD}B{DoCwFcAeBoBqDiCcFy@wAeMkUwLqT{J_SqG_OaFeNqEkNqEqQwCcNaCwMaC}PyAkNcAsMw@uMi@cPSoOEcOJmKLkJZqJFoAh@{Lp@qMnB{\\Di@|Cq\\|Gqt@pI__AlIu|@~Dcc@lCm_@z@sOt@iPj@oSb@oSVg`@jAqiAr@}q@?El@}t@^ec@NuKXk\\d@we@JoK\\uMr@sXv@yO`BaVRoCjA{MrDoZzEcZzFcYbHwXrHeXpIqY`JsZfEuNzAgF`L_`@~Ia[`J{ZvIsZjJe[jHyV~IqZhJa[`J}ZxIyZbJ_[tIyZjJ{ZdJe[~IsZ~I}ZjJc[xDqNbAmDzAwEdJ_[dJe[xIqZbJwZjIeXdHuTdIuW|JsZrJmZvJ_ZvJcZ~JkZxJeZzJaZ|JqZvJ_ZbKeZ|JgZtVmu@|JeZdEyMbDeLfC{JlBiJzAoHlAeIhA{JbAwKz@qLd@oKTyK?mMY_P]oLi@iLw@mOs@ePcAyOg@_IoL}uB_Cy_@aAkWg@mTAeU^eTx@qWfC}l@rB_h@fAqUh@wSHiS[eS{@sPyA{QkCoTyEkTmFoRyIuVuRaf@eMg\\wEeOkDyPm@uCaDaSaCgVeAyUa@wTT}Sx@aTfBiTbC_Sn@yEvI}g@h@}CnSilAbW}xApn@srD~DkYxCmX`C}XxEwn@h@wIxJeuArKizAjBiZx@_WJcR]mS}@uSkCyXaDsReEuQcIqXgUyn@Yw@{CmHaG_PuEaN}CwJiDwMuCiNkCoP}BeUcA}P_@oOKcTf@qSdAwSzBgS~CiTtEiSpF{QfIwTxJeVrM_\\tGkQ`HcT`GcTdHiY|FuYdGm]jDqVlBqPrBiSnBcUbB}YpAc[b@sWPmYGc^O{_@]g`@D_UD_GToHb@qMn@gK`AiKbBgNt@}DdA_GzCeOfFsQfGqQtIiQlKwP|LyNzIqIvMoJ|KuF~JaEdOgEdTkFpUyE|SsF~PaGpNkH`PuL|MyM`MaQrJeQxI{SrImVlJcYrLw^pJcZnLu]tLq^~Jg[jF{QdE_Q`EkTpDuUpCoUhCuU`CqTfCqRvDuUjFiYnEwWtGw_@dHcc@lHwb@|CeTdCoRxB}T~@iNLmCTqJl@sSP_Q?gPM_QYcSiCiw@k@uQMgQDcQL{Lp@eN|@oMtAkNvByQbC{PjCaRtCwTfCaVdAeNp@qi@sAoj@q@yIqA_LeC}PmC_NkEmTkFgVwFmVwDkQ}C{PoBePqAmQy@aUKqT`@qTtA{U`B}Pn@mEzCwShD{SvLop@lFiZlFkYnEgSfFuShGiQ`GoNvH_NnHuK~GkIpFsF|IyHzFqDdL_HtLyFbRmHpQmHrPiGxNcGfLqFbLyGtK}HfKeKjJeLvI{MnHoOnFiMxDoLtEeQ|EkUrGs]fGg]nEcXtDaTtBcKfDiOpDkM~DeLbFoLfG_MzHyL`JgL|JwJrKgI~MkHpLyElOiE~PkCbFk@|I}@tKcAlGq@nLqAfGy@|FkAjI}B`IoCzHqD|HuEfGsEjFuElLaMxGkHrFwGjFyGrIcKhGyH`JeKxFsG~FcGn@m@lBiBbBcBnEaEnGeFlI}FlG{DvHyEnHmEjJsFbJwFfPgL|GqFpFeFbFyFpDyE|EeHtEmIvCyFrFcLtEiL|D{KrE{LrMa^vEsKxDqIrDuGxE_IhG_JzDsElDaEdFyE~GoF`G{DxCeBhGeD|G{CnE_B|E_BdN}DjGcBjHiBdKeCzI{BtMcD|JcC`PcEtQ{EhNoDzO{DjNsDxP_EvI}BbP{ElMeEjPsF~JaE~PkHvOuHhU}KpOqIfN}H|OeKfPgKdWiQlYyRnRsMt]eVvOeKnQsLdLmHbR{LbKmGrYaQtW}OfUuM~[qRrLoGxFgCrHwCbHwBpFiAlF{@jJiAjHi@vHKhGTbIv@zHpAjIjBnM`E|H|CrKzFdStMrFrDfIfFjQbKvIrErEvB|GlChA^dKzAhH~@~Ef@nHj@x@HzCDtEFtG[fMeAbJ{AtFqAzGmB`IoCdGcC~UqJXKxYaLlJwDrTuIhQ}GnE}AvHaCzL_DnJiBvKuBhHgAtEi@rGo@lHk@~Mc@bSYd^yAnf@mB~c@kD~YoCnJmA|GkAbPoDjIgCxFcCjDkCxBaCjEoHvBeFpEcLnDwLtB{I`CiNtAqLxAiRh@aML_JBqJM}Ia@_NwAoToAsM_CmMyAgG_EaNm@qByI{TcEyIkGeM{IiN_EmF_CcCoDoDiE{DeHwE}JgF_GiC_IeC}EmAe@K_H}@yEW{DMkF?gENsGb@kGx@cJ|BiEtAiDhA{FvBwJ~DmFtBqH`DeKjE{I~DkJzDqJ~DqMnFkK~EmJvDkOjGoIfDaN~EeLtDiKjDiKjDeRlGsIlCuJhCwIhBgP`CmM|AqFh@wI~@gMdAoJv@wFd@cLjA_Hv@qFd@iI~@mNtAeHn@uFj@gIr@iMlAaIj@gRdBsHr@qQlBeJnA}Er@cDt@eHzA}GnB{E~AkFpBuFdCgKvEcKbEcGhCwGxCcEpBgK|FcH|D}CbCeHxFmChC}DxDkE`FuGpI_GhIsN~RoIhLkFzHmIjL{DlFoDlFyGtJmFjHgEfFeHpI_GjGyF~FsCdCaGrEoGnEmEdCkGxCwJbEkBl@oEvAaJ~BaJnBeATeF`AsH|@_Hf@oGN}HAgIa@uFi@eIuAoIuBcLkE{PmIiYeM_IkDiCiAuD_B_M{E_KqDcJeCeH}@oGi@qDOoK_@yJX{EZmI`AqGpAgHxBsMhEsF~BmLvFaLhEoIjCuIrCyDvAkP|F}G|CiH|DqLhHaIfGmHlGaN|LmH|G{RnSiKrJwClCsCxBuK~HgJnFmGlCiJbD}FnA}EfAoFz@mH~@sRnC{JrAoLrAsJbAaJhAkLlA{H~@oHbA_HbAoHdAWDiLdB_IzAcDr@uExAaFhBeJ|DiAj@_I`EuH~DcPhK}HtFuF~EgIfIkHlHkQ|PcGrFaHjFqHdF}GbEqGzCsG~BcI`C{EnAuEhAaIxA_OrBgKhBcN`CcKlB{Cr@iGxAoEnAcKhDgFpBuIfEgJdGsFtDyFtEsEhEyGtGuHrIaGfIuGlJoGlLiGxL_E`K{DpK_F|N}GvT_IdXsC|JwB~FqDbL}CpI_HlPyItPcKxOyKvNwLhM_NjL}NhJoM~G{InE_KvEuL~FaNvGuGjDsIrFcIjGwHnHaIhJeHjJuHdMcIhNgKfRsKdSkK`RmH|KyH`KmG~HoIjIcJvHaMvIaJ~EuN|GkP~E_PfDaT~BaPTqPAqR_@yOY}WSuIEoLNsNtAiNxB_QrDmPtDwOvDwSjEoVlEaTjD_SnCcS~CmPjCwSvCkRjC{PpAcTbAkTJeh@PqOXiLv@aKdBmJjCgKtDmKpFeI|EkIbHaM~Lm[p^o^l`@s[t\\eKfLgJxL}FrJmHjN{FvNmFpPcFnRaFtUqFpX}Klk@oLjj@cGvTmG~PoHrOkKhOuMzNcLvIuKzF_KtDeMtCwIx@uNd@mJc@eNcBuIkBgJoDuG}DsIsFgEsDeJuJiIcLkHkMqFiLuDeLcCeJyBaKoAkGiByLgA_Km@sIc@cI_@yL?uNT{Lf@iNjA}LlAuK`@}Bf@wDtAgHbDwNvEcPjG{QfG_QvGyQpHuStEcMlBkFnIcVnE{LpEcMlFuOzKqYpe@_rAfYsw@bJqVxFwPnDeLjEwPnDaQnAqG`CmO`C_T~AwRbAwT^{THkVm@kVoAiWeCoXeAsIoE{g@gEy]oCqTeb@exCe]e`CwCmReHsh@sAmKwB}R{BwReGsj@sBwQgA{LsEqe@sDw^oBcScBgReA}K_Dm]oAcOuD}b@sBiUaDw^wAoNcBqSuByWaAuMyAiU_Bw\\]_O[wS@oTNmSPuIZiKb@eKr@_Nv@cLjAwOxAqOl@wF|@iGpA}JlAeHbDyQtCsNvBqJ|BgJtB}HpBmG`CyHvC_JlCkHbCoGrCuHxBcFjCsFbEeI~DoH`GqK|CaFbE}GhE}FbFqGfH{IdFwF|GgH`HwGbImHjOsMjFuEdNaMfSmRhEcEfEsEvFuGrFyHxDaGnDkG~DcHrE_KvCgHvDsKxCsJrCqL`BcIzBuL~AwJfAuI`AuLf@iHl@cJd@}KT{KH_LCsMQwJc@qMg@cIm@gHgAwLkAaJqBsMsAuGoDoP{BoIgCuI}EuM_EaKoFwKiGmKkJsMoDcEiLuLw@o@yHwGmLkIuHuD{J}DyNeFuGgBgIwAuKcBcIaBsNgDsTuEwMwCoLoBoNaDoHoBkK_EsLgFmN}GwDqBwEsCqFwEgI_J_J{LoKkOiMkTwKgSgSq]aHwKeHoJ{JmKkFsEwCkCgK{I}WmSoQoNkPoM{NaLsJwHsJyHaKqHqLaKiJeIwGwGoIqIcG}GqFmGeImKoFiHmGmJkEmGuH}LuC_FkH}L}EkIsK{QaGaLmKiRoRm\\oJiPsMiRyGaIkFqFsFuEkIkGoAaAMGiF}CkJyDeGuBeIqBkIyAkJu@uFQyG?qHRkGh@wGt@yBX{JdBwKzAmStCqHt@aHj@yDToEP}HRwGBiGPyHUE?kGIiG_@gFi@yCe@qE}@gP}DoMeDqNiDqJyBkJkBoHw@qFYiJIaLLwGN}Gr@eGjA_JjBqEbA}FrAwGbBqNfE{JvCqO|EuLrCiJjCyP~EaPbEiGpAuFvA{HxBsMxDqFtBwHfDkGjDsQtKeDpBcXjNwVjNaS~KeItE}Q`K_JfFsM|HyG~EwJdH_F~DiFrEaIhIqIlIqErE_IrHcGfGkN~LiHrFgMnIoI`FiSfJiRbHmIxCoRtG{IrCkM`FmJnE}G~D}GtEsHfGuFvEmFpE{KzIiIvFoEpC_GvCsLxFyRrIaNpGmKpE{DhBqHlDwNjG_JdEsLtF{G|CaI`DgItDsK~E}O~FyDjAsJfCuH`AoGZmJRsIUoI]uIs@oO}@cH_@kJa@oM?oKVyHp@mG`AgQbDuSlEaSxDaQpDkRhEqNxCwJnBgKnBqLxBsQ`EuK~B_MbDsJvCqMbE{PbH_FzBoI`EuLdGoH~DuEnCqMdIwGlEgSjM}SbN_NfI_P`KgKvGeLhH_IxE_K`GsG`DiGjCqIbDaKrDyGjB_LpB_G|@mNnA_Jb@mOVgR\\iMLuVZ}\\d@iZXqUZ{QNoTPuWP}NDmOM}Kg@kGi@aFg@wGs@eHkAsIsBaJ{B_HgBaH_CaHiCwHoDiGsCaHgD}E}CiIkF_IcGaIsGgHwGiIcIqEgFyFoGqFiH{DeF_FoGwJwMgH{JuGuIoGyIqFaHoH{IwD_EuEoEuEwDaI}FqIiFmGgDePeHwJyCgGeBm@QuFsA{IcBmZgEoZqEuZoE_[oEo[wEuCa@kUcD}LkB{VsDqLiBaPkCmZaHuZiHaX}Fm@M{FsAsGsAyHiBqJ{BsEqAsHeCoGuCkGwDqCoB_FgE_FaFmFsGsEoG]m@iEmHuD_I_CiF{CsI}BaHmBgHkCaLyBuM_BuKyAuNa@aGi@gLYoKYgOSqNCkEEyMAgBYc^Eaa@EyIIcPOuSSgRYsSQwLk@{Ms@_KmAsLuBcO{@{FuCaN}BwIkCgIqDoJcEqJkFeK{CsF{EaI{FcHwGuHuFgFyIsG}GeEqJ{EgLyEeNiFqM{E_NcFeLqE}O}GqF}BaJ_DwIyCoHqCuO}F}KiE_QmHiUwIyAg@}SwHuHgDuHeDgFqC}CoBqEqCkEoDiFwE_DgD_EoEyD_FmDuF{CcFaCkEyE}JmCkGiEeMaEgNwDeOcEeRmFiUiL_g@}C{McEyRkDqP}FkWsJyb@eGeXwCqM}GmZkEaRoH}\\wHs\\cFmToFiUqCeNmDkPeHc[_Ik^oG{XuE}SyDoP}E}R_G}VuCoLwCeK}CwJ{CcIgDsIiDsHyC_HyEoJsDcH{FeKiJoNyB_DuB}CgA}AkJsN}NcTyMsRcCqDyD}FY_@sNwSiNoS_LoP{MyR}NeT}NeTsPwV_MuQcNcSgK{NaIkLqIkMeFoHgHmLyEoIcEeHmF{J_AaB{HmOoAgCwFqKKScDiGsF{JyFaLmD}GsE{IqDsHuE}KeDeJqDeLuBsHoCgKaAgEaBmIaCwMgBeMoAaLiAyKkA{Qa@aJa@}Li@cRg@{Ri@yP[kJ_@aHg@kIcAeL}@cHaBoKuB{LeBeHcCqJ}BuHwCcIeDmIuCoGmDkGuDoGoBoCiBiCyJsLyHwIy@{@_EaEgDcDoMuLmJqH_IwFyLcHgJkEaC}@oEeByJoCkH_BiJ_BwGk@uJi@gIKyMRqGXqJv@_IlAiJlB}GpB{IfC_TpHcY~JkZbKeY~JuXhJ}T~HgSbHkPtF{SvHiHfCiKzDqNjFsJpDoFzBkGvCuFzCiGrD_FjD{EzDiE|DqFzF}GxHeFlGmF|HqJxO_LzRiFxIgGlKyFvJqD|FeCzDmCvDiEjFeFrFeGrFoGzEgGbEiHvDcGlC_H`C{NjE_PnEsHnBkDbAkL`EgEhBuGzCaHnDoEtC{EvCaGlE}F|EoEfEeDpDaDhDqE~FkEnGSVgDjFy@nAsIbO{GnKeEzHuK~SqI|P}LxUcNdXgI|OqFzKkC`FeCnEqDpGqErHqEfHkIvLgKtNgO|SeMfR{L~P{JbNuQfWqR`X_LtOgEhGyErHwEdIcDzGwB|EsB~EkBjFyC`JgBnGeCpKyBpKoBdMoCtR}CfZcDd\\gDpZsDn\\uAtKiBvLcBvIqBvIyBzH{C`J}CbHcExIgEjHyClEeEjFgE~EoEzDmErDiNlJwG|DaT`MaOpI{LbH}RdL{PdK}\\vR_XnO}XfPmGdDwG|C}ClAmC~@eGdBiGxAeFdAqH~AqGpAsTrEsMhC}EnA}ErAgGvBgEjB_FbCmEhCmHbFmH`GoGbF_MlKmJzHaUpR{Q|N_HrFcGfEcGnDkAj@wBbAg@V_FpBqExAwDz@kF`AoFn@iDXuGTqFGkHc@mKqAqJgBaMwCyVeGgPkEqEgAcFcAwE}@{Eo@mGi@{GW}IFwId@cI~@aHpAgHbBoN|DaN|DcIzBgLhDuJjCcJ`CuFjAmGfA{Db@gGd@iHXcEBkJ[yI{@{F}@iCa@qFwAiCs@kAc@_C{@qDyAeDkBqDsB}DeCeE}CoDeCeEwDcDqDgDkDiCkDmCsDmCmEuCwEeCuEkCwEgCgGsCwGiC}GwCwHkCyH{CyHgC_GuBwEaCyE{C{FcD_G_CqDkBkCwD{EuFuF{EaE_FsDyFkDiFeCiG_CkH}BcIsBgJ}B_K}BeKcCqLoCeGsA{FcAmGcA}GcAwGk@iHi@uGQiGGsGAiGPeFN{F`@eGl@{Ed@{F`A}FjA{FtA_GzAkF`BwEbByFbC{FfCkFrCqGnDuFnDyFnDyF`EgGhEsGrE_GlEoHlFsHnFaFnDuFbEyFfE_G~D_G~D_G`EyFdE_GbE}FjE_GhE}FjEcGfEeGjE}FjEeGhE_GjE}FfEiGjEiGjEyF`E{FfEuFzDuFdEuFxDeFlDcEpCiE~BcErB}DtBuDvAyDlAyD`AyD`AcEp@oEh@}Ed@aFNcFDaFCsESoE_@iEg@eEe@oDw@}Cw@_EmAiEwA{D_BuDeBoDqBsCiB_EgC}C_CqD}CkDiDaDeDcDqDqCgD_C}CqD}EqDwEkDoEmDkEkDgEgDeEgDcEkDeEuEuFyEcGyEgG{EaGsE{FkEoFwDwEqEeFcBoBmCuCmCiCmD_DaDyC}CaCyCwBcCkBwCoB}CiB}DcCeEaCcGcD_HyDsGwDgGeDiGeDqGaDkEeCcG{CmGmDsFyCsDoBeDgBoC{AiCcBcDwBgDkCmDsCmDcD_CgC}CuDaDaEsCkEuCaFyC{FiCaG}BwFuBoGuBcHsBaHuByH}BiIsBcIaCsIgCkJyBsKiBoJy@}FaAaEkAqGkAaI}AcHsAcHs@gEi@}Di@qEe@cFe@}F[qGWaGKkGAuGBkFFkFPsG\\kGVeEXoD\\uDj@iEdAaIhAiHlAiHhAmHxA_JpB}L|AqJ`BqKlB}KfBaLBSoFgCBQlAoHxA_JlAuH~AoJrAkIdB{K~A{J|AaK`BiK|AiJnAqIvAaJrAyI~AaKlAyHrAkIrAyItAqI|AqJlBwKjByK`BuKxAwJnAeJbAiJv@cKt@}Lb@qOFeNM{L[{Lo@cNs@kL]oFWcEs@uLe@yHe@{JOwCUuD[oFQoCo@iKm@wJo@sKq@yKs@{Ku@mLe@mJy@_M_A{Ms@sL]mFSeDm@wJm@kJq@iLw@}Mq@iLq@mLw@iNy@gMk@}Jw@cMs@mLg@cJi@wIa@iHm@wJk@uJg@eJi@}Jm@yJq@wKm@}Ji@gJw@{Lk@{Jm@kJs@uLq@gLs@gL_AoO{@}NaAcP{@mPgAeQaA}PeAyQmAoRs@aMm@aKm@wJm@cJo@{Js@cIaA_KqA}I}AyIyA{HuAuFu@_DwDsNqDoLyCwHwEoI{FgIsLsNuGwGuDiDeH_FeE_CgIoD{IoCqFsAsDy@wGu@qHs@sGOgKJqLf@mNzA}OfBqLxAcYvC}ThCwVrCsJnA{h@hG_Gj@oGh@eIp@oLTaHA}G[mFk@cIqAeIkBkH{BgJ}D}JuFkHaFcDoCeDoCwEiEcIkI_FaFaCeCaIgIkHcI{FcGuC}C{[g\\iY}Xs]m_@aSiTsV{WwYyZmJaKiLqMaF{FyH{JwGsK}CaG{CiHqBiFiBaFiCmIyBcIwB_KiCkNyB_PaAeKo@gLe@cNOqQX_Vh@gO\\mGt@eI~CsUpAcIjE_VvFwZvKmm@~Oo{@xN_x@lMkq@|Lso@vOez@nGe\\rH_b@hP}|@bQ__AjLsm@vPm{@~Lkq@|QmdAvLop@xNmv@hMyo@hFaZvHo`@bEaSlCaLnDgNnFgQrDaKxDgJpDkIpH_N~IaObM{P`IgJxGsGdDkCtK}HjI_FhLsGnHgDhP}GbW_KtUqJdUyJrIwDzN}G`FmC~OgKbJ}HhIsHtL{MnJcMhKiP~LuUxPe]fTac@bPi\\~Oy\\dM}VpHwNzHyNpF}IxCyDzF}GrFgFvFeExGsEjH{DlI{D|IuCvFsAfF_AdKaAtDQlE@tIFvETdFf@|OhBzQhCpG`AvO|Bf`@|Fb[jE`W|DfJrAlWrDxU|ClBVpS`DzDl@vJ|AjLbBfJlAvDf@nETpGV|FBhFIvEU|Fe@tFu@zEaArHoBnIeDtGoCxDuBpFeDjE_DhFiE|E{D`OsLfU_SzWsTb^eYvUaS`v@um@bXmTnSuPlUkRlRuO~KgJbZqUxWaUh[kX`JsHlKwI|E_ExFsEPOzQeP~KwLfFuGhFkI`HoNnHkRbEaMfDqLnEgQjEePbFeOlGiP~EsJ|FcJtKoNnIkKtGiItLaQjDcGrH{N`EiK`EcL`EiNhCiKpCoNlBwMlAgMbAoOr@eSL_OUwW]{Ii@_Ks@}I_BsMi@mEmA_IeBaKcCiKmCcK}AgF}CoIoEgK_FkJeFoIiHeLaIaKsR_XgOgSwPiViKeOsC_EgFoH_EiG_HsKyF}JmF{KkFoMgDyJwEaPeDmMgAoFcBaLoA{IqBwTgC}a@oBs[{Bo\\sCu[SmB{BoUsE_e@iEil@yGm`AgEk{@cCio@sDaiACg@]uOYmJgAeZcB}_@cA}To@oJcA{Kw@gIw@cHmCgTGi@kAqKeCyYmBo[}e@k~IWkEaCia@qAgU}@wOm@uJa@oLOaKG}MByLRsKh@eJr@_K~@yKz@{HzAsLpBoNfBcLtCkPnBeInCeKnCqIhDyJrEiL|DeIzEgI`HoJpIsJpIyI`FgEhE}CrEiCfDuAhBu@hBo@xCgArGyAzGkAfHy@tNiB`JgAnNkBpHaAxIqAbRyChNoCrH_ChImC|HaDzFmD~FmEtGoFxE_E`GmGxDoEzFmIfDeFlGeM`CmGvBqHjCyJrBwInD_PdBmJdAiIp@}Hj@aLNeK@qNY{Lc@gJ}@uLyAmOiBkPsA}KmAsIgBwIeBmHeBsFiBgFw@sB{AyDaCsFa@}@}DgIeDeG}CoE}FsHk@s@aTmUaBiB}X{Z{_@ac@sByBiFuFgM_NyJqK_UsVcKwLSUoFoFcRySiHwJoKcQiFkLuEmNaDmLeH{^eDwSw@wHc@gG[{HKmI@kL\\iM|@_QfAuLfBkOrAuI~BgMjCwJ~CuKrCuHlCaGtEeJhGyJhFaHbFuFtDgDpHaHtG}FvKyJRS`kDkvCFGbRePlHiG`VkSbZeW~MiKjIwGzCgCvMgNfJeMxE}HxE}IlEcIhDgIl@{AxB}GlBiHzBiJjEyT~DeTzCoQnB_MfBwLxA_MtAqLnC{WbCoXnAaOZsDvAoOjAeKtF_a@nJmq@dDsTx@oFXiBfIii@dLit@~@cGfE_\\tBcQdAmLf@iKRoKJiNGeMScKc@aL{@uLgBwOcDqRkCmLoCqJaF_PwEeOsEiPqEgPwBeI_DyNaGkZaDaPcBwHsBkIuGsV{BeJeBiG}DuOWaAuKsb@qHa[qa@_dBcJs\\uIeZcP_f@oF_NeCyF{BwEYm@}DwHiDmFyDuFgEqFwE{EgEyDqE{DsDeCiFuDuGoDeCwAoGkCiGgBcFuAaEq@_Hw@w@GwDUq@CkCKkIDeGP{EXuFn@eEl@kEv@yGfB{HtBsGlB{DrAiJrCcN`EgSlGwOfFsJxCqKjDgIvB_GjA}Eh@iGTiJDyIUqHk@iIaAqGuAsFyAsGeCsEsByDsB}DwB{DsC{DyCkGsFgFwFyDwEaDsEkH_KqDkGs@yAiBqD}CuGoCqG{Syf@eJyTyKuVmGeOsLuXO]oGoPiNe`@iKwYwKmY}]_|@eSei@yJoVaHgPqx@ubBCG_LkUkImRgGwN_HuPcJgUoL_ZiJuUuJ_UcQsa@aL}XiFyLqGyO_P{_@qK}WgI_S{F}MyDwJwHiRkF}NgEeMiDqKqEoO_CsIwD_OkCkKwC}McIk_@eBwJwBoN_BqKkBwNqAmKwCuWuAwNqAqOgA{NmDwn@{A_ZiBsZ_BkYeB_^}A}[qB_a@kAkUcA{QaAsMiAoK_C{PyB{NmCuN{CsN{C{KoEiMgE_LwEsKsEyJiT}b@mLcVmP{\\eNgYkJ{RgNsY_LyTaRi`@yLgVmM_XaIkPeLgUyJwRoIgPkHeO{EgLsDkJ}DuLuB}HmBoI{BaMoAyIuAeL{@uJs@eLQkHMqMH_KX_M`@iJp@}KxAcPhB}PdD{ThHmc@rF{]`EiWhEkXrFq^rAoI~DgVdEwW|Fw^tEsZhFo[pCwPbDaTjEwWtEkXxDkVbD{RfGo_@pEiWdE{VlEeW|Hgg@hHuc@Ls@r@eE`Hqa@zHke@tHyc@bEkX`Nwy@dIee@tFk[vFcYnD}PvE_TbIm\\fD_MdDuLrE{OrF}PxD_LzHqThM}\\fFyMfHyP`JeRlDwHlK_TtJgSnJsRlI{P|M_XlTqc@jQo^hSsa@zMmXnOk[~HeP`J}RtEsLvDeLdDoMdDqOxDyThBeNnAwO`AyQ^uR?sNSyPg@cOs@_NsAeNkBgOsCuRwPaaAoDwUeCyRsAyMgAeOKiASqGOmFOcJOqLHkYn@mh@|@ag@l@qc@p@id@ZsUf@k[^sVXmTj@q[ZaP^aSRqL^gKf@aLd@sH~@wL~@aKnAoKhAcIvA_IrBqKxCmLrC}JzCcKrCuHdAiChBmEvAiDlJ{QnEsHnImLlKsMnSgWtR{UtV_[fRaUzSgWrR_VhQgTtLoOlGwJ`E{H|D}IdE{KnBuGfDiMrBoKrAwH`AuHp@oH~@aNZuJJsIBqISaLe@{Je@_KwAcP{BcPiDgPsDaNsD{KaFuKwFoKeHmKkIiJsIaIeKaImPgLc\\_UcZqSaYqQiWkPmV}PeOgKu@g@i@_@mYgSoX_RsZmT{TmOaV}OaGuDyPkJk\\qPkFgCyJ}EgD{AaOiGyKeDqIcBuKaAmIQ{IVaIv@iKjBiK`DkIjDgIjEqIdGyHlGwHvHgGlHqFxH{EjH{K`RoKfRuI`OkHxLkGlJiHhJeHjHiE|DaFnDcHrEoJzEuI~CuHnBgF~@}JfAoLf@kLWgJ}@eLgBcLiDiHkCuKyE}RkJkI}DgTeKgMiGmMaGeLyEeLuDkLeCqI_AuHc@yHMoHRkIf@}G~@oHzAyGfByHvCaJlEcHfEqG~E_HhGoGbHwF|GoFhIoEvHeEfIkLdWuHxP}G|NiEtJkC~ECFuDjGyDtFU^_EvFQVqDzEwHzImFbFuGbF}GtEoFtCwFlCiH`C_E|@}GtAwLxAqI`@}GBmFEwEM}Ee@oFu@kFaA{DgAqE}AwIsDkEsBgGcDuF}C_RoKwJgF}GoD_I}D}H{CgNyD_IiAyGk@{HSqGFcFVsFf@}Fv@_IbBsFhByGpC{HdEwI`F}HfFsIfGqOjLqV~Psb@f\\aKfHsLvIwKvGcMfGyLlEgIzBaI~AgJ|@wHh@eIH}GE{FWyCUqEg@wHaAiIiBgF_BkG{BaEkBkEsBwFaDcGuDgHgFuVuQwEgDuF}DoBuA{PaMaMgIwGiD}E}BkHiCsHuBeGmAqGq@{K_@_JG}FZaDX}Gv@uE`A_G`BqHtBqIvCuEdBcKlDyFlBoIzBgJbBsEd@cFXqLL_HUsFc@oBOcEs@sFkAsDy@uDmAqDoAuEuBwEeCmF}CgFkDaKuG{F{D{GwE}@o@uEaDMGoJgG_HyD_HkD}FsBcEcA_HyAcI{AkIkAgL_AiJy@wHi@_Hk@iGi@sJw@qJo@gJs@iEa@}Gi@eL{@mKy@gHo@cHi@qL}@wFi@gF_@wHo@kIo@cPkAyLiAmK{@yL_AeMeA{LaAaIm@iIs@oQuAgOoAyKy@wMaAqOsAcIo@wIo@aGi@_K{@aIo@_Ii@wE]cDQcFQoMQaQH_JN{Jb@gF`@iHh@{Fl@{En@oG`AkEr@oDn@mGnA{EjA_GvAeI`CgJvCaGxB{FtBwIxD}P~I}NlHcHrDqJhFqT~KMHyP~Io@\\oSxKqFrCsKxFgDfB{RdKoPrIiLfG_MtGqPtI_HrDuJ|EcJhFe[pPeMvG}DpBaI`EeLdGkNnH{M~G_QhJgMlGkAl@eAh@oGdDsKpFkHjDeGzBkHbCgD~@_GxAaGv@yFh@wDTgKHsFSyDYaE]sDi@}Dq@yBg@sC{@wDoAwE_BcDsAmIqE_GmDuA{@mFeEsGsF{FsF}D}DaBkBaDmDqF}GsE_GqIcMsG{Kq@mAg@aA{EgJmGsMaMaXsHsOmCuFiJcRmJuRuLmVqH{OkEcJyGsMoEwHyF{IwEuGmGeHaEmEmFkFeEsD{CeCwF}EqH}FeJkHkNwKqLgJ{McKsOeLmJ_HqIoG{MyKgKoJgIqI{IcJ{EoFcCqCgAmAkA_BgAwAoCkEmE{H_GaKgHwNsFoMiFcMiEqKgF_OqCoImDiMmDuMiEiQmB_KoBaLuByMqAwKqAwKsAiNyAwOoAmNeBuQyAiOkAeLuBoPsB{M{CaQcDmOiDkNsD_L}EsM{DsIiEwHuFeJkE}FkFyGqE{EcF}EwD}CkEcDaDyBgHcEqEeCmF}BeG{BwH{BkE{@{Ey@oFk@sHe@gI]}EEuGF_FZ{D^iEf@cFv@qDt@cHbBqF`BiEfBmD`BsFfCkIbF{N|IaQhK}IlEkGbCwIvCsLxCyG`AkI|@kHd@eHB{HMcGY}KiAqEu@sFwAoF_BaFeBoCeA}FmCoCwAmC{AsLsHkK_I}LyJuLoJsNiMgNmL{HsFqEkCsHiDwGeCqH}ByM}BmMu@mMJ{L`@_NpAaSdCuSzCqOhByOhBkJv@mONuNm@_MeByHqB}KiDwK_GqIuFyHyGiJuJaIcKqIiMuHoNqHkN{R}^sTka@aUua@}LqUgMyUaH{M}DsIgEmKqD{K{AsFcCsLoBeLyAwKwBoSmBeWo@eKkA_U{Ba]sBqTcC}QwE{VcFsQqD_LcGaOcFaJsJoOkLsNkMoL{HgGuL{GyO}GwJgD_KuDmSaImM{F_H_E{J}HgJmIyKiNiIgNcCeFwBmEgFqMeEyNqDcPcCyMiBgLoB}LmBiMsAuJoBeOoDkUeDwSaF{UuFmSoGaRsHgQ}HuPeGoMiFmK_DmGoE{JeGeL{GuMoFwJ{FyIoF}GmFoGcHwFiHyFwFgDoHeD}EyBmG}AwGkBgFq@_Go@yKUaGAuH^{H\\kGp@yHp@_Gh@{Gn@{HXaHJcKIiJm@_Iw@cCi@yKiDsFiCwGmCoGcDoHkEgDoC_FoD_FeDoFyDwEkDcFiDoGaF{GiE}FsDaGaEuGwEoG_E_GsCsO_GeEqAsGwA}Gq@oGs@aGIaHBkFTuDTsEj@aIpAsGdBqEdBqBl@cI`EqF`D_IbFoGlFeH`GaGhFuB`BgAbA_FjEqHbGeH~EoCxBiD`BqEbCsF|BwF|AwE`BmE|@iBN_D`@qFr@}FPwCJmA@cLQkCOuKuAoI}@iGy@mCc@qMsB[IqIiBeFm@_AOcHcAk@GuIs@I?aIe@_@?cLM{@AI@cKf@aIv@_CV_@B}@JoDn@wFhAkRnFkEfBqEhBsC|A_MbHmFjDgCdBgK~G_LbIaMfIqEvCaEfC{JnF_KpEaCfAiDvA_MjCsK|BwNhAa@?wGTW?sG?W?_HYKAqHe@wF{@kJyAyKmCuLwD_KqD{ReGyB{@wGeCoGmB_QeE{LkBK?eK_A[?sJu@mRb@qQlBaMnBm@AqOlDiKfCkKlCsMzB}PpDgU|CeOp@e\\_AmUoCOAkFcAkKgDoNeGwNeIK?_MwIsMeKqRiOsOaMKCwOqL{MiKw@m@cQwMaT{OsP{Mka@i[aL{ImKwHmMsMuEuFiBsBgB{BsBcDsI}OuF}LuDiLiDsMmKam@u@yF}AiM}CoScDmOgCwLsDuMsD}JwGgNwGmLgGyI}I_KuJyIuI}F}FgDwEyBwG{ByIsBaIwAoTgBuRi@iN]eYyA{IcAgEk@aD}@aD}@{HmCsIqDaFyCmEsCeDiCkFsEoF}F{F}GqEqGqCaEaCqE}BwEkDkIgBkE}CaJcF}OmFiSyFiT}EgQuHuYyG{UqF}RwFmTsJ_^kEkQaH}VkGeVqGsTyIc\\uJy^iJs]gJq]oJk^qG_VqGcVeGyUqD{NeCqLgByJyBwL_CsOkAwKqAmKe@eF]qEmAmOyAwTiBeXaAmNcAmOkBeXo@kKqDar@yDwk@uFoy@sB{YiCad@uBm[yA}U_Cga@aBqVaB{R}@_Ls@aK{Bo^qBqXoBqVaCw^aB}ZuAiVqCee@uAsR}@cLkA}NmCe]_Cu\\eAyOqBsZyBg^eCa^uBu\\aBwXqAuTiA}P}@uMoA}OwAuP_AaKy@yH}@}GmBsKaC}K}BaKcB{G{BuHaDqK{EuNiF_O{EsMqF{OsEaNgFoOcOec@{GoRcDuJoHeTgGiRiF{O}GmRgG{QqKm[_HuS_JsW}HoV{C{IcL}\\}GuSyDcLsD{J{DiKeDsHoEmJeE{HoCqE}DyF}FwHiI}IwMwMyMsMcKwJ_KaKeEeEyEeFaFyGqCaEiDwF}BeEkBuDcCsFyCoHmCoHoBqG{AoGcCiLsCyOmAcKgAkLm@yJ_@uMK}ODuLDmGXkKb@{Nb@iTJsJAwMOkKc@uKu@qJaAkKsBiOqA_H_A_FsCmKiBgGmCyImBkFmByEaCoFoDoHsCuEoCiE{FmJcTy[kP{V_NkS}KiPcKiO}JaO_NkSmRiYaG_J{G_KkF_IcEqGoEkHoFkJiEmIaDqGcCgFqGsOsEmLqBwFyCeJgDeLgD{LsBkI_DsNgDmP}@kFeBsKgBoLgBwNkAkL}@kKaA{L{@}Mg@qJi@cPU{JIcKGiP@kODaDH{IN_IRwJp@qRT_Ed@mI~@oMlAuNfAaKnAqKzCgT`C{N|CyPxFu[~EcXnD}RtFo[fDqRdCsO~AeL|AgMdBwOrA_OnA{NnAyNxAyQlCq\\vBeXfDac@|Dag@|BaXjCo[fBoT|AuRlAsNhAeLnAwKtA}IvAmHrBiJlCuJvCgJjCwGjEuJvFwKbFaIhEwF|DqElFkFzEaElE}CfF}CdG{ClHeD~FqBfEgApGoAxC_@dEY`H_@tOOhRAdXKpGIhJML?j@ChESbDYlDi@hEw@lCs@dDaAxCeApDuAfAc@r@[bIkE`JiG|E}D|EuEvDkEfDeEhFyHzCqFjCiF|DuItCcHrF_NjCoHdFmMfNq\\bNi]~M}]~LaZbK_WrGwQtEuNhEqPzEyT~CcSvBkRhAoOr@wQf@cVEqWa@qVw@cPwAqPeCoT}B{NaD{PgEeQ}FuQuFaOwFeMsHkNwJyO{NaTyNoTeOuTmOqTmN_TiQeWsCeEgJ_NkQiW{O}UqVc^kVe^qOuT}KsPqIiLyJyL_LsL{H}G{HwFgHgEgIiEkGgCqLcEsJ}BmKcByKcAoMc@cMAeUh@mSn@iUd@eXt@}Yz@uUh@}Yz@}Rh@}Qp@kOtAsLhBuLbDcNnFiMzG}JbHaIlGeYfWiLtKoIrH}Y`X_O|MqItHsKxJ{ArAsLpKqOrNaRrP}RpQsUfTaQjOwOzL_OfJuNvGaOzEqO~CwO|A{OTcPc@_RcBiQkC{NmDiNmE}N}GcP}J}L{JiI{HmLmN{QaUkOaSeAuAqOqRCCoNmQmLmN{JsKyJeJiLuI_JkFkMkGeOaFaN}CoL{AyOs@_OBqPdAcObCeNpD_NrE{JbEgHlDuHfDuK|EoJbEkNdGeXnLqOxGaRjIoOvGaJbEuJfE}ErBwPrHgJ~DiJ~D_GbCaGfCcIzDcGvCkGfDcF`D_FfD_G~EiHxGmErEmEhFgE~FcFxHcDxFgCvEqCpFoDdI}D~J{G`R_IfVqGpRcQvi@eNpc@sIlW}G~SiIdWoGvRsJzYaGdRsGbSyHvU}EhOeFbPaFpO{DnLqHhUeQpi@uRzl@cNfb@aHlT_K|ZsFzPkIdWyH~UaCnHkEjM_DfJuCrHyDpJoEnJyFrK_FbIiFhHqGjI{GjHyFhFeJhHyHlFqGlDsG~CkKtEaPjGkOhGaA^aBn@wIfD{NxFcM`FgC~@{Aj@kHlCcRlH_NnF_HfC}FjCyHpDaFrC{FbDmJ|G}FbFiDbDkIfJmEnFwDbFuQ`WqV~]}JhNuM|QeWd^yM`ReOpS}PlVaOjSwUp\\kO~SmPxUwNdSmPdUsAlBs@bA}H~KuPpU_GlI}@pAOTeOxSkU|[gN|QsInKwG`HeHzGwEpDaGhEmD|BoEnCkK`FyJfDaJbC_HvAuEx@oFl@wFd@qHZoGFmMDqJHyPI{VDyLBgHTcGVoFh@}Ef@sFz@aFhAeEjAgAXg@PyE~AiHvCmIzD}ErC}DrCsGzEuGlFqDnDmD|DiIjKeGfI{DpG{CnF}D~H_GxMoEdLoDfKqEtNoJzYwPnh@gG|QwHtTyFfNgGdM_F|IoE~GcHbJsGzHyJdKqIjIgLdL}OtOcSxR_StR_PxO}QfQeJzIiPtOgUnT_TpS_MjLoPhPmRdRoLlLaMpL_OpNuIfIwPlPeJzIiHdHmN~MoO`OmTbTsTxSuCnCiP|OaWpVuShSiKdKqSxR{OxNeOpLyGpE{HnEuM|GgKjE}NtEmG|AqKvBoHnAsIfAaIr@}J|@_P~@cLx@iHb@aJl@_Lx@mIn@kId@aKt@gFh@}Hx@aDf@eEv@uEbAqD`AgIlC_GxBmEvBsBdAkJ|FuF|DiHrF}HzGiPpOeGvFsNtMgNpM}M~LqP~O{BtBkFzEcC|BgTfSyQtPuM~L{NbN{Q`QkQpPcHjGuO`Oo\\|ZmSnRaJjIaPlOeSdR_IhHkNvMiMjLoJvIyHbGwHxFwHvE}JhFsH`DyHfCyHlBqI|A{IlAiGh@wCJeFDsGBwHOqGa@gD[yDc@iDi@iF_AoEgAqF{AaGqBaIwCcGaC{MmFqJ}DeKgEoGiCsMuFiTiIuLeFoD}AsIuD{J}DwLgFaK_EaQ{G{TuIcNoFoIkDkTaJcJaDkL}DiFkBiJcCwJ}BsGcAaIm@uHQuIPsI`@oFj@cDj@uDt@_EhAmD`A_FdBiElBaFfCaFpC_HpEaH`GuFzFwErFkHtJwF`JuB|DqDfHeFvKqDtIuH|RaFdN}FxOoIvTyGrQmJbWcHfR{JxWmGzPsIvUgFvMmEbK_FfK{HlNyFtIkH`K{O|RkLhNmI`KmQrTwRhVeJrK_I`KmKdMaFpG{EvGgEpGuDhGkF`KyDzIqEpLcEdMqGpUuFnViGvXcFrVuF`WcF|UeFrUiF`UeEnPoEdOwBvG}FrNcE`JeEfIyDlGsFzHoGnIwK~LyKlK_S|QkI|HyHdHoGrGwFhGmFfGkExFmGpJ{FxJmGrN_HrQkEzM_DrKeG`UuFbTkH|W_HxWkClJsBpHaBrGiGfVeJ|]kFzQaEvLsGdQwBxEcDxGsFzJqEdHwExGwGnI_FxFgG`HoKhLyG`HmF~FiG`HgJvJyJlK_LvLoLdMsPnQuJpKoFtGwF|GaGrIgG`K_D|FyFhMqIrSeHhR_IxTcOn^_LpSeLjP}RbUkRdOkKvGuiF|pCoIrEqQfJq]rRgY~N{b@jUmb@bTuO`HwIpCsKjCqKxAmOnAgON}OE{\\q@gc@u@cd@s@_JOsTa@gXi@sk@{@c\\m@cIQwU]eTc@_PYkJi@uOeAgToCkUaEwYkFkX{E}ToEg\\cGiI{A}JgB{XeFgYeFaXaFaYcFgT_EgSoDg_@gHkVoEqOmCs]mGePaDqKsBaNqDqLaEuJ{E{HwEaGiEoKaJiH_HuUkXkWoYoUiWgR_UsKkL{JwJgGaFgGcEaLeGcKyDmOeDeMmAeJQuM^oKpAeMnC_IbCuQ`HgMhFmUhJyVxJe]fNaKbEaMbFkWdKcSjGyLpCkNvAoJDuMg@gN_BiM}CqI}CcJuE}JuGmImHgGgGwFkHmHcKyIsNoMeSsJqOwGgKqHaM}PaYyMaSkOmVgWea@kSg[uGuJqSs\\wM_TyLkQgKoOmHsJuMwNwKqLiIwIyGyFqGiFcK{HqNqJ_IqEgPkIiNiG{IoDuGwB_MuDgI{BuH_BsK{BmHkAkKuAiLaA_Jo@aJe@aKQcI?cPD}ZJcZPkVHaWDyYX{XDaNDwKMuIi@}KyAmFiAaEgA}G}BmJuEmHoEoDiCcHcGiHmHqF{GqFkI}D_HgGgMcF}MaD{JqCeK_CyK{FgXqLik@eEyReEoPeEmNkD{J{FoMkFsJiF_ImEyFoG_HyGkGoKmI_NsJmJyGmJuH_IoHqEuEqIiLwE}HaCyEcD{GsCiHoBaG{CkJkBoHgBoJiBoKoBcP_AkKy@oKe@}Ki@eSUiXIwWWqf@M_]A}EGmMEkc@Y{h@OwMm@kPi@qJaAuL_AsH}BsNiCiMsB}HoDmMeD{I{BoF{BmEuHeNsKgPyJeNiNyRiOySwGwJoF{HuGgLuFqL}CaIkDkKeDwK_C{JuByLyAcLuAoMs@wIi@mKYuKKcKJ_Pf@_Oj@mKdAkMhAoJzBwNpBqK~BkJxDcMzCoInCwGrDaHhDcGzDcG~EeHdFkGhHeHdBwAt@o@`D_CdDwBtDyBlE}BjFeCfD}AzEoBrFuBfGaC`HsCbI_D|IiDrJyDnLyEhMaFtMiFxMiFtMoFbNmFjNsF~MkFzMmFrMiF~KmExGgCfGgCbHqChHqClHsCrH{CbI_DhIeDrIgD~ImDbJwDrJqDxJwDzJaE|J_E`KyD|J_EdKeEdK_EhKaEnKgE~KmEdLqEjLwEjLqEnL}ErGyCfGwCxEqCpEwCfEgDzDkDhDqDjDqDfDmE`DqE|CcFzCyFvCcGpCsGdCcHdCuHfCqJtA{F`BeIzAkJnAcK`@wDXyCXyDVqF^iHTmJHoJ?aM[mMu@_Ow@cLuAqLeBsLqBmKmCoK{CuKgDkKgCeHiDiJ}DkKoEkLaEwK{D_LsD{KuCcKwBeJoBqJaBiJqAqJeAoKu@sKq@sLYyLI}LT}PZiTHeEVcKRgKJ{L?gMUoMc@eMaAiNwAsMuAmKmBwJuB{JuBkImCaIaD_JyDyIsE{ImF{IcFcIcF_ImEaHyDoGaDiGwCeGkCsGwBkGqByGqBqHwBiJwBaLwBaNqAkN{@kM_@_MQyKDyKJmKTkK`@kKb@aKZqGNyCj@aMdAuU@On@sNt@sPv@iP~@_R`AuS`AsRt@yPj@cNj@}Jp@kNt@}Op@aPt@yNt@kOj@sNd@oMZaNN_NEwMUmM_@iLi@aLw@uKy@}KaA}KgA}KeAuLo@cG_D{_@_Da]}Daa@yDa[yDoTyFgUmJkWcLyTmMmQ}LcMuLuI?AwGoDyCcBoQwGuWoGmOmDqHcBqYeHyXyG{XaHmCo@}TqFmWoGiUiF{XcHwUcHiT{I}SsKqRuMuOkMaLqKyHgIcMqOwJkNcKiPqOwX}MeVwAkC}JaQaJcPkJiP_IaOcKuTaHsRwDaMmDaOeByHkFg[qDqYqN{hA{Dy[yEq^iDiYaQetAg@yDaImn@aEw]}AaP}@iN_@aKQeGIkLXuTx@}O|@iLbAsJrCiRdBkIhBmI|EiP~IaTdKaThYsj@lPe\\zPa\\dQo]|OwZnPw[xNkYbIoQnIcUtEcPjFqTfEoSxDeRjEsSvFmTjEkOhHoT~IsU|JeUjLcUnI_OdDcFfH_K~HyKzGiInIuJxHeI~H{HxHsGzGwExHsFfIqFrHcEtGwDxFqCdJmEnHwChIwCrGeBbHmBfFmAtGuAxH}A`Dk@~@O|EeAjE{@lJcCbH_C`HsCRGnFsCtEcChGaE~O{KvOwKlKqHjPcLrPeMrWaQxFiDlGwDvJqE`NcGbGuB`HuB|EiAlH}AvGyAjLiCjJgBlJmBhLaChMwBlJmBlHsAfKqB|MoCxAYxHcB`KsC|HcCjHkCn@UvJuEbLcGhHkEpNyJhLaJzGmF|D_DpPkMtI_HrDwCfNqK`LaJhNgKBApNiLzD}CnI{GjJyHfJgHbK_IhM}JfIkG~FiEbMkJpKiItIgHbTgPfQ{M|MqKjVgS`EgDrJ{HlIqGlByApMyJpLoJnFmFjJ_JDEtH}H`IoJxPuQbSiTp@s@fJyJjRwRfNyNdPqQ~KqMn@s@x_@qb@vMyOrEyFtHoJlKcMrO_PbEiEjOeP|JcLtFaHxG}I~EkIbFuJzCcHx@_CfDoJbCuIv@qCrCwL|B_N`BkMlA}MZ}HTqFB{APiKOaUq@qWo@kVMwNCoWP{MZoK`AqNxAuMrB{MjCaNrD_NfFqO`FyK|BaFvCsFxGkKbIyKhGaIzHgK|OsSrRqWzOcSdAsA~DmF~KaOlVi[bP}SrMuP|B{CrEcGnHmJpGaI`HuHhGcGzE{DfEaDhG_ElGwD|GaD|GoCtFiB`FuAXG`H{AxFeARCfFi@hKy@hG[pHKdL]hIi@bIm@zHmAlFoAtH{BlJwDlGeDzIiGt@o@vFaF|DuD`HmIrDsFfFqI~D}HhEoJXy@z@_CdD}JtD_OhDqPrC{RfCyZ~GmnAvAmR`CeTxB}LxHk]xFyPrK_VnN_UbN{O|NaM~TkMlRqHzTyHrE_BdV_Il\\_LtYuJ`\\yKhWoIn[_L~CsAJGvE{BLGlIuDxTeMjXySvWiWnVyYpS{Vf@m@r`@cf@dAoA~OkShUoYfXe]fVwZ~Yo^dNeRbEoFrRmW`X_`@dWu_@~Se[~EaH~HyLnd@es@~HsLpJmOhIuPzCoHjCuHdDyKnBoHnBuIxAwJbB{Nv@mKr@aO`@mLLoJDsMMcJYyJg@sJy@qKgAkK]oCy@{GKq@sBuL{BgLkC{JoDsKwFkNwF}LaE{GqDiGY]kCsDq@}@{GuHyFqFyEaEiEuCg@]mE_C}DuBiDaBwSyHuHaAA?wC]{@KiRaAeVhAoQfDoOnFyLbGuO`LgJfImKzMyGhKgHnMsI|SsF`Q{D~PyEdToIhd@}UhoAgIv_@uHzXiNja@qLhWmUh`@wCxDsBnCuHzJ{UfVgQpNkS~L_YrMuX~KySbIoB|@sDbByVnJ{FbCkNjFwStHsUdIwLrEaOvEuK|Du|@l[qXpJi~@|[u[zKcz@~YeJbDgC|@qZnK_[~K{ZrK{p@|UyYxJ}b@jOsVjIqW~HmNnEwErAaR|F]JsD~@YHmDlAg[fKu[fLw[|Ka\\hLuZvKo[dLaYvJiWbJySnHaWxI}YnKab@xMuPvEoRdEuP~CyG~@cYnCsRbAuSb@oC?aD?aF@kCEmUm@sDWoF_@wMeAqEi@cJgAmLgBsFcA{E_AoG}AwEoAoHsBcJ_DeH_C{G_C{KmEgKqFeIgEeMaHKGmDmB_DcBgKaHsJcHoIwGcH{FcHgG{JoJ_I{HcLwLmScVi\\sa@oTeX_JyKaLgN{KiMkHoI{BaCkCoCe@g@yEwEgJgIiJ}H{SiPeWmQwOoJqKkGkRmKiU{LyJqFoKaGcVgN_QkJwQwK_IaFgLmHaJqGeKwHkJcImEuD{H_HwIkIaHcHcGsG{MwOmJcL}NyRiIuLgJwN_K}PsIcPqEeJmGqM}DeIwCiGiA_CgLcVkLkVqNe[{LaWsOo\\cKkTgYcm@uQ{_@eLwVySkd@qBkEA?oKaUgPo]sJuS}Nc[mJkS_R{_@qMoY}HsP}IoQqLoUmHgNeOyY{K{SiKyRiQc\\cPmZuNmXiMaVgN{VyLgUkImOwNoUqIuL}MoRwIuK{LuN{IiJaIiIwImHiIgHgKiIeKkHyHmFyIqFuHuE_G{CeJqEaJiEiKkEsWyJ{WeJmJ_D}RuG{LyDwKyDqTkIsKoEwJqE_I{D{NsHqHyFoAs@aMkIuK}HcJ}GyHgG{MmLoKgKiIyIkHkImFgGaEcFkDiEsEwFaHiJsM_Q}LqPgKgNiKiNgKaNoKwMmK}LuKoLUWmKeKuLmKSS_LcJsL{IiCeBkGeE_BeA_EeCcDqBiFuCkMmGiMeGaNsFoMqEuM}DuMgDsMuCiM{BiMkBeQmBmRaBuS{AuSyAwS{AaGa@oIk@sOqAyKu@_EUoGa@oc@aD_Jm@{NiAqRwA}PiAaQqAqPmAePmA_PiAePmAoOiAiOeAiOiA_OiAiOgAoOeAuOgAiOiA_OiAsKu@kKs@aJm@wK}@_AEoEY]AgKu@sNeAeOkAkOqAiO{A_O}AeOoBoNwBoN{BiNmC}MkCaMoCgMyCcM}CcMoDqLeDsMaEqNuEyMsE{MiEmMmE{LaEeMgEmMmEoMiEaMgE_M}DiMkEaNwEyMmEcL{D{@YqNyEA?cGoB{NeFoKoDqKoDoKqDeKiDiKmDwJaDeJ}CmIoCgE{AmL{Dy@WoJcDoL{DmLwDoN{EgKeDk@W}HyC{f@oPye@{Oif@gPye@aPcf@cPef@aP{f@oPye@gPwe@cPof@aPme@cPye@{Oof@gPse@_Pwe@aPie@oO}e@qPof@gPae@{Ocf@_Puf@wP_f@aPod@gOqd@wOkb@qNi`@uMwb@sN{a@gNg_@eMi`@sM}_@iMm]kLi\\}Kw\\}KmZeK_X}I}WeJaTkH}DiAwHyC_[mMaXcM}VkM{SaLkQmKgTcN}@k@iDaCkEwC_JqGwNkKgMuJ_NcLiLuJePuNcJwIeRsQc[{[uWyZ}JuLiByB[_@_GqHwO{SaJaMaK_OqNaTyZyf@kM}T}MaWsRu_@wLiW{E}JaK_UoIgS}KuXqM}]_Nk`@mMo`@kMy`@cNwa@mR{l@aRwk@gL{]mJmY{Zo_AaN{a@mIkXiB_GiOuf@oLk^wSko@{Mua@qMy`@}Jg[oOce@oKe\\yCiJk@aBuVmv@gWuw@uVyv@cTep@uO_f@qKi\\aG_RcBgFkB_GcTcp@iEuMiCaIiEuMqOyd@yQok@sNic@mKm[{HkVwFkQuCuI{B_H_AuCqF}PoJ}Y}N}c@wMsa@aX}x@yKs]aSsn@yTyq@{Ks\\uH}U{H}UuPah@iMk`@yKa]_GiQ{Kg]gPah@wN}b@aRgk@{Sup@qNec@}Rwm@uX{z@eRyk@iQej@iRel@qFyPqBkG_FsOsHoUkP{f@uN}c@wI_WsScp@yNec@uFwP}Uau@uUqs@aSkn@gWiw@aJoYaOod@uKe[qOse@y[ybAyJqZwL}^uLw_@IWsBeG}@kCiJqX}Jo[oMma@{Owf@sMca@iFuPgFaOgGoPiFmOkEaNyA_FaOwe@cJgZkEyNeJcY_Ls]cFuOAAcFsOoBeGmGuRgHcTaFwOgC{HcEyM{CyJyD}LaQmh@aJqYwImWwPwh@oJiZuI{Wi@_B}CeJcBiFWw@yDqL{HqWyPch@qOqe@sC_JgEsM_EeMyHwUuQyj@uTkq@_HaT}Q{j@mP{g@oRql@cOce@cNkb@}Rcm@gNkc@gRuk@CG}AmEuFuOiIuTcGsNoHqOeBuDuFcKuNeV{DwFeMqPcFuFcLcMuIaIsHuGaKeIsHiFqImFcOcIwKaFsF_CoMcEi@Q}DiAwBm@wI_CkIcBuTkEgMyByI_B}G}AuEgA_EaAi@MsHoBmJuCoGkCeKiEoKqFkKkGwNuKeLsJmKqKuHoJcK_NkH_L{DcGaIaOyFuMyBcFyEiMcKy\\qFcTsEiSoDwSwCkT_BwNoAqL}@{Mi@kNS}R?sSJqYh@wXTyXEmKCmKIoi@?WAmBOiVKuYCyUJeDZ{Mh@sU^_PZaKH}CdB{YdAkQnAeMp@aG^cFb@eJNqJc@cqAMyk@U?}CDEiOG_VYokA?sBKc[A{AGyVSs_AS_eAOip@a@sxAIkg@AuKA]Yqo@N{JJoFRuFTyLRcKj@qYT_Ld@_SP}GRyJZoS]at@w@qkAYia@Qyg@GsP?k@EiLS_l@Ws}@Ike@Uqy@[mcAAaGGuREuUWmy@Q{t@Q{d@Sm{@U_u@W_q@Qs{@U_p@?AM{c@AwIU}s@QezASct@Ygx@[m~@Swn@Uan@Q}q@YunAOaq@EwNK{]Qor@Wiy@Qon@Myg@O}j@KiZQu`@QidAIa_@Wox@G_ZG}[Qcs@Uik@S_}@Muk@Myw@Msg@Yka@k@cx@c@}Xm@aa@a@}UQgIq@gVm@ePYwG[wHSwEk@{Ji@eJcA_PoBmVsEed@mFic@QuAgDoXgCaSe@oD}CcWeC_TqCiYkAgOmA}R}@cQ_@cOS}JGsCOeZNuZh@uT?CjAwWdBy[~@kN|D_h@bFon@xCmb@bBaXr@}Ph@qQh@yWLmKFcO@k`@Egm@O{t@U{|@M{]IiXAyEWwp@?e@]ef@q@yg@o@}Ua@uMa@iL}@oR}@mQy@aMaCy[eEcf@yAoPcCeY}BcVgCaZiAoLuCa\\aD}^eB_RcC_YgCyYaCoYaBmR{Bs\\gA}Uc@gLm@eVSgLOqLAuQ@}SJwJNsLR}K`@}N^gMhBoi@`Bwc@fBch@jBsi@pAk^jBui@|@oVl@gPd@uKt@wOfAwRhAgPlBsUdAyKxDo^pAmKbFgc@tBsQfBaQp@gH`ByQ`A{M~AqV`AoTnAu\\n@wVv@sa@?Ej@mV|@}f@HkEBoALeGb@eUHgDh@yT^oVVqU?eCFwOBe\\Aod@KsZGa\\Qyc@I}f@EmUOib@ImYCuFMoP]mWWcL]{Js@cNKgBqAuQmBmTkCyS}BmO_DcQmE{ScCyJaCmJgEaNoAaEcCaHkAgDqDoJqKyVqCiGuGmNyHcQOWsCiGkE}IyBqEa@{@mRua@kJiSgB}D}EyKkH}O}@qBqE}JgL{V_JoRgKeUoS}c@aAwByGqNsD_Is\\ot@}Qu`@qS}c@gDmHkAiCO[_IgQcHgO{GuNkI}QkGwNeNm\\kDkJOc@gAyC{I{VoEuNmHmU{FqSeHaV}CkKYw@iAiDQc@cFuM{DkJoEwIgEcHeG_J{BuC_KyKgKmKwMyMyLwLuOuOqLgLcJsH}FkE{EmC{GeDaIeDsM{EcQsFiK_E{FmCsI_FqGuEgJeIiC_DeBeBcFyFiCeEyD{Feb@wt@kKcRgHuMyYoh@wTaa@mj@mbAsFwJm_@wq@gd@uy@_JoRiHiSuEiQmCuNmB{LoAyLeAeOe@cNOcPF}Rh@gUhHgvBh@oLj@qPh@mTTeNNoMDiS@_[Nop@N_b@Dic@CqOC_AGuGEeDSgHa@aKo@yKkAsMyAyLuBqNcBsJcBkImCyK}BiI_H}V_HcViGgT_FsQqDmM_HiVcGgTeIeXoIiYqDuM}CyKiDsLuDoMoDqMaFiSuBaJyCoNmCgOiA}G_CsQuBiRuAkM{A{Qu@eLq@gLg@aK[sI[yKU_O?gL?mLFwLToRRuQXcWJqVGcPI_ISkGWsF_@eGo@mIy@aI_BiM{AkKqAmH_BiHqB_JmBsH}DmPeHoYqKkc@yE}RyIg^{Pqr@qEcQeC{IgCoIsCcIqBsFaDaIoCyG}E}KcJgSuJ_TuJaT{IwR{F}LaTee@aHgO}BuFiD_IoCmHeD_K}CuKwAwFcCyKqAkGgBkJ{B}NaCcQaC}OuAcJsAqH}BsLuAmFuBwG}DoLoBeFqDsHgDaHkCoE{GyJ_DmEkHsJcMgP}HyJyEwFsFiHqCeDaCsCuCcDkDqDeDyCsDaDuEmD}FaEyEwC_EqBkGwCsEgBqEeBoE{A}HwBkKyC{F_BmDoAgF{BeHmDmGyDmDgCyF_FoCmCqCqCmDaEsC_E{DsFcDqFqE_JmCeGkDqIkCqHwF{QiC}J{AqGgB}JmAkHkA}H{A}LaA_Li@qIe@_LeA{ZgAi\\w@oVg@{O]iMcAo\\qBmo@EaAy@wOqA_OgBsPmCoSeF}Zy@yEoFg[}Fk\\eCqN}CuQkBqKuCyPoFw^oBaPaD{YmCeZwBiZyAmXu@yPq@_Ti@mUYsROmUC{Z?}PNkPVyNRsJ\\eNd@mMv@uRdA{S|@eOn@yInBaVxA_OvAyMfDyYxBwPdC{P@GtCaRrFk^pCwQhHid@tDqVpBiMxD}VfCsPpEeYjEeXlIgj@bCePfBmLb@uCdBcLf@iDfGs`@fJol@zAwJBSrFw]dD}S|Eo[fCmPzIkk@`Hec@hDqQhHy]nD_PdDiNjIw[vOch@`EeMvQsj@pEsOtDaN|CqL`DqMrDmOxC{N|C}OhEyTpBiLxBaN|DyXz@oG`Ham@tB_UrAsPv@kLfAiPdAySx@iSDs@z@kULsDzAwe@dBwh@zCq{@bByf@TcIf@uTf@k_@ToQXo`@T{XHkId@sj@d@im@t@_x@|@ajA`@_}@EqTS{OS{Ku@qVmA{YsA}TcCu]}@mL}Bc\\yBw\\iAgSkAyYi@_WYoVSm\\Meo@MsXu@a`@SyHo@eP{@uQ}AyRgBmSiB}NyAaKq@gEwC_QyDwRsD{OcGgVsAsFaFmSiD{M_CuIcCoJqC_L}@aDiDoOyDwPgDyP}CcQyBoOeCqReCoS_CsTuCkW_D}YqDs[aDc[{Dq]qDm\\qEy^wF_`@aA{FeHq^qIi]eKm^cMq^wJ{UkNq[y@gBgIuQ{HwPeDeHoCyFmLgWiNsZoOq\\cQi_@}JuTkAcCwIkRkLeW}LmXcHgQgHkRgG}RaHwUsHcZgDmOeDqPcEsVmDyVyCgVuCm[i@mHiBoZyAm]m@a]]y\\Oy\\Ku_@Uqb@W_b@KsIOy^Uif@]_g@g@upAIk[i@ao@GmJGgHAmBk@iXuAic@_AoSy@yMy@qKeCaWkDoYoC_TaEgVaFyW}Ha^wNoi@aNu`@_JiUkGqNsEsJiGkMqU_a@uNeTa\\{b@oSiW}^ce@_MwOeOeRyW_]}QoUuE}Fo@w@eSeU_SgSeN_MmQ{N_RoNyXwR}KeIga@_Zag@o^o]qWiRwNaQkOyM{MoO{P}OkSeQwVaRsZgSw`@aO}\\}Nu`@qJ_Z}Ja^sHk\\kFcXaGs\\qDkW}C}WkD_]kBeUy@{PeBua@s@qZUom@HyXj@{\\b@sMz@iUvA}UbByRlDeYzD{ThGqVxF}SdDoJ~@{BpFwMf@}@rCaGpEiIrEiH`HsJnEmFhGcHxFaGnG_GlHgG`FuDvFyDzJkGrVmOrHiEpDsBhH_EtKsGfBeApLoHlKiGtMyH`MuHhDuBfQcLhSuLdF{CtCcBlDsB`MkHvNyIvF}ClHqEza@iVd[aRhWcOvj@w\\hb@{Vb[cRfBgABAfc@oWpQqKb^uSv[qRnIyEvKsGdWiOnQqKfHgErCcBtFeD~TuNpL}IjEgDhSyQdFmF`@a@nAwAlKeLtHiJtH}JpJeMnYm`@nNkRvUo[`Zgb@lTq\\jXcd@|Yaj@hH{NjIsQdC{F|BqFnBuEhF}M`La\\|HuVxQmk@rQgk@nGsTfFiRzHg\\Pu@|@{EfBmJnFw]`DoYfD}b@v@kNp@aV\\uX@sQQaXUwM]iOcAq\\o@gSqBam@cCuqAwAuu@aA{i@eAkk@YiOa@wUy@oo@A_L@oJPkMn@uMlAmQ|AaPvC}RxBsK|CyLxB{G|@}BFQ@CrGeN`GuKvHgMbIgLxH_Jr@q@pAmArDsCdKqGjGaDjD{AlIkCvHgB|Do@|UeDfT}Cp@Ih|AcSDAxToC`RgCvFe@pb@wBnKOdFFfc@jB|Fb@pJv@|VnD~EdAdOnDdQpFtTxIlSdJrNfGhTpJl_@`QhRpIbUfKjGpCvRpIhg@hUdW|KpFfCdo@vZhS~JlYhO|OnJ~FvEzGzF~HpHhGvG`GdHhAtA~IjLxHdKzJxMnNfR~N~Q~HvIbH~GpGpGxGxFtH~FrHpF`J|GjLhIxKfIlIzF~B|ArLzIxLtI~KbIjMbJ~L`JnIdG~HjFvH|ExFdDjGrDhGdDrJzEnMzFjNvF~NlFdJnCrJrClJdCjJpB`LvBzKlBbKtAhKlAxK`AlMz@vLf@pLZnMDtNIhMSlMk@jN{@rOmAfKsA`MqBxM{C`McEbLaFpHcE`K_HfKcIvKwKxJqLvIqMdIqNtHsOvEsLrEgMnDaMhDeNlCuM~CsPtC}R|@wHhByP~AaSdAeSt@sWNuPHwRYiWo@uT_A_TqAeTeBqTsBkS{ByQyBeOaCsO}CsPaDoOaEuOe@eBeDmLuEqNoFcNmFiMyFcMeGuLeGiL{GaLiJkO{K{Q}K{P{KsQkKuQ_KcQsJcQsJoPaJ_PwCkFgF_JiJoPaJkPaJuOyHaN_@o@yGiLyH_NoHgM{G{LaH_McHaMaHcMaHoMwGkMkM{XuAcDoDwJuDyJaDmJiCeJ{CkKaCqJkCyKiByIsBqKuBsLoBkLqAqJwA}J_BgMkAeJwAqMgCsScBuOoDq[{B{QmBgPoB{NsBsNkCsOkCgOqCqNwCqN_FeTwE}QkEiPcF}PyFyRiFcQuEoOkAgE{GmUoG}TsF}R{FiQ}DqNyDyMmDmLkC_JmFgQgFaQ{EaPeEkOiEgOgFuPiD_LgDgLuGmTyGoTeGaT{F_SuFyQ}FyRsFwRiFeQgFiQaFuPyFwRyBkHuUqw@eY_aAeZkcA{W}|@}Sus@iXm~@kTet@wIa[qViz@_JiXwIgViOq`@gQ_b@_LuVmDsHcQu\\sJqQaNaVyWoa@iBsC_AuAgL}PuPkUaV}Y_V_ZkXo\\s[g`@cUwXoHeJkT}WyBmCAA{Xi]_c@ih@gl@}s@yQwVwPoViHgLoG{JmMmTsDqG}FyJwPc\\wNgZyKiVeAaCaDiHge@seAmZor@mO{]wAcDmF_Mq]uw@qEaKkMsZ_L}XsQ_g@eNqa@oOah@gIg[yJsa@oG{XaEyR}Gq^}CuQs@eEw@sEuEg[mGod@sDi\\eDwZyCk\\uIwcAgHe{@{Gcx@{IseAiGks@OmByAmQ{Ci_@wFip@mGev@wFyp@MaBMoAyDed@qBgVqEij@_BeRYiDeBaSaIwkAsCy^c@uFkAcOwEul@uEwi@kGel@sFma@{Jwn@QkAiMqx@kDiQkE_RsCgKsDoLmKmZwFuN_BeEiCkGkCqGcIcQyHqNoHiMiOkU_IqKiXu]kXe^uMkQqIkMuIsNkN{WcHaOqGsOoGiQsGuRyEqPaFgSsC{L_CyK_CgL{QilAaBiMeAsJiAmOq@wOS{KKqLCkMHiONaTh@m\\XaP`@iMPkEjAiRtBcXlCkW~ByQbBkKxIai@nSqjAvIaj@lCsQnBuQ`BwRzAmSnAgSn@yQ\\eRJ_QOc[aAo`@wA}[iD}h@_KapAYsFy@_OWcFgAeSy@sTa@oUk@ua@eA}sAg@uj@?{b@ZuQb@yMjAgVrFwv@hEmh@rHo_AhLqwA~@iJxGof@lAyHhEmWzEiZpEa[`BqOp@gJ`@qI^gKZyVNyo@CidAo@cRe@qHo@_H}B}QwAuIyBiLsDqQqH}ZeF}TqBgKkBsNgAyLkAkRm@_Q]_Oq@w^_@qTa@cXaCk{@gA_[mBc_@oDsm@kBk[aBqUuAcNgA{JwCcU_BsJsCuPqG}YqCoKkAsEWcAgR_s@}GaX_Oaq@yWczAuFa[aAuEoD{NeFkRkDmKuJ{WuH_R}MoZsNsZgMiWaFmIsJsNkHsIcKwJeJ{HyLoIyJyGyXqOaT_KeM}FyLkEuMqEsMeE{HkCmDuAeDyAsD}AmHyDqEoCiCiByFiEeEqDoGaGeH_IsEkGk@w@{@kAkOsSsI{LaIyJkGaHgH_HaJgI{GmFwFeEc\\mS_V}NwU}N}VqPsYyPkXwP{KaIQO{CcCc@]oJ{IaFmFyEwFiI}LUa@_BqC{B_EgGoMsDkJmGiRqK_]yGoSiL}]sImXqGuSuI}XyIaYiC_Hu@aCmCiIsB}FwC_JwCkHqCmGkCeGiD_HaI{NgSi_@yOaZwMcV_Tq`@}Ra^iPa[aOcXqLwTiJyP}IqPuJeQwIcPcHuMwGyL_HuM}E}JyDaJuDcK}C}JyCeK_F{T_FkWcDyQeCgPsAmJcAsJw@mHm@{Iu@eM}@aPq@{Lo@oJ}@eL_AgKwAyLaCgTeCcT{ByRkA_KkAaIwAiIwA{HsBoJqCyK}EmQaGmTkG}TuDmLgDuJuBeF_CqFkCuF}C}FyDmGaFaIoJaN_KoN{LeQqMsQaLePuHoKsF}HkCaDqCgD}GkHmF_F}K{JkMoKyNoL_PaMwD}CoNuJ}MaJyNuJcHsEaFwDsFcEoFsEuEkEsEuEmDuDeCqCcB}BkB{BkCkDqC}D}C{EiHwLeIuN{J{QqI_OuH{MeGwKuF_KgIwNcHaMaF}IuBcE{AyCqB_EiB_EgBkEcBqEiBmFaB}FeAcE}AsGmAeGwAmIo@uF_AaI{@qKqAgQmA}QAQoAcQi@_M_@eJQwGCcH?_JHiIRoI`@oJf@yHx@sJ|@aIdAyHzAyJvAoG`AsEjCyJzCuJdDyIdEuJ`DkGlDyGvE{GbEoFzBiCxAwA`EkEzFaGjF}ExPgP~PcPz\\u[lNqMhRmQrQyPvLyKzKmKrL{KbK{J~LcLxLiLnIwHbKaKfJuIrLuKbKsJlJyI|HoHlJ_JtIgIzHkHrHkHdF{EfEwE`EoE|C{DdDuEpCcE~CaFnDmGpCmFdDyGjCkGzBkGlBiFhBoFhBgGpAiF|CaMpA_GdAcG~@iGz@cGdAuHl@cGr@cHd@gFn@{Kl@kKj@_Pr@iPx@qRp@eQr@cPl@}Nl@iNr@oPl@aNj@qOr@kOl@iNTuIP{HHeH?}FGiIQmHQ_Hc@eH_@yFi@iGq@mFu@_FgA}HyAyHaBgHaBaH}AiF_DeJcDoI_FmKgIoOqCyEsE{I{CeGgCgF_BoEqBqF_B_FwA_FgAsEqAyFcAmFiBuJwBgL}BqMwBcLiB}JaB{IgAsGyDySwC_QcCwM{CcQgAmFwD}SwEqWqDoR}DgTqDcReDgRkDgR}BeMsCsOoCiOsCsOsC_PsCuOgD_P_DqNeDkNeD_MyCqKaDsKkCmI}BsGyCuHgC}GaDwH}D_J_F{KkFsK{EwJeGsMuG{MqGcNkFwKkFcLwG_NaHwNuB{EgFsK_IkPqIiQeIgP_DaGmCwEc@y@}AmCiDeFwDqFgFsGwFkGuGmG{HgHwIqHeIgHcGqF}DkE}DkEmEwEeEoFmEwFmEcHuF{IaFsIkF_JaGcKiG{KoGiLgHyLoGiLmH{MsHqMmG_L_HgMeGkLmFiKaFsKkF}L{FuM_GcOoGqOaFuLuGyPgHuPwGsPoFwM_EyJcEgKaFkLiEmJ}EaKcFaLyG}NyFaMsHoPuHiP{HoPsHcPsH}NqAiCsFaLsVme@}MiXaA}BgF_MwDuKoFuRc@yB{CmO_DoU{AuS_Be[eByc@yEygA}F}vAkC{n@qBue@YkHqDy~@g@wNeBmg@c@a_@Lel@`Age@bBal@xNouEjGwqBxBek@hCkr@`Fsy@n@sKfDah@nDuj@bDah@`Euo@~Bwb@d@oZYuY{Ak^gEge@{I_{@iHks@}BiTwDqc@wBqYaAyWUcYb@y]d@yPpCo^pEc_@dMam@hI{WbK{U~R_[xL{MbLeJjByAdBcA|CiB`JkExJ_EfDkAzGeChLsE~MaFlIwCpfAo`@bGiCzG_DvH{E|EaDpFgEjFgFpFmGzFyHlFqIhDqGrBmE~BkFhDuI~E}LjFgNvGwPdF_N`EsLjCyH|BeIpBeJpBkLxAqJrAgMhAePd@uLP_MFoKIgMKaLCoKIcI?}IB_KP}HR}I^gK\\eLb@oK`@cKReILkK@eJIoI[oJc@eJq@qKqAyLuAyKcBeKaB{IyBkLsBkKoBiKmAyGwAuIgAaI{@oHu@mHm@cHy@qKs@cLy@iLs@yK}AqUoByZUuCqFqq@sDy_@sF{f@yD_ZuDuWsD_V}Kgt@sKkt@iLgu@oIkk@}ByO}Fq_@}CqSsByOmBiRwAuQw@cQOmJ@{JJyX`A_]dA_QjB_PzBgOl@{C^iBhA}FfC}J|J}ZnIiWpKa[nJwWrI_ShHkNjI_MtHoJhGiHnHwGfKcJ|FoE|b@m]bf@w_@hVuRhp@ai@nsAggAn_Asv@bJmHrb@y]|J{JbIcJbIuK|GcL|G}NfFgNpFoRbEuRzCmRdBaRt@kMh@qNFmWKwUsAw{@KyIsCu`BCiLS{OIsZXeXr@mSbAiQnB{VrJwdAl@yFVuClAuL~@qJdAgLjAkMfAeMpB}Sn@yG^gE`AqIf@}Ez@iIbAcIjAaJpAyIr@yEVcBr@oE~@_GpAoH~@eFrA_HlBiJnBqIrB}IpBqIdCsJ`CoIrB}GjAoD|AwEtBuGpCeIxCiIvCwH~CiInD_J`EcKtDqJhBkEhCcH|CaIhDmI~CcH|CaH~CiGbDwFnCsEj@u@|AuBz@gArAeBfCuCrC_DpCmCxCmC~CiC~CwBjDyBhEaCnDiBjEaBhFgBzEmAlFoAvFeAdGgAvDq@~@OpAUzCg@dDk@bE}@rEmAtEmArCaA~CqArCsAdDcBvDwBvDkCbE}CzDgDhE_ElE_FhEwElEqFfFgGpFqGbGkHtG{HzBuClAyAn@w@p@{@xBmClCsD|CcEbBiCdBmCzBcElCaFxBmFzBwFtBeGfBwFvAaFpAmFhA{FvAqIlAcIdAeJv@uJf@mIZaHVmHZgKV{JT_IVuIb@cIf@cI`@iEn@_Gx@iH~@wHdAyHhA{HfAcI~@wHv@kHr@kHf@sH`@{HV_IJwI?}JOgK[kIa@eHc@oHo@wH}@kIgAuJgA_K{@uIy@gIYyDQgDKmBY}GMwFKeHAwHHcINqI\\oIh@cJl@{H`AsIbBuLrAsHvB{KzBeLbC{LFWz@uE~@wEfCqMhCoMlCwMhCoMrCsM`DyM~C}LlDcMjDyLjGkRzCgI`DoIxCgH~CwHfDyHjDqHjDoH~AeD`FwKxDgIfE_JhEiJlFeLlGyMpG_NnGcNzEwKtBmFhCgGlCwH|BiHzBoIpBwIjBiJbBqKjBkMjB_NjB_OdAmHhAcInA}HNq@XqBvBoKzB_K~DcOvDuLlCyHfDyIxCiHbE{IbEiIfFsJrFcK`FgJdGmKfHqMzLoU|BgEdB{C|GkM~GkMfHmNzEmKjFwL~F}NzEaMzEwMvDyKlDsK|DoMnEcOvEqPfFoQ`FsQhEyNz@sCNg@bFcRxFcSnHcXpEuOr@wCpBuGnB_HtB}GfD_LnEyMzBqGdCuGbBuEfCqGfCiGrCyGrCmGlCcG~CiGpC{F|CeG~CcGtDwGvDyG|DuGdEuGhEyGbEqGhEuGrE_HzE_H`FyG~EuG`FmGzEmGjDuE|FgHbEyEbEmElC}CjDsDzE_F~CyCnEiEhEmEtEkEdFwElFuEfFyElFaFfFqE|DgDfFgE|DcD`DkCtKoIrKeItEgD|F{DdG}DjG_E~HgFbGsDlI{EdIeFlKmGzJeGhKkGtJeGtJuFbJmEbJcE`HkDbHcDzHqDfHyDhEuCvF{DtEwDjDgDpBmB`CuClCoD~CqEdDaF~C}FxC{FlC_G`CiGzBuGhBuG~AkGvAiGvAaHvAgJdAeIlAaJ~@mK~@qKz@}Kf@aHx@gK`A{L~@{L~@{L`A{LdAeMdA_Mx@{Ln@sHrAsOlA_Ox@}MdAcKt@aIdAgIZ{Br@kF@IpAcJtA{IvAeK~AoKbBmK|A}KbBcLnBuMbBwLfCoP`CcQfCaQvAyI~AyIdAoFtB_I`C_InCyH|C{HjDkHbEiH`FsH`FgHxEuGhEsFtEoFjC}CtA_BrEsFdDqElCqDhR_YdDaFhDuEyB}DtQsVvE}GxAcC`OqTtFmLfDwIxAoFtAaGn@mDtAgLt@cLXeIFyPWqMc@mH_A_KkAiJAOqBeKiCmJgCqHmCmGuDgHmFyImCcDuG{HQSmI_JgXuZoE{FeEmGgEaI{CqHaCqHkByGuD_OaCcMcBoKiBiOsA{No@cK{@sSoCyt@UwGkBuh@{Baj@yByn@gCip@yAoVuC}a@}Fup@gIgdAuMe{AgCgZwCg_@uCk\\wAsOyAyLsB}LsBmK{BqImB_H}ByGiCmGWo@oAoC{B_F{EwIaFeI}DkFgG}HmV{XkOoPiYw[gPqQcWwYe\\o^qKoLaNcPeEgF_GaIyHoLsHqMkJsPiIwNkHoM_F{H_GiIkG{H_EoEkFsFeJaJsXcWsBkByCmCoMmLoKwJePcOgSmQsGkGmBiB_JkI}G_HgCiC_DgDgGiHiGaIwDoFsD_GeFgIwEyHiCqE_GkNyEwKaE_KyEcMeCwHaDyJaFwPsH{VaFyOgGaS}E{OyDyNkCwLmCgOgCqOeBiMSqA}@iHcDsVyAaKaAqGcA{FaB{HsBkIkB{GaCaHY{@oA_DgCmGmD{HyCwFiAmByAaCwEaHwEkGmHeIcE_E_BwAgAaAiDeCkEyCaDyBg@[cJwFgI}EmOwJkFiDeFwDwCcCQOmDeDgD}C_EgE{F{GwCcEwE_HkG}JqGqL{EqK{CuHmA_DyDaKKY_Mq\\kEiLqDiJoDqIuCeGkEwH}C}EaDsEqFqGoBsBcAeAwCiCkEuDMIeCgBu@k@}E_DmE}B}As@CAuB_A}HyDkGuCoEaCgEmCoEcDwE{DkDiDgF}FqDqEcE_GaEeGmJeNgGsJyLiR_D}EsEiIkDqH_DqHsDkKkCgJ{CkLkE}QkEqSeIsa@oGuZiFmVsHc_@yHk_@uEoUmF}WkFkWq@iDkJse@_Ima@gAwFkEyS{D_Q{C_L_DwKiEiMgDwIgEsJeEqIuCiFsJwOyDgFwD}EwFyGgHkHiEyD{B_BkD}BuEiCyE_CyEgBmEqA}HqBuEw@uEg@qFa@yEQcGDwGHgDNcGd@eEh@eDh@sGvAsI`CeBp@{@ZkCjAmCtA}ErCeDlCw@n@gGbGaFpFiDfEcE~FoExGcD~FeBrDm@lAaBpDaArB_DxIqDlLwCbMiB|J}CtQiDvTaB`KqBzLwChPeC|KkCxJgCvHaDzImEdKmIvPiAzBgEjIy@~A_GnLcGpL}EhJaErGyErHyF|G{FrFcFbE}FvDaItEoHxCaJ~CkEdAmHtAkCZwFZgDR{JBaLG}NCoV]_NI{JFoEPgETcFf@yDj@wDbAeGbBmEfBcK~EmEbCmFvDgGxEiFjEwJtIcIdHeUtRgUvRkOlMEDmC|B}JpIgIxGwQtOmRbPmIhHaHtGsG|GgFvGkF|HuEbIyE|I{CbHgDtJcBdFuBhHA@uAvFa@|AeBlIiBnLy@tGo@bFGv@e@fGo@|L[vMg@tW]t^k@~`@_@|Om@pKiAlMmBlOsBpLaClKoCjK{D|LwFxQsAbEmCbImDfKcFbNKXsCjIyEvOmEvPgDrNaEhScFzY{CzP}AtI_Jfh@iDbR{B|LeDbP{DvP{AvFeBrF}DpKkGvN{GjN{HlNiD~FgCzDeGtHaIlI{JnIaKzGsCzAaNvGoKdEgLlDyLxCyI~AyFx@yIdAkH\\uGZqKHuGF{JKeLKoNOeIKcPWaIE_MIqLL_Lf@uIt@kIhA_GjAiE|@gG|AqOdE_OnE{M~D{PzEeOhEkGlBqCz@w@T_JfCqOtEgNlE{MxDeMvDwLrDkLdDeJhCsH`CcPxEiEvAkL~CwIdCoHhBoHzAmH|@aIn@uJJyHQuGc@cBWuC_@}FwAqIaCqF}BqDaB{G{DcGaEkFeE_FaFmE{E_DsDyEsHaBsCeBwCeDkGmBmEcBmEqAaDwA{DcBgFgEeNoDaMaFkRkGqTwHuW{Oil@}AiFmJy[kJs\\mGwTkHqUoB{FqF{NaJaTkJcRqFsJiGiKeHgKkK{MsSeWoBmCoN{P{IiKmOkR_PuR{PuSoPiSmLgNiLmMeKeKcNaKsNwIeUiLsQ}JuGsDoIqG}HwHmJ{KaJ{NmEkIyEiKgE}KgGiToDsQkCcQqA_MeAaPe@_R?oS^{Qz@iQzAcQfAyHz@iHpDyYvBkQjB{Rv@uPn@sSRgWDmZFqXC}ZS{[KaHg@}Tq@eT_AmViAuZ{Aa]uAs]k@mPSmF{Ag]oAu\\[oGy@iTiA_XwAyT_AoLaBwOeCqT}A_Ko@mEsD}ToDoVwCaWkAeNs@sOg@sPOeOF{Pd@oRfAsUx@oKlAqLxAyL|ByNdDwRbFmXbFgYhGy\\zAqIfB{JvC}PfDyQ|EgYbE}XvC_S~BuQpCqVfB{PdB{OnCmW|AsOpB{SlFoe@lBwQxCmZh@eFvB{RzCeYxCwXbCeVxB_Wr@{Hj@gOXoQGyPk@iSkBaVwB_S_EuS}E_RsBoGoDuJaIyPwL}SuKoQsKiP_LsOkFgG{EcF}F_F{DmCyHeFaH_DoJqDgHkBqI_BcGk@kDWeCGwLC}FRwFn@sJ|AwKfCaJzCeIpDcJdF{IzG}F~F{GrHcFzGcEzFuFpJeFlIwHnMwIjOiAnByMvUsElHgEdHsEvHiDdGoDlGsEnJoExJwChIcDfJeCdJuB~HwBdKqBnKeDdRaP|aAcGh_@mDdRsCvM}CnL{E|MuFzMuDdHmErHsBzCoBjDiGnHwG~GgJfHuLdHcL|E_KhCqI~A}MjBsO~@gOdA_R`ByMz@YBsDTw\\lC{XzBcWxAkXlBoXnBg[fC_]`Cs[hCoMp@iVhBcZzByMdAsEToTdB_`@pCo[fCy]hCiSxAoZfBuRz@gVd@}PVc\\_@wWm@cZaB{YqCsQqB{BQyLkBcNyBga@gIg[{Ha`@yLgHeCoY_Ls^sOiYsMmUiKsZgOi[iQ}PeKeUmOaPoLyWmSaXyTaU}SeVuU{DiEwJ{Jo]a^kWoWeVkTaP_MaWgPwHqEwH_EoW{K_XkIgW}FkOmCwUeCm_@aCe\\eBqCQ_f@cCmOy@sBOkPq@wY{Amc@yBy]wBe]wB}YcBg[uA{\\s@sYKmLXcX`A_TzAeU~BwY~CuZnDuObBsD`@}YdD_b@|Ee`@nEw[zDoOjBuOdCqMbDeM|DoNfGiJbGcM|JuK|J}GpH}MzO_M`P_EjGuBhDiIxNeIbPuHzRsFfRsC|McAnF}DbVqC|W_BvZgBx]cBvYqDl]gDnSiE~PeCfIuA~DiI~QiM|SiMxNuObNuOvJ}QhH}NtCsGz@qPB}R{AuPeD_QiHeOeJuFaE{IkJcNqOoPgWgTy[aEwFqQuWu]}h@{p@obA_S{YiOuTyPiWsSuZoSwZwNgT_SiZeKiOoLuQkQ}TcJsJmN_MwJeGyO}HyOgGqTkFeOwCeRkCgTwBcQ_AqWWeRIeMi@_NmAyPwCwNyFyOcI{MmJuJeJsJ{JoIiL{IcOqFqKw@{AmGkPqGaQ_HuUsEuTcEwWkBsQuAuQm@mTUiVIi]@u^Pmb@Lw[b@}SvBc`@~Ac_@hAi\\f@{ZNeT@kSDeNGs_@Ocq@]{f@G{ZOie@G{ZKs]AmZa@s_@qAmWgB}UqCiUgCkP{DiUwGw^oE{WuCwOiGsVuGqSkImScE_JuBsEgJuNqIgKaPkRwKyMiNuPuQaTqRsU_RoToP}Q{NuQaCwC{MgPgYu[iSwSyPiPqO_N_MuJkM{JmWuQkXeQgUgMqT{J{MyFqXqK_a@wNm[yHw`@wJcQgEqM_DqEmAwYeIc\\{Iu[{IaT}FeFwAcSwHcQuH}UeMaWaMkVsL{NsGcUkLuSoJcQqImJ}EgIkDgImDkIeDgHuBkHaB_GkAmJmAeJq@oLc@wPAiQHwNJuSVcQJiIJcUN_WNw[d@qT@mQ]gIi@yKmAaHkAqQmD__@gIgWsF}LiCqLeC_VkF{MyCeCg@aDq@uA[eO_DsOwDoD{@uHyBeLaEgHsD{JaG}HmGwGwGuIsJ}GgKgFoIyBsEuAwCEGaEsJmCuHsEwOeD_N{CgQiDaTwAyMcBqMkBwOaBePcBmNgCmTyB_VyBcYyBg]iA{WcA}Zi@q\\KuWD{ZPuUVmTb@cSt@}^NkJz@_`@x@eb@b@sTv@_c@j@}^z@_c@dAmc@p@wd@dA}j@z@og@jA{i@`@aX\\ePv@uXj@o^l@k\\D}DV_Sh@w^\\eQp@i^t@ig@z@_c@dA}a@v@kb@f@a[\\yP~@kW~@kVlAaRlBySjCkTpDiUpDyQ`FwShFyQrFkPxFyNbEkJxFgL`JeQfHaLjOyRjNsO|MgOnN_OhLeLX]`I}IbP_Q~RqSvOiOvPyQlPcQ`S{SvLiN`IuItJaMjJcOxIaPfHeQbGuPxDmN`EiRrEkU|CiSfC{PrFw`@hF{]fF}_@rH_k@rFu^zEo\\`CeQhGcd@tIyl@`Hqg@rGwd@bEuYhFg`@lDmVhFy]dIuk@vG{e@rFk`@lEq[~D_XnE}[zEc]rFa`@fFu^rEw[~B_P~AsK|Eu[|DyXbGia@nE}\\dFs_@xD_X~DeYtCoS~Fy`@|D}YpFca@rD}VdAkJx@iHnB{RvA{Qn@}O^oPLyR@wRK_Tg@sZ[qQ_@gWe@}SWmU[qRG}OVcSl@mQlAmQ~AeQ~AsN`CuOpC}OvC_OfF_TlE}PrF}UlHuYxFcVhCwKTaAfBwHlJi`@nGwXzHm\\xFgWjDwQdD_RdDgWzBcS|AkTlAoRn@aRXyLt@eb@Rq[f@c_@h@_e@d@}d@`@ce@\\k[\\eZZe[^gYV{Zd@ea@Xm[Xu\\`@a[v@ev@`@s_@d@o`@^iZb@qY`A_]fAs_@tBua@lBc`@|Cmf@nDmk@tDel@~Est@jEwp@nD_g@bCga@|Cuf@tDak@fEin@fE}o@rD{h@pDic@zCy\\bDk\\zDc\\tDu]jEw\\lEc_@`E{^vEea@hHcm@tFie@bFqb@~E}_@hF}c@lGei@xFof@nEka@lFej@fFml@xCef@fCuc@fBma@HgBDaAbCmk@hBkg@`B}c@`Bqd@~Aec@bBgb@~Aic@rBaj@tAa^@[hA}[nEonA~DshAJcCL}C~@}UrEgkAnE}oAjFqwAhHemBjFkzAlDi_ArCow@jE}jAtCgx@tG_bB|B_m@FmBXkHbA{WlC{q@hB}f@b@cL?It@}Q|Csn@zD_y@xAg^ZiJd@uNhCgt@bDgkArE}yAvEwuA\\aJb@_Lx@kT|Csy@bAcX~Ak_@dCqp@zAgd@tB_l@dCkp@jC_t@~Bwo@pCst@tDgaAd@oMnDybAtCyv@dCss@jBoh@jCcq@zBom@jF_vA`Cgn@zB{n@nCku@vDocAjC{t@zEuoAjE{iApBsj@xAkc@HyB@WvCmv@tD{bAdC{s@jAgZ|@q_@b@if@W_m@m@ai@w@u^{Awj@u@uR[cHcB_c@mBm[iCe^_BwOcCwRuEcXyE{VcEcRyEkRgGaTsEqOeCyHsCuHsC}GqCqGsD{H{DoIeFoKsGeNgJ}QoKmRuI_NiC}DaE}EqI}JeEiE}GcH{MgMoLgLoIgIuHoHm[kZsImHmLcJ}L}HgLgGiP}G{HoCoKsCcDs@eCg@oIaB}Cc@gGo@gPk@kQ?}IVaHZaHv@_JxAqGjAoIxB}DjAkH~BwFxBOHmEnBwDbBoJnFuRlMyGhFsLjJoCxBiJxHiIlGiVdReJjHmSbPu[lWcPvLaa@v[mZzU}[jWaYxTcOlL{b@d]k`@f[u^fYsNlJgQzIkLxE}MvEaGhBiJrBcKhB_HfAkR`BeJb@iQZq\\Ug\\JsJFg[A}OTcK^oJ`AeHzAyIdCyJnD_PbHsK|FaK|GcI`HiF~EcFvFeGzGwGpH_HhIyDzEqDjEcGdHcIpIwIlIcJ`HgIfFgKpFmElB_H~BoIfCmEbAkIfA}Gf@yF^mG\\qJP}EKgGW{CWyLqAsRiCkRkDoTqDgMmBsPqBiOyBoEm@i@Ia@GsQqCq[oFeL{@kLM{ILkEVmKjAePdDeLtDiJ|DqEnBuF~C{HxE_NtJkE`EiKzK{CvD}EjGkRtZsLdT{Zfj@kQrZ}NtSeHlHqLpKuBbBqFfDcNrGuJhDiFjAwHjAaE\\}F^sC@cD@SA_LW}D_@oFiAkKaCsKcDwFeCsJyF}JaHeOuKyGaG{EqEqM_MiK{IcBkAgHeFqI{EoGaDgFmB{EwAkGiBgLoCuGiAeIw@}Mo@kHKiZ`BsG`@oIf@cDRuTrAyNr@eRfAePx@mJh@uHr@aAHcIt@iBNeKd@iOr@oQ`A{Kj@yOv@qKHgNGaN_@}Hk@sF_@qGu@oJoAoKwBqGeBkJiC{JkDcN}F}IgEcFiCgGwDiQeLmRmNwMcLmVmUgNeNeQsR_S{TaPaS_PmSoLmOuLaNgK_LoLsKyNmLsOiKkQkJ{HqD_I_D}LgEaLkCuQwDmP{CqS_EwNoC_U_FkNaEqEeBuKmFsLgHgKuHgMsLgIiJ_IkKgJkOyGoM{H{QuFaP_EmM}EsSqB}KuAoIcBcNqAcN_AgMw@wLm@yOQkFu@}UkBum@c@aRo@kSsAwYk@{KeAmMoAeM}AeMiBkLgBoJ{C{MkHmVeFiO}HiR_HmNoEoHsHeLeSoWuCoDAA{AkB{NkQ}KmO}HmMoDsG{FqLoG{OkEmMaEqO_CaLaBuIuBmMoBaN_BsNyFmg@c@{D{AaN_Gae@uEaa@uEcb@kByOg@qEaGgg@{BsQ}CmXeDoZgAmMqAiR_BwUuBud@s@eQe@yTQaOEaDQkOKaRKeQB}MV_ZTkSj@iYv@yWf@eOf@oKbA}QdB}V`Dc_@~BqVrBoR~BkRpAeJjDoUfFc\\tIkh@bJ}h@`Kon@bFgZrK{o@dEsVzGab@pDgUpJ}k@rFs\\bG}^fFm[vIeh@nGi`@tCqP`Gy^fGk`@xJml@tRwjAnCyNfBeLfCsQ`B}MfBwPpBsUjAiP~@}Qv@{QTkH\\mM\\yTFgU?wCAwDEea@Bch@@mSA{KIsJQ}Lm@_QyAwRwAuNeB}LaBaL}AcIwBqJyE{QsDoLwEyLeDkIcDkHwH_OqIwM}HmKgC_DoCqCoDwD}EkEkHoF}FeEsFcD{E_CeGwCaXyLqOiGyJ}DoUgKsHgDmGiCuHoDuDeBuKsG}DoCiGsEwE{DeF}EmCsCsDcEqF}G_FyHiQoYqQgZmKwQoSe^uLqSwKqRgIgNmEmIcEeI{F_MmE}KqE_NaEiNkDuNyAiHeBuIwAaJgA{IeBmRuAkQU}FUoHg@iXEwCIuEUuOYgNq@cSm@wLmAcPgBiPwBcP{AqI{AqIwBkJcFmRkG_RsEuKuFgMwDkH_IcMsHgKsGcIqIoJyHsHeGqF{KkI}KeHmP}I}HsDiJiD{FcBeLoCgKqBuIcAyLy@gEScJa@yNa@}Ri@gUs@wZmAwOa@sPg@}Mm@yK[QAoFg@}IkA_HsAeLeDeJ}CeH_DeNgIiNmKoKaKqFmGeCaDuJ}NmGiKkJ_QcFsJ_GyJiByCsFqHiFeG_E}DqGiF{K{HEEuYqOqOaImq@mXk^uNMGsCmAmT{J}[oNiNsFaOqFeEuAgLeCwGkAmIeAcEc@kKiAqHy@_JiA{K{AkQsDeB]_FoAgFuAuF{AmFkB{FmBsFwBsFaCyFoCeGuCcHwDaG}CmCsAmBgAeGaD_HsD_HyDoHsEuFqDqEoD_F_EyEyEgE}EaEiF{EgHqEmHqDgH}C}G_BwDyAqD_AoC{AkE_BoFeBiG{AkGaB{HeBaKwAqJyAyJcAoJu@aKw@eM]sI]yJOmJQwKCeKH_KXwKX_LXgMViMLkL?yKQ}J[uJc@aJ]eG]qD]iDe@_Ee@uD]}Bs@_F_AqFeAwFiA{FyAoGsBiImDmLoD}LoDeLoDiLaDkKmC}J_CaJ{B{I_BeHsAqH_BsIsAuIoAeIaAaJ_AiJk@oIi@}HYwGQ}EKuDA{@E_DCwAEaBCaGBaG@mGNgGJmGXeHVmIj@uI\\iHn@oHz@gIv@eHjAcJzAqLjBkKf@aDr@iDp@iE~@uE|@aE|@cElA}ExAkFdBuFdBwFtB_GlCwGjCgGfC}FjCeGjCaGfCwFtBmFzA_ErAyD`BwFdBqG~AoG`BaInB}MjAyJnAiNx@mOVmP@aOSgPc@sK[gFSuCGu@gAmLqByPmC_R}B}OqByMgCmPsCyOyCaNMi@eAaEeAeEeE{MeEcL_EgJqEcJsEiIqE_H{EuGaFgGqGaHqFeFcGyEcCaBiBoAYQiGqDgG}CsFuB_GoBuGkBiHiBwFqAkI}B}GqBwFyBgF}ByHyD_HeEyHmFcGwEkEuDaC}BsF}F{GeI_HsJmGuJ{FcJiGkKwG{KcHeLgG_KwFkJaGuJaFaIwGgLgG_KkFmJ}EmJuE_JcEwI_EkJsCaH_DcIyE_MuBmG_EcMsBaH}C_LuCsK}DoOiCgK}BgJ}B}J_EaPkE}QwDwOoEcR{DcPsCoLmDyNoC_LyDyOuEmRyD}OyC}LU}@YmAiCoKiDgN_DuLsD_NiDyKkDkKsD}JkEoK{D}IeEuIuDkH{DeHqDgG{CuE}CoEuC}DwC_EqCyDsGoI_GcHiGqHsFqGoFuGkFoGoG}HyF_HsGgIgGmH}GgIkHwImG}H{FgHgFoG{DwEiDiEsEuFqE{FwDgFyDgFaF_HgFmHeDgFqD{FqD{FiDmFeDwFwDiHwC_GeDuGcDyGaCeF}BcFaCmFyCgHyBkFuBqFcCkGgB_FmBmFeCoHqCqIkBcGoAgEcB_GeC}I}A{FqAeFoAaFuAqFsA{FwAgGeAwEyAwGyAmHsAeHmAyGeAeGeAkGkA_HaAkGy@_Gw@_Gs@wFw@mGm@}Es@aHq@eHq@kHq@{Hu@yIKuAAU?Aq@_Ju@wKs@oNe@uJU_Ge@{Nq@mZ[{NYuV[iZYkXk@mf@k@uf@_@}`@o@uj@e@qc@_@}\\[gX_@qYSeUKgM[iVI_O[}SOoPUwNOkPQ}L[kPImQQ}QYaWa@}ZWsYCcEYuS]c[W}X]qYOuNOmPU}RYmSOeQUkROqQS_TY}U]_ZSmS]u[a@e\\[m]YaQYmNo@}Pq@sOy@qLkA{MiAiKiAgKcBmMsBuMeCwN{AaIoCsMqCsK}DyNwCsJgDgKaEeLmDmIcC}FcEuIsEkJeG{K{FaKwGyJ_HmKkFeIwGwJuKeP_FoH{GkKmGmJ_IoLoJuNoFaIuEwGiGsIuHgJkGmHsG_GgImGmFiDiE_CwE}BkJoDyJkC}@QyE{@uG}@}E_@kHWeH@kHTgHj@{G|@qGtAeFvAsEzAcE~A}DbBmFfCsInEcIrEsIpE_HpEsHrEgQpJ_LnGgDlBqPbJsQzJsQ`K{QdKgQpJwPdJeP|I}NxHyOnIgOrIoPfJ}PbJkOtI_NrHgNlHmMjHoMtHwKzFiK|FmJfF{KxFyHrEsDtB}FxC{F|CwJnFyIvE{HtDgHnDaIdDmHhCoGjBaHvAgHfAmGv@{F\\}FLuFDaGAmG_@aHi@aHaAuFeAuEcAkDu@iF{A_NoEiO}E{OoFuPqFiPgF{PoFmQ{FaQ{FiPmFwOoFcO}EqNuEmM_EoKkDiKmDcKcDwJgDcK}CiJ{CeIgCsHwBgHgBgH{AsHoAaHgAsHs@gHg@{GSmGOmH@uHLyHZgH\\iHp@yH~@oGz@}K|BkKzBoLnCwLhC}K`CsJ`CeKxBaIjBeIfBoIbBwGvA{GxAiGpAoFvA{GjB{H|BaIjC{HnCgHnC}FzBE@uB~@yFdCcF~BkF~BeFjCiGnDuGzDiHbFoGjEgJ|GaGnEgGhFuGrFiHlGwFlF{FxFiG|GqF`GyHpIcJbKgHxHkH`IkFzFaGtGyGjHuGdHiIvIeIvIyIpJsI`JsG|G}GfHkFfFaGrFwGfGsHhGaI~GuJ`IuIxGwJlHiIfGiJbHoKfHeK|GyK|GaI`FcBbAi@`@gO`JoXpN{LfGmWrLcJrD}VtJkR`HyRjGySnG_WpGyBf@{A^yPzD{V`FaPpCkVhDwSlC{WjCoVdBkP`AqM`@cLb@iVb@{Sh@yPP{IFqDAyBAwDAwI?mH]wCSoD]gFe@}Es@iHgAeK{BuIwBmHyBuI}CaKcEgLwF{IeFiK}GuK_I_O}LkLyKgReQmRmQiMqLmIuHeSuRwP_PoWwV}PkPmNeNaKqJiF_F_G}EuF_EqHmEoKkFkGsBuGeBuEy@mI{@kGWcTIcPU{EOsHk@aJiAyEcAaEgAqFyAkEwAyH_DaIyDgHkE_IiFaNuJwSiOmOcLgQiNiKwJuSqS_PwQeKsMKMcB_CcF_HiMaRuG}JgJ_PmIaOsH_PmFyL_JsSkIkTaHwQsGuRmK{^cHcXqCsL}FcY_FcWkDkTaEwYwCwToBmQwCq^sBsZyAyVoAsXs@}TsAoa@aBwk@sAsg@{@sZ{@iVuAca@eB{i@}Bcx@uBis@uA}a@mAaa@sA_f@_Am\\s@kWiAa]cCqx@eC_y@iCeaAy@mYu@{Vw@aa@kBkx@wB{}@eCebAmBco@eAu_@YmJoAud@aBah@gAm\\qBkh@aBs`@gCol@kAoYKcCo@iS_@gLgAk[kA_b@o@wSiBgg@g@{NU{GS{Fo@qVm@yQu@gVw@yXu@oWe@gOi@mPq@cRoAad@eAu\\a@sMUeISeGkAe\\}@qYcAu^[{Jq@cPkAeRiBkRmCsSmD}U}DkRyDsPqD}MoFgQoGsPwMaYwNiXoCeF_O{XiEiIeGqK{FwJsFuHoEyF}DgEEEcFgGeHkHkEqEqGcGoC}BwEwDiEeDiFyDeGeEmD}BKGuvBqxAk@_@kOiK{TqOgHyEuKuHuHiFaKoHqGeFmIoHwGqGeHmIwGkIuFeIuD}F_IqNsE}IiFsL_G{N{FsPmFaPkFePqDuKkE{M{E}N{FiQiFaPsFsPuDcLcHiToH}TkGmR}Pqh@wPkh@wPgh@wPkh@yPmh@_Qqh@}N_d@_EaMKYiAkDAE}IkX{Pmh@{Pih@wPkh@}Pkh@yPgh@}Pwh@yMoa@wMka@{JoZgC{HIUu@{BCKkGkR_Qqh@uPkh@{H{UkAuDiHkUY}@oCmIcIsVeTep@gNmb@eM{_@yKs\\eL}]eJ_Y_Mk_@wKu\\iHqT}Ka]eJwXaJyXyJiZkNub@}JyZqPeg@kO_c@oJ{VeRif@uNa^yGePwPc`@{Os]qG_NmWwh@kEsIsAkCcAoBeRq]aUca@_DoFqAwBkKiQ}Us_@mPcWoByCGK}Ta\\mS_Y}Vo\\yXk]wTsWqL{MwRmTiTkUoReR_VwUiTaS{UqSeWyS_SaPcTkPkTsOkHgFaHgEaD{BaR_M_QkK}XsPuXyOs@_@e[kPwOeIki@{]kS}MkMiJma@yTwh@eg@aq@wi@ak@cq@kd@y_AqX{w@oP}y@_M_~@kIahA_AafAXcqG|Ckqb@jAiub@pAczPl@ieP|FsfcApDsfcABiNBs_@Dyg@?id@Ds^Bq\\?u[@eUDq[?kHBs`@Bgj@Hii@@mh@F{f@H{d@Eqb@Dc_@Bm^Be\\@a_@?u]Bu[FeRBmQA{YBsW@kVBaU@wHDm\\?}b@?sc@Dsc@Fcc@D}b@Bwb@Dmc@@yc@Dub@D{b@Dcc@Ccg@Jeg@D{f@Fwf@?kf@?of@Dof@Lsi@C{g@Heh@D}g@?e`@Fag@?ef@Dcg@Fah@Dsg@@kg@Dkj@Fu]DwZBwe@Fif@@cf@Fgf@Bcf@Doh@Fih@@mg@Bog@Fkg@@wh@D}j@Agj@@aP?iOG{NA{BQuO[aV?Ec@qTm@aTu@}T?G_AaTyAg\\kB{ZsB}[wD}c@_BuPmCaXAG}B_SyCsUwCyUkDgUoDgTmEwW_EoTcGuZ_FaUEa@yF}UmFmTCEwFiTEUeG}ToFmQgFoP}FwQiLw\\sNa`@qAwCiRqc@qRsa@iQ_^kNyVcTw]_MgS{KyOkLsPeKkNuPgTwQyUeWu[uTiY{PaU}Y}^oZu_@}Z{`@_TqXwS}WcPkSiJsLcNwPyEuGkCeDkJuLsQqU}Vi[wKsN}PuT{X}]q[oa@mYs^cScWy]md@{OmS{QsUmQgUeQ}TwTaY{`@gh@wV_[o_@ye@}TsYaN_QmOaSyMcQyFeHgKyMmIqKsOcSwGmIuLmOgEmFqEeG}GqIuHiJoJyL_L_OmJoL{KyNyKgNaL{NiCgDoFyGiIkKsGgIyH}JcJiLuJiMaKoMuJ}LmMuPoM{OmFgHyFwHyPaTkQ}ToKgNeOsRgKqMwKmNcKmMaJoLwPoT}OkS{J_MiLiOcIiKaNyPmEwFwI}KkJsM}LwQaLqRwJ{QsHwPiF_MmGwOqHiSiF{OeH{TyGsVoEcQaFeTgFkVaFeX{CkRqD{UcDkWsCkVcCyX{ByZmAeToAs[}@k]]e[CiYBuVRqQZ_T`@iVl@}Xn@_Wn@aZj@sXZqLd@cRj@{Tf@gV|@a^l@qZr@aZt@g^`As`@x@c^v@c^n@wWbAuf@~@_`@fAmc@t@k]JuFTuMn@cXt@i\\v@_]t@{[x@c^l@{Vx@i_@dAid@|@q`@|@u`@dAyc@v@o]`Aab@t@c[bAec@~@ua@fAye@|@w_@jAwf@hAch@h@oTpAyk@v@g^vAgm@xAuo@bBws@dBou@pAsj@tBa`ArBs}@nAgi@`B}r@tBq}@lBoy@pBy|@hC}gAvC_qAbB{u@fCqfAxBiaAjBmy@l@a[fAyd@hAsd@|@gc@hAud@|@aa@`Aeb@dAkb@|@sa@bAyc@fAqe@r@w\\fAkc@~Ayr@p@}Yr@w[v@e[v@k_@|@c_@|@w`@p@a\\x@y\\n@m^nAaj@xB}x@v@g`@~@u`@`Ag`@|@q]jAqk@fA}b@hAwg@bAge@tBy{@h@eVv@_Zl@uZv@qZx@s]fAue@b@mThA{f@xAul@bAce@nA}g@bA_d@rAkh@`Ame@lAod@rAok@t@s`@v@g\\jAwe@fAch@rAaj@fAwi@rA{i@lAoi@xAik@fAck@rA_l@vA}k@rAqk@rAml@nA}k@p@mUbAge@rA}j@vAqk@rAul@vA}l@vAwn@vAym@xAsm@tAsn@vA}n@n@{Xr@sZ~@_a@lAof@jAoj@xAcm@vAcm@lAwl@n@sTp@wVrAol@rAkm@rAan@zAum@nA}k@LkFd@aSpBoz@rAmk@dAug@v@}\\lAod@`Aid@v@k]j@oW~@{\\z@s^|@ab@b@}Rt@iZv@_]t@c\\|@ia@t@o_@v@q^`A}\\x@}[fAac@lCenAdAef@lAch@jA}f@lAse@vA{h@fAsf@hAkg@lAmf@hAgf@bAcf@lAug@~A{n@p@o\\jA{g@fA{h@nA{e@dAye@nA_g@`Aud@lAsf@bA{d@hA_g@bA}c@lAwg@p@yYJyDv@uZb@kQt@m\\v@s`@hB}r@JwCpAck@fBug@b@kOr@mZb@aPHeFt@w[d@gVn@yVv@sZXqN\\iML}Gd@eU`@_PXcMt@u[h@sTXcL|@ga@h@gTbAqd@f@sU`@iN~@y^z@i_@^iQ^kOd@yRb@_Rb@uSLiGHuD\\sN|@i]VyKPsIr@iY\\cNh@kW^uPLyHv@m[PoIdAy`@lA_j@\\_O\\yNd@yQ\\iOj@gUd@oUh@sUZkM`@cPp@gYt@wZ^qNj@mWb@aSf@aP^_Sd@uWf@wQ|@u^^gP\\_N\\qN^_P\\sOPmHVuIZyLXsMVcKX{Lf@{Q^mSf@}Uj@kSr@}Wf@sVd@mTZ_Mh@{SJsFl@{Vj@oTf@wUJeETiKpAco@jAci@xAul@xBy_AlC{kAjBov@lAgj@j@}UdAyb@lAag@rAal@l@iWL}GRmHnAyf@jCgkAfByu@pAwi@t@c\\x@c]zAsp@v@o_@`Aq_@jAwe@rA{k@|@a^p@_[|@o^|@i`@lAgh@|@c`@t@{\\jAif@vBq}@hCodAxCioAjCckAfC}hApDayAjE_mBTkJlBgu@tFq`ChB_x@~G_sCbFaxBxC_rA`CocAPkGdFkvBrCumAxEguBjAcg@dCqhApBez@zCkqAhBuv@xBc{@h@cNpA}XxBi]vCu]zCiYxDqZ~E_\\hFaZvFyXdIo]nGwU~FcSfCwHrD{KtJyWjKeXfJuSbK}SrGgNbLaVdAwBrKsT`Pa]lOw[vMwXhNsYxOq\\vNkZ`BiDbUue@rUgf@tNwZpAeCpQq_@tAqCrRea@nXok@xSmc@hRy`@bQu^bS}a@xU_g@rTqd@|Y}m@`Uue@rPw]~N_[|JsSfJ{RnNg[hKgW|I_WrJ}ZbFcRtEmRjCuLdEkSpDyRjD_TzCySzA_MzAcNrA}Nd@mFdBuW`AwTn@wSd@cTVaS\\mZDyEVqXn@yq@b@ca@H{Il@{k@j@ql@h@qk@Ha`@OyV_@gRy@cTuAmUwAiQgBsPoCkTeCiPcDqQ{DsRuJwd@_EmR_CiLk@}CkBiKkCyO_CyOgCkRaCmT}Co]}AyUa@kHi@{M_@aLW_PI{R?eWR}`@d@il@b@im@@SBeGHiMR_[RoZb@oi@\\ue@Vca@R_YDyH\\}`@Vo_@d@qo@b@gp@b@o[f@eTr@iQtAkVtAiRxAuOzCmVbEeXtD}RbFyTfH{WnHmUnHgS~EgL`HeOpHaPvOa]l`@gz@~Sed@|CwG~pC__Gxv@wlB|ZqbAdWofApQ_fBbDih@Dkg@wFisAqHqgAyFsa@cIe\\aVwt@uRm^k]ya@c^mXue@}R_tDu|@ewEmnAqwEckA{xAk`@yyAs[mZeBmZzAmWnD{aBdx@c[fK}]zGkZdBa^mByUoFsUeI_VkMkc@oc@u]oh@w\\ul@y[q`@gT_Ruf@kUo`@}Ig]eAa\\fAia@hG_q@t_@esBzaBepEvtD{jBj|Aer@tw@sbC~dDunB~bBavAtaA}b@bUweCjeAa`Apc@seAbV}bCd]ygAba@}{F`~DglE`vCsbAh]ylIloCak@nO_l@pWiaBhzAicAxz@kj@dRgl@bJ{o@Owq@}HciE_o@qyCqe@un@Qyu@dL_^bJuqBvv@ezEzbAqeAhTkaA~Nuu@bD}dFeLawKaTmg@yF{`@qMai@kUejEcxCikEauCie@}Mwf@oJseAuFauCqKet@yH{_@mMu[{U}Te[yPy[_O}i@oIsl@wB}r@bBgh@nFoh@ri@ioDtFmr@tC_w@k@uy@w@qa@aDqi@cO}gA{^s{BkLofAqDux@yA{lA`DoaAfGmy@`OucA~_A{yElp@ebDhl@}~CzIeo@jDoa@~Beg@bBit@{DqdDkGggBmFmk@cJmq@_qCofNwO{}@kSml@gWcd@cYaXkVaReXsHmb@_CwPhAwPjCmQtEeTvK_e@de@wfK``LyElFsLnMqKnLmPxQaJ~JgOhPqTdV}NfPeGzG{LzM_RnSiLbMqAnAcJtK{GhHwL|MwQdS}OfQkPpQmOfPiMpN{KtLsDfEuG`HmFdGiIbJkIbKeFjHcGbJsH`NeIzQuHzScHxTyIbZeJdY{DnPaEbQiGxS{FlSaHdV}GpUmEjOsAtEqHpVwG|U_HtUaHrV_HjUuGxT{G`U{F~TwFlVcG`XgGzWuDzPgE~RsGfX{GhZcHzZcHb[gHr[gEnQqElSuDvO}DdQqD~McCrIiEvNqArFsF|VcGvViF|UoFhUcFpTkElQ_EhPgDpMcDvL{CtKoBrHeDlLyEfOmFlPsFfQuFlPmFrOwFzOeGxOmFfNgFfMqEjLyBdFw@pBiDxHyGdO_GzMoFnL_HpNyGzMmHjNgHzMiGbL{HdN{HlM{HjMyGzKwFtJwFbJ{EpH{C`F}AfCsBzCeFfHoFjHcElFsDjE{BrCeDlDmFfGkFlFeFfF{DbD{EtEuEvD{EpDuChBkExCsHzE{GvEyHlEsH|DiSnJiLvEmN|EcQ|EgRbEwN`CoNnB_TtAyLn@sYPyT_@wO{@eIw@gLsAyKaBiPeDsHeB_O{DiLyDyOuFqX}J}[iLoNaFgQyGoHeC}JiDmN_E}QyGmQqGgQmGqOsFsNeFkRcHoP_GgQoGwOqF{M{EgOsFgIuCuFqB_MiEeLiEoRyG}PiGaSgHoNgFsFoB{NqGqd@uPgv@gXeJiDa_@wM{WuJyFqBqLqEaKqDcFgByuCmdA_IoCoQgGmLqEyT{H_n@qTcj@gSmYaKo~@g\\c~@g\\_{Aii@wqCccAqg@qQsmAic@s~@w\\kxAch@qv@wXca@yNadA{^sTcIyI{CuUsIcXoJcJeD_OmFsjAya@o`@uN{TsHs\\mLoVyIo[gLyMaFoZmKySuHyBw@mBs@sQsGyI{CiSqHqSqHcNqEiK}CgFyAuL{CgMqCsNyBiEm@_MwAwIeAwJy@uYoAgd@QywAnCoR`@sd@jAki@hA{Rd@sMRoR^aM\\gQd@iERaFTA?}e@`Aui@z@_ABug@fAiV\\}PQoNg@cHo@_NiBoQ}CuCi@sKuCsJ{CsIgDqJiEeKiFkI}EuJgGiJ_HyS{Qi@e@qHgH{FqFov@_t@oOwNic@sa@oTwS_MeLmQ}Psc@}a@aPuO}a@i`@is@wp@uLiLmQqPkVcUwFuFqRyQ}W{VkM_M}UwT_UeTuZoYuXoWkYeXmRsQgRkQwUoTw`@}^uO_OgSsRwEuEiC_Cc@a@iD_DqGoGkGiGeH_I_BcBiUgTiRuPkUcUsVwUaZoWyRuQoJcJyQ_QmRiQgLuKcOqNaKoJc]_\\iCcCy_@o^o]u[mW}VuNyMa[}Yu_@o^oW_V_PsOkYeX_TgSoXiW{i@qg@_RqQg^}\\aYqWaWoV{LaLgMwLi[{YsXqWmQqPiHsGyIqIqK}IyD_DcFwD{IkF{GmDmLuEaH{B}KmCsDs@iIcAiL{@gRaAiQaAoUkAkG]uO_AkZeBOAgTkAoDQgOq@{Ms@a`@_CeGWqMs@qWoAsN{@kCQ_VeAoMq@gMu@_Ko@YAmMm@}Lo@qJi@oMk@}CS{Mu@}Ny@oNc@aJGsOZsDNmGn@yG~@gF|@iDv@gGbBiErAcEzAcFrBoIhEkHbEqIxF}FpEaFlEaDfD_A`AoGlHsG`ImHjKgCtDoDjGgFnJmDpH{E~JqPt^uBxEmIbRsG~MsLtWmFpLqHhP}F~L{KdVmOb]wE~KaFnLqFxLwEzJyCrG_HhOeHzO{JnTuJjTaHrOoMfYoD|HaGrMwIrQkLnUiGvLyGtMyCnG}Nr[mJbTkG|N_KjVaDpHuDtHqS~c@cPx]cLjVwMvYiRta@qRnb@_Urf@iTle@kStc@wQv`@cRta@{W|k@cZvo@gUrf@c[dr@_Zvo@mV`i@mVfi@{Rxb@uXlm@cUzf@qSbd@oW`k@aTbe@kPj^cUfg@eTtd@oNf[uMlYwNj[}Qfa@wRrb@_Qj_@}L~WwOh]{Ujh@cTbe@_X|k@iYtn@iUhg@aVnh@ySpd@qSdd@eNrZaPr]sU|g@sNj[_MpWeGtLuGfLkDhFsDfFaJfKcAjAeKhKuJ`IkJpGiJfFcMtFeJ`D}IdCkLtBaLtAeLn@gLFgIQgI[yFk@gG{@aHqAaNsCi[kHmZ}GkZaH{]eIsSwEuTgFgOeDcN_Da@IsIsB_KuBgJyB{G_BsWaGkVwFaGsAQEkN_DuHeBuNeDqYuGiMuC{G}AmOmDKAEAoRoE}TgFg[}Gc]eI}XeGyYsGk\\cHk_@}HyLmCsR{DkRqDmMeBuQ{AsO[yO@oNb@eIf@mJ`AcNpBaM`C{LrDaPlFsH~CgK|EmNzHaKvGoNjKiNzLyGtGmKpLyIxKgBfCwF`IkEdHu@lAwC~EsDpGqGlMyFlL}ElKgJnSoJjSeIlQuGpN{HtPsPr^mH`PaKlTiNtXmMtUcK`QoJzN}L`QePxSaLpM}IvJiN~MoOfNiPxNmNrLaQnOeNrLwMfL_LvJkMxKkRpPcHdGaRzOyVfTsNxKyLlI_NzIySpLeUtKeRvHoR~G{RrF_TjFsOtCyPfCeO~AqYtBeJb@uQb@wSJeTJgWByXPaUJeVL}OF_LDkLH}NLqNJuRHmTDwRNaUB_JHkqBFw~@`@ux@^iz@^we@Reb@Ry]ZsRj@gO`AyNbBgLvBuKnCcKbDyIjD}GzCiW`N{OrJiZhRobA|n@_z@vh@eaA|m@uoAdx@igAhr@mu@ne@kn@t`@{q@bc@gAr@_{@li@q`@xVkc@xXkM`I{HjE}HzDuIpDwGrBaEdAuFhAeFt@uHp@yGVmFDcGKwF]eFc@mFw@kFcAqIsB{ImCuQkGqn@cUsi@sRo]gMmd@iPa`@eNce@sPwa@aOwAg@EC_d@cPaKiEgJiDkVqIoSkHgOsFuNiFaUkIcToHsN_FmPiG{QwGgQkGiJiDgJwD_Bq@oEoBgGsC}EeCwCuAkBaAaB}@_CqAwCcBcDkBaBcAw@g@aAm@OK{BuAwCoBaEoCmDeC_CcBgAy@q[cWq]iZqOiNkEyDUS}F{E}KeJsYyVaNqLcJiIaJwHqVgTwVgT_WqTyYwViVoTsXyUuAoAiB}AmVmT_K}IyJcIqIiHkK_JwF_FkP{LyL}I{UeQmOeKiNcJoOmJkZoPqMiHoJyEiNwGoK{E}PmHmJyDyLuEuQeGqOkFgQsFiSwFaVaGaDs@aB_@aFgA{PkDaViEuUmDcL{AuM}AaSoB{`@{Cc_@wBk^oByk@}C_k@sCmW{Ag@CeAG}S{@{U}@}Oq@kHOkMQc^Aqd@d@sVv@iTfAeIj@{BN_EXmNtAcRjB_VvC_U~CyQzCoLzBiPrD}QlEyGdByCt@gCr@cHlB{JvCuDhAgPjFoLxDgJjDcHrCgM|Eed@nRyOhH_P|GkWhLml@|VqOfHqL~EgL~Ey]jOa^vOoYpM{CfAaBr@cRhHiRfHoQ|FeMdD}JdCgHhBeJtBuGvAeLzByEz@}HhA_Gv@oBVcXtDwJfAaJp@uG^sKh@aJd@cIb@kHLiHTcJHiIFiL?}HMyEKqGOiHOsCQ_GWcG[}Jo@iIo@iKaAoKmAkG}@eOqBwQ}C{PcDkAUcDo@wNuC_GkAiPwDeMsCsVqFgBe@}LgCcR{DoReEcVcFmRuDqGmAcF{@wAWaDi@}LgBkPeB_Hw@}Hw@cHg@mFc@eDOyEYqKo@aACwAGkEMcHEqUYoNKySZsOXqI\\eELmGZ_O~@eKt@}LfAuGj@cLfAqM`BeRtBkQtBk[lDoNxAySnC{OdBgKpAwDl@cFj@aJbAsKvAuR~B_XzCmp@nHQ@sO`B_Jt@kQjAaNfAgH\\oHLiQ\\wPJ_JAyF?oGAaB?M?gV[o\\w@ia@w@uYg@sV[wFMoXe@cM_@{Tk@gCCaAAkACmDEuLEgJ]ef@cAiZi@_Yg@c[m@ua@u@cEGw\\_AqUq@aO[oMi@mF_@qF]eLq@_Iq@mHk@oDg@yDe@{Ca@oFs@oBYc@IgDe@sHmAEAoB_@cHyAgGmAqGmAiIsBqDw@}GcBoK_DaN}DsC{@oBk@}Ao@mEyAcJeD}IgDwIgD}IoDqJyDoIiDgCeAyEoBsF}BmFwBCAwAm@{B_AgEeByGoC_KcEoJ{DwEmB_DqA}CqAiEeBmR}HwQqHCAgKeEgKaE{@[gUeIqUeIqVgH_MaDkA[kFuAoU}EgKkBwB_@mJ_BKCaN}A}KkA_D[mE]qDa@kCWgAIkEWcHa@uF]kDQwGEcFK}@CeJGyCCwP@mVRkNRqSd@cED_IJmFHwKVcBBmFJsJT}FRgOf@oGPgOXoFHgHTaMDmJJiFByMEyHGeP]aJYiQ{@uJq@}E[cCWuBUuEe@iEm@oHeAcAO_Dc@uDg@cHcA}I_B}McCeQsDuMmDuK}C{R_G{QqGwS}GkP_GaW{IgSgH{TaI}SsHeRiHea@qPeSeJyReKoR}KaQ_LwQqMeOiLcOmMCAmJaJ_KsJuMcNmN{OaIqJeMaPuG_JcKwN}H_MaGgJoGuKmNwV{EiJqG}MmHoO}FeMyHwQgFuMuGiQ}FmPuJcZsHaWgHwW_@sAmFqTgF}TsGs[wDgSaHab@wE{\\gFob@eCgVwCm\\eCu]iAgQcAcSy@uRe@{Mg@sRa@aSMuIYkVK_SPir@`@mVFaDh@eWFeBt@gUjByc@b@_Hf@aIdBiX~B}XnAuNhByP`C{S|BsQ~CwTlCiQtB{MlEiV`GoZnFuWnLwh@|Jmb@~Kme@jLig@jIk]zEiSzDcQtEiSlFuVzDoRpEsVvDqS~C_SjC{P`CoP~BaQtAkLhBgPvBmSzBmVnBkU~A{S~AgTvBm]h@kIdBgXx@{MDo@tBs_@tBs]fBoX`Cs`@xDep@fAsQpAiT|Cwh@v@{NvB_\\~Bs^bBmXfByWxCqe@vBc^|AwVn@_LNmCnAyTzBk`@zA{VzAuUvB_[fBiYfAmQlBm\\h@iLp@yNr@yQVsHh@yPj@_Tn@uW\\oWP}VLmh@Oea@Ym_@m@m_@i@}U_AuZw@sQgCmh@kAoV_AaSe@_KqCof@aAeQ{Bsa@_Ccb@yBa_@_Cmc@uCkg@kBu_@qDqo@oBu]iBe]wBs`@}AwYkBe^{Bea@cCae@wAgXyAuUuBs^eBc[wAsVmCwe@{Bs\\_AiNiD}a@aEid@sE}d@gDmZ}Dk\\a@wDi@yEi@yEu@yGeAoKqDa\\kDcZqB_QuBiRsDy\\uEcb@uFah@kEm`@}Eqc@cEq^i@wE}Eac@e@gEiC}TiBqPoCiV}Eqb@gDsZyD}\\eFwc@{Gsl@yAkMcA}IwBsRyAqMgB}OiBcPo@aG]wCOqAmAwKgAyJm@kFi@yEw@gHgAoJeAoJ_AmIgAqJu@{GmAqK{AcNyBwRkD}Z}Da^_Jix@cBiOW{BaFqc@aJwx@yJm|@c@yD[qCaMohAiGmj@qByP]wCcBuNoA_KcAcIs@uFi@cEk@oEy@}Fu@mFy@aGq@qE{@uFq@qE_@{Bm@yDk@eDc@mCm@kDi@aDc@aCc@_C]qBm@aD[aBo@eDc@aCe@_C_@kBe@}B_@mBYwAUcAm@wCq@}Ca@iBiAiFqAwFS}@YoA[qAMm@[mAi@}Bg@qBS}@?Im@wBc@gBg@sBiAkEoAyEqBwHoAsEe@aBc@{Ae@aB]oAs@aCc@{Ag@eBaA_D{BoHk@iBq@yBmAsDgAgDs@yBcAyCiAgDkAiDyEgN}IsUAAaAeCgPwa@oS}f@kPq`@sLaY_KuTsFmMgL_YaNq[_M}YeKgVmQmb@eN}[}JgUmKmUqAqCcCmFuPs]cFoJk@eAmDuGkAyBaCgEiCwEuCeFuBoDsDmGyE{H_JwN[e@aBeCeGkJyWu_@uFsHuD_FgEsFoF_HuE{F_E}E}BqCuQcTkf@qj@wUcXu@{@wFqGyc@_h@yNcQwDwEqEyF_IcKmFeHaEuFiCsD{JqNgMuRmEaHqKqQcIqNyFiKyKmSuLuVyEsKyM_]sGoPwEuLsD}J_F{MuHsTwIgXoE{N}Mef@uCuK{@gDoJma@qFoUkGg[eE}SiByJkBoLqBsMoAaIqBsMiAuHsF{c@wBqRi@{Ec@{DiAeKiDo^kAsN}A}TwBsWkBgUcCo[sAsQqAuPiBiXg@_Jk@eIi@eHu@oJuAsPcBkUoAmR{@uMo@{JmAgPaBqTyAeRaD_f@e@wHgAeO{A{RiAoP]uFi@cJm@kI_BcVm@_Jg@qIm@iL_@aKe@wLc@}La@cN_@kMg@ePWqLUyLSsJQkLEkEEeEAo@EyLIcMK_P@{O@sNLkOLoQf@a[NmMN}LJwHJsFH}Gb@eQr@mQLuCf@_Kn@gOdBk\\\\kIj@_Lj@_JP{C`@iG`AcN~Cs_@jAsNlCsZrA_OrBiVR{B|@sJtAiOrAyNpAsNnBcTzByT|AuP|@oJdA{LpBeS|AqOx@oIfDu_@bBoQfA{KbCwW`BuQbDca@n@uJ`B_T|AgVbAiQz@oP`AwRx@qQj@cP^yL\\sKpA{d@|@_^|@_`@bAkf@RkJReL`Aoc@XaN|@gd@x@e`@h@qWZkPb@oRx@a`@zFqkCf@uUT{KXuM~Aut@dA_f@RsIv@k_@~@ob@BqAlAej@p@_[?EXcMtOojH??",
+        "precision": 6,
+        "length": 14024
+      },
+      "alerts": [
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-27T15:10:00Z",
+              "end": "1970-01-01T00:00:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-27T15:10:00Z",
+              "end": "1970-01-01T00:00:00Z"
+            }
+          ],
+          "cause": "UNKNOWN_CAUSE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vlak zamuja 6 min",
+          "descriptionText": "Vlak IC 502 ima zamudo 6 min ob odhodu z postaje Divača."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-04-06T22:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-04-06T22:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Ljubljana - Logatec in obratno (do 12. decembra).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Ljubljana - Logatec je za v zgornji povezavi omenjene vlake do 12. decembra organiziran nadomestni prevoz po prilagojenem voznem redu.   Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Lokacija postanka nadomestnega avtobusnega prevoza na železniški postaji Ljubljana: Nova Avtobusna postaja Ljubljana (peroni 37, 38 in 39) - Lokacija na zemljevidu in Zemljevid Avtobusne postaje Ljubljana  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-04-06T22:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-04-06T22:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Ljubljana - Logatec and vice versa (until 12 December).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ljubljana - Logatec route until 12 December.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Location of the rail replacement bus stop at Ljubljana Railway Station: New Ljubljana Bus Station (platforms 37, 38 and 39) - Location on the map and Ljubljana Bus Station Map  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-14T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-14T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Divača - Koper in obratno (15., 16. ter 29. in 30. november).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Divača - Koper je za v zgornji povezavi omenjene vlake 15., 16. ter 29. in 30. novembra organiziran nadomestni prevoz po prilagojenem voznem redu.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-14T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-14T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Divača - Koper and vice versa (15, 16, 29 and 30 November).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Divača - Koper route on 15, 16, 29 and 30 November.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Ptuj - Moškanjci - Ormož in obratno (30. nov - 4. dec).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Ptuj - Moškanjci - Ormož je za v zgornji povezavi omenjene vlake od 30. novembra do 4. decembra organiziran nadomestni prevoz po prilagojenem voznem redu.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Ptuj / Moškanjci - Ormož and vice versa (30 November - 4 December).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ptuj / Moškanjci - Ormož  route 30 November - 4 December.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Ljubljana - Borovnica in obratno (30. november).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Ljublljana - Borovnica je za v zgornji povezavi omenjene vlake 30. novembra organiziran nadomestni prevoz po prilagojenem voznem redu.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-29T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Ljubljana - Borovnica and vice versa (30 November).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ljublljana - Borovnica route 30 November.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red *nadomestnega prevoza: Ljubljana - Litija in obratno (2. - 9. december).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Ljubljana - Litija je za v zgornji povezavi omenjene vlake od 2. do 9. decembra organiziran nadomestni prevoz po prilagojenem voznem redu.  *DODATNA MOŽNOST PREVOZA: Vlak RG 210, ki vozi do Ljubljane brez vmesnih postankov bo imel te dni izredni postanek na postaji Litija ob 15.05 (v izogib vožnji z nadomestnim avtobusnim prevozom za vlak LPV 2264). Uporabno le za tiste potnike, ki potujejo direktno do Ljubljane.   Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace *trains: Ljubljana - Litija and vice versa (2 - 9 December).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ljubljana - Litija  route 2 - 9 December.  ADDITIONAL TRANSPORT OPTION: Train RG 210, which normally travels to Ljubljana without intermediate stops, will make an unscheduled stop at Litija station at 15:05 on these days (to avoid the need for a replacement bus service for train LPV 2264). This option is available only to passengers traveling directly to Ljubljana.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "cause": "UNKNOWN_CAUSE",
+          "effect": "SIGNIFICANT_DELAYS",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "POZOR: Vlak ne vozi od 2. do 9. 12. na relaciji Ljubljana - Litija / Zidani Most ali obratno.",
+          "descriptionText": "Zaradi obsežnejših vzdrževalnih del bodo na progi Ljubljana - Litija / Zidani Most spodaj navedeni vlaki v omenjenem terminu združeni z naslednjim vlakom po voznem redu:  LJUBLJANA - LITIJA / ZIDANI MOST:  - vlak 2251 (odhod iz Ljubljane ob 4.45) na relaciji Ljubljana - Zidani Most od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 2012 (odhod iz Ljubljane je tako ob 5.17),   - vlak 2441 (odhod iz Ljubljane ob 6.15) na relaciji Ljubljana - Zidani Most od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 433 (odhod iz Ljubljane je tako ob 6.50),   - vlak 2259 (odhod iz Ljubljane ob 8.50) na relaciji Ljubljana - Litija od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 247 (odhod iz Ljubljane je tako ob 9.15), vlak 247 ima med Ljubljano in Litijo postanke na vseh postajah in postajališčih,   - vlak 2219 (odhod iz Ljubljane ob 13.20) na relaciji Ljubljana - Zidani Most od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 2008 (odhod iz Ljubljane je tako ob 13.50),   - vlak 2275 (odhod iz Ljubljane ob 16.50) na relaciji Ljubljana - Litija od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 115 (odhod iz Ljubljane je tako ob 16.45), vlak 115 ima med Ljubljano in Litijo postanke na vseh postajah in postajališčih,   LITIJA - LJUBLJANA:  - vlak 2204 (odhod iz Litije ob 5.40) na relaciji Litija - Ljubljana od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 2202 (odhod iz Litije je tako ob 5.48),   - vlak 2252 (odhod iz Litije ob 8.41) na relaciji Litija - Ljubljana od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 503 (odhod iz Litije je tako ob 8.34), vlak 503 ima med Litijo in Ljubljano postanke na vseh postajah in postajališčih,   - vlak 2266 (odhod iz Litije ob 15.33) na relaciji Litija - Ljubljana od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 2226 (odhod iz Litije je tako ob 15.48),   - vlak 2268 (odhod iz Litije ob 16.53) na relaciji Litija - Ljubljana od 2. do 9. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 575 (odhod iz Litije je tako ob 17.14), vlak 575 ima med Litijo in Ljubljano postanke na vseh postajah in postajališčih,   Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-01T23:00:00Z",
+              "end": "2026-12-09T22:59:00Z"
+            }
+          ],
+          "cause": "UNKNOWN_CAUSE",
+          "effect": "SIGNIFICANT_DELAYS",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "This train will not run (2 - 9/12) on the Ljubljana – Litija/Zidani Most route (in both directions).",
+          "descriptionText": "Due to extensive maintenance work on the Ljubljana – Litija / Zidani Most line, the trains listed below will be merged with the next scheduled train during the specified period:  LJUBLJANA - LITIJA / ZIDANI MOST:  - Train 2251 (departing Ljubljana at 04:45) on the Ljubljana – Zidani Most route WILL NOT RUN from December 2 to December 9, 2026; instead, it will operate merged with train 2012 (departing Ljubljana at 05:17),   - Train 2441 (departing Ljubljana at 06:15) on the Ljubljana – Zidani Most route WILL NOT RUN from December 2 to December 9, 2026; instead, it will operate merged with train 433 (departing Ljubljana at 06:50),   - Train 2259 (departing Ljubljana at 08:50) on the Ljubljana – Litija route WILL NOT RUN from December 2 to December 9, 2026; instead, it will operate merged with train 247 (departing Ljubljana at 09:15). Train 247 will make stops at all stations and halts between Ljubljana and Litija,   - Train 2219 (departing Ljubljana at 13:20) on the Ljubljana – Zidani Most route WILL NOT RUN from December 2 to December 9, 2026; instead, it will operate merged with train 2008 (departing Ljubljana at 13.50),   - train 2275 (departing from Ljubljana at 16:50) on the Ljubljana – Litija route will not run from 2 to 9 December 2026; on this route, it will operate merged with train 115 (with departure from Ljubljana at 16:45). Train 115 makes stops at all stations and halts between Ljubljana and Litija,   LITIJA - LJUBLJANA  - Train 2204 (departing Litija at 05:40) on the Litija – Ljubljana route will NOT run from December 2 to December 9, 2026; instead, it will operate merged with train 2202 (departing Litija at 05:48),   - Train 2252 (departing Litija at 08:41) on the Litija – Ljubljana route will NOT run from December 2 to December 9, 2026; instead, it will operate merged with train 503 (departing Litija at 08:34). Train 503 makes stops at all stations and halts between Litija and Ljubljana,   - Train 2266 (departing Litija at 15:33) on the Litija – Ljubljana route will NOT run from December 2 to December 9, 2026; instead, it will operate merged with train 2226 (departing Litija at 15:48),   - Train 2268 (departing Litija at 16:53) on the Litija – Ljubljana route will NOT run from December 2 to December 9, 2026; instead, it will operate merged with train 575 (departing Litija at 17:14). Train 575 makes stops at all stations and halts between Litija and Ljubljana,   We apologize to passengers and thank you for your understanding.  potniski.sz/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-03T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-03T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "cause": "UNKNOWN_CAUSE",
+          "effect": "SIGNIFICANT_DELAYS",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "POZOR: Vlak 2004 ne vozi 4. 12. na relaciji Ljubljana - Litija. Podrobnosti:",
+          "descriptionText": "Zaradi obsežnejših vzdrževalnih del bodo na progi Ljubljana - Litija vlak 2004 (odhod iz Ljubljane ob 10.50) na relaciji Ljubljana - Litija 4. decembra 2026 NE VOZI, na tej relaciji vozi združeno z vlakom 431 (odhod iz Ljubljane je tako ob 11.20),  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-03T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-03T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "cause": "UNKNOWN_CAUSE",
+          "effect": "SIGNIFICANT_DELAYS",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "NOTICE: Train 2004 will not run on the Ljubljana – Litija route on December 4. Details:",
+          "descriptionText": "Due to extensive maintenance work, train 2004 (departing from Ljubljana at 10:50) will NOT run on the Ljubljana – Litija route on December 4, 2026. Instead, it will run merged with train 431 (with a departure time from Ljubljana of 11:20).  We apologize to passengers and thank you for your understanding.  potniski.sz/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-05T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-05T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Murska Sobota - Hodoš in obratno (6. december).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Murska Sobota - Hodoš je za v zgornji povezavi omenjene vlake 6. decembra organiziran nadomestni prevoz po prilagojenem voznem redu.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-05T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-05T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Murska Sobota - Hodoš and vice versa (6 December).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Murska Sobota - Hodoš route on 6 December.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-22T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-22T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "DELA NA PROGI: Zapora enega tira na dvotirni progi Rakek - Postojna.",
+          "descriptionText": "Na progi Rakek - Postojna (23. - 24. november ter 1. - 4. december, 7.00 - 15.00) poteka zapora enega tira na dvotirni progi zaradi vzdrževanja. V navedenem času so možne občasne ovire v železniškem prometu zaradi upočasnjene vožnje mimo gradbišča in križanja vlakov.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  infrastruktura.sz.si"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-22T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-22T23:00:00Z",
+              "end": "2026-12-04T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "TRACK WORKS: Single-track closure on the double-track Rakek - Postojna line.",
+          "descriptionText": "On the Rakek - Postojna line (23 - 24 November and 1- 4 December, 7:00 AM - 3:00 PM), there will be closures of one track on the double-track line due to maintenance. During this time, occasional disruptions in rail service may occur due to reduced speed near the construction site and train crossings.  We apologize to passengers and thank you for your understanding.  infrastruktura.sz.si"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-28T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-28T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "DELA NA PROGI: Zapora enega tira na dvotirni progi Zidani Most - Hrastnik.",
+          "descriptionText": "Na progi Zidani Most - Hrastnik (29. in 30. november, 8.00 - 14.30) poteka zapora enega tira na dvotirni progi zaradi vzdrževanja. V navedenem času so možne občasne ovire v železniškem prometu zaradi upočasnjene vožnje mimo gradbišča in križanja vlakov.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  infrastruktura.sz.si"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-11-28T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-11-28T23:00:00Z",
+              "end": "2026-11-30T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "TRACK WORKS: Single-track closure on the double-track Zidani Most - Hrastnik line.",
+          "descriptionText": "On the Zidani Most - Hrastnik line (29 - 30 November, 8:00 AM - 2:30 PM), there will be closures of one track on the double-track line due to maintenance. During this time, occasional disruptions in rail service may occur due to reduced speed near the construction site and train crossings.  We apologize to passengers and thank you for your understanding.  infrastruktura.sz.si"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-04T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-04T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "DELA NA PROGI: Zapora enega tira na dvotirni progi Celje - Šentjur.",
+          "descriptionText": "Na progi Celje - Šentjur (5. in 6. december, 7.30 - 16.30) ) poteka zapora enega tira na dvotirni progi zaradi vzdrževanja. V navedenem času so možne občasne ovire v železniškem prometu zaradi upočasnjene vožnje mimo gradbišča in križanja vlakov.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  infrastruktura.sz.si"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-04T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-04T23:00:00Z",
+              "end": "2026-12-06T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "TRACK WORKS: Single-track closure on the double-track Celje - Šentjur line.",
+          "descriptionText": "On the Celje - Šentjur line (5 and 6 December, 7:30 AM - 4:30 PM), there will be closures of one track on the double-track line due to maintenance. During this time, occasional disruptions in rail service may occur due to reduced speed near the construction site and train crossings.  We apologize to passengers and thank you for your understanding.  infrastruktura.sz.si"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Divača - Koper in obratno (od 13. 12. 2026 do 14. 3. 2027).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del in infrastrukturnih omejitev med postajami Divača - Koper je za v zgornji povezavi omenjene vlake do 13. decembra 2026 do 14. marca 2027 organiziran nadomestni prevoz po prilagojenem voznem redu.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Divača - Koper and vice versa (13/12/2026 - 14/3/2027).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Divača - Koper route 13 December 2026 - 14 March 2027  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Direktni avtobusni prevoz na relaciji Ljubljana - Celje in obratno (od 13. 12. 2026 do 14. 3. 2027).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del in infrastrukturnih omejitev med postajama Ljubljana - Celje je za v zgornji povezavi omenjene vlake od 13. decembra 2026 do 14. marca 2027 organiziran nadomestni prevoz po prilagojenem voznem redu.  Na vseh direktnih avtobusih (št. 14006, 17006, 31006, 35006 in 36006 ter št. 51206, 52306 in 52606), ki nadomeščajo vlake višje vrste (ICS, IC) je na omenjeni relaciji potrebno plačilo dodatka za vlake višje vrste. Več informacij.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Lokacija postanka nadomestnega avtobusnega prevoza na železniški postaji Ljubljana: Nova Avtobusna postaja Ljubljana (peroni 37, 38 in 39) - Lokacija na zemljevidu in Zemljevid Avtobusne postaje Ljubljana  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Ljubljana - Celje and vice versa (13/12/2026 - 14/3/2027).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ljubljana - Celje route 13 December 2026 - 14 March 2027.  On all direct buses (No. 14006, 17006, 31006, 35006 and 36006, as well as No. 51206, 52306 and 52606) replacing higher-type trains (ICS, IC), an additional surcharge for higher-category trains must be paid on the specified route. More information.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Location of the rail replacement bus stop at Ljubljana Railway Station: New Ljubljana Bus Station (platforms 37, 38 and 39) - Location on the map and Ljubljana Bus Station Map  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Ljubljana - Logatec in obratno (od 13. 12. 2026 do 14. 3. 2027).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Ljubljana - Logatec je za v zgornji povezavi omenjene vlake od 13. decembra 2026 do 13. marca 2027 organiziran nadomestni prevoz po prilagojenem voznem redu.   Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Lokacija postanka nadomestnega avtobusnega prevoza na železniški postaji Ljubljana: Nova Avtobusna postaja Ljubljana (peroni 37, 38 in 39) - Lokacija na zemljevidu in Zemljevid Avtobusne postaje Ljubljana  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-12T23:00:00Z",
+              "end": "2027-03-14T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Ljubljana - Logatec and vice versa (13/12/2026 - 14/3/027).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ljubljana - Logatec route 13 December 2026 - 14 March 2027  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Location of the rail replacement bus stop at Ljubljana Railway Station: New Ljubljana Bus Station (platforms 37, 38 and 39) - Location on the map and Ljubljana Bus Station Map  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-13T23:00:00Z",
+              "end": "2026-12-18T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-13T23:00:00Z",
+              "end": "2026-12-18T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Ptuj - Ormož / Hodoš in obratno (14. - 18. december).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del na progi Ptuj - Ormož / Hodoš je za v zgornji povezavi omenjene vlake od 14. do 18 decembra organiziran nadomestni prevoz po prilagojenem voznem redu.   Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2026-12-13T23:00:00Z",
+              "end": "2026-12-18T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2026-12-13T23:00:00Z",
+              "end": "2026-12-18T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Ptuj - Ormož / Hodoš and vice versa (14 - 18 December).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ptuj - Ormož/Hodoš route on 14 to 18 December.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Vozni red nadomestnega prevoza: Divača - Koper in obratno (do 12. decembra).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del in infrastrukturnih omejitev med postajami Divača - Koper je za v zgornji povezavi omenjene vlake do 12. decembra 2026 organiziran nadomestni prevoz po prilagojenem voznem redu.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Divača - Koper and vice versa (14/12/2025 - 12/12/2026).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Divača - Koper route 14 December 2025 - 12 December 2026.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "Direktni avtobusni prevoz na relaciji Ljubljana - Celje in obratno (do 12. decembra).",
+          "descriptionText": "Povezava: Vozni red nadomestnega prevoza  Zaradi del in infrastrukturnih omejitev med postajami Ljubljana - Celje je za v zgornji povezavi omenjene vlake do 12. decembra 2026 organiziran nadomestni prevoz po prilagojenem voznem redu.  Na vseh direktnih avtobusih (št. 14006, 17006, 31006, 35006 in 36006 ter št. 51206, 52306 in 52606), ki nadomeščajo vlake višje vrste (ICS, IC) je na omenjeni relaciji potrebno plačilo dodatka za vlake višje vrste. Več informacij.  Za preverjanje možnosti prevoza oseb na invalidskih vozičkih prosimo, da vsaj 24 ur pred želenim potovanjem pokličete 01 291 33 91. Več informacij o prevozu oseb z omejeno mobilnostjo.  Na omenjenih avtobusih ni mogoč prevoz koles in živali. Izjema so psi vodniki, psi pomočniki in službeni psi. Pri nadomestnih prevozih lahko nastajajo zamude, kar prosimo upoštevajte pri načrtovanju potovanja.  Lokacija postanka nadomestnega avtobusnega prevoza na železniški postaji Ljubljana: Nova Avtobusna postaja Ljubljana (peroni 37, 38 in 39) - Lokacija na zemljevidu in Zemljevid Avtobusne postaje Ljubljana  Potnikom se opravičujemo in zahvaljujemo za razumevanje.  potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "Buses replace trains: Ljubljana - Celje and vice versa (14/12/2025 - 12/12/2026).",
+          "descriptionText": "Link: Buses replacement timetable  Buses replace trains mentioned in the link above on Ljubljana - Celje route 14 December 2025 - 12 December 2026.  On all direct buses (No. 14006, 17006, 31006, 35006 and 36006, as well as No. 51206, 52306 and 52606) replacing higher-type trains (ICS, IC), an additional surcharge for higher-category trains must be paid on the specified route. More information.  For wheelchair transport availability, please call +386 1 291 33 91 at least 24 hours before your desired journey. More information on transport for persons with reduced mobility.  Bicycles and animals cannot be transported on the mentioned buses. Exceptions are guide dogs, assistance dogs, and service dogs. Delays may occur with rail replacement bus services, so please take this into account when planning your journey.  Location of the rail replacement bus stop at Ljubljana Railway Station: New Ljubljana Bus Station (platforms 37, 38 and 39) - Location on the map and Ljubljana Bus Station Map  Please accept our apologies for any inconvenience caused, and thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "TECHNICAL_PROBLEM",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "OBVESTILO: Združeni vlaki iz/do Zidanega Mosta (do nadaljnjega).",
+          "descriptionText": "ZIDANI MOST - LJUBLJANA:  Garnitura vlaka RG 619 iz Maribora se v Zidanem Mostu združi z garnituro vlaka RG 630 iz Dobove in nadaljuje vožnjo proti Ljubljani. Prestop potnikov iz vlaka RG 619 na vlak RG 630 za potovanje v smeri Ljubljane tako ni potreben.  Garnitura vlaka RG 632 iz Dobove se v Zidanem Mostu združi z garnituro vlaka RG 607 iz Maribora in nadaljuje vožnjo proti Ljubljani. Prestop potnikov iz vlaka RG 632 na vlak RG 607 za potovanje v smeri Ljubljane tako ni potreben.  LJUBLJANA - ZIDANI MOST:  Garnitura vlaka RG 618 iz Ljubljane do Zidanega Mosta vozi združeno z garnituro vlaka RG 631 (Ljubljana - Zidani Most - Dobova). Na postaji Zidani Most se obe omenjeni garnituri ločita. Prva potuje v smeri Dobove (vlak RG 631), druga pa nadaljuje vožnjo v smeri Maribora (vlak RG 618). Prestop potnikov tako ni potreben, bodite pa pozorni na izbiro ustrezne garniture za želeno smer potovanja (prva garnitura: Smer Dobova, druga garnitura: Smer Maribor). Za pomoč in usmeritve vam je na voljo naše osebje.   Hvala za razumevanje.   potniski.sz.si/info  Na portalu MOJ VLAK se lahko naročite na samodejno obveščanje (prek brezplačnih sporočil SMS) o dogodkih na progi in morebitnih spremembah voženj vlakov v notranjem prometu. Več informacij."
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-13T23:00:00Z",
+              "end": "2026-12-12T22:59:00Z"
+            }
+          ],
+          "cause": "TECHNICAL_PROBLEM",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "NOTICE: Merged trains to/from Zidani Most (until further notice).",
+          "descriptionText": "ZIDANI MOST - LJUBLJANA:  The train set of RG 619 from Maribor joins the train set of RG 630 from Dobova at Zidani Most and continues towards Ljubljana. Therefore, passengers from train RG 619 do not need to transfer to train RG 630 for travel towards Ljubljana.   The train set of RG 632 from Dobova joins the train set of RG 607 from Maribor at Zidani Most and continues towards Ljubljana. Therefore, passengers from train RG 632 do not need to transfer to train RG 607 for travel towards Ljubljana.  LJUBLJANA - ZIDANI MOST:   The train set RG 618 from Ljubljana to Zidani Most runs merged together with the train set RG 631 (Ljubljana - Zidani Most - Dobova). At the Zidani Most station, both mentioned train sets separate. The first one travels in the direction of Dobova (train RG 631), while the second one continues its journey in the direction of Maribor (train RG 618). Passengers do not need to change trains, but please be careful to choose the appropriate train set for the desired direction of travel (first train set: Direction Dobova, second train set: Direction Maribor). Our staff is available to help and guide you.  Thank you for your understanding.  potniski.sz.si/info"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-31T23:00:00Z",
+              "end": "2027-12-31T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-31T23:00:00Z",
+              "end": "2027-12-31T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/inf",
+          "headerText": "DELA NA PROGI: Prenova in gradnja železniških postaj Brezovica, Vnanje Gorice in Preserje.",
+          "descriptionText": "Od začetka leta 2026 poteka prenova preostalega odseka proge Ljubljana - Borovnica, prenova postaj Brezovica in Preserje ter gradnja novega postajališča Vnanje Gorice. V navedenem času so možne občasne ovire v železniškem prometu zaradi upočasnjene vožnje mimo gradbišča ali zapore posameznih tirov ter prilagojeno vodenje potnikov na postajah. Več informacij o projektu in obsegu del lahko najdete na www.krajsamorazdalje.si.  Na postajah Brezovica in Preserje bodite pozorni na spremenjene dostope na perone tekom gradnje. Za pomoč in usmeritve pri vstopu/izstopu vlaka se lahko obrnete na naše osebje.  Za gradnjo, obnovo in vzdrževanje javne železniške infrastrukture je pristojna Direkcija RS za infrastrukturo.  Potnikom se zahvaljujemo za razumevanje.  infrastruktura.sz.si"
+        },
+        {
+          "communicationPeriod": [
+            {
+              "start": "2025-12-31T23:00:00Z",
+              "end": "2027-12-31T22:59:00Z"
+            }
+          ],
+          "impactPeriod": [
+            {
+              "start": "2025-12-31T23:00:00Z",
+              "end": "2027-12-31T22:59:00Z"
+            }
+          ],
+          "cause": "MAINTENANCE",
+          "effect": "MODIFIED_SERVICE",
+          "url": "https://potniski.sz.si/en/help-and-travel-updates/",
+          "headerText": "TRACK WORKS: Renovation and construction of Brezovica, Vnanje Gorice, and Preserje railway stations.",
+          "descriptionText": "Since the beginning of 2026, the renovation of the remaining section of the Ljubljana - Borovnica line, the renovation of Brezovica and Preserje stations, and the construction of the new Vnanje Gorice station have been underway. During this time, occasional disruptions in rail service are possible due to speed restrictions passing the construction site or closure of individual tracks as well as adjusted passenger guidance at the station. More information about the project and the scope of the work can be found at www.krajsamorazdalje.si.  At Brezovica and Preserje stations, please be aware of altered platform access during construction. For assistance and guidance when boarding or disembarking the train, you can ask our staff.  Slovenian Infrastructure Agency is responsible for the construction, renovation and maintenance of public railway infrastructure.  We thank passengers for their understanding.  infrastruktura.sz.si"
+        }
+      ],
+      "bikesAllowed": false,
+      "wheelchairAccessible": "NOT_ACCESSIBLE",
+      "reservation": "NONE",
+      "alternatives": []
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { mockApi } from '../test-utils';
 
-import { accountMe, departures, journeys, nearbyStops, searchStops } from './hopwatch-api';
+import { accountMe, departures, journeys, nearbyStops, searchStops, trip } from './hopwatch-api';
 
 const STOP = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, modes: ['rail'] };
 
@@ -85,5 +85,13 @@ describe('Hopwatch API client', () => {
     mockApi('get', '/stops', { detail: 'down' }, { status: 503 });
 
     await expect(searchStops('Ko')).rejects.toThrow();
+  });
+
+  it('asks for one ride by its id, encoded as one path segment', async () => {
+    const requests = mockApi('get', '/trips/:id', { trip_id: 'a/b' });
+
+    await expect(trip('a/b')).resolves.toEqual({ trip_id: 'a/b' });
+
+    expect(requests[0].url.pathname).toBe('/api/v1/trips/a%2Fb');
   });
 });

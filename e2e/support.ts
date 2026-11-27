@@ -10,7 +10,10 @@ export const OTHER_STOP = 'Lesce-Bled';
 export type Experience = 'Simple and large' | 'Lively';
 
 export function departuresList(page: Page, stop: string = NEAREST_STOP): Locator {
-  return page.getByRole('list', { name: `Departures from ${stop}`, exact: true });
+  return page.getByRole('list', {
+    name: `Departures from ${stop}`,
+    exact: true,
+  });
 }
 
 /** Minutes since midnight in Europe/Ljubljana. */
@@ -43,13 +46,19 @@ export async function chooseExperience(page: Page, option: Experience = 'Lively'
   await expect(dialog).toBeHidden();
 }
 
-/** Waits until the page's finite animations and transitions (e.g. list items fading in) have finished. */
+/**
+ * Waits until the page's running finite animations and transitions (e.g. list items fading in) have finished. A paused
+ * animation (e.g. a hidden progress bar) does not finish until it plays.
+ */
 export async function settleAnimations(page: Page): Promise<void> {
   await page.evaluate(() =>
     Promise.all(
       document
         .getAnimations()
-        .filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity)
+        .filter(
+          (animation) =>
+            animation.playState === 'running' && animation.effect?.getComputedTiming().endTime !== Infinity,
+        )
         .map((animation) => animation.finished.catch(() => undefined)),
     ),
   );
@@ -148,6 +157,12 @@ export function stopField(page: Page, label: StopField): Locator {
 
 /** Types into a stop search field and chooses the stop with exactly that name. */
 export async function chooseStop(page: Page, label: StopField, name: string): Promise<void> {
+  await searchStop(page, label, name);
+  await expectStopShown(page, label, name);
+}
+
+/** Types into a stop search field and chooses the stop, without reading the field back (it may collapse). */
+export async function searchStop(page: Page, label: StopField, name: string): Promise<void> {
   const field = stopField(page, label);
   await expect(field).toBeVisible();
   await expect(field).toBeEnabled();
@@ -156,7 +171,6 @@ export async function chooseStop(page: Page, label: StopField, name: string): Pr
     .getByRole('option', { name: stopNamePattern(name) })
     .first()
     .click();
-  await expectStopShown(page, label, name);
 }
 
 /** Text a stop field shows: its own value, or the selection drawn next to it inside the same field. */
@@ -186,7 +200,9 @@ export async function expectStopShown(page: Page, label: StopField, name: string
 /** Empties a stop field with its clear button, or by deleting its text when it has none. */
 export async function clearStop(page: Page, label: StopField): Promise<void> {
   const field = stopField(page, label);
-  const clear = page.getByRole('button', { name: new RegExp(`^clear\\b.*\\b${label}$`, 'i') });
+  const clear = page.getByRole('button', {
+    name: new RegExp(`^clear\\b.*\\b${label}$`, 'i'),
+  });
   if ((await clear.count()) > 0) {
     await clear.first().click();
   } else {
@@ -216,7 +232,11 @@ export function isApiRequest(url: string, pathname: string): boolean {
 }
 
 /** Calendar day (YYYY-MM-DD), hour and minute of a moment in Europe/Ljubljana. */
-export function ljubljanaParts(date: Date): { day: string; hour: number; minute: number } {
+export function ljubljanaParts(date: Date): {
+  day: string;
+  hour: number;
+  minute: number;
+} {
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Ljubljana',
     year: 'numeric',
@@ -245,4 +265,97 @@ export function randomEmail(): string {
 
 export function randomPassword(): string {
   return `Hw-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+}
+
+/** A stop of a ride as GET /api/v1/trips/{trip_id} answers it. */
+export interface TripStop {
+  id: string;
+  name: string;
+  scheduled_arrival: string | null;
+  expected_arrival: string | null;
+  scheduled_departure: string | null;
+  expected_departure: string | null;
+  delay_minutes: number | null;
+  platform: string | null;
+  cancelled: boolean;
+  passed: boolean;
+}
+
+/** One ride as GET /api/v1/trips/{trip_id} answers it. */
+export interface Trip {
+  trip_id: string;
+  mode: string;
+  line: string;
+  headsign: string;
+  operator: { id: string; name: string; url: string | null } | null;
+  cancelled: boolean;
+  bikes_allowed: boolean | null;
+  wheelchair_accessible: boolean | null;
+  ticket_url: string | null;
+  stops: TripStop[];
+}
+
+export const TRIPS = '/api/v1/trips/';
+
+/** Waits for the ride answer the details view loads. */
+export async function tripResponse(page: Page): Promise<Trip> {
+  const response = await page.waitForResponse(
+    (candidate) => new URL(candidate.url()).pathname.startsWith(TRIPS) && candidate.request().method() === 'GET',
+  );
+  expect(response.status(), response.url()).toBe(200);
+  return (await response.json()) as Trip;
+}
+
+/** The control of a list item (departure or itinerary) that opens its details. */
+export function detailsControl(item: Locator): Locator {
+  return item.getByRole('link', { name: /\bdetails\b/i }).or(item.getByRole('button', { name: /\bdetails\b/i }));
+}
+
+/** Hours and minutes of an ISO time in Europe/Ljubljana, as the app shows them (en-GB, 24 h). */
+export function hhmm(iso: string): string {
+  const { hour, minute } = ljubljanaParts(new Date(iso));
+  return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+}
+
+/** Waits until a visible heading has focus and returns its text. */
+export async function focusedHeading(page: Page): Promise<string> {
+  await expect
+    .poll(
+      () =>
+        page.evaluate(() => {
+          const element = document.activeElement;
+          if (!element || !element.checkVisibility()) return false;
+          return /^H[1-6]$/.test(element.tagName) || element.getAttribute('role') === 'heading';
+        }),
+      { message: 'a visible heading has focus' },
+    )
+    .toBe(true);
+  return page.evaluate(() => (document.activeElement as HTMLElement).innerText.trim());
+}
+
+/** Asserts that a live region names the view whose heading has focus. */
+export async function expectViewAnnounced(page: Page, heading: string): Promise<void> {
+  const normalise = (text: string) => text.replace(/\s+/g, ' ').trim();
+  const expected = normalise(heading);
+  await expect
+    .poll(
+      async () =>
+        (
+          await page
+            .locator('[aria-live="polite"], [aria-live="assertive"], [role="status"], [role="alert"]')
+            .allTextContents()
+        ).some((text) => normalise(text).includes(expected)),
+      { message: `a live region announces "${expected}"` },
+    )
+    .toBe(true);
+}
+
+/** The map region. */
+export function mapRegion(page: Page): Locator {
+  return page.getByRole('region', { name: 'Map', exact: true });
+}
+
+/** The one-line summary of the collapsed form and its "Change" button. */
+export function changeSearch(page: Page): Locator {
+  return page.getByRole('button', { name: 'Change', exact: true });
 }
