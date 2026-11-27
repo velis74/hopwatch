@@ -64,7 +64,7 @@ def test_departure_with_real_time_data():
     assert departure.scheduled_departure.isoformat() == "2026-11-27T11:08:00+01:00"
     assert departure.expected_departure.isoformat() == "2026-11-27T11:12:00+01:00"
     assert departure.delay_minutes == 4
-    assert departure.delay_source is DelaySource.OFFICIAL
+    assert departure.delay_source is DelaySource.ESTIMATE
     assert departure.platform is None
     assert departure.next_stops == ["Kranj", "Lesce-Bled", "Jesenice", "Villach Hbf"]
 

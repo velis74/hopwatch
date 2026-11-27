@@ -128,7 +128,13 @@ watch(
     if (!from.value) return;
     writeDeviceValue(
       LAST_FROM_KEY,
-      JSON.stringify({ id: from.value.id, name: from.value.name, lat: from.value.lat, lon: from.value.lon, modes: from.value.modes }),
+      JSON.stringify({
+        id: from.value.id,
+        name: from.value.name,
+        lat: from.value.lat,
+        lon: from.value.lon,
+        modes: from.value.modes,
+      }),
     );
     if (from.value.id !== restoredFromId) locationMessage.value = '';
     restoredFromId = null;
