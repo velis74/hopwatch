@@ -182,8 +182,8 @@ describe('app', () => {
     mockAnonymousSession();
     // A page that shows one of Vuetify's own strings, as its components do (e.g. a dialog's close button).
     const Page = defineComponent(() => {
-      const { t } = useLocale();
-      return () => h('p', { class: 'vuetify-string' }, t('$vuetify.close'));
+      const { t: vuetifyT } = useLocale();
+      return () => h('p', { class: 'vuetify-string' }, vuetifyT('$vuetify.close'));
     });
     await mountApp(App, {
       locale: 'sl',

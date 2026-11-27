@@ -15,7 +15,7 @@ All notable changes to this project are documented in this file. The format is b
 - Accounts: email sign-up and login, logout, Google and Apple login configured from environment variables, the
   allauth app client for the mobile app.
 - Web app: departures from the nearest stop with a map, stop search, destination filter, experience modes,
-  settings, English and Slovenian.
+  settings; in English, Slovenian, German, Croatian and Serbian in Cyrillic and Latin script.
 - App icon and logo (`branding/`).
 - API: journey planning (`/journeys`) through MOTIS, by departure or arrival time, with earlier and later pages;
   departures of several stops at once; transport modes of stops.

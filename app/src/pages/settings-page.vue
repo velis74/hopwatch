@@ -43,7 +43,7 @@ import { useI18n } from 'vue-i18n';
 
 import { TRANSPORT_MODES, type TransportMode } from '../api/hopwatch-api';
 import ExperienceChoice from '../components/experience-choice.vue';
-import { LOCALE_TAGS, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from '../i18n';
+import { LANGUAGE_NAMES, LOCALE_TAGS, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from '../i18n';
 import { type Experience, usePreferencesStore } from '../stores/preferences';
 
 const { t, locale: currentLocale } = useI18n();
@@ -66,9 +66,7 @@ function toggleNearbyMode(mode: TransportMode, included: boolean): void {
   preferences.setNearbyModes(included ? [...others, mode] : others);
 }
 
-const languageItems = computed(() =>
-  SUPPORTED_LOCALES.map((value) => ({ value, title: t(`settings.languages.${value}`) })),
-);
+const languageItems = SUPPORTED_LOCALES.map((value) => ({ value, title: LANGUAGE_NAMES[value] }));
 </script>
 
 <style scoped>

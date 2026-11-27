@@ -1,0 +1,262 @@
+{
+  "app": {
+    "title": "Hopwatch",
+    "mainNavigation": "Glavna navigacija",
+    "home": "Hopwatch, polasci",
+    "settings": "Postavke",
+    "login": "Prijava",
+    "logout": "Odjava",
+    "loggedInAs": "Prijavljeni kao",
+    "skipToContent": "Preskoči na glavni sadržaj"
+  },
+  "experience": {
+    "dialogTitle": "Odaberite način prikaza",
+    "dialogIntro": "Odabir možete kasnije promijeniti u postavkama.",
+    "label": "Način prikaza",
+    "simple": "Jednostavno i krupno",
+    "simpleDescription": "Veći tekst i gumbi, mirni zasloni bez animacija.",
+    "lively": "Živahno",
+    "livelyDescription": "Zbijen prikaz s nenametljivim animacijama.",
+    "continue": "Nastavi"
+  },
+  "pages": {
+    "home": {
+      "title": "Polasci"
+    },
+    "login": {
+      "title": "Prijava"
+    },
+    "signup": {
+      "title": "Izradite račun"
+    },
+    "settings": {
+      "title": "Postavke"
+    }
+  },
+  "settings": {
+    "language": "Jezik",
+    "saved": "Spremljeno na ovom uređaju.",
+    "nearbyLegend": "Zadano uključi obližnje stanice",
+    "nearbyHint": "Obližnje stanice na kojima staju ova prijevozna sredstva dodaju se na ploču polazaka.",
+    "nearbyModes": {
+      "rail": "Vlakovi",
+      "bus": "Autobusi",
+      "tram": "Tramvaji",
+      "other": "Ostalo"
+    }
+  },
+  "auth": {
+    "email": "E-pošta",
+    "password": "Lozinka",
+    "repeatPassword": "Ponovite lozinku",
+    "login": "Prijava",
+    "loginLink": "Prijavite se u svoj račun",
+    "createAccount": "Izradi račun",
+    "createAccountLink": "Izradite račun",
+    "haveAccount": "Već imate račun?",
+    "noAccount": "Još nemate račun?",
+    "or": "ili",
+    "continueWith": "Nastavi s računom {provider}",
+    "providers": {
+      "google": "Google",
+      "apple": "Apple"
+    },
+    "errors": {
+      "invalidCredentials": "Adresa e-pošte ili lozinka nije točna.",
+      "emailTaken": "Račun s ovom adresom e-pošte već postoji.",
+      "socialFailed": "Prijava putem pružatelja usluge nije uspjela. Pokušajte ponovno.",
+      "logoutFailed": "Odjava nije uspjela. Pokušajte ponovno.",
+      "passwordTooShort": "Lozinka je prekratka. Mora sadržavati najmanje 8 znakova.",
+      "passwordTooCommon": "Ova je lozinka previše uobičajena.",
+      "passwordEntirelyNumeric": "Lozinka se ne smije sastojati samo od znamenki.",
+      "passwordTooSimilar": "Lozinka je previše slična adresi e-pošte.",
+      "invalidEmail": "Unesite valjanu adresu e-pošte.",
+      "tooManyAttempts": "Previše neuspjelih pokušaja prijave. Pokušajte ponovno kasnije.",
+      "generic": "Došlo je do pogreške. Pokušajte ponovno."
+    }
+  },
+  "errors": {
+    "vue-forms": {
+      "required": "Ovo je polje obavezno.",
+      "compare_to": "Lozinke se ne podudaraju."
+    },
+    "hopwatch": {
+      "passwords_mismatch": "Lozinke se ne podudaraju."
+    }
+  },
+  "departures": {
+    "locating": "Tražim vašu lokaciju…",
+    "locateAgain": "Pokušaj ponovno s mojom lokacijom",
+    "locationFailure": {
+      "unsupported": "Ovaj uređaj ne daje lokaciju. Potražite stanicu po nazivu.",
+      "insecure": "Preglednik daje lokaciju samo stranicama koje se učitavaju putem HTTPS-a. Potražite stanicu po nazivu.",
+      "denied": "Pristup lokaciji za ovu je stranicu isključen. Potražite stanicu po nazivu ili dopustite lokaciju u postavkama preglednika.",
+      "unavailable": "Uređaj nije mogao odrediti vašu lokaciju. Potražite stanicu po nazivu.",
+      "timeout": "Određivanje lokacije trajalo je predugo. Potražite stanicu po nazivu.",
+      "stops": "Stanice u vašoj blizini trenutačno nisu dostupne. Potražite stanicu po nazivu."
+    },
+    "noNearbyStop": "U vašoj blizini nema stanice. Potražite stanicu po nazivu.",
+    "findStopHint": "Upišite barem dva slova naziva stanice.",
+    "noStopsFound": "Nije pronađena nijedna stanica.",
+    "listLabel": "Polasci sa stanice {stop}",
+    "loading": "Učitavam polaske…",
+    "empty": "Nema polazaka u sljedećih {minutes} minuta.",
+    "unavailable": "Polasci trenutačno nisu dostupni. Pokušajte ponovno kasnije.",
+    "updatedAt": "Ažurirano u {time}. Osvježava se svakih 30 sekundi.",
+    "dataAttribution": "Podaci o voznim redovima:",
+    "toHeadsign": "za {headsign}",
+    "scheduled": "Po voznom redu {time}",
+    "expected": "Očekivano {time}",
+    "onTime": "Na vrijeme",
+    "delay": "+{minutes} min",
+    "early": "{minutes} min ranije",
+    "delaySource": "({source})",
+    "sources": {
+      "official": "službeno",
+      "riders": "putnici",
+      "estimate": "procjena"
+    },
+    "platform": "Peron {platform}",
+    "via": "Preko {stops}",
+    "modes": {
+      "rail": "Vlak",
+      "bus": "Autobus",
+      "tram": "Tramvaj",
+      "other": "Linija"
+    },
+    "announceDelay": "{mode} {line} za {headsign}: kašnjenje sada {delay}.",
+    "announceOnTime": "{mode} {line} za {headsign}: sada na vrijeme.",
+    "listLabelNearby": "Polasci sa stanice {stop} i obližnjih stanica",
+    "atStop": "Sa stanice {stop}",
+    "clearStop": "Očisti polje {field}"
+  },
+  "map": {
+    "title": "Karta",
+    "textEquivalent": "Karta stanice {stop}. Popis polazaka tekstualna je inačica ove karte.",
+    "journeyTextEquivalent": "Karta odabrane veze. Popis veza tekstualna je inačica ove karte."
+  },
+  "refresh": {
+    "staleSince": "Nije ažurirano od {time}"
+  },
+  "journey": {
+    "formLabel": "Putovanje",
+    "from": "Od",
+    "to": "Do",
+    "swap": "Zamijeni polazište i odredište",
+    "when": "Kada",
+    "leaveNow": "Polazak odmah",
+    "departAt": "Polazak u",
+    "arriveBy": "Dolazak do",
+    "time": "Vrijeme",
+    "chooseFrom": "Odaberite gdje putovanje počinje.",
+    "title": "Veze",
+    "loading": "Tražim veze…",
+    "empty": "Nije pronađena nijedna veza.",
+    "unavailable": "Veze trenutačno nisu dostupne. Pokušajte ponovno kasnije.",
+    "earlier": "Ranije",
+    "later": "Kasnije",
+    "showOnMap": "Prikaži na karti",
+    "times": "{departure} – {arrival}",
+    "minutes": "{minutes} min",
+    "hoursMinutes": "{hours} h {minutes} min",
+    "transfers": "Bez presjedanja | {count} presjedanje | {count} presjedanja | {count} presjedanja",
+    "expectedDeparture": "Očekivani polazak {time}",
+    "expectedArrival": "Očekivani dolazak {time}",
+    "legsLabel": "Dionice",
+    "ride": "{mode} {line} za {headsign}",
+    "rideNoHeadsign": "{mode} {line}",
+    "walk": "Pješačenje",
+    "walkDistance": "Pješačenje {distance} m",
+    "legFromTo": "{departure} {from} – {arrival} {to}",
+    "tickets": "Karte"
+  },
+  "nearby": {
+    "legend": "Obližnje stanice",
+    "option": "{name}, {modes}, {distance} m",
+    "optionNoModes": "{name}, {distance} m",
+    "none": "Nema drugih stanica unutar {radius} m.",
+    "addedOption": "{name}, {modes}",
+    "add": "Dodaj stanicu",
+    "remove": "Ukloni {name}",
+    "limit": "Ploča polazaka prikazuje najviše {max} stanica. Poništite odabir jedne stanice da biste odabrali drugu.",
+    "added": "Stanica {name} je dodana.",
+    "addedChecked": "Stanica {name} je dodana i odabrana.",
+    "removed": "Stanica {name} je uklonjena."
+  },
+  "inputs": {
+    "Cancel": "Odustani",
+    "Ok": "U redu",
+    "ColorPalette": "Paleta boja",
+    "Lightness": "Svjetlina {level}",
+    "LightnessRange": "Svjetlina",
+    "Loading": "Učitavanje",
+    "Uploading": "Prijenos datoteke",
+    "RemoveChoice": "Ukloni {choice}",
+    "Paragraph": "Odlomak",
+    "Heading1": "Naslov 1",
+    "Heading2": "Naslov 2",
+    "Heading3": "Naslov 3",
+    "Heading4": "Naslov 4",
+    "Heading5": "Naslov 5",
+    "Heading6": "Naslov 6",
+    "Downloadable": "Za preuzimanje",
+    "ArticleCategory": "Kategorija članka",
+    "Title": "Naslov",
+    "Subtitle": "Podnaslov",
+    "InfoBox": "Okvir s informacijama",
+    "SideQuote": "Bočni citat",
+    "Marker": "Označivač",
+    "Spoiler": "Skriveni tekst",
+    "CodeDark": "Kod (tamni)",
+    "CodeBright": "Kod (svijetli)",
+    "Undo": "Poništi",
+    "Redo": "Ponovi",
+    "SelectAll": "Odaberi sve",
+    "Bold": "Podebljano",
+    "Italic": "Kurziv",
+    "HorizontalLine": "Vodoravna crta",
+    "Blockquote": "Citat",
+    "BulletedList": "Popis s grafičkim oznakama",
+    "NumberedList": "Numerirani popis",
+    "Outdent": "Smanji uvlaku",
+    "Indent": "Povećaj uvlaku",
+    "AlignLeft": "Poravnaj lijevo",
+    "AlignCenter": "Centriraj",
+    "AlignRight": "Poravnaj desno",
+    "AlignJustify": "Obostrano poravnaj",
+    "Link": "Poveznica",
+    "LinkUrl": "URL",
+    "LinkApply": "Primijeni",
+    "LinkRemove": "Ukloni poveznicu",
+    "Image": "Slika",
+    "ImageUrl": "URL slike",
+    "ImageUpload": "Učitaj sliku",
+    "ImageInsert": "Umetni",
+    "ImageDropHint": "Ispustite sliku ovdje ili kliknite za pregledavanje",
+    "ImageReplace": "Zamijeni sliku",
+    "ImagePaste": "Zalijepi sliku iz međuspremnika",
+    "ImageDownload": "Preuzmi sliku",
+    "FileDownload": "Preuzmi datoteku",
+    "Date": "Datum",
+    "Time": "Vrijeme",
+    "Table": "Tablica",
+    "TableInsert": "Umetni tablicu",
+    "TableAddRowAbove": "Dodaj redak iznad",
+    "TableAddRowBelow": "Dodaj redak ispod",
+    "TableDeleteRow": "Izbriši redak",
+    "TableAddColumnBefore": "Dodaj stupac ispred",
+    "TableAddColumnAfter": "Dodaj stupac iza",
+    "TableDeleteColumn": "Izbriši stupac",
+    "TableToggleHeaderRow": "Uključi ili isključi redak zaglavlja",
+    "TableDeleteTable": "Izbriši tablicu",
+    "Style": "Stil",
+    "MediaEmbed": "Umetni medij",
+    "MediaEmbedUrl": "URL videozapisa",
+    "MediaEmbedInsert": "Umetni"
+  },
+  "modal": {
+    "Close": "Zatvori",
+    "Yes": "Da",
+    "No": "Ne"
+  }
+}
