@@ -41,7 +41,7 @@
     },
     "saved": "Saved on this device.",
     "nearbyLegend": "Include nearby stops by default",
-    "nearbyHint": "Nearby stops served by these modes are added to the departures board.",
+    "nearbyHint": "Nearby stops served by these modes are included in the results by default. Other nearby stops are shown and you include them with a click.",
     "nearbyModes": {
       "rail": "Trains",
       "bus": "Buses",
