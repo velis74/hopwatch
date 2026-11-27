@@ -3,6 +3,7 @@
     <v-autocomplete
       ref="field"
       v-model:search="query"
+      v-model:menu="menu"
       :model-value="null"
       :label="t('departures.findStop')"
       hide-details
@@ -12,13 +13,13 @@
       item-value="id"
       return-object
       no-filter
-      hide-no-data
+      :hide-no-data="!noResults"
       :loading="loading"
       prepend-inner-icon="mdi-magnify"
       @update:model-value="choose"
     >
-      <template #append-item>
-        <v-list-item v-if="noResults" :title="t('departures.noStopsFound')" disabled />
+      <template #no-data>
+        <v-list-item :title="t('departures.noStopsFound')" disabled />
       </template>
     </v-autocomplete>
     <p id="stop-search-hint" class="text-body-2 text-medium-emphasis mt-1">{{ t('departures.findStopHint') }}</p>
@@ -43,6 +44,7 @@ const debouncedQuery = useDebounced(query, 250);
 const results = ref<Stop[]>([]);
 const loading = ref(false);
 const searched = ref('');
+const menu = ref(false);
 let sequence = 0;
 
 const noResults = computed(() => !loading.value && searched.value.length >= 2 && results.value.length === 0);
@@ -67,6 +69,11 @@ watch(debouncedQuery, async (value) => {
       searched.value = text;
     }
   }
+});
+
+// The menu opens by itself only when items arrive; an empty answer opens it for the "no stops" line.
+watch(noResults, (value) => {
+  if (value) menu.value = true;
 });
 
 function choose(stop: Stop | null) {
