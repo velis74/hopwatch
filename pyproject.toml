@@ -19,13 +19,22 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+    "dj-database-url>=3.1.2",
+    "django>=5.2",
+    "django-allauth[socialaccount]>=65.23.0",
+    "dynamicforms-fastapi-viewsets[django]>=0.16",
+    "fastapi>=0.165.0",
+    "httpx>=0.29.0",
+    "uvicorn[standard]>=0.54.0",
+]
 
 [dependency-groups]
 dev = [
     "coverage",
     "pytest",
     "pytest-cov",
+    "pytest-django>=4.14.0",
     "ruff",
 ]
 
@@ -66,6 +75,7 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 [tool.ruff.lint.per-file-ignores]
 "*_test.py" = ["S101"]
+"**/migrations/*" = ["E501"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -83,5 +93,6 @@ order-by-type = false
 omit = ["*_test.py"]
 
 [tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "hopwatch.settings"
 testpaths = ["hopwatch"]
 python_files = ["*_test.py"]

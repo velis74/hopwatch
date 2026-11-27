@@ -8,5 +8,5 @@
     // VitePress builds heading anchors differently from markdownlint's GitHub slugs
     "MD051": false
   },
-  "ignores": [".venv/**", "**/node_modules/**", "**/dist/**", "coverage/**", "docs/.vitepress/cache/**"]
+  "ignores": [".venv/**", "**/node_modules/**", "**/dist/**", "coverage/**", "docs/.vitepress/cache/**", "test-results/**", "playwright-report/**"]
 }
