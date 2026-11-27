@@ -12,7 +12,7 @@ sources read with the operator's permission provide delays that other journey pl
 ## Components
 
 | Component | Repository | Licence | Role |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Core (`hopwatch`, Python) | `velis74/hopwatch` | MIT | source adapter interface, open adapters, rider position matching, public API |
 | App (Vue, Capacitor) | `velis74/hopwatch` | MIT | mobile app for Android and iOS |
 | Routing engine | MOTIS (upstream) | MIT | timetables, journey planning, real-time updates |
@@ -34,7 +34,7 @@ Hopwatch runs its own MOTIS instance and does not use the public Transitous API.
 ## Data layers
 
 | Layer | Licence of the data | Available through |
-|---|---|---|
+| --- | --- | --- |
 | Open sources | the source's licence (ODbL stays ODbL, CC BY keeps attribution) | app, public API |
 | Rider-derived vehicle positions and delays | ODbL | app, public API |
 | Sources used with permission | the terms of the permission | app; public API only where the permission allows redistribution |
