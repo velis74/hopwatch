@@ -43,7 +43,12 @@
       "bus": "Autobusi",
       "tram": "Tramvaji",
       "other": "Ostalo"
-    }
+    },
+    "favouritesLegend": "Omiljeni prijevoznici",
+    "favouritesHint": "Polasci i putovanja ovih prijevoznika označeni su kao omiljeni.",
+    "operatorsLoading": "Učitavanje prijevoznika…",
+    "operatorsUnavailable": "Prijevoznici trenutačno nisu dostupni. Pokušajte ponovno kasnije.",
+    "operatorsEmpty": "Još nije poznat nijedan prijevoznik."
   },
   "auth": {
     "email": "E-pošta",
@@ -258,5 +263,9 @@
     "Close": "Zatvori",
     "Yes": "Da",
     "No": "Ne"
+  },
+  "operators": {
+    "favourite": "Omiljeni",
+    "favouriteToggle": "Omiljeni prijevoznik: {operator}"
   }
 }

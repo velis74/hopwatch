@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import i18n from '../i18n';
 import { usePreferencesStore } from '../stores/preferences';
-import { flushPromises, mountApp } from '../test-utils';
+import { flushPromises, mockApi, mountApp } from '../test-utils';
 
 import SettingsPage from './settings-page.vue';
 
@@ -19,7 +19,28 @@ async function openLanguages(): Promise<HTMLElement[]> {
   return [...document.querySelectorAll<HTMLElement>('[role="option"]')];
 }
 
+const OPERATORS = [
+  { id: '1123', name: 'Arriva d.o.o.', url: 'https://arriva.si/' },
+  { id: '1119', name: 'Nomago d.o.o.', url: null },
+  { id: '1161', name: 'SŽ - Potniški promet, d.o.o.', url: null },
+];
+
+/** The fieldset whose legend is `legend`. */
+function fieldset(legend: string): HTMLFieldSetElement {
+  return [...document.querySelectorAll('fieldset')].find(
+    (candidate) => candidate.querySelector('legend')?.textContent?.trim() === legend,
+  )!;
+}
+
+function labelOf(box: HTMLInputElement): string | undefined {
+  return document.querySelector(`label[for="${box.id}"]`)?.textContent?.trim();
+}
+
 describe('settings-page', () => {
+  beforeEach(() => {
+    mockApi('get', '/operators', []);
+  });
+
   it('shows the experience in effect, the language and that choices stay on the device', async () => {
     const { wrapper } = await mountApp(SettingsPage, { route: '/settings' });
 
@@ -114,5 +135,59 @@ describe('settings-page', () => {
 
     expect(usePreferencesStore().nearbyModes).toEqual(['rail']);
     expect(boxes.map((box) => box.element.checked)).toEqual([true, false, false, false]);
+  });
+
+  it('lists the operators and keeps the favourites on the device', async () => {
+    window.localStorage.setItem('hopwatch.favouriteOperators', '["1161"]');
+    mockApi('get', '/operators', OPERATORS);
+    await mountApp(SettingsPage, { route: '/settings' });
+
+    const favourites = fieldset('Favourite operators');
+    expect(favourites.getAttribute('aria-describedby')).toBe('favourite-operators-hint');
+    const boxes = [...favourites.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
+    expect(boxes.map(labelOf)).toEqual(['Arriva d.o.o.', 'Nomago d.o.o.', 'SŽ - Potniški promet, d.o.o.']);
+    expect(boxes.map((box) => box.checked)).toEqual([false, false, true]);
+
+    boxes[0].click();
+    boxes[2].click();
+    await flushPromises();
+
+    expect(usePreferencesStore().favouriteOperators).toEqual(['1123']);
+    expect(window.localStorage.getItem('hopwatch.favouriteOperators')).toBe('["1123"]');
+  });
+
+  it('says so while the operators load, when there are none and when they are not available', async () => {
+    const { wrapper } = await mountApp(SettingsPage, { route: '/settings' });
+    expect(fieldset('Favourite operators').textContent).toContain('No operators are known yet.');
+    wrapper.unmount();
+
+    mockApi('get', '/operators', { detail: 'unavailable' }, { status: 502 });
+    await mountApp(SettingsPage, { route: '/settings' });
+    expect(fieldset('Favourite operators').textContent).toContain('Operators are not available right now.');
+  });
+
+  it('lists a stored favourite the operators do not include, so it can be removed', async () => {
+    window.localStorage.setItem('hopwatch.favouriteOperators', '["1161", "9"]');
+    window.localStorage.setItem('hopwatch.favouriteOperatorNames', '{"9": "Avtobusni prevozi Čuk"}');
+    mockApi('get', '/operators', OPERATORS);
+    await mountApp(SettingsPage, { route: '/settings', locale: 'sl' });
+
+    const boxes = () => [
+      ...fieldset('Priljubljeni prevozniki').querySelectorAll<HTMLInputElement>('input[type="checkbox"]'),
+    ];
+    expect(boxes().map(labelOf)).toEqual([
+      'Arriva d.o.o.',
+      'Avtobusni prevozi Čuk',
+      'Nomago d.o.o.',
+      'SŽ - Potniški promet, d.o.o.',
+    ]);
+    expect(boxes()[1].checked).toBe(true);
+
+    boxes()[1].click();
+    await flushPromises();
+
+    expect(usePreferencesStore().favouriteOperators).toEqual(['1161']);
+    expect(boxes().map(labelOf)).toContain('Avtobusni prevozi Čuk');
+    expect(boxes()[1].checked).toBe(false);
   });
 });

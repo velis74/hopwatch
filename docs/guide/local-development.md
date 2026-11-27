@@ -53,6 +53,7 @@ The API is documented at <http://127.0.0.1:8101/api/docs> (Swagger UI) and <http
 | `FRONTEND_URL` | `http://127.0.0.1:5180` | base URL of the app, used in links that allauth generates |
 | `DATABASE_URL` | SQLite in `var/db.sqlite3` | database URL |
 | `MOTIS_URL` | `http://127.0.0.1:8180` | MOTIS API |
+| `TIMETABLE_FEEDS` | `motis/data/gtfs` | comma-separated GTFS feeds that MOTIS loads (zip files or directories of them); `/api/v1/operators` lists the operators of their `agency.txt` and every operator an answer named since the API started |
 
 ### Social login
 

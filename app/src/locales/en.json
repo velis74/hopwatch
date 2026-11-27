@@ -43,7 +43,12 @@
       "bus": "Buses",
       "tram": "Trams",
       "other": "Other"
-    }
+    },
+    "favouritesLegend": "Favourite operators",
+    "favouritesHint": "Departures and journeys of these operators are tagged as favourites.",
+    "operatorsLoading": "Loading operators…",
+    "operatorsUnavailable": "Operators are not available right now. Please try again later.",
+    "operatorsEmpty": "No operators are known yet."
   },
   "auth": {
     "email": "Email",
@@ -258,5 +263,9 @@
     "Close": "Close",
     "Yes": "Yes",
     "No": "No"
+  },
+  "operators": {
+    "favourite": "Favourite",
+    "favouriteToggle": "Favourite operator: {operator}"
   }
 }

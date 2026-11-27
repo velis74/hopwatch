@@ -161,3 +161,11 @@ def test_journeys_serialise_with_from_and_utc_times():
     assert data["itineraries"][0]["scheduled_departure"] == "2026-11-27T15:21:00Z"
     assert leg["mode"] == "rail"
     assert isinstance(leg["geometry"][0], list)
+
+
+def test_ride_legs_name_their_operator_and_walks_none():
+    rail = leg_from(rail_itinerary()["legs"][0])
+    walk, bus, *_ = (leg_from(leg) for leg in sample("plan.json")["itineraries"][1]["legs"])
+    assert (rail.operator.id, rail.operator.name) == ("1161", "SŽ - Potniški promet, d.o.o.")
+    assert bus.operator.model_dump() == {"id": "1123", "name": "Arriva d.o.o.", "url": "https://arriva.si/"}
+    assert walk.operator is None

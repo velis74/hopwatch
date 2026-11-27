@@ -171,3 +171,12 @@ def test_openapi_documents_the_endpoint(api):
     leg = schema["components"]["schemas"]["Leg"]
     assert "from" in leg["properties"]
     assert all(field.get("description") for field in leg["properties"].values())
+
+
+def test_ride_legs_name_their_operator(api, motis):
+    motis.answer(PLAN, sample("plan.json"))
+
+    itineraries = api.get(URL, params={"from_stop_id": LJUBLJANA, "to_stop_id": LESCE_BLED}).json()["itineraries"]
+
+    assert itineraries[0]["legs"][0]["operator"]["name"] == "SŽ - Potniški promet, d.o.o."
+    assert [leg["operator"] and leg["operator"]["id"] for leg in itineraries[1]["legs"]] == [None, "1123", None, "1123"]

@@ -36,6 +36,7 @@
             <li v-for="(leg, index) in itinerary.legs" :key="index" class="journey-leg text-body-2">
               <v-icon :icon="LEG_ICONS[leg.mode]" size="small" aria-hidden="true" class="mr-1" />
               <span class="journey-leg-name">{{ legName(leg) }}</span>
+              <operator-name v-if="leg.operator" :operator="leg.operator" class="journey-leg-operator" />
               <span class="journey-leg-times text-medium-emphasis">
                 {{
                   t('journey.legFromTo', {
@@ -85,6 +86,8 @@ import { useI18n } from 'vue-i18n';
 
 import type { Itinerary, Journeys, Leg } from '../api/hopwatch-api';
 import { useTimeFormat } from '../composables/use-time-format';
+
+import OperatorName from './operator-name.vue';
 
 defineProps<{ journeys: Journeys | null; error?: boolean; selectedId: string | null }>();
 const emit = defineEmits<{ select: [id: string]; earlier: []; later: [] }>();

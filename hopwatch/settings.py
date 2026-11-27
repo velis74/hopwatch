@@ -47,6 +47,10 @@ FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://127.0.0.1:5180").rstrip("/
 # MOTIS instance that serves timetables and real-time data.
 MOTIS_URL = os.environ.get("MOTIS_URL", "http://127.0.0.1:8180").rstrip("/")
 
+# GTFS feeds MOTIS loads (zip files, or directories of them), comma-separated; their `agency.txt` lists the
+# operators of `/api/v1/operators`.
+TIMETABLE_FEEDS = env_list("TIMETABLE_FEEDS", [str(BASE_DIR / "motis" / "data" / "gtfs")])
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

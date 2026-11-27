@@ -93,4 +93,58 @@ describe('preferences', () => {
       expect(freshStore().addedStops).toEqual({});
     },
   );
+
+  it('has no favourite operators by default', () => {
+    const preferences = freshStore();
+
+    expect(preferences.favouriteOperators).toEqual([]);
+    expect(preferences.isFavouriteOperator('1161')).toBe(false);
+    expect(preferences.isFavouriteOperator(null)).toBe(false);
+  });
+
+  it('keeps the favourite operators on the device, once each', () => {
+    const preferences = freshStore();
+    preferences.setFavouriteOperator('1161', true);
+    preferences.setFavouriteOperator('1123', true);
+    preferences.setFavouriteOperator('1161', true);
+
+    const next = freshStore();
+    expect(next.favouriteOperators).toEqual(['1123', '1161']);
+    expect(next.isFavouriteOperator('1123')).toBe(true);
+    expect(next.isFavouriteOperator('1119')).toBe(false);
+
+    next.setFavouriteOperator('1123', false);
+    expect(next.isFavouriteOperator('1123')).toBe(false);
+    expect(JSON.parse(window.localStorage.getItem('hopwatch.favouriteOperators')!)).toEqual(['1161']);
+  });
+
+  it.each([
+    ['not json', []],
+    ['{"1161": true}', []],
+    ['["1161", 7, "", "1161", "1123"]', ['1161', '1123']],
+  ])('ignores the unusable stored favourite operators in %s', (stored, expected) => {
+    window.localStorage.setItem('hopwatch.favouriteOperators', stored);
+
+    expect(freshStore().favouriteOperators).toEqual(expected);
+  });
+
+  it('keeps the name of a favourite operator until it is removed', () => {
+    const preferences = freshStore();
+    preferences.setFavouriteOperator('1119', true, 'Nomago d.o.o.');
+    preferences.setFavouriteOperator('1123', true, 'Arriva d.o.o.');
+    preferences.setFavouriteOperator('1123', false);
+
+    expect(freshStore().favouriteOperatorNames).toEqual({
+      '1119': 'Nomago d.o.o.',
+    });
+  });
+
+  it.each(['not json', '["Nomago"]', '{"1119": 7, "1123": "Arriva d.o.o."}'])(
+    'ignores the unusable stored favourite operator names in %s',
+    (stored) => {
+      window.localStorage.setItem('hopwatch.favouriteOperatorNames', stored);
+
+      expect(freshStore().favouriteOperatorNames).toEqual(stored.includes('Arriva') ? { '1123': 'Arriva d.o.o.' } : {});
+    },
+  );
 });

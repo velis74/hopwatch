@@ -43,7 +43,12 @@
       "bus": "Busse",
       "tram": "Straßenbahnen",
       "other": "Sonstige"
-    }
+    },
+    "favouritesLegend": "Lieblingsverkehrsunternehmen",
+    "favouritesHint": "Abfahrten und Verbindungen dieser Verkehrsunternehmen werden als Favoriten markiert.",
+    "operatorsLoading": "Verkehrsunternehmen werden geladen…",
+    "operatorsUnavailable": "Die Verkehrsunternehmen sind derzeit nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "operatorsEmpty": "Es sind noch keine Verkehrsunternehmen bekannt."
   },
   "auth": {
     "email": "E-Mail",
@@ -258,5 +263,9 @@
     "Close": "Schließen",
     "Yes": "Ja",
     "No": "Nein"
+  },
+  "operators": {
+    "favourite": "Favorit",
+    "favouriteToggle": "Lieblingsverkehrsunternehmen: {operator}"
   }
 }

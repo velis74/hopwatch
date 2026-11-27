@@ -77,7 +77,7 @@ ERRORS_SECTION = (
 
 def api_description(cookie_name: str) -> str:
     return f"""
-Stops, departures, journey planning and the user's account.
+Stops, departures, journey planning, transport operators and the user's account.
 
 **Authentication.** `POST /api/v1/account/login` (or `signup`, or a social login) starts a session. A browser
 client's session is the `{cookie_name}` cookie; its `POST` calls send the CSRF token in the `X-CSRFToken` header,

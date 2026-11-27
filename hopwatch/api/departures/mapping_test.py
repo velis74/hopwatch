@@ -344,3 +344,15 @@ def test_ttl_cache_expires_and_evicts():
 
 def test_motis_time_is_utc_whole_seconds():
     assert motis_time(datetime(2026, 11, 27, 10, 20, 5, 123456, tzinfo=UTC)) == "2026-11-27T10:20:05Z"
+
+
+def test_departure_names_its_operator():
+    stop_time = sample("stoptimes.json")["stopTimes"][0]
+    departure = departure_from(stop_time, [])
+    assert (departure.operator.id, departure.operator.name) == ("1161", "SŽ - Potniški promet, d.o.o.")
+
+
+def test_departure_without_an_operator():
+    stop_time = sample("stoptimes.json")["stopTimes"][0]
+    del stop_time["agencyId"]
+    assert departure_from(stop_time, []).operator is None

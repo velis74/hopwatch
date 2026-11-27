@@ -11,6 +11,7 @@ from fastapi_viewsets.response_classes import error_entry, merge_responses
 from pydantic import BaseModel, Field
 
 from hopwatch.api.departures.mapping import Departure, departures_from_stops, UnknownStopError
+from hopwatch.api.operators.mapping import known_operators
 from hopwatch.motis import attribution_section, DATA_ATTRIBUTION, ERROR_NAMESPACE, get_motis, MOTIS_UNAVAILABLE_RESPONSE
 
 
@@ -77,5 +78,6 @@ class DeparturesViewSet(ListMixin[Departure, DeparturesFilter]):
             )
         except UnknownStopError as error:
             raise StopNotFoundError(error.stop_id) from None
+        known_operators.remember(record.operator for record in records)
         records = await self.apply_sort(context, query, records)
         return await self.apply_pagination(context, query, records)

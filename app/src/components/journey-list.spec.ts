@@ -170,4 +170,15 @@ describe('JourneyList', () => {
       'Journeys are not available right now. Please try again later.',
     );
   });
+
+  it('names the operator of each ride and tags a favourite one', async () => {
+    window.localStorage.setItem('hopwatch.favouriteOperators', '["1123"]');
+    const wrapper = await render({ journeys: journeysPage([itinerary()]) });
+
+    const [train, walk, bus] = wrapper.findAll('.journey-leg');
+    expect(train.get('.journey-leg-operator').text()).toBe('SŽ - Potniški promet, d.o.o.');
+    expect(walk.find('.journey-leg-operator').exists()).toBe(false);
+    expect(bus.get('.journey-leg-operator').text()).toBe('Arriva d.o.o. Favourite');
+    expect(bus.get('.favourite-tag').text()).toBe('Favourite');
+  });
 });
