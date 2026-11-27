@@ -2,6 +2,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import { describe, expect, it, vi } from 'vitest';
 import { defineComponent, h, onMounted, ref } from 'vue';
 
+import type { Itinerary, Leg } from '../api/hopwatch-api';
 import { usePreferencesStore } from '../stores/preferences';
 import { flushPromises, maplibreFake, mountApp } from '../test-utils';
 
@@ -9,8 +10,63 @@ import StopMap from './stop-map.vue';
 
 vi.mock('maplibre-gl', async () => (await import('../test-utils')).maplibreFake.module);
 
-const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058 };
-const KOPER = { id: 'si:2', name: 'Koper', lat: 45.548, lon: 13.7302 };
+const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, modes: [] };
+const KOPER = { id: 'si:2', name: 'Koper', lat: 45.548, lon: 13.7302, modes: [] };
+
+function legStop(name: string, lat: number, lon: number) {
+  return { id: name, name, lat, lon, scheduled: '2026-11-27T10:00:00Z', expected: null, platform: null };
+}
+
+function leg(overrides: Partial<Leg> = {}): Leg {
+  return {
+    mode: 'rail',
+    line: 'IC 502',
+    headsign: 'Koper',
+    trip_id: 't1',
+    from: legStop('Ljubljana', 46.0569, 14.5058),
+    to: legStop('Divača', 45.68, 13.97),
+    delay_minutes: null,
+    delay_source: null,
+    intermediate_stops: [],
+    geometry: [
+      [46.0569, 14.5058],
+      [45.9, 14.2],
+      [45.68, 13.97],
+    ],
+    distance_m: null,
+    ticket_url: null,
+    ...overrides,
+  };
+}
+
+const ITINERARY: Itinerary = {
+  id: 'i1',
+  scheduled_departure: '2026-11-27T10:00:00Z',
+  expected_departure: null,
+  scheduled_arrival: '2026-11-27T11:30:00Z',
+  expected_arrival: null,
+  duration_minutes: 90,
+  transfers: 0,
+  legs: [
+    leg(),
+    leg({
+      mode: 'walk',
+      line: null,
+      headsign: null,
+      trip_id: null,
+      from: legStop('Divača', 45.68, 13.97),
+      to: legStop('Koper', 45.548, 13.7302),
+      geometry: [],
+      distance_m: 300,
+    }),
+  ],
+};
+
+type Feature = { properties: { mode: string; walk: boolean }; geometry: { coordinates: number[][] } };
+
+function journeyFeatures(): Feature[] {
+  return (maplibreFake.maps[0].getSource('journey')!.data as { features: Feature[] }).features;
+}
 
 function reducedMotion(reduce: boolean): void {
   vi.spyOn(window, 'matchMedia').mockImplementation(
@@ -139,5 +195,117 @@ describe('StopMap', () => {
     await flushPromises();
 
     expect(maplibreFake.maps).toHaveLength(0);
+  });
+
+  it('draws the legs of an itinerary as lines coloured by mode, walks dashed, with markers at both ends', async () => {
+    const { wrapper } = await render();
+
+    await wrapper.setProps({ itinerary: ITINERARY });
+
+    const [map] = maplibreFake.maps;
+    expect(journeyFeatures().map((feature) => feature.properties)).toEqual([
+      { mode: 'rail', walk: false },
+      { mode: 'walk', walk: true },
+    ]);
+    expect(journeyFeatures()[0].geometry.coordinates).toEqual([
+      [14.5058, 46.0569],
+      [14.2, 45.9],
+      [13.97, 45.68],
+    ]);
+    // A leg without a path is drawn straight from its start to its end.
+    expect(journeyFeatures()[1].geometry.coordinates).toEqual([
+      [13.97, 45.68],
+      [13.7302, 45.548],
+    ]);
+    const ride = map.layers.find((layer) => layer.id === 'journey-ride')!;
+    const walk = map.layers.find((layer) => layer.id === 'journey-walk')!;
+    expect(ride.paint['line-color']).toEqual(expect.arrayContaining(['rail', 'bus', 'tram']));
+    expect(ride.paint['line-dasharray']).toBeUndefined();
+    expect(walk.paint['line-dasharray']).toBeTruthy();
+    expect(maplibreFake.markers.map((marker) => marker.lngLat)).toEqual([
+      [14.5058, 46.0569],
+      [13.7302, 45.548],
+    ]);
+    expect(maplibreFake.markers.every((marker) => marker.options.element?.getAttribute('aria-hidden') === 'true')).toBe(
+      true,
+    );
+    expect(map.fits.at(-1)).toEqual({
+      bounds: [
+        [13.7302, 45.548],
+        [14.5058, 46.0569],
+      ],
+      options: { padding: 40, animate: true },
+    });
+    expect(wrapper.text()).toBe('Map of the selected journey. The list of journeys is the text version of this map.');
+  });
+
+  it('fits the itinerary without animation with reduced motion', async () => {
+    reducedMotion(true);
+    const { wrapper } = await render();
+
+    await wrapper.setProps({ itinerary: ITINERARY });
+
+    expect(maplibreFake.maps[0].fits.at(-1)?.options.animate).toBe(false);
+  });
+
+  it('shows an itinerary given before the map loaded, once its style has loaded', async () => {
+    maplibreFake.styleLoading = true;
+    await mountApp(StopMap, { props: { stop: null, itinerary: ITINERARY } });
+    await flushPromises();
+    const [map] = maplibreFake.maps;
+    expect(map.options.center).toEqual([14.5058, 46.0569]);
+    expect(map.getSource('journey')).toBeUndefined();
+
+    map.loadStyle();
+
+    expect(journeyFeatures()).toHaveLength(2);
+    expect(maplibreFake.markers).toHaveLength(2);
+  });
+
+  it('draws another itinerary while map tiles are still loading', async () => {
+    const { wrapper } = await render();
+    await wrapper.setProps({ itinerary: ITINERARY });
+    const [map] = maplibreFake.maps;
+    // The real map reports its style as not loaded while it fetches tiles, and fires no second `load`.
+    map.styleLoaded = false;
+
+    await wrapper.setProps({ itinerary: { ...ITINERARY, id: 'other', legs: [ITINERARY.legs[0]] } });
+
+    expect(journeyFeatures()).toHaveLength(1);
+  });
+
+  it('keeps the view when a refresh brings the same itinerary again', async () => {
+    const { wrapper } = await render();
+    await wrapper.setProps({ itinerary: ITINERARY });
+    const [map] = maplibreFake.maps;
+    const fits = map.fits.length;
+
+    await wrapper.setProps({ itinerary: { ...ITINERARY, legs: [ITINERARY.legs[0]] } });
+
+    expect(map.fits).toHaveLength(fits);
+    expect(journeyFeatures()).toHaveLength(1);
+  });
+
+  it('goes back to the stop and removes the journey when the itinerary is cleared', async () => {
+    const { wrapper } = await render();
+    await wrapper.setProps({ itinerary: ITINERARY });
+
+    await wrapper.setProps({ itinerary: null });
+
+    expect(journeyFeatures()).toEqual([]);
+    expect(maplibreFake.markers[1].map).toBeNull();
+    expect(maplibreFake.markers[0].lngLat).toEqual([14.5058, 46.0569]);
+    expect(maplibreFake.maps[0].moves.at(-1)).toEqual({ kind: 'easeTo', center: [14.5058, 46.0569], zoom: 15 });
+    expect(wrapper.text()).toContain('Map of the stop Ljubljana.');
+  });
+
+  it('has no text without a stop or an itinerary', async () => {
+    const { wrapper } = await mountApp(StopMap, { props: { stop: null } });
+    await flushPromises();
+
+    await wrapper.setProps({ itinerary: null });
+
+    expect(wrapper.text()).toBe('');
+    expect(maplibreFake.maps[0].moves).toEqual([]);
   });
 });

@@ -1,5 +1,7 @@
 import asyncio
 
+from datetime import datetime, timedelta, timezone
+
 import httpx
 import pytest
 
@@ -56,3 +58,55 @@ def test_one_client_per_event_loop_for_the_configured_url(motis):
     assert first is second
     assert other is not first
     assert all(str(request.url).startswith(f"{settings.MOTIS_URL}/api/v6/map/stops") for request in motis.requests)
+
+
+def plan_client(requests: list[httpx.Request], status: int = 200) -> MotisClient:
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if status == 404:
+            return httpx.Response(404, json={"error": 'Could not find timetable location "ijpp_0"'})
+        return httpx.Response(status, json={"itineraries": []})
+
+    return MotisClient("http://motis.test", transport=httpx.MockTransport(handler))
+
+
+def test_plan_asks_for_the_places_time_and_page():
+    requests: list[httpx.Request] = []
+    client = plan_client(requests)
+
+    answer = asyncio.run(
+        client.plan(
+            "46.0584,14.5127",
+            "ijpp_1122816",
+            at=datetime(2026, 11, 27, 17, 30, 15, 500, tzinfo=timezone(timedelta(hours=1))),
+            arrive_by=True,
+            page_cursor="LATER|1795797720",
+        )
+    )
+
+    assert answer == {"itineraries": []}
+    (request,) = requests
+    assert request.url.path == "/api/v5/plan"
+    assert dict(request.url.params) == {
+        "fromPlace": "46.0584,14.5127",
+        "toPlace": "ijpp_1122816",
+        "arriveBy": "true",
+        "time": "2026-11-27T16:30:15Z",
+        "pageCursor": "LATER|1795797720",
+    }
+
+
+def test_plan_leaves_out_what_is_not_given():
+    requests: list[httpx.Request] = []
+
+    asyncio.run(plan_client(requests).plan("ijpp_1122804", "ijpp_1122816"))
+
+    assert dict(requests[0].url.params) == {"fromPlace": "ijpp_1122804", "toPlace": "ijpp_1122816", "arriveBy": "false"}
+
+
+def test_plan_of_an_unknown_stop_raises_not_found():
+    with pytest.raises(MotisNotFoundError) as error:
+        asyncio.run(plan_client([], status=404).plan("ijpp_0", "ijpp_1122816"))
+    assert "ijpp_0" in str(error.value)
+    with pytest.raises(MotisUnavailableError):
+        asyncio.run(plan_client([], status=500).plan("ijpp_1122804", "ijpp_1122816"))

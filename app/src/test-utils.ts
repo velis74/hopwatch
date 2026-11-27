@@ -185,10 +185,17 @@ class FakeMap {
   center: LngLat;
   zoom: number;
   readonly moves: { kind: 'easeTo' | 'jumpTo'; center: LngLat; zoom?: number }[] = [];
+  readonly fits: { bounds: [LngLat, LngLat]; options: Record<string, unknown> }[] = [];
+  readonly sources = new Map<string, FakeSource>();
+  readonly layers: { id: string; source: string; filter: unknown; paint: Record<string, unknown> }[] = [];
+  /** Whether the style has loaded; while false, `once('load')` callbacks wait for {@link FakeMap.loadStyle}. */
+  styleLoaded = true;
+  private readonly loadCallbacks: (() => void)[] = [];
   removed = false;
 
   constructor(readonly options: { container: HTMLElement; center: LngLat; zoom: number; [key: string]: unknown }) {
     if (maplibreFake.failure) throw maplibreFake.failure;
+    this.styleLoaded = !maplibreFake.styleLoading;
     this.center = options.center;
     this.zoom = options.zoom;
     // The real map labels its canvas as a region; the component is expected to hide it from assistive technology.
@@ -215,6 +222,40 @@ class FakeMap {
     return this;
   }
 
+  fitBounds(bounds: [LngLat, LngLat], options: Record<string, unknown> = {}): this {
+    this.fits.push({ bounds, options });
+    return this;
+  }
+
+  isStyleLoaded(): boolean {
+    return this.styleLoaded;
+  }
+
+  /** Finishes loading the style and runs the waiting `load` callbacks. */
+  loadStyle(): void {
+    this.styleLoaded = true;
+    this.loadCallbacks.splice(0).forEach((callback) => callback());
+  }
+
+  addSource(id: string, source: { data: unknown }): this {
+    this.sources.set(id, new FakeSource(source.data));
+    return this;
+  }
+
+  getSource(id: string): FakeSource | undefined {
+    return this.sources.get(id);
+  }
+
+  addLayer(layer: { id: string; source: string; filter: unknown; paint: Record<string, unknown> }): this {
+    this.layers.push(layer);
+    return this;
+  }
+
+  once(event: string, callback: () => void): this {
+    if (event === 'load') this.loadCallbacks.push(callback);
+    return this;
+  }
+
   on(): this {
     return this;
   }
@@ -226,6 +267,15 @@ class FakeMap {
   remove(): void {
     this.removed = true;
     this.canvas.remove();
+  }
+}
+
+class FakeSource {
+  constructor(public data: unknown) {}
+
+  setData(data: unknown): this {
+    this.data = data;
+    return this;
   }
 }
 
@@ -258,13 +308,16 @@ class FakeMarker {
 /**
  * A stand-in for `maplibre-gl`, which needs WebGL. In a spec:
  * `vi.mock('maplibre-gl', async () => (await import('<path>/test-utils')).maplibreFake.module);`
- * The maps and markers created are in `maps` / `markers`; set `failure` to make `new Map()` throw (no WebGL).
+ * The maps and markers created are in `maps` / `markers`; set `failure` to make `new Map()` throw (no WebGL) and
+ * `styleLoading` to create maps whose style loads on `loadStyle()`.
  */
 export const maplibreFake = {
   maps: [] as FakeMap[],
   markers: [] as FakeMarker[],
   workerUrl: null as string | null,
   failure: null as Error | null,
+  /** New maps start without a loaded style. */
+  styleLoading: false,
   module: {
     Map: FakeMap,
     Marker: FakeMarker,
@@ -277,6 +330,7 @@ export const maplibreFake = {
     maplibreFake.markers = [];
     maplibreFake.workerUrl = null;
     maplibreFake.failure = null;
+    maplibreFake.styleLoading = false;
   },
 };
 

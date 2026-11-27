@@ -4,8 +4,8 @@ import { flushPromises, HttpResponse, mockApi, mountApp } from '../test-utils';
 
 import StopSearch from './stop-search.vue';
 
-const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058 };
-const LJUBLJANA_TIVOLI = { id: 'si:2', name: 'Ljubljana Tivoli', lat: 46.06, lon: 14.5 };
+const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, modes: ['rail', 'bus'] };
+const LJUBLJANA_TIVOLI = { id: 'si:2', name: 'Ljubljana Tivoli', lat: 46.06, lon: 14.5, modes: [] };
 
 const DEBOUNCE_MS = 250;
 
@@ -14,7 +14,7 @@ function wait(ms: number): Promise<void> {
 }
 
 async function render(props: Record<string, unknown> = {}) {
-  const { wrapper } = await mountApp(StopSearch, { props });
+  const { wrapper } = await mountApp(StopSearch, { props: { label: 'From', ...props } });
   const input = wrapper.get<HTMLInputElement>('input');
   return { wrapper, input };
 }
@@ -34,13 +34,16 @@ function options(): string[] {
 }
 
 describe('StopSearch', () => {
-  it('is a labelled field with a hint', async () => {
+  it('is a field with the given label and a hint', async () => {
     const { wrapper, input } = await render();
 
     const label = wrapper.get('label');
-    expect(label.text()).toBe('Find a stop');
-    expect(input.attributes('aria-describedby')).toContain('stop-search-hint');
-    expect(wrapper.get('#stop-search-hint').text()).toBe('Type at least two letters of the stop name.');
+    expect(label.text()).toBe('From');
+    const hintId = input
+      .attributes('aria-describedby')!
+      .split(' ')
+      .find((id) => id.endsWith('-hint'))!;
+    expect(document.getElementById(hintId)?.textContent?.trim()).toBe('Type at least two letters of the stop name.');
   });
 
   it('searches the typed name and offers the stops found', async () => {
@@ -50,7 +53,20 @@ describe('StopSearch', () => {
     await type(input, ' Lj ');
 
     expect(requests.map((request) => request.url.searchParams.get('q'))).toEqual(['Lj']);
-    expect(options()).toEqual(['Ljubljana', 'Ljubljana Tivoli']);
+    // A stop's modes are the subtitle of its option.
+    expect(options()).toEqual(['LjubljanaTrain and Bus', 'Ljubljana Tivoli']);
+  });
+
+  it("names each option by the stop's name, then its modes after a comma", async () => {
+    mockApi('get', '/stops', [LJUBLJANA, LJUBLJANA_TIVOLI]);
+    const { input } = await render();
+
+    await type(input, 'Lj');
+
+    const names = [...document.body.querySelectorAll('.v-overlay-container .v-list-item')].map((item) =>
+      item.getAttribute('aria-label'),
+    );
+    expect(names).toEqual(['Ljubljana, Train and Bus', 'Ljubljana Tivoli']);
   });
 
   it('does not search fewer than two letters', async () => {
@@ -61,7 +77,7 @@ describe('StopSearch', () => {
     expect(options()).toEqual([]);
   });
 
-  it('emits the stop the user picks', async () => {
+  it('sets the stop the user picks and shows it', async () => {
     mockApi('get', '/stops', [LJUBLJANA, LJUBLJANA_TIVOLI]);
     const { wrapper, input } = await render();
     await type(input, 'Ljub');
@@ -72,7 +88,48 @@ describe('StopSearch', () => {
     option!.click();
     await flushPromises();
 
-    expect(wrapper.emitted('select')).toEqual([[LJUBLJANA_TIVOLI]]);
+    expect(wrapper.emitted('update:modelValue')).toEqual([[LJUBLJANA_TIVOLI]]);
+    await wrapper.setProps({ modelValue: LJUBLJANA_TIVOLI });
+    expect(wrapper.get('.v-autocomplete').text()).toContain('Ljubljana Tivoli');
+  });
+
+  it('shows the stop it is given and does not search its name', async () => {
+    const requests = mockApi('get', '/stops', [LJUBLJANA]);
+    const { wrapper, input } = await render({ modelValue: LJUBLJANA });
+    expect(wrapper.get('.v-autocomplete').text()).toContain('Ljubljana');
+
+    await type(input, 'Ljubljana');
+
+    expect(requests).toHaveLength(0);
+  });
+
+  it("selects the chosen stop's name on focus, so typing replaces it", async () => {
+    const { input } = await render({ modelValue: LJUBLJANA });
+
+    input.element.focus();
+    await flushPromises();
+
+    expect(input.element.value).toBe('Ljubljana');
+    expect([input.element.selectionStart, input.element.selectionEnd]).toEqual([0, 'Ljubljana'.length]);
+  });
+
+  it('can be cleared with a button in the tab order when asked to', async () => {
+    const { wrapper } = await render({ modelValue: LJUBLJANA, clearable: true });
+
+    const clear = wrapper.get('button[aria-label="Clear From"]');
+    expect(clear.attributes('tabindex')).toBeUndefined();
+    await clear.trigger('click');
+
+    expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([null]);
+  });
+
+  it('has no clear button without a stop or when not asked to', async () => {
+    const { wrapper } = await render({ modelValue: LJUBLJANA });
+    expect(wrapper.find('button[aria-label="Clear From"]').exists()).toBe(false);
+
+    await wrapper.setProps({ modelValue: null, clearable: true });
+
+    expect(wrapper.find('button[aria-label="Clear From"]').exists()).toBe(false);
   });
 
   it('says so when no stop matches', async () => {
@@ -97,7 +154,7 @@ describe('StopSearch', () => {
     mockApi('get', '/stops', [LJUBLJANA]);
     const { input } = await render();
     await type(input, 'Lj');
-    expect(options()).toEqual(['Ljubljana']);
+    expect(options()).toEqual(['LjubljanaTrain and Bus']);
 
     await type(input, 'L');
 

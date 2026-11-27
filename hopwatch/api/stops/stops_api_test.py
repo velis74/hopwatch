@@ -20,11 +20,20 @@ def test_search_lists_stops_whose_words_start_with_the_query(api, motis):
 
     assert response.status_code == 200
     assert [stop["name"] for stop in response.json()] == ["Ljubljana Vič"]
-    assert set(response.json()[0]) == {"id", "name", "lat", "lon"}
+    assert set(response.json()[0]) == {"id", "name", "lat", "lon", "modes"}
     (request,) = motis.requests_to("/api/v1/geocode")
     assert request.url.params["text"] == "lj vic"
     assert request.url.params["type"] == "STOP"
     assert request.url.params["numResults"] == "100"
+
+
+def test_search_lists_the_kinds_of_vehicle_of_each_stop(api, motis):
+    motis.answer("/api/v1/geocode", sample("geocode.json"))
+
+    stops = api.get("/api/v1/stops", params={"q": "ljub"}).json()
+
+    assert stops[0]["name"] == "Ljubljana"
+    assert stops[0]["modes"] == ["rail", "bus"]
 
 
 def test_search_in_motis_order_each_stop_once(api, motis):
@@ -52,6 +61,22 @@ def test_nearby_lists_stops_within_the_radius_nearest_first(api, motis):
     assert [stop["name"] for stop in stops] == ["Ljubljana", "Kolodvor"]
     assert stops[0]["id"] == "ijpp_1122804"
     assert all(stop["distance_m"] <= 150 for stop in stops)
+
+
+def test_nearby_lists_the_kinds_of_vehicle_of_each_stop(api, motis):
+    places = sample("map-stops.json")
+    for place in places:
+        if place["stopId"] == "ijpp_1167300":
+            del place["modes"]
+    motis.answer("/api/v6/map/stops", places)
+
+    stops = api.get("/api/v1/stops/nearby", params={"lat": LAT, "lon": LON, "radius_m": 200}).json()
+
+    assert {stop["id"]: stop["modes"] for stop in stops} == {
+        "ijpp_1122804": ["rail", "bus"],
+        "ijpp_1167300": [],
+        "ijpp_1168813": ["bus"],
+    }
 
 
 def test_nearby_asks_motis_for_the_box_around_the_position(api, motis):

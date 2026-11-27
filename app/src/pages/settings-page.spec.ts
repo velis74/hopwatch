@@ -63,4 +63,28 @@ describe('settings-page', () => {
     expect(document.documentElement.lang).toBe('sl-SI');
     expect(window.localStorage.getItem('hopwatch.locale')).toBe('sl');
   });
+
+  it('includes no nearby stops by default and keeps the chosen modes on the device', async () => {
+    const { wrapper } = await mountApp(SettingsPage, { route: '/settings' });
+
+    const fieldset = wrapper.get('fieldset');
+    expect(fieldset.get('legend').text()).toBe('Include nearby stops by default');
+    const boxes = fieldset.findAll<HTMLInputElement>('input[type="checkbox"]');
+    const labels = boxes.map((box) => document.querySelector(`label[for="${box.attributes('id')}"]`)?.textContent);
+    expect(labels).toEqual(['Trains', 'Buses', 'Trams', 'Other']);
+    expect(boxes.map((box) => box.element.checked)).toEqual([false, false, false, false]);
+
+    await boxes[2].trigger('click');
+    await boxes[0].trigger('click');
+    await flushPromises();
+
+    expect(usePreferencesStore().nearbyModes).toEqual(['rail', 'tram']);
+    expect(window.localStorage.getItem('hopwatch.nearbyModes')).toBe('["rail","tram"]');
+
+    await boxes[2].trigger('click');
+    await flushPromises();
+
+    expect(usePreferencesStore().nearbyModes).toEqual(['rail']);
+    expect(boxes.map((box) => box.element.checked)).toEqual([true, false, false, false]);
+  });
 });

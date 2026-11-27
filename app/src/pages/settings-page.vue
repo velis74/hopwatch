@@ -21,14 +21,27 @@
         <span :lang="LOCALE_TAGS[item.raw.value]">{{ item.title }}</span>
       </template>
     </v-select>
+    <fieldset class="settings-fieldset mb-4" aria-describedby="nearby-modes-hint">
+      <legend class="text-subtitle-1">{{ t('settings.nearbyLegend') }}</legend>
+      <p id="nearby-modes-hint" class="text-body-2 text-medium-emphasis">{{ t('settings.nearbyHint') }}</p>
+      <df-checkbox
+        v-for="mode in TRANSPORT_MODES"
+        :key="mode"
+        :model-value="preferences.nearbyModes.includes(mode)"
+        :label="t(`settings.nearbyModes.${mode}`)"
+        @update:model-value="toggleNearbyMode(mode, $event)"
+      />
+    </fieldset>
     <p class="text-body-2 text-medium-emphasis">{{ t('settings.saved') }}</p>
   </v-container>
 </template>
 
 <script setup lang="ts">
+import { DfCheckbox } from '@dynamicforms/vuetify-inputs';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { TRANSPORT_MODES, type TransportMode } from '../api/hopwatch-api';
 import ExperienceChoice from '../components/experience-choice.vue';
 import { LOCALE_TAGS, setLocale, SUPPORTED_LOCALES, type SupportedLocale } from '../i18n';
 import { type Experience, usePreferencesStore } from '../stores/preferences';
@@ -48,6 +61,11 @@ const locale = computed<SupportedLocale>({
   set: (value) => setLocale(value),
 });
 
+function toggleNearbyMode(mode: TransportMode, included: boolean): void {
+  const others = preferences.nearbyModes.filter((other) => other !== mode);
+  preferences.setNearbyModes(included ? [...others, mode] : others);
+}
+
 const languageItems = computed(() =>
   SUPPORTED_LOCALES.map((value) => ({ value, title: t(`settings.languages.${value}`) })),
 );
@@ -56,5 +74,10 @@ const languageItems = computed(() =>
 <style scoped>
 .settings-page {
   max-width: 640px;
+}
+
+.settings-fieldset {
+  border: none;
+  padding: 0;
 }
 </style>

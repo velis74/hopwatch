@@ -39,6 +39,7 @@ All times are UTC (ISO 8601). Stop ids carry the dataset tag as prefix (`ijpp_11
 | Stop search by name | `GET /api/v1/geocode?text={text}&type=STOP` (optional `place={lat},{lon}` bias, `language=sl`) | `samples/geocode.json` |
 | Departures with real time | `GET /api/v6/stoptimes?stopId={id}&n={count}&fetchStops=true` | `samples/stoptimes.json` |
 | Later stops of a trip | `GET /api/v6/trip?tripId={tripId}` | `samples/trip.json` |
+| Journey planning | `GET /api/v5/plan?fromPlace={stopId or lat,lon}&toPlace={stopId}&time={ISO}&arriveBy={bool}` (optional `pageCursor`) | `samples/plan.json` |
 | Routes serving a stop | `GET /api/v6/stop?stopId={id}` | `samples/stop.json` |
 
 - `stoptimes`: each `stopTimes[]` entry has `place.departure` (real-time estimate when available) and

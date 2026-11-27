@@ -1,4 +1,4 @@
-"""Async client of the MOTIS API (stops, stop search, departures, trips)."""
+"""Async client of the MOTIS API (stops, stop search, departures, trips, journey planning)."""
 
 import asyncio
 import time
@@ -105,6 +105,27 @@ class MotisClient:
         unknown trip.
         """
         return await self._get("/api/v6/trip", {"tripId": trip_id, "detailedLegs": "false"}, not_found_ok=True)
+
+    async def plan(
+        self,
+        from_place: str,
+        to_place: str,
+        *,
+        at: datetime | None = None,
+        arrive_by: bool = False,
+        page_cursor: str | None = None,
+    ) -> JsonObject:
+        """
+        Itineraries from `from_place` to `to_place` (a stop id or `lat,lon`). `at` is the departure, or the latest
+        arrival when `arrive_by`; MOTIS takes the current time when it is None. `page_cursor` is a
+        `previousPageCursor` or `nextPageCursor` of an earlier answer. Raises `MotisNotFoundError` for an unknown stop.
+        """
+        params: dict[str, Any] = {"fromPlace": from_place, "toPlace": to_place, "arriveBy": str(arrive_by).lower()}
+        if at is not None:
+            params["time"] = motis_time(at)
+        if page_cursor:
+            params["pageCursor"] = page_cursor
+        return await self._get("/api/v5/plan", params, not_found_ok=True)
 
 
 _clients: "weakref.WeakKeyDictionary[asyncio.AbstractEventLoop, MotisClient]" = weakref.WeakKeyDictionary()

@@ -49,4 +49,23 @@ describe('preferences', () => {
     expect(preferences.experience).toBeNull();
     expect(preferences.effectiveExperience).toBe('lively');
   });
+
+  it('includes no nearby stops by default', () => {
+    expect(freshStore().nearbyModes).toEqual([]);
+  });
+
+  it('keeps the modes of nearby stops to include on the device, in a fixed order', () => {
+    freshStore().setNearbyModes(['tram', 'rail', 'tram']);
+
+    const next = freshStore();
+
+    expect(next.nearbyModes).toEqual(['rail', 'tram']);
+    expect(window.localStorage.getItem('hopwatch.nearbyModes')).toBe('["rail","tram"]');
+  });
+
+  it.each(['not json', '{"rail": true}', '["rail", "plane"]'])('ignores the unusable stored modes %s', (stored) => {
+    window.localStorage.setItem('hopwatch.nearbyModes', stored);
+
+    expect(freshStore().nearbyModes).toEqual(stored.startsWith('[') ? ['rail'] : []);
+  });
 });

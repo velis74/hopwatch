@@ -39,7 +39,15 @@
       "en": "English",
       "sl": "Slovenščina"
     },
-    "saved": "Shranjeno na tej napravi."
+    "saved": "Shranjeno na tej napravi.",
+    "nearbyLegend": "Privzeto vključi bližnje postaje",
+    "nearbyHint": "Bližnje postaje, na katerih ustavljajo ta prevozna sredstva, so dodane na tablo odhodov.",
+    "nearbyModes": {
+      "rail": "Vlaki",
+      "bus": "Avtobusi",
+      "tram": "Tramvaji",
+      "other": "Drugo"
+    }
   },
   "auth": {
     "email": "E-pošta",
@@ -82,18 +90,21 @@
   },
   "departures": {
     "locating": "Iščem vašo lokacijo …",
-    "locationUnavailable": "Vaša lokacija ni na voljo. Postajo poiščite po imenu.",
+    "locateAgain": "Poskusi znova z mojo lokacijo",
+    "locationFailure": {
+      "unsupported": "Ta naprava ne posreduje lokacije. Postajo poiščite po imenu.",
+      "insecure": "Brskalnik lokacijo posreduje le stranem prek HTTPS. Postajo poiščite po imenu.",
+      "denied": "Dostop do lokacije je za to stran izklopljen. Postajo poiščite po imenu ali lokacijo dovolite v nastavitvah brskalnika.",
+      "unavailable": "Naprava vaše lokacije ni mogla določiti. Postajo poiščite po imenu.",
+      "timeout": "Določanje lokacije je trajalo predolgo. Postajo poiščite po imenu.",
+      "stops": "Postaje v vaši bližini trenutno niso na voljo. Postajo poiščite po imenu."
+    },
     "noNearbyStop": "V vaši bližini ni postaje. Postajo poiščite po imenu.",
-    "findStop": "Poišči postajo",
     "findStopHint": "Vpišite vsaj dve črki imena postaje.",
     "noStopsFound": "Ni najdenih postaj.",
-    "changeStop": "Zamenjaj postajo",
-    "destination": "Cilj",
-    "destinationHint": "Prikaže samo odhode, ki ustavijo na ustrezni nadaljnji postaji.",
     "listLabel": "Odhodi s postaje {stop}",
     "loading": "Nalagam odhode …",
     "empty": "V naslednjih {minutes} minutah ni odhodov.",
-    "emptyFiltered": "V naslednjih {minutes} minutah ni odhodov proti cilju {destination}.",
     "unavailable": "Odhodi trenutno niso na voljo. Poskusite znova pozneje.",
     "updatedAt": "Posodobljeno ob {time}. Osvežuje se vsakih 30 sekund.",
     "dataAttribution": "Podatki o voznih redih:",
@@ -111,7 +122,6 @@
     },
     "platform": "Peron {platform}",
     "via": "Prek {stops}",
-    "callsAt": "Ustavi se tudi na postaji {stop}",
     "modes": {
       "rail": "Vlak",
       "bus": "Avtobus",
@@ -119,10 +129,55 @@
       "other": "Linija"
     },
     "announceDelay": "{mode} {line} proti {headsign}: zamuda zdaj {delay}.",
-    "announceOnTime": "{mode} {line} proti {headsign}: zdaj točno."
+    "announceOnTime": "{mode} {line} proti {headsign}: zdaj točno.",
+    "listLabelNearby": "Odhodi s postaje {stop} in bližnjih postaj",
+    "atStop": "S postaje {stop}",
+    "clearStop": "Počisti polje {field}"
   },
   "map": {
     "title": "Zemljevid",
-    "textEquivalent": "Zemljevid postaje {stop}. Seznam odhodov je besedilna različica tega zemljevida."
+    "textEquivalent": "Zemljevid postaje {stop}. Seznam odhodov je besedilna različica tega zemljevida.",
+    "journeyTextEquivalent": "Zemljevid izbrane povezave. Seznam povezav je besedilna različica tega zemljevida."
+  },
+  "refresh": {
+    "staleSince": "Ni posodobljeno od {time}"
+  },
+  "journey": {
+    "formLabel": "Pot",
+    "from": "Od",
+    "to": "Do",
+    "swap": "Zamenjaj začetek in cilj",
+    "when": "Kdaj",
+    "leaveNow": "Odhod zdaj",
+    "departAt": "Odhod ob",
+    "arriveBy": "Prihod do",
+    "time": "Čas",
+    "chooseFrom": "Izberite, kje se pot začne.",
+    "title": "Povezave",
+    "loading": "Iščem povezave …",
+    "empty": "Ni najdenih povezav.",
+    "unavailable": "Povezave trenutno niso na voljo. Poskusite znova pozneje.",
+    "earlier": "Prej",
+    "later": "Pozneje",
+    "showOnMap": "Pokaži na zemljevidu",
+    "times": "{departure} – {arrival}",
+    "minutes": "{minutes} min",
+    "hoursMinutes": "{hours} h {minutes} min",
+    "transfers": "Brez prestopov | {count} prestop | {count} prestopa | {count} prestopi | {count} prestopov",
+    "expectedDeparture": "Pričakovani odhod {time}",
+    "expectedArrival": "Pričakovani prihod {time}",
+    "legsLabel": "Deli poti",
+    "ride": "{mode} {line} proti {headsign}",
+    "rideNoHeadsign": "{mode} {line}",
+    "walk": "Hoja",
+    "walkDistance": "Hoja {distance} m",
+    "legFromTo": "{departure} {from} – {arrival} {to}",
+    "tickets": "Vozovnice"
+  },
+  "nearby": {
+    "legend": "Bližnje postaje",
+    "option": "{name}, {modes}, {distance} m",
+    "optionNoModes": "{name}, {distance} m",
+    "none": "V {radius} m ni drugih postaj."
   }
 }

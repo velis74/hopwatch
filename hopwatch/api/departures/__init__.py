@@ -1,1 +1,1 @@
-"""Departures from a stop (/api/v1/departures)."""
+"""Departures from stops (/api/v1/departures)."""

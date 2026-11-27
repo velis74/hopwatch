@@ -1,4 +1,4 @@
-"""Departures from a stop, mapped from MOTIS stop times."""
+"""Departures from stops, mapped from MOTIS stop times."""
 
 import asyncio
 
@@ -47,8 +47,10 @@ class DelaySource(StrEnum):
 
 
 class Departure(BaseModel):
-    """One departure of a vehicle from the stop."""
+    """One departure of a vehicle from a stop."""
 
+    stop_id: str = Field(description="Id of the requested stop the vehicle departs from.")
+    stop_name: str = Field(description="Name of that stop.")
     trip_id: str = Field(description="MOTIS trip id; contains the service date, so it is valid for that day only.")
     mode: TransportMode = Field(description="Kind of vehicle.")
     line: str = Field(description="Line or train name and number as the operator shows it (`EC 214`, `LPV 2415`).")
@@ -82,6 +84,12 @@ def transport_mode(route_type: int | None, motis_mode: str | None) -> TransportM
     if motis_mode == "TRAM":
         return TransportMode.TRAM
     return TransportMode.OTHER
+
+
+def place_modes(motis_modes: list[str] | None) -> list[TransportMode]:
+    """Kinds of vehicle of the MOTIS modes of a place, each once, in the order of `TransportMode`; [] when unknown."""
+    found = {transport_mode(None, motis_mode) for motis_mode in motis_modes or []}
+    return [mode for mode in TransportMode if mode in found]
 
 
 def _zone(name: str | None) -> ZoneInfo:
@@ -127,8 +135,13 @@ def stops_after(stops: list[JsonObject], stop_id: str, scheduled_departure: str 
     return stops[(timed or visits)[0] + 1 :]
 
 
-def departure_from(stop_time: JsonObject, next_stops: list[str]) -> Departure | None:
-    """The departure of a MOTIS stop time; None for a cancelled one or one without a departure time."""
+def departure_from(
+    stop_time: JsonObject, next_stops: list[str], *, stop_id: str | None = None, stop_name: str | None = None
+) -> Departure | None:
+    """
+    The departure of a MOTIS stop time from `stop_id` named `stop_name` (by default the stop time's place); None for
+    a cancelled one or one without a departure time.
+    """
     place = stop_time["place"]
     if stop_time.get("cancelled") or stop_time.get("tripCancelled") or place.get("cancelled"):
         return None
@@ -139,6 +152,8 @@ def departure_from(stop_time: JsonObject, next_stops: list[str]) -> Departure | 
     expected = _time(place.get("departure"), zone) if stop_time.get("realTime") else None
     delay = round((expected - scheduled).total_seconds() / 60) if expected else None
     return Departure(
+        stop_id=stop_id or place.get("stopId") or "",
+        stop_name=stop_name or place.get("name") or "",
         trip_id=stop_time["tripId"],
         mode=transport_mode(stop_time.get("routeType"), stop_time.get("mode")),
         line=stop_time.get("displayName") or stop_time.get("routeShortName") or stop_time.get("tripShortName") or "",
@@ -146,7 +161,8 @@ def departure_from(stop_time: JsonObject, next_stops: list[str]) -> Departure | 
         scheduled_departure=scheduled,
         expected_departure=expected,
         delay_minutes=delay,
-        delay_source=DelaySource.OFFICIAL if delay is not None else None,
+        # The IJPP real-time feed (derp-si) predicts delays from vehicle positions (TransitClock).
+        delay_source=DelaySource.ESTIMATE if delay is not None else None,
         platform=place.get("track") or place.get("scheduledTrack") or None,
         next_stops=next_stops,
     )
@@ -216,11 +232,58 @@ async def departures(
     response: dict[str, Any] = await motis.stop_times(stop_id, now, window_minutes * 60)
     stop_times = response.get("stopTimes", [])
     end = now + timedelta(minutes=window_minutes)
+    stop_name = (response.get("place") or {}).get("name")
     found = []
     for stop_time, next_stops in zip(stop_times, await later_stops(motis, stop_times, trips), strict=True):
-        departure = departure_from(stop_time, next_stops)
+        departure = departure_from(stop_time, next_stops, stop_id=stop_id, stop_name=stop_name)
         if departure is not None and departure_time(departure) <= end:
             found.append(departure)
     if destination and words(destination):
         found = [departure for departure in found if calls_at(departure, destination)]
-    return sorted(found, key=lambda departure: (departure_time(departure), departure.scheduled_departure))
+    return sorted(found, key=departure_order)
+
+
+def departure_order(departure: Departure) -> tuple[datetime, datetime]:
+    """Sort key: expected (else scheduled) departure, then scheduled departure."""
+    return departure_time(departure), departure.scheduled_departure
+
+
+class UnknownStopError(Exception):
+    """MOTIS does not know the stop `stop_id`."""
+
+    def __init__(self, stop_id: str):
+        super().__init__(stop_id)
+        self.stop_id = stop_id
+
+
+async def departures_from_stops(
+    motis: MotisClient,
+    stop_ids: list[str],
+    *,
+    destination: str | None,
+    window_minutes: int,
+    now: datetime | None = None,
+    trips: TripStops = trip_stops_cache,
+) -> list[Departure]:
+    """
+    Departures from every stop of `stop_ids` (each once) merged in order of departure. Raises `UnknownStopError` for
+    the first stop of `stop_ids` that MOTIS does not know.
+    """
+    now = now or datetime.now(UTC)
+    unique = list(dict.fromkeys(stop_ids))
+
+    async def of(stop_id: str) -> list[Departure] | None:
+        try:
+            return await departures(
+                motis, stop_id, destination=destination, window_minutes=window_minutes, now=now, trips=trips
+            )
+        except MotisNotFoundError:
+            return None
+
+    results = await asyncio.gather(*(of(stop_id) for stop_id in unique))
+    found: list[Departure] = []
+    for stop_id, stop_departures in zip(unique, results, strict=True):
+        if stop_departures is None:
+            raise UnknownStopError(stop_id)
+        found.extend(stop_departures)
+    return sorted(found, key=departure_order)

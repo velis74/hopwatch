@@ -104,16 +104,118 @@ export async function chooseOption(page: Page, field: Locator, option: RegExp): 
   await page.getByRole('option', { name: option }).click();
 }
 
-/** Searches for a stop through the "Find a stop" field and chooses it. */
+/** Searches for a stop through the "From" field and chooses it. */
 export async function pickStop(page: Page, name: string): Promise<void> {
-  const search = page.getByLabel('Find a stop', { exact: true });
-  await expect(search).toBeVisible();
-  await search.fill(name);
-  const choice = page
-    .getByRole('option', { name, exact: true })
-    .or(page.getByRole('button', { name, exact: true }))
-    .or(page.getByRole('link', { name, exact: true }));
-  await choice.first().click();
+  await chooseStop(page, 'From', name);
+}
+
+export type StopField = 'From' | 'To';
+
+export const STOP_IDS: Record<string, string> = {
+  [NEAREST_STOP]: 'ijpp_1122804',
+  [DESTINATION]: 'ijpp_1122811',
+  [OTHER_STOP]: 'ijpp_1122816',
+};
+
+export function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Matches an accessible name that is the stop name, optionally followed by details after a comma or a line break. */
+export function stopNamePattern(name: string): RegExp {
+  return new RegExp(`^${escapeRegExp(name)}(?![\\p{L}\\p{N} ])`, 'u');
+}
+
+export function stopField(page: Page, label: StopField): Locator {
+  return page.getByRole('combobox', { name: label, exact: true });
+}
+
+/** Types into a stop search field and chooses the stop with exactly that name. */
+export async function chooseStop(page: Page, label: StopField, name: string): Promise<void> {
+  const field = stopField(page, label);
+  await expect(field).toBeVisible();
+  await expect(field).toBeEnabled();
+  await field.fill(name);
+  await page
+    .getByRole('option', { name: stopNamePattern(name) })
+    .first()
+    .click();
+  await expectStopShown(page, label, name);
+}
+
+/** Text a stop field shows: its own value, or the selection drawn next to it inside the same field. */
+export async function stopFieldText(field: Locator): Promise<string> {
+  return field.evaluate((element) => {
+    const input = element as HTMLInputElement;
+    if (input.value) return input.value;
+    const others = (node: Element) =>
+      Array.from(node.querySelectorAll('[role="combobox"], input')).some(
+        (other) => other !== element && !element.contains(other),
+      );
+    let container: Element = element;
+    for (let i = 0; i < 6 && container.parentElement && !others(container.parentElement); i += 1) {
+      container = container.parentElement;
+    }
+    return (container as HTMLElement).innerText ?? container.textContent ?? '';
+  });
+}
+
+export async function expectStopShown(page: Page, label: StopField, name: string): Promise<void> {
+  const field = stopField(page, label);
+  await expect
+    .poll(() => stopFieldText(field), { message: `${label} shows ${name}` })
+    .toMatch(new RegExp(`(^|\\n)\\s*${escapeRegExp(name)}\\s*($|\\n|,)`));
+}
+
+/** Empties a stop field with its clear button, or by deleting its text when it has none. */
+export async function clearStop(page: Page, label: StopField): Promise<void> {
+  const field = stopField(page, label);
+  const clear = page.getByRole('button', { name: new RegExp(`^clear\\b.*\\b${label}$`, 'i') });
+  if ((await clear.count()) > 0) {
+    await clear.first().click();
+  } else {
+    await field.fill('');
+    await field.press('Backspace');
+    await field.press('Escape');
+  }
+}
+
+/** The departures board; its name names the From stop. */
+export function departuresBoard(page: Page): Locator {
+  return page.getByRole('list', { name: /^Departures from /u });
+}
+
+/** The ordered list of itineraries under the "Journeys" heading. */
+export function journeysList(page: Page): Locator {
+  return page.getByRole('heading', { name: 'Journeys', exact: true }).locator('xpath=following::ol[1]');
+}
+
+/** Itineraries of the journey list (its own items, not the legs inside them). */
+export function itineraryItems(list: Locator): Locator {
+  return list.locator('xpath=./li');
+}
+
+export function isApiRequest(url: string, pathname: string): boolean {
+  return new URL(url).pathname === pathname;
+}
+
+/** Calendar day (YYYY-MM-DD), hour and minute of a moment in Europe/Ljubljana. */
+export function ljubljanaParts(date: Date): { day: string; hour: number; minute: number } {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Ljubljana',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(date);
+  const value = (type: string) => parts.find((part) => part.type === type)?.value ?? '';
+  return {
+    day: `${value('year')}-${value('month')}-${value('day')}`,
+    hour: Number(value('hour')),
+    minute: Number(value('minute')),
+  };
 }
 
 /** Visible departure items of a list. */

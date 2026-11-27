@@ -2,6 +2,7 @@ import json
 
 from pathlib import Path
 
+from hopwatch.api.departures.mapping import TransportMode
 from hopwatch.api.stops.viewsets import bounding_box, distance_m, matching_stops, nearby_stops
 
 SAMPLES = Path(__file__).parents[3] / "motis" / "samples"
@@ -58,3 +59,10 @@ def test_matching_stops_each_stop_once():
     stops = matching_stops(matches + matches, "ljubljana")
     assert [stop.id for stop in stops] == ["ijpp_1122804", "ijpp_1168813", "ijpp_1165697"]
     assert stops[0].lat == matches[0]["lat"]
+
+
+def test_nearby_and_matching_stops_carry_their_modes():
+    nearby = {stop.id: stop.modes for stop in nearby_stops(sample("map-stops.json"), LAT, LON, 150)}
+    assert nearby == {"ijpp_1122804": [TransportMode.RAIL, TransportMode.BUS], "ijpp_1167300": [TransportMode.BUS]}
+    (stop,) = matching_stops(sample("geocode.json"), "lj vic")
+    assert stop.modes == [TransportMode.BUS]

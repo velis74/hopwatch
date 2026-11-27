@@ -11,6 +11,7 @@ from fastapi_viewsets.list_query import ListQuery
 from fastapi_viewsets.mixins import ListMixin
 from pydantic import BaseModel, Field
 
+from hopwatch.api.departures.mapping import place_modes, TransportMode
 from hopwatch.api.stops.matching import matches_word_prefixes
 from hopwatch.motis import get_motis, JsonObject, MOTIS_UNAVAILABLE_RESPONSE
 
@@ -29,6 +30,9 @@ class Stop(BaseModel):
     name: str = Field(description="Name of the stop as the timetable publishes it.")
     lat: float = Field(description="Latitude (WGS 84).")
     lon: float = Field(description="Longitude (WGS 84).")
+    modes: list[TransportMode] = Field(
+        description="Kinds of vehicle that serve the stop, in the order rail, bus, tram, other; empty when unknown."
+    )
 
 
 class NearbyStop(Stop):
@@ -79,7 +83,12 @@ def nearby_stops(places: list[JsonObject], lat: float, lon: float, radius_m: int
         distance = distance_m(lat, lon, place["lat"], place["lon"])
         if distance <= radius_m:
             stops[stop_id] = NearbyStop(
-                id=stop_id, name=place["name"], lat=place["lat"], lon=place["lon"], distance_m=round(distance)
+                id=stop_id,
+                name=place["name"],
+                lat=place["lat"],
+                lon=place["lon"],
+                modes=place_modes(place.get("modes")),
+                distance_m=round(distance),
             )
     return sorted(stops.values(), key=lambda stop: stop.distance_m)[:NEARBY_LIMIT]
 
@@ -92,7 +101,13 @@ def matching_stops(matches: list[JsonObject], query: str) -> list[Stop]:
         if match.get("type") != "STOP" or not stop_id or stop_id in stops:
             continue
         if matches_word_prefixes(match["name"], query):
-            stops[stop_id] = Stop(id=stop_id, name=match["name"], lat=match["lat"], lon=match["lon"])
+            stops[stop_id] = Stop(
+                id=stop_id,
+                name=match["name"],
+                lat=match["lat"],
+                lon=match["lon"],
+                modes=place_modes(match.get("modes")),
+            )
     return list(stops.values())[:SEARCH_LIMIT]
 
 

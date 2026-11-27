@@ -28,7 +28,7 @@ async function measure(page: Page): Promise<{ font: number; target: number }> {
   const heading = page.getByRole('heading', { level: 2, name: NEAREST_STOP, exact: true });
   await expect(heading).toBeVisible();
   const font = await heading.evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
-  const box = await page.getByRole('button', { name: 'Change stop', exact: true }).boundingBox();
+  const box = await page.getByRole('button', { name: 'Swap from and to', exact: true }).boundingBox();
   expect(box).not.toBeNull();
   return { font, target: Math.min(box!.width, box!.height) };
 }
