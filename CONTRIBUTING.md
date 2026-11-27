@@ -42,6 +42,7 @@ reduced motion. A pull request that changes the user interface keeps it so.
 uv sync
 uv run ruff check .
 uv run ruff format --check .
+uv run python -m vue_i18n.check app/src/locales/ --source app/src
 uv run pytest
 npm ci
 npm run lint

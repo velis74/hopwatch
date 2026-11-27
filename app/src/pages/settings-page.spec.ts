@@ -71,8 +71,22 @@ describe('settings-page', () => {
     const { wrapper } = await mountApp(SettingsPage, { route: '/settings' });
 
     const options = await openLanguages();
-    expect(options.map((option) => option.textContent?.trim())).toEqual(['English', 'Slovenščina']);
-    expect(options.map((option) => option.querySelector('[lang]')?.getAttribute('lang'))).toEqual(['en-GB', 'sl-SI']);
+    expect(options.map((option) => option.textContent?.trim())).toEqual([
+      'English',
+      'Slovenščina',
+      'Deutsch',
+      'Hrvatski',
+      'Српски (ћирилица)',
+      'Srpski (latinica)',
+    ]);
+    expect(options.map((option) => option.querySelector('[lang]')?.getAttribute('lang'))).toEqual([
+      'en-GB',
+      'sl-SI',
+      'de',
+      'hr',
+      'sr-Cyrl',
+      'sr-Latn',
+    ]);
 
     options[1].click();
     await flushPromises();
@@ -83,6 +97,20 @@ describe('settings-page', () => {
     expect(wrapper.get('.v-select__selection [lang]').text()).toBe('Slovenščina');
     expect(document.documentElement.lang).toBe('sl-SI');
     expect(window.localStorage.getItem('hopwatch.locale')).toBe('sl');
+  });
+
+  it('switches to Serbian in Latin script and names the languages in themselves also there', async () => {
+    const { wrapper } = await mountApp(SettingsPage, { route: '/settings' });
+
+    const options = await openLanguages();
+    options[5].click();
+    await flushPromises();
+
+    expect(i18n.global.locale.value).toBe('sr-Latn');
+    expect(wrapper.get('h1').text()).toBe('Podešavanja');
+    expect(document.documentElement.lang).toBe('sr-Latn');
+    const reopened = await openLanguages();
+    expect(reopened.map((option) => option.textContent?.trim())).toContain('Српски (ћирилица)');
   });
 
   it('includes no nearby stops by default and keeps the chosen modes on the device', async () => {

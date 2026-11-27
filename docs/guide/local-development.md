@@ -77,6 +77,7 @@ and `FRONTEND_URL`.
 
 ```sh
 uv run ruff check . && uv run ruff format --check .
+uv run python -m vue_i18n.check app/src/locales/ --source app/src
 npm run lint
 npm run build
 npm run test:e2e   # needs scripts/dev.sh and MOTIS running

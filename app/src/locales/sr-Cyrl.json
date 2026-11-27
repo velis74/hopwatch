@@ -1,0 +1,271 @@
+{
+  "app": {
+    "title": "Hopwatch",
+    "mainNavigation": "Главна навигација",
+    "home": "Hopwatch, поласци",
+    "settings": "Подешавања",
+    "login": "Пријава",
+    "logout": "Одјава",
+    "loggedInAs": "Пријављени као",
+    "skipToContent": "Пређи на главни садржај"
+  },
+  "experience": {
+    "dialogTitle": "Изаберите начин приказа",
+    "dialogIntro": "Избор можете касније да промените у подешавањима.",
+    "label": "Начин приказа",
+    "simple": "Једноставно и крупно",
+    "simpleDescription": "Већи текст и дугмад, мирни екрани без анимација.",
+    "lively": "Живахно",
+    "livelyDescription": "Збијен приказ са ненаметљивим анимацијама.",
+    "continue": "Настави"
+  },
+  "pages": {
+    "home": {
+      "title": "Поласци"
+    },
+    "login": {
+      "title": "Пријава"
+    },
+    "signup": {
+      "title": "Направите налог"
+    },
+    "settings": {
+      "title": "Подешавања"
+    }
+  },
+  "settings": {
+    "language": "Језик",
+    "saved": "Сачувано на овом уређају.",
+    "nearbyLegend": "Подразумевано укључи оближње станице",
+    "nearbyHint": "Оближње станице на којима стају ова превозна средства додају се на таблу полазака.",
+    "nearbyModes": {
+      "rail": "Возови",
+      "bus": "Аутобуси",
+      "tram": "Трамваји",
+      "other": "Остало"
+    },
+    "favouritesLegend": "Омиљени превозници",
+    "favouritesHint": "Поласци и путовања ових превозника означени су као омиљени.",
+    "operatorsLoading": "Учитавање превозника…",
+    "operatorsUnavailable": "Превозници тренутно нису доступни. Покушајте поново касније.",
+    "operatorsEmpty": "Још није познат ниједан превозник."
+  },
+  "auth": {
+    "email": "Имејл",
+    "password": "Лозинка",
+    "repeatPassword": "Поновите лозинку",
+    "login": "Пријава",
+    "loginLink": "Пријавите се на свој налог",
+    "createAccount": "Направи налог",
+    "createAccountLink": "Направите налог",
+    "haveAccount": "Већ имате налог?",
+    "noAccount": "Још немате налог?",
+    "or": "или",
+    "continueWith": "Настави преко налога {provider}",
+    "providers": {
+      "google": "Google",
+      "apple": "Apple"
+    },
+    "errors": {
+      "invalidCredentials": "Имејл адреса или лозинка није тачна.",
+      "emailTaken": "Налог са овом имејл адресом већ постоји.",
+      "socialFailed": "Пријава преко добављача налога није успела. Покушајте поново.",
+      "logoutFailed": "Одјава није успела. Покушајте поново.",
+      "passwordTooShort": "Лозинка је прекратка. Мора да садржи најмање 8 знакова.",
+      "passwordTooCommon": "Ова лозинка је превише честа.",
+      "passwordEntirelyNumeric": "Лозинка не сме да се састоји само од цифара.",
+      "passwordTooSimilar": "Лозинка је превише слична имејл адреси.",
+      "invalidEmail": "Унесите исправну имејл адресу.",
+      "tooManyAttempts": "Превише неуспелих покушаја пријаве. Покушајте поново касније.",
+      "generic": "Дошло је до грешке. Покушајте поново."
+    }
+  },
+  "errors": {
+    "vue-forms": {
+      "required": "Ово поље је обавезно.",
+      "compare_to": "Лозинке се не поклапају."
+    },
+    "hopwatch": {
+      "passwords_mismatch": "Лозинке се не поклапају."
+    }
+  },
+  "departures": {
+    "locating": "Тражим вашу локацију…",
+    "locateAgain": "Покушај поново са мојом локацијом",
+    "locationFailure": {
+      "unsupported": "Овај уређај не даје локацију. Пронађите станицу по називу.",
+      "insecure": "Прегледач даје локацију само страницама које се учитавају преко HTTPS-а. Пронађите станицу по називу.",
+      "denied": "Приступ локацији је искључен за ову страницу. Пронађите станицу по називу или дозволите локацију у подешавањима прегледача.",
+      "unavailable": "Уређај није могао да одреди вашу локацију. Пронађите станицу по називу.",
+      "timeout": "Одређивање локације је трајало предуго. Пронађите станицу по називу.",
+      "stops": "Станице у вашој близини тренутно нису доступне. Пронађите станицу по називу."
+    },
+    "noNearbyStop": "У вашој близини нема станице. Пронађите станицу по називу.",
+    "findStopHint": "Унесите бар два слова назива станице.",
+    "noStopsFound": "Није пронађена ниједна станица.",
+    "listLabel": "Поласци са станице {stop}",
+    "loading": "Учитавам поласке…",
+    "empty": "Нема полазака у наредних {minutes} минута.",
+    "unavailable": "Поласци тренутно нису доступни. Покушајте поново касније.",
+    "updatedAt": "Ажурирано у {time}. Освежава се сваких 30 секунди.",
+    "dataAttribution": "Подаци о редовима вожње:",
+    "toHeadsign": "за {headsign}",
+    "scheduled": "По реду вожње {time}",
+    "expected": "Очекивано {time}",
+    "onTime": "На време",
+    "delay": "+{minutes} мин",
+    "early": "{minutes} мин раније",
+    "delaySource": "({source})",
+    "sources": {
+      "official": "званично",
+      "riders": "путници",
+      "estimate": "процена"
+    },
+    "platform": "Перон {platform}",
+    "via": "Преко {stops}",
+    "modes": {
+      "rail": "Воз",
+      "bus": "Аутобус",
+      "tram": "Трамвај",
+      "other": "Линија"
+    },
+    "announceDelay": "{mode} {line} за {headsign}: кашњење сада {delay}.",
+    "announceOnTime": "{mode} {line} за {headsign}: сада на време.",
+    "listLabelNearby": "Поласци са станице {stop} и оближњих станица",
+    "atStop": "Са станице {stop}",
+    "clearStop": "Обриши поље {field}"
+  },
+  "map": {
+    "title": "Мапа",
+    "textEquivalent": "Мапа станице {stop}. Списак полазака је текстуална верзија ове мапе.",
+    "journeyTextEquivalent": "Мапа изабране везе. Списак веза је текстуална верзија ове мапе."
+  },
+  "refresh": {
+    "staleSince": "Није ажурирано од {time}"
+  },
+  "journey": {
+    "formLabel": "Путовање",
+    "from": "Од",
+    "to": "До",
+    "swap": "Замени полазиште и одредиште",
+    "when": "Када",
+    "leaveNow": "Полазак одмах",
+    "departAt": "Полазак у",
+    "arriveBy": "Долазак до",
+    "time": "Време",
+    "chooseFrom": "Изаберите где путовање почиње.",
+    "title": "Везе",
+    "loading": "Тражим везе…",
+    "empty": "Није пронађена ниједна веза.",
+    "unavailable": "Везе тренутно нису доступне. Покушајте поново касније.",
+    "earlier": "Раније",
+    "later": "Касније",
+    "showOnMap": "Прикажи на мапи",
+    "times": "{departure} – {arrival}",
+    "minutes": "{minutes} мин",
+    "hoursMinutes": "{hours} ч {minutes} мин",
+    "transfers": "Без преседања | {count} преседање | {count} преседања | {count} преседања",
+    "expectedDeparture": "Очекивани полазак {time}",
+    "expectedArrival": "Очекивани долазак {time}",
+    "legsLabel": "Деонице",
+    "ride": "{mode} {line} за {headsign}",
+    "rideNoHeadsign": "{mode} {line}",
+    "walk": "Пешачење",
+    "walkDistance": "Пешачење {distance} м",
+    "legFromTo": "{departure} {from} – {arrival} {to}",
+    "tickets": "Карте"
+  },
+  "nearby": {
+    "legend": "Оближње станице",
+    "option": "{name}, {modes}, {distance} м",
+    "optionNoModes": "{name}, {distance} м",
+    "none": "Нема других станица у кругу од {radius} м.",
+    "addedOption": "{name}, {modes}",
+    "add": "Додај станицу",
+    "remove": "Уклони {name}",
+    "limit": "Табла полазака приказује највише {max} станица. Поништите избор једне станице да бисте изабрали другу.",
+    "added": "Станица {name} је додата.",
+    "addedChecked": "Станица {name} је додата и изабрана.",
+    "removed": "Станица {name} је уклоњена."
+  },
+  "inputs": {
+    "Cancel": "Откажи",
+    "Ok": "У реду",
+    "ColorPalette": "Палета боја",
+    "Lightness": "Осветљеност {level}",
+    "LightnessRange": "Осветљеност",
+    "Loading": "Учитавање",
+    "Uploading": "Отпремање датотеке",
+    "RemoveChoice": "Уклони {choice}",
+    "Paragraph": "Пасус",
+    "Heading1": "Наслов 1",
+    "Heading2": "Наслов 2",
+    "Heading3": "Наслов 3",
+    "Heading4": "Наслов 4",
+    "Heading5": "Наслов 5",
+    "Heading6": "Наслов 6",
+    "Downloadable": "За преузимање",
+    "ArticleCategory": "Категорија чланка",
+    "Title": "Наслов",
+    "Subtitle": "Поднаслов",
+    "InfoBox": "Оквир са информацијама",
+    "SideQuote": "Бочни цитат",
+    "Marker": "Маркер",
+    "Spoiler": "Скривени текст",
+    "CodeDark": "Код (тамни)",
+    "CodeBright": "Код (светли)",
+    "Undo": "Опозови",
+    "Redo": "Понови",
+    "SelectAll": "Изабери све",
+    "Bold": "Подебљано",
+    "Italic": "Курзив",
+    "HorizontalLine": "Хоризонтална линија",
+    "Blockquote": "Цитат",
+    "BulletedList": "Листа са ознакама",
+    "NumberedList": "Нумерисана листа",
+    "Outdent": "Смањи увлачење",
+    "Indent": "Повећај увлачење",
+    "AlignLeft": "Поравнај лево",
+    "AlignCenter": "Центрирај",
+    "AlignRight": "Поравнај десно",
+    "AlignJustify": "Обострано поравнај",
+    "Link": "Веза",
+    "LinkUrl": "URL",
+    "LinkApply": "Примени",
+    "LinkRemove": "Уклони везу",
+    "Image": "Слика",
+    "ImageUrl": "URL слике",
+    "ImageUpload": "Отпреми слику",
+    "ImageInsert": "Уметни",
+    "ImageDropHint": "Превуците слику овде или кликните за прегледање",
+    "ImageReplace": "Замени слику",
+    "ImagePaste": "Налепи слику из оставе",
+    "ImageDownload": "Преузми слику",
+    "FileDownload": "Преузми датотеку",
+    "Date": "Датум",
+    "Time": "Време",
+    "Table": "Табела",
+    "TableInsert": "Уметни табелу",
+    "TableAddRowAbove": "Додај ред изнад",
+    "TableAddRowBelow": "Додај ред испод",
+    "TableDeleteRow": "Обриши ред",
+    "TableAddColumnBefore": "Додај колону испред",
+    "TableAddColumnAfter": "Додај колону иза",
+    "TableDeleteColumn": "Обриши колону",
+    "TableToggleHeaderRow": "Укључи или искључи ред заглавља",
+    "TableDeleteTable": "Обриши табелу",
+    "Style": "Стил",
+    "MediaEmbed": "Уметни медиј",
+    "MediaEmbedUrl": "URL видео-снимка",
+    "MediaEmbedInsert": "Уметни"
+  },
+  "modal": {
+    "Close": "Затвори",
+    "Yes": "Да",
+    "No": "Не"
+  },
+  "operators": {
+    "favourite": "Омиљени",
+    "favouriteToggle": "Омиљени превозник: {operator}"
+  }
+}

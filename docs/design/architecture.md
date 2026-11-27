@@ -139,5 +139,14 @@ Accessibility is a primary feature:
 ## Languages
 
 Slovenian, English (en-GB), German, Croatian, Serbian in Cyrillic (`sr-Cyrl`, the source) and Serbian in Latin
-script (`sr-Latn`, derived by transliteration). The app uses vue-i18n, the server vue-i18n-python with the same
-messages.
+script (`sr-Latn`, derived by transliteration). The app uses vue-i18n; server texts use vue-i18n-python with the
+same message files.
+
+- The message files are `app/src/locales/<locale>.json`, one per locale except `sr-Latn`: its messages are the
+  `sr-Cyrl` messages transliterated when the app starts (`app/src/serbian-latin.ts`). Placeholders and linked
+  messages stay as written.
+- The app starts in the language chosen on the device, otherwise in the first browser language it offers, otherwise
+  in English. A Serbian browser language starts in Cyrillic unless it names Latin script (`sr-Latn`).
+- The strings of the DynamicForms libraries are under `inputs` and `modal` in every message file; Vuetify's own
+  strings come from Vuetify's locales. Times and lists are formatted with `Intl` for the locale's language tag.
+- CI checks the message files and the keys the app asks for with `python -m vue_i18n.check`.

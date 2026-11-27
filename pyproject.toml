@@ -36,6 +36,7 @@ dev = [
     "pytest-cov",
     "pytest-django>=4.14.0",
     "ruff",
+    "vue-i18n-python>=0.2.0",
 ]
 
 [project.urls]
