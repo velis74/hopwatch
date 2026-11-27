@@ -2,11 +2,11 @@ import type { VueWrapper } from '@vue/test-utils';
 import { describe, expect, it } from 'vitest';
 
 import { useSessionStore } from '../stores/session';
-import { allauthBody, flushPromises, mockAllauth, mockApi, mountApp } from '../test-utils';
+import { flushPromises, mockApi, mockSession, mountApp } from '../test-utils';
 
 import SignupPage from './signup-page.vue';
 
-const USER = { id: 7, email: 'ana@example.com', display: 'Ana' };
+const LOGGED_IN = { is_authenticated: true, session_token: null };
 
 function input(wrapper: VueWrapper, label: string) {
   const element = wrapper.findAll('label').find((candidate) => candidate.text() === label);
@@ -29,9 +29,8 @@ describe('signup page', () => {
 
   it('opens the home page once the account is created', async () => {
     document.cookie = 'csrftoken=test-token; path=/';
-    mockAllauth('post', '/auth/signup', allauthBody(200, { user: USER }));
-    mockAllauth('get', '/auth/session', allauthBody(200, { user: USER }));
-    mockApi('get', '/account/me', { id: 7, email: 'ana@example.com', display_name: 'Ana' });
+    mockApi('post', '/account/signup', LOGGED_IN);
+    mockSession({ id: 7, email: 'ana@example.com', display_name: 'Ana' });
     const { wrapper, router } = await mountApp(SignupPage, { route: '/signup' });
 
     await input(wrapper, 'Email').setValue('ana@example.com');

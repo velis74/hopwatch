@@ -1,4 +1,4 @@
-"""Journey planning (`/journeys`), read from MOTIS."""
+"""Journey planning (`/journeys`), planned by MOTIS."""
 
 import re
 
@@ -12,7 +12,14 @@ from pydantic import AwareDatetime, BaseModel, Field, model_validator
 
 from hopwatch.api.departures.viewsets import StopNotFoundError
 from hopwatch.api.journeys.mapping import Journeys, journeys_from
-from hopwatch.motis import DATA_ATTRIBUTION, get_motis, MOTIS_UNAVAILABLE_RESPONSE, MotisNotFoundError
+from hopwatch.motis import (
+    attribution_section,
+    DATA_ATTRIBUTION,
+    get_motis,
+    MAP_ATTRIBUTION,
+    MOTIS_UNAVAILABLE_RESPONSE,
+    MotisNotFoundError,
+)
 
 # MOTIS's 404 body names the place it does not know: {"error": "Could not find timetable location \"ijpp_0\""}.
 _UNKNOWN_LOCATION = re.compile(r'location \\?"([^"\\]+)\\?"')
@@ -69,7 +76,8 @@ def unknown_stop(query: JourneysQuery, motis_answer: str) -> str:
                 "Itineraries from a stop or a position to a stop, departing at or after `time` (arriving at or "
                 "before it with `arrive_by`), with real-time delays where the operator publishes them. A page holds "
                 "a few itineraries; `earlier_cursor` and `later_cursor` load the neighbouring pages. Walking-only "
-                f"connections are not listed. Public: no login needed.\n\n{DATA_ATTRIBUTION}"
+                f"connections are not listed. Public: no login needed.\n\n"
+                f"{attribution_section(DATA_ATTRIBUTION, MAP_ATTRIBUTION)}"
             ),
             "response_description": "A page of itineraries in order of departure.",
             "responses": merge_responses(
@@ -84,7 +92,7 @@ def unknown_stop(query: JourneysQuery, motis_answer: str) -> str:
     }
 )
 class JourneysViewSet:
-    """Journey planning between stops, with transfers and walks. Read from MOTIS."""
+    """Journey planning between stops, with transfers and walks."""
 
     __router = APIRouter()
 

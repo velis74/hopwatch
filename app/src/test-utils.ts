@@ -11,7 +11,6 @@ import type { Component } from 'vue';
 import { createMemoryHistory, createRouter, type Router, type RouteRecordRaw } from 'vue-router';
 import { createVuetify } from 'vuetify';
 
-import { ALLAUTH_BROWSER } from './api/allauth';
 import i18n, { type SupportedLocale, VUETIFY_MESSAGES } from './i18n';
 
 export { flushPromises, http, HttpResponse };
@@ -91,29 +90,32 @@ export function mockApi(method: HttpMethod, path: string, answer: MockAnswer, in
   return mockHttp(method, `/api/v1${path}`, answer, init);
 }
 
-/** The body allauth's headless API answers with. */
-export function allauthBody(
-  status: number,
-  data: unknown = {},
-  extra: { meta?: object; errors?: { message: string; code: string; param?: string }[] } = {},
-): object {
-  return { status, data, ...extra };
+/** The body of an API error: `detail_code` with field errors `fields` (field name -> codes). */
+export function apiError(code: string, fields: Record<string, string[]> = {}, detail = 'Refused.'): object {
+  return {
+    detail,
+    detail_code: code,
+    detail_params: {},
+    field_errors: Object.fromEntries(
+      Object.entries(fields).map(([field, codes]) => [field, codes.map((c) => ({ code: c, params: {}, detail: c }))]),
+    ),
+  };
 }
 
-/**
- * {@link mockHttp} for allauth: `path` is relative to `/_allauth/browser/v1`, e.g. `/auth/session`. A plain `body`
- * is sent as given with `init.status` (default 200); build it with {@link allauthBody}.
- */
-export function mockAllauth(method: HttpMethod, path: string, answer: MockAnswer, init?: MockInit): RecordedRequest[] {
-  return mockHttp(method, `${ALLAUTH_BROWSER}${path}`, answer, init);
+/** The body of a refused validation with field errors `fields` (field name -> codes); answer it with status 422. */
+export function validationError(fields: Record<string, string[]>): object {
+  return apiError('fastapi-viewsets.validation_failed', fields, 'The request failed validation');
 }
 
-/** An anonymous allauth session without social providers: `/config` and `/auth/session` (401). */
+/** `GET /account/session` answering `account`, or an anonymous session without one. */
+export function mockSession(account: { id: number; email: string; display_name: string } | null): RecordedRequest[] {
+  return mockApi('get', '/account/session', { is_authenticated: account !== null, session_token: null, account });
+}
+
+/** An anonymous session without social providers. */
 export function mockAnonymousSession(): void {
-  mockAllauth('get', '/config', allauthBody(200, { socialaccount: { providers: [] } }));
-  mockAllauth('get', '/auth/session', allauthBody(401, { flows: [] }, { meta: { is_authenticated: false } }), {
-    status: 401,
-  });
+  mockSession(null);
+  mockApi('get', '/account/providers', []);
 }
 
 /* ------------------------------------------------------------------------------------------------------------ */

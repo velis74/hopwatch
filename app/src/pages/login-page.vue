@@ -24,7 +24,7 @@ const route = useRoute();
 const router = useRouter();
 const session = useSessionStore();
 
-/** allauth sends a failed social login back to this page with an `error` query parameter. */
+/** The server sends a failed social login back to this page with an `error` query parameter. */
 const socialError = computed(() => (route.query.error ? t('auth.errors.socialFailed') : undefined));
 
 /** A successful social login returns here with the session already logged in. */

@@ -148,7 +148,7 @@ class NearbyStopsViewSet(ListMixin[NearbyStop, NearbyStopsFilter]):
     }
 )
 class StopsViewSet(ListMixin[Stop, StopSearchFilter]):
-    """Public transport stops: search by name and stops near a position. Read from the timetable (MOTIS)."""
+    """Public transport stops: search by name and stops near a position."""
 
     __router = ViewSetRouter()
     __router.sub_viewset("nearby", NearbyStopsViewSet)
