@@ -1,0 +1,66 @@
+"""Departures from a stop (`/departures`), read from MOTIS."""
+
+from typing import Any
+
+from fastapi_viewsets.context import Context
+from fastapi_viewsets.endpoint_docs import endpoint_docs
+from fastapi_viewsets.exceptions import DfViewSetError
+from fastapi_viewsets.list_query import ListQuery
+from fastapi_viewsets.mixins import ListMixin
+from fastapi_viewsets.response_classes import error_entry, merge_responses
+from pydantic import BaseModel, Field
+
+from hopwatch.api.departures.mapping import Departure, departures
+from hopwatch.motis import DATA_ATTRIBUTION, ERROR_NAMESPACE, get_motis, MOTIS_UNAVAILABLE_RESPONSE, MotisNotFoundError
+
+
+class StopNotFoundError(DfViewSetError):
+    """The timetable has no stop with this id."""
+
+    def __init__(self, stop_id: str):
+        super().__init__(404, f"Stop {stop_id} not found", f"{ERROR_NAMESPACE}.stop_not_found", {"stop_id": stop_id})
+
+
+class DeparturesFilter(BaseModel):
+    stop_id: str = Field(min_length=1, description="Id of the stop, as `/stops` and `/stops/nearby` return it.")
+    destination: str | None = Field(
+        None,
+        description=(
+            "Only departures that call at a matching stop later on, not only at the terminus. Every word of it must "
+            "be the start of a word of the stop's name, ignoring case and accents."
+        ),
+    )
+    window_minutes: int = Field(60, ge=1, le=240, description="How far ahead to list departures, in minutes.")
+
+
+@endpoint_docs(
+    {
+        "list_items": {
+            "summary": "Departures from a stop",
+            "description": (
+                "Departures from the stop within `window_minutes` from now, in order of the expected departure (the "
+                "scheduled one where there is no real-time data). Cancelled departures are left out. Public: no "
+                f"login needed.\n\n{DATA_ATTRIBUTION}"
+            ),
+            "response_description": "The departures, in order of departure.",
+            "parameters": {"sort": "Ordering; by departure time when omitted."},
+            "responses": merge_responses(
+                error_entry(404, "No stop has this id: `hopwatch.stop_not_found`.", StopNotFoundError("ijpp_0")),
+                MOTIS_UNAVAILABLE_RESPONSE,
+            ),
+        }
+    }
+)
+class DeparturesViewSet(ListMixin[Departure, DeparturesFilter]):
+    """Departures from a stop with real-time delays where the operator publishes them. Read from MOTIS."""
+
+    async def get_list(self, context: Context, query: ListQuery) -> Any:
+        fltr: DeparturesFilter = query.fltr
+        try:
+            records = await departures(
+                get_motis(), fltr.stop_id, destination=fltr.destination, window_minutes=fltr.window_minutes
+            )
+        except MotisNotFoundError:
+            raise StopNotFoundError(fltr.stop_id) from None
+        records = await self.apply_sort(context, query, records)
+        return await self.apply_pagination(context, query, records)
