@@ -1,0 +1,12 @@
+{
+  "extends": "./node_modules/eslint-config-velis/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["eslint.config.js", "scripts/**/*"],
+  "exclude": [".venv", "dist", "coverage", "node_modules", "docs", "hopwatch"]
+}
