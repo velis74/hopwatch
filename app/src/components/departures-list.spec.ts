@@ -13,6 +13,8 @@ config.global.stubs = { ...config.global.stubs, 'transition-group': false };
 function departure(overrides: Partial<Departure> = {}): Departure {
   return {
     trip_id: 'trip-1',
+    stop_id: 'si:1',
+    stop_name: 'Ljubljana',
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',
@@ -30,9 +32,9 @@ function time(iso: string): string {
   return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
 }
 
-async function render(departures: Departure[], destination?: string) {
+async function render(departures: Departure[], showStop?: boolean) {
   const { wrapper } = await mountApp(DeparturesList, {
-    props: { departures, label: 'Departures from Ljubljana', destination },
+    props: { departures, label: 'Departures from Ljubljana', showStop },
   });
   return wrapper;
 }
@@ -125,29 +127,28 @@ describe('DeparturesList', () => {
     expect(text).not.toContain('Postojna');
   });
 
-  it('names a later stop matching the destination when "Via" does not show it', async () => {
-    const stops = ['Brezovica', 'Preserje', 'Borovnica', 'Logatec', 'Postojna', 'Divača', 'Koper'];
-    const wrapper = await render([departure({ next_stops: stops })], 'divac');
-
-    expect(wrapper.get('li').text()).toContain('Calls at Divača');
-  });
-
-  it('does not repeat a matching stop already shown in "Via"', async () => {
-    const stops = ['Brezovica', 'Preserje', 'Borovnica', 'Logatec', 'Postojna'];
-    const wrapper = await render([departure({ next_stops: stops })], 'Logatec');
-
-    expect(wrapper.get('li').text()).not.toContain('Calls at');
-  });
-
-  it('matches every word of the destination at the start of a word, ignoring case and accents', async () => {
-    const stops = ['A', 'B', 'C', 'D', 'Ljubljana Tivoli', 'Novo Mesto Center', 'Đakovo Łódź'];
-
-    expect((await render([departure({ next_stops: stops })], 'mesto NOVO')).text()).toContain(
-      'Calls at Novo Mesto Center',
+  it('names the stop of each departure when asked to', async () => {
+    const wrapper = await render(
+      [departure(), departure({ stop_id: 'si:3', stop_name: 'Ljubljana AP', mode: 'bus', line: '6' })],
+      true,
     );
-    expect((await render([departure({ next_stops: stops })], 'dakovo lodz')).text()).toContain('Calls at Đakovo Łódź');
-    expect((await render([departure({ next_stops: stops })], 'esto')).text()).not.toContain('Calls at');
-    expect((await render([departure({ next_stops: stops })], ' , ')).text()).not.toContain('Calls at');
+
+    expect(wrapper.findAll('li').map((item) => item.get('.departure-stop').text())).toEqual([
+      'From Ljubljana',
+      'From Ljubljana AP',
+    ]);
+  });
+
+  it('does not name the stop by default', async () => {
+    const wrapper = await render([departure()]);
+
+    expect(wrapper.find('.departure-stop').exists()).toBe(false);
+  });
+
+  it('lists the same trip at two stops as two departures', async () => {
+    const wrapper = await render([departure(), departure({ stop_id: 'si:3', stop_name: 'Ljubljana AP' })], true);
+
+    expect(wrapper.findAll('li')).toHaveLength(2);
   });
 
   it('follows the interface language', async () => {

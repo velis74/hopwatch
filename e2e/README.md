@@ -7,7 +7,10 @@ WCAG 2.2 A/AA violations).
 | File | Covers |
 | --- | --- |
 | `experience.e2e.ts` | experience dialog, its persistence, settings (experience, language), reduced motion |
-| `departures.e2e.ts` | departures from the nearest stop, destination filter, stop search, map, live region, refresh |
+| `departures.e2e.ts` | departures from the nearest stop, "From" stop search, map, live region, refresh |
+| `journeys.e2e.ts` | "From"/"To" form, journey list, "Earlier"/"Later", "Depart at"/"Arrive by", swap, map, clearing "To" |
+| `nearby-stops.e2e.ts` | "Nearby stops" chips, merged departures, "Add a stop", "Include nearby stops by default" setting |
+| `refresh.e2e.ts` | refresh every 30 s, on visibility and after a frozen page; "Not updated since" (fake clock) |
 | `accounts.e2e.ts` | sign-up, log-out, failed and keyboard log-in, social login buttons |
 | `support.ts` | fixture constants and shared helpers |
 
@@ -26,8 +29,9 @@ npm run test:e2e -- --project=chromium departures        # one project, one file
 ## Fixture
 
 The browser is placed at 46.0584, 14.5127, about 20 m from Ljubljana railway station (MOTIS stop
-`ijpp_1122804`); the time zone is `Europe/Ljubljana`. The destination filter uses "Kranj", the stop search
-"Ljubljana" and "Lesce-Bled". One scenario runs with geolocation denied.
+`ijpp_1122804`); the time zone is `Europe/Ljubljana`. Journeys go to "Kranj" (`ijpp_1122811`), the stop search
+uses "Ljubljana" and "Lesce-Bled", and the nearby stop is the bus station "Ljubljana AP" (`ijpp_1168813`, about
+160 m away). One scenario runs with geolocation denied.
 
 Departures come from the imported timetable for the current time:
 

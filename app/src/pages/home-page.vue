@@ -6,56 +6,32 @@
       <v-progress-circular indeterminate size="20" width="2" class="mr-2" aria-hidden="true" />
       {{ t('departures.locating') }}
     </p>
-    <p v-else-if="locationMessage" class="mb-4">{{ locationMessage }}</p>
+    <div v-else-if="locationMessage" class="d-flex flex-wrap align-center ga-2 mb-4">
+      <p>{{ locationMessage }}</p>
+      <v-btn v-if="locationRetry" variant="outlined" prepend-icon="mdi-crosshairs-gps" @click="locate">
+        {{ t('departures.locateAgain') }}
+      </v-btn>
+    </div>
 
-    <stop-search v-if="searchOpen" :autofocus="searchAutofocus" class="mb-4" @select="chooseStop" />
+    <journey-form v-model:from="from" v-model:to="to" v-model:time-mode="timeMode" v-model:time="time" class="mb-4" />
 
-    <template v-if="stop">
-      <div class="d-flex flex-wrap align-center ga-2 mb-2">
-        <h2 ref="stopHeading" tabindex="-1" class="text-h5">{{ stop.name }}</h2>
-        <v-spacer />
-        <v-btn variant="outlined" prepend-icon="mdi-map-marker-radius" @click="openSearch">
-          {{ t('departures.changeStop') }}
-        </v-btn>
-      </div>
-
-      <v-text-field
-        v-model="destination"
-        :label="t('departures.destination')"
-        hide-details
-        prepend-inner-icon="mdi-flag-checkered"
-        autocomplete="off"
-        aria-describedby="destination-hint"
-      />
-      <p id="destination-hint" class="text-body-2 text-medium-emphasis mt-1 mb-4">
-        {{ t('departures.destinationHint') }}
-      </p>
-
-      <v-alert v-if="loadError && !departureList" type="warning" variant="tonal" class="mb-4">
-        {{ t('departures.unavailable') }}
-      </v-alert>
-      <p v-else-if="!departureList" class="mb-4">{{ t('departures.loading') }}</p>
-
-      <template v-if="departureList">
-        <departures-list
-          :departures="departureList"
-          :destination="appliedDestination"
-          :label="t('departures.listLabel', { stop: stop.name })"
-        />
-        <p v-if="!departureList.length" class="mt-2">
-          {{
-            appliedDestination
-              ? t('departures.emptyFiltered', { destination: appliedDestination, minutes: WINDOW_MINUTES })
-              : t('departures.empty', { minutes: WINDOW_MINUTES })
-          }}
-        </p>
-        <p v-if="updatedAt" class="text-body-2 text-medium-emphasis mt-2">
-          {{ t('departures.updatedAt', { time: formatTime(updatedAt) }) }}
-        </p>
-      </template>
-
-      <stop-map :stop="stop" class="mt-6" />
+    <template v-if="from && !to">
+      <nearby-stops v-model="nearbySelected" :stop="from" class="mb-4" />
+      <departures-board :stop="from" :stop-ids="boardStopIds" />
     </template>
+    <template v-else-if="to">
+      <journey-results
+        v-if="from"
+        v-model:itinerary="itinerary"
+        :from="from"
+        :to="to"
+        :time-mode="timeMode"
+        :time="time"
+      />
+      <p v-else class="mb-4">{{ t('journey.chooseFrom') }}</p>
+    </template>
+
+    <stop-map v-if="from" :stop="from" :itinerary="to ? itinerary : null" class="mt-6" />
 
     <p class="data-attribution text-body-2 text-medium-emphasis mt-6">
       {{ t('departures.dataAttribution') }}
@@ -63,148 +39,113 @@
       · SŽ – Potniški promet ·
       <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>
     </p>
-
-    <div aria-live="polite" aria-atomic="true" class="visually-hidden">{{ announcement }}</div>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { departures as fetchDepartures, type Departure, nearbyStops, type Stop } from '../api/hopwatch-api';
-import DeparturesList from '../components/departures-list.vue';
+import { type Itinerary, nearbyStops as fetchNearbyStops, type Stop } from '../api/hopwatch-api';
+import DeparturesBoard from '../components/departures-board.vue';
+import JourneyForm, { type TimeMode } from '../components/journey-form.vue';
+import JourneyResults from '../components/journey-results.vue';
+import NearbyStops from '../components/nearby-stops.vue';
 import StopMap from '../components/stop-map.vue';
-import StopSearch from '../components/stop-search.vue';
-import { useDebounced } from '../composables/use-debounced';
 import { currentPosition } from '../composables/use-geolocation';
-import { useTimeFormat } from '../composables/use-time-format';
-
-const WINDOW_MINUTES = 60;
-const REFRESH_MS = 30000;
+import { readDeviceValue, writeDeviceValue } from '../device-storage';
 
 const { t } = useI18n();
-const formatTime = useTimeFormat();
 
 const locating = ref(false);
 const locationMessage = ref('');
-const searchOpen = ref(false);
-const searchAutofocus = ref(false);
-const stop = ref<Stop | null>(null);
-const stopHeading = ref<HTMLElement | null>(null);
+const locationRetry = ref(false);
 
-const destination = ref<string | null>('');
-const debouncedDestination = useDebounced(destination, 400);
-const appliedDestination = ref('');
+const LAST_FROM_KEY = 'hopwatch.lastFrom';
 
-const departureList = ref<Departure[] | null>(null);
-const loadError = ref(false);
-const updatedAt = ref<Date | null>(null);
-const announcement = ref('');
+const from = ref<Stop | null>(null);
 
-let sequence = 0;
-let refreshTimer: ReturnType<typeof setInterval> | undefined;
+/** The From stop last chosen on this device. */
+function lastFrom(): Stop | null {
+  try {
+    const stop = JSON.parse(readDeviceValue(LAST_FROM_KEY) ?? 'null');
+    if (!stop || typeof stop.id !== 'string' || typeof stop.name !== 'string') return null;
+    return { ...stop, modes: Array.isArray(stop.modes) ? stop.modes : [] };
+  } catch {
+    return null;
+  }
+}
 
-async function locate() {
+// The location message stays while From is the stop restored from the last visit.
+let restoredFromId: string | null = null;
+
+function useLastFrom(): void {
+  if (from.value) return;
+  from.value = lastFrom();
+  restoredFromId = from.value?.id ?? null;
+}
+const to = ref<Stop | null>(null);
+const timeMode = ref<TimeMode>('now');
+const time = ref('');
+const nearbySelected = ref<string[]>([]);
+const itinerary = ref<Itinerary | null>(null);
+
+const boardStopIds = computed(() => (from.value ? [from.value.id, ...nearbySelected.value] : []));
+
+async function locate(): Promise<void> {
   locating.value = true;
-  const position = await currentPosition();
-  if (!position) {
+  locationMessage.value = '';
+  const result = await currentPosition();
+  if ('failure' in result) {
     locating.value = false;
-    locationMessage.value = t('departures.locationUnavailable');
-    searchOpen.value = true;
+    locationMessage.value = t(`departures.locationFailure.${result.failure}`);
+    locationRetry.value = result.failure === 'unavailable' || result.failure === 'timeout';
+    useLastFrom();
     return;
   }
+  locationRetry.value = false;
+  const { lat, lon } = result.coords;
   try {
-    let stops = await nearbyStops(position.lat, position.lon, 1000);
-    if (!stops.length) stops = await nearbyStops(position.lat, position.lon, 5000);
-    if (stops.length) {
-      stop.value = stops[0];
-    } else {
+    let stops = await fetchNearbyStops(lat, lon, 1000);
+    if (!stops.length) stops = await fetchNearbyStops(lat, lon, 5000);
+    if (!stops.length) {
       locationMessage.value = t('departures.noNearbyStop');
-      searchOpen.value = true;
-    }
+      useLastFrom();
+    } else if (!from.value) from.value = stops[0];
   } catch {
-    locationMessage.value = t('departures.locationUnavailable');
-    searchOpen.value = true;
+    locationMessage.value = t('departures.locationFailure.stops');
+    locationRetry.value = true;
+    useLastFrom();
   } finally {
     locating.value = false;
   }
 }
 
-function openSearch() {
-  searchAutofocus.value = true;
-  searchOpen.value = !searchOpen.value;
-}
+watch(
+  () => from.value?.id,
+  () => {
+    nearbySelected.value = [];
+    if (!from.value) return;
+    writeDeviceValue(
+      LAST_FROM_KEY,
+      JSON.stringify({
+        id: from.value.id,
+        name: from.value.name,
+        lat: from.value.lat,
+        lon: from.value.lon,
+        modes: from.value.modes,
+      }),
+    );
+    if (from.value.id !== restoredFromId) locationMessage.value = '';
+    restoredFromId = null;
+  },
+);
 
-async function chooseStop(chosen: Stop) {
-  stop.value = chosen;
-  searchOpen.value = false;
-  locationMessage.value = '';
-  await nextTick();
-  stopHeading.value?.focus();
-}
-
-function delayLabel(minutes: number): string {
-  if (minutes > 0) return t('departures.delay', { minutes });
-  if (minutes < 0) return t('departures.early', { minutes: -minutes });
-  return t('departures.onTime');
-}
-
-/** Texts for the live region: one for each departure whose delay differs from the previous refresh. */
-function delayChanges(previous: Departure[], next: Departure[]): string[] {
-  const before = new Map(previous.map((departure) => [departure.trip_id, departure.delay_minutes]));
-  return next
-    .filter((departure) => before.has(departure.trip_id) && before.get(departure.trip_id) !== departure.delay_minutes)
-    .filter((departure) => departure.delay_minutes !== null)
-    .map((departure) => {
-      const params = {
-        mode: t(`departures.modes.${departure.mode}`),
-        line: departure.line,
-        headsign: departure.headsign,
-        delay: delayLabel(departure.delay_minutes as number),
-      };
-      return departure.delay_minutes === 0
-        ? t('departures.announceOnTime', params)
-        : t('departures.announceDelay', params);
-    });
-}
-
-async function load(isRefresh: boolean) {
-  if (!stop.value) return;
-  const current = ++sequence;
-  const filter = (debouncedDestination.value ?? '').trim();
-  try {
-    const result = await fetchDepartures(stop.value.id, filter || undefined, WINDOW_MINUTES);
-    if (current !== sequence) return;
-    if (isRefresh && departureList.value) {
-      const changes = delayChanges(departureList.value, result);
-      if (changes.length) announcement.value = changes.join(' ');
-    }
-    departureList.value = result;
-    appliedDestination.value = filter;
-    loadError.value = false;
-    updatedAt.value = new Date();
-  } catch {
-    if (current === sequence) loadError.value = true;
-  }
-}
-
-watch(stop, () => {
-  departureList.value = null;
-  announcement.value = '';
-  load(false);
+watch(to, (value) => {
+  if (!value) itinerary.value = null;
 });
 
-watch(debouncedDestination, () => load(false));
-
-onMounted(() => {
-  locate();
-  refreshTimer = setInterval(() => {
-    if (!document.hidden) load(true);
-  }, REFRESH_MS);
-});
-
-onBeforeUnmount(() => clearInterval(refreshTimer));
+onMounted(locate);
 </script>
 
 <style scoped>

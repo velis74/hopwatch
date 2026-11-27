@@ -2,7 +2,7 @@ import asyncio
 import copy
 import json
 
-from datetime import datetime, UTC
+from datetime import datetime, timedelta, UTC
 from pathlib import Path
 
 import pytest
@@ -12,12 +12,15 @@ from hopwatch.api.departures.mapping import (
     DelaySource,
     departure_from,
     departures,
+    departures_from_stops,
+    place_modes,
     stop_names,
     stops_after,
     transport_mode,
     TransportMode,
     trip_stops,
     TripStops,
+    UnknownStopError,
 )
 from hopwatch.motis import motis_time, MotisNotFoundError, TtlCache
 
@@ -33,14 +36,16 @@ def sample(name: str):
 class FakeMotis:
     """Answers stop times and trips from the samples and counts the calls."""
 
-    def __init__(self, stop_times: dict | None = None):
-        self.stop_times_response = stop_times or sample("stoptimes.json")
+    def __init__(self, stop_times: dict | None = None, other_stops: dict[str, dict] | None = None):
+        self.stop_times_responses = {LJUBLJANA: stop_times or sample("stoptimes.json"), **(other_stops or {})}
         self.trip_calls: list[str] = []
+        self.stop_time_calls: list[str] = []
 
     async def stop_times(self, stop_id, start, window_seconds):  # noqa: ARG002
-        if stop_id != LJUBLJANA:
+        self.stop_time_calls.append(stop_id)
+        if stop_id not in self.stop_times_responses:
             raise MotisNotFoundError(stop_id)
-        return copy.deepcopy(self.stop_times_response)
+        return copy.deepcopy(self.stop_times_responses[stop_id])
 
     async def trip(self, trip_id):
         self.trip_calls.append(trip_id)
@@ -51,13 +56,15 @@ def test_departure_with_real_time_data():
     stop_time = sample("stoptimes.json")["stopTimes"][0]
     departure = departure_from(stop_time, stop_names(stop_time["nextStops"]))
     assert departure.trip_id == "20261127_08:56_ijpp_465929"
+    assert departure.stop_id == LJUBLJANA
+    assert departure.stop_name == "Ljubljana"
     assert departure.mode is TransportMode.RAIL
     assert departure.line == "EC 214"
     assert departure.headsign == "Dobova - Jesenice"
     assert departure.scheduled_departure.isoformat() == "2026-11-27T11:08:00+01:00"
     assert departure.expected_departure.isoformat() == "2026-11-27T11:12:00+01:00"
     assert departure.delay_minutes == 4
-    assert departure.delay_source is DelaySource.OFFICIAL
+    assert departure.delay_source is DelaySource.ESTIMATE
     assert departure.platform is None
     assert departure.next_stops == ["Kranj", "Lesce-Bled", "Jesenice", "Villach Hbf"]
 
@@ -77,7 +84,7 @@ def test_departure_serialises_times_with_offset():
     data = departure_from(stop_time, []).model_dump(mode="json")
     assert data["scheduled_departure"] == "2026-11-27T11:08:00+01:00"
     assert data["mode"] == "rail"
-    assert data["delay_source"] == "official"
+    assert data["delay_source"] == "estimate"
 
 
 def test_early_departure_has_negative_delay():
@@ -233,6 +240,81 @@ def test_later_stops_from_the_trip_when_motis_leaves_them_out():
     assert found[0].next_stops == ["Kranj", "Lesce-Bled", "Jesenice", "Villach Hbf"]
     run_departures(motis, trips=trips)
     assert motis.trip_calls == ["20261127_08:56_ijpp_465929"]
+
+
+def test_departure_names_the_requested_stop():
+    stop_time = sample("stoptimes.json")["stopTimes"][0]
+    departure = departure_from(stop_time, [], stop_id="ijpp_1", stop_name="Ljubljana potniška")
+    assert (departure.stop_id, departure.stop_name) == ("ijpp_1", "Ljubljana potniška")
+
+
+def test_departures_name_the_stop_of_the_answer():
+    response = sample("stoptimes.json")
+    response["place"]["name"] = "Ljubljana železniška postaja"
+    found = run_departures(FakeMotis(response))
+    assert {(departure.stop_id, departure.stop_name) for departure in found} == {
+        (LJUBLJANA, "Ljubljana železniška postaja")
+    }
+
+
+@pytest.mark.parametrize(
+    ("motis_modes", "expected"),
+    [
+        (["BUS", "REGIONAL_RAIL"], [TransportMode.RAIL, TransportMode.BUS]),
+        (["COACH", "BUS"], [TransportMode.BUS]),
+        (["FERRY", "TRAM"], [TransportMode.TRAM, TransportMode.OTHER]),
+        ([], []),
+        (None, []),
+    ],
+)
+def test_place_modes(motis_modes, expected):
+    assert place_modes(motis_modes) == expected
+
+
+def bus_station() -> dict:
+    """The stop times sample at another stop, each departure one minute later."""
+    response = sample("stoptimes.json")
+    response["place"].update(stopId="ijpp_2", name="Ljubljana AP")
+    for stop_time in response["stopTimes"]:
+        stop_time["tripId"] += "_bus"
+        stop_time["displayName"] = "B " + stop_time["displayName"]
+        place = stop_time["place"]
+        place.update(stopId="ijpp_2", name="Ljubljana AP")
+        for key in ("departure", "scheduledDeparture"):
+            moved = datetime.fromisoformat(place[key]) + timedelta(minutes=1)
+            place[key] = motis_time(moved)
+    return response
+
+
+def run_departures_from_stops(motis, stop_ids):
+    return asyncio.run(
+        departures_from_stops(motis, stop_ids, destination=None, window_minutes=60, now=NOW, trips=TripStops())
+    )
+
+
+def test_departures_from_stops_merged_in_order_of_departure():
+    found = run_departures_from_stops(FakeMotis(other_stops={"ijpp_2": bus_station()}), [LJUBLJANA, "ijpp_2"])
+    assert [(departure.stop_name, departure.line) for departure in found] == [
+        ("Ljubljana", "EC 214"),
+        ("Ljubljana AP", "B EC 214"),
+        ("Ljubljana", "MV 431"),
+        ("Ljubljana AP", "B MV 431"),
+        ("Ljubljana", "LP 3211"),
+        ("Ljubljana AP", "B LP 3211"),
+    ]
+
+
+def test_departures_from_stops_reads_each_stop_once():
+    motis = FakeMotis()
+    found = run_departures_from_stops(motis, [LJUBLJANA, LJUBLJANA])
+    assert len(found) == 3
+    assert motis.stop_time_calls == [LJUBLJANA]
+
+
+def test_departures_from_stops_names_the_first_unknown_stop():
+    with pytest.raises(UnknownStopError) as error:
+        run_departures_from_stops(FakeMotis(), ["ijpp_8", LJUBLJANA, "ijpp_9"])
+    assert error.value.stop_id == "ijpp_8"
 
 
 def test_ttl_cache_expires_and_evicts():

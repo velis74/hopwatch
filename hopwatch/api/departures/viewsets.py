@@ -1,6 +1,6 @@
-"""Departures from a stop (`/departures`), read from MOTIS."""
+"""Departures from stops (`/departures`), read from MOTIS."""
 
-from typing import Any
+from typing import Annotated, Any
 
 from fastapi_viewsets.context import Context
 from fastapi_viewsets.endpoint_docs import endpoint_docs
@@ -10,8 +10,8 @@ from fastapi_viewsets.mixins import ListMixin
 from fastapi_viewsets.response_classes import error_entry, merge_responses
 from pydantic import BaseModel, Field
 
-from hopwatch.api.departures.mapping import Departure, departures
-from hopwatch.motis import DATA_ATTRIBUTION, ERROR_NAMESPACE, get_motis, MOTIS_UNAVAILABLE_RESPONSE, MotisNotFoundError
+from hopwatch.api.departures.mapping import Departure, departures_from_stops, UnknownStopError
+from hopwatch.motis import DATA_ATTRIBUTION, ERROR_NAMESPACE, get_motis, MOTIS_UNAVAILABLE_RESPONSE
 
 
 class StopNotFoundError(DfViewSetError):
@@ -21,8 +21,18 @@ class StopNotFoundError(DfViewSetError):
         super().__init__(404, f"Stop {stop_id} not found", f"{ERROR_NAMESPACE}.stop_not_found", {"stop_id": stop_id})
 
 
+MAX_STOPS = 10
+
+
 class DeparturesFilter(BaseModel):
-    stop_id: str = Field(min_length=1, description="Id of the stop, as `/stops` and `/stops/nearby` return it.")
+    stop_id: list[Annotated[str, Field(min_length=1)]] = Field(
+        min_length=1,
+        max_length=MAX_STOPS,
+        description=(
+            "Ids of the stops, as `/stops` and `/stops/nearby` return them; repeat the key for each stop "
+            f"(`?stop_id=a&stop_id=b`), 1 to {MAX_STOPS} stops."
+        ),
+    )
     destination: str | None = Field(
         None,
         description=(
@@ -36,31 +46,36 @@ class DeparturesFilter(BaseModel):
 @endpoint_docs(
     {
         "list_items": {
-            "summary": "Departures from a stop",
+            "summary": "Departures from stops",
             "description": (
-                "Departures from the stop within `window_minutes` from now, in order of the expected departure (the "
-                "scheduled one where there is no real-time data). Cancelled departures are left out. Public: no "
-                f"login needed.\n\n{DATA_ATTRIBUTION}"
+                "Departures from the stops within `window_minutes` from now, merged in order of the expected "
+                "departure (the scheduled one where there is no real-time data). Each departure names the stop it "
+                "leaves from. Cancelled departures are left out. Public: no login needed.\n\n"
+                f"{DATA_ATTRIBUTION}"
             ),
             "response_description": "The departures, in order of departure.",
             "parameters": {"sort": "Ordering; by departure time when omitted."},
             "responses": merge_responses(
-                error_entry(404, "No stop has this id: `hopwatch.stop_not_found`.", StopNotFoundError("ijpp_0")),
+                error_entry(
+                    404,
+                    "A stop id is unknown (the first one in `detail_params.stop_id`): `hopwatch.stop_not_found`.",
+                    StopNotFoundError("ijpp_0"),
+                ),
                 MOTIS_UNAVAILABLE_RESPONSE,
             ),
         }
     }
 )
 class DeparturesViewSet(ListMixin[Departure, DeparturesFilter]):
-    """Departures from a stop with real-time delays where the operator publishes them. Read from MOTIS."""
+    """Departures from stops with real-time delays where the operator publishes them. Read from MOTIS."""
 
     async def get_list(self, context: Context, query: ListQuery) -> Any:
         fltr: DeparturesFilter = query.fltr
         try:
-            records = await departures(
+            records = await departures_from_stops(
                 get_motis(), fltr.stop_id, destination=fltr.destination, window_minutes=fltr.window_minutes
             )
-        except MotisNotFoundError:
-            raise StopNotFoundError(fltr.stop_id) from None
+        except UnknownStopError as error:
+            raise StopNotFoundError(error.stop_id) from None
         records = await self.apply_sort(context, query, records)
         return await self.apply_pagination(context, query, records)

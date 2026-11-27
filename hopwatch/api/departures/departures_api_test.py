@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, UTC
 
 import httpx
 
-from hopwatch.conftest import sample, stop_times_from_now
+from hopwatch.conftest import sample, shift_times, stop_times_from_now
 
 LJUBLJANA = "ijpp_1122804"
 URL = "/api/v1/departures"
@@ -22,7 +22,7 @@ def test_departures_in_order_with_real_time_delays(api, motis):
     assert first["mode"] == "rail"
     assert first["headsign"] == "Dobova - Jesenice"
     assert first["delay_minutes"] == 4
-    assert first["delay_source"] == "official"
+    assert first["delay_source"] == "estimate"
     assert first["next_stops"] == ["Kranj", "Lesce-Bled", "Jesenice", "Villach Hbf"]
     scheduled = datetime.fromisoformat(first["scheduled_departure"])
     assert scheduled.utcoffset() == timedelta(hours=1)  # Europe/Belgrade in November
@@ -148,3 +148,80 @@ def test_window_is_at_most_four_hours(api, motis):
 
     assert response.status_code == 422
     assert motis.requests == []
+
+
+AVTOBUSNA = "ijpp_1168813"
+
+
+def bus_station_stop_times() -> dict:
+    """Stop times of the bus station: the sample's departures moved two minutes later, at another stop."""
+    stop_times = shift_times(stop_times_from_now(), timedelta(minutes=2))
+    stop_times["place"].update(stopId=AVTOBUSNA, name="Ljubljana AP")
+    for stop_time in stop_times["stopTimes"]:
+        stop_time["place"].update(stopId=AVTOBUSNA, name="Ljubljana AP")
+        stop_time["tripId"] += "_bus"
+        stop_time["displayName"] = "B " + stop_time["displayName"]
+    return stop_times
+
+
+def test_each_departure_names_its_stop(api, motis):
+    motis.answer("/api/v6/stoptimes", stop_times_from_now())
+
+    found = api.get(URL, params={"stop_id": LJUBLJANA}).json()
+
+    assert {(departure["stop_id"], departure["stop_name"]) for departure in found} == {(LJUBLJANA, "Ljubljana")}
+
+
+def test_departures_of_several_stops_merged_in_order(api, motis):
+    motis.answer_by_param(
+        "/api/v6/stoptimes", "stopId", {LJUBLJANA: stop_times_from_now(), AVTOBUSNA: bus_station_stop_times()}
+    )
+
+    response = api.get(f"{URL}?stop_id={LJUBLJANA}&stop_id={AVTOBUSNA}")
+
+    assert response.status_code == 200
+    found = response.json()
+    times = [datetime.fromisoformat(d["expected_departure"] or d["scheduled_departure"]) for d in found]
+    assert times == sorted(times)
+    assert {(d["stop_id"], d["stop_name"]) for d in found} == {(LJUBLJANA, "Ljubljana"), (AVTOBUSNA, "Ljubljana AP")}
+    assert len(found) == 6
+    assert {request.url.params["stopId"] for request in motis.requests_to("/api/v6/stoptimes")} == {
+        LJUBLJANA,
+        AVTOBUSNA,
+    }
+
+
+def test_a_stop_given_twice_is_read_once(api, motis):
+    motis.answer("/api/v6/stoptimes", stop_times_from_now())
+
+    found = api.get(f"{URL}?stop_id={LJUBLJANA}&stop_id={LJUBLJANA}").json()
+
+    assert len(found) == 3
+    assert len(motis.requests_to("/api/v6/stoptimes")) == 1
+
+
+def test_any_unknown_stop_is_a_404(api, motis):
+    motis.answer_by_param("/api/v6/stoptimes", "stopId", {LJUBLJANA: stop_times_from_now()})
+
+    response = api.get(f"{URL}?stop_id={LJUBLJANA}&stop_id=ijpp_0")
+
+    assert response.status_code == 404
+    assert response.json()["detail_code"] == "hopwatch.stop_not_found"
+    assert response.json()["detail_params"] == {"stop_id": "ijpp_0"}
+
+
+def test_one_to_ten_stops(api, motis):
+    eleven = "&".join(f"stop_id=ijpp_{index}" for index in range(11))
+
+    assert api.get(f"{URL}?{eleven}").status_code == 422
+    assert api.get(URL).status_code == 422
+    assert api.get(URL, params={"stop_id": ""}).status_code == 422
+    assert motis.requests == []
+
+
+def test_stop_id_is_a_repeated_query_parameter_in_openapi(api):
+    operation = api.get("/api/openapi.json").json()["paths"][URL]["get"]
+    (parameter,) = [parameter for parameter in operation["parameters"] if parameter["name"] == "stop_id"]
+    assert parameter["in"] == "query"
+    assert parameter["required"] is True
+    assert parameter["schema"]["type"] == "array"

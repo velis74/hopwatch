@@ -39,7 +39,15 @@
       "en": "English",
       "sl": "Slovenščina"
     },
-    "saved": "Saved on this device."
+    "saved": "Saved on this device.",
+    "nearbyLegend": "Include nearby stops by default",
+    "nearbyHint": "Nearby stops served by these modes are added to the departures board.",
+    "nearbyModes": {
+      "rail": "Trains",
+      "bus": "Buses",
+      "tram": "Trams",
+      "other": "Other"
+    }
   },
   "auth": {
     "email": "Email",
@@ -82,18 +90,21 @@
   },
   "departures": {
     "locating": "Finding your location…",
-    "locationUnavailable": "Your location is not available. Find a stop by name.",
+    "locateAgain": "Try my location again",
+    "locationFailure": {
+      "unsupported": "This device gives no location. Find a stop by name.",
+      "insecure": "The browser gives a location only to pages served over HTTPS. Find a stop by name.",
+      "denied": "Location access is turned off for this page. Find a stop by name, or allow location in the browser settings.",
+      "unavailable": "The device could not find your location. Find a stop by name.",
+      "timeout": "Finding your location took too long. Find a stop by name.",
+      "stops": "Stops near you are not available right now. Find a stop by name."
+    },
     "noNearbyStop": "There is no stop near you. Find a stop by name.",
-    "findStop": "Find a stop",
     "findStopHint": "Type at least two letters of the stop name.",
     "noStopsFound": "No stops found.",
-    "changeStop": "Change stop",
-    "destination": "Destination",
-    "destinationHint": "Shows only departures that stop at a matching later stop.",
     "listLabel": "Departures from {stop}",
     "loading": "Loading departures…",
     "empty": "No departures in the next {minutes} minutes.",
-    "emptyFiltered": "No departures to {destination} in the next {minutes} minutes.",
     "unavailable": "Departures are not available right now. Please try again later.",
     "updatedAt": "Updated at {time}. Refreshes every 30 seconds.",
     "dataAttribution": "Timetable data:",
@@ -111,7 +122,6 @@
     },
     "platform": "Platform {platform}",
     "via": "Via {stops}",
-    "callsAt": "Calls at {stop}",
     "modes": {
       "rail": "Train",
       "bus": "Bus",
@@ -119,10 +129,62 @@
       "other": "Service"
     },
     "announceDelay": "{mode} {line} to {headsign}: delay now {delay}.",
-    "announceOnTime": "{mode} {line} to {headsign}: now on time."
+    "announceOnTime": "{mode} {line} to {headsign}: now on time.",
+    "listLabelNearby": "Departures from {stop} and nearby stops",
+    "atStop": "From {stop}",
+    "clearStop": "Clear {field}"
   },
   "map": {
     "title": "Map",
-    "textEquivalent": "Map of the stop {stop}. The list of departures is the text version of this map."
+    "textEquivalent": "Map of the stop {stop}. The list of departures is the text version of this map.",
+    "journeyTextEquivalent": "Map of the selected journey. The list of journeys is the text version of this map."
+  },
+  "refresh": {
+    "staleSince": "Not updated since {time}"
+  },
+  "journey": {
+    "formLabel": "Journey",
+    "from": "From",
+    "to": "To",
+    "swap": "Swap from and to",
+    "when": "When",
+    "leaveNow": "Leave now",
+    "departAt": "Depart at",
+    "arriveBy": "Arrive by",
+    "time": "Time",
+    "chooseFrom": "Choose where the journey starts.",
+    "title": "Journeys",
+    "loading": "Finding journeys…",
+    "empty": "No journeys found.",
+    "unavailable": "Journeys are not available right now. Please try again later.",
+    "earlier": "Earlier",
+    "later": "Later",
+    "showOnMap": "Show on map",
+    "times": "{departure} – {arrival}",
+    "minutes": "{minutes} min",
+    "hoursMinutes": "{hours} h {minutes} min",
+    "transfers": "No transfers | 1 transfer | {count} transfers",
+    "expectedDeparture": "Expected departure {time}",
+    "expectedArrival": "Expected arrival {time}",
+    "legsLabel": "Legs",
+    "ride": "{mode} {line} to {headsign}",
+    "rideNoHeadsign": "{mode} {line}",
+    "walk": "Walk",
+    "walkDistance": "Walk {distance} m",
+    "legFromTo": "{departure} {from} – {arrival} {to}",
+    "tickets": "Tickets"
+  },
+  "nearby": {
+    "legend": "Nearby stops",
+    "option": "{name}, {modes}, {distance} m",
+    "optionNoModes": "{name}, {distance} m",
+    "none": "No other stops within {radius} m.",
+    "addedOption": "{name}, {modes}",
+    "add": "Add a stop",
+    "remove": "Remove {name}",
+    "limit": "The departures board shows at most {max} stops. Uncheck a stop to choose another.",
+    "added": "{name} added.",
+    "addedChecked": "{name} added and checked.",
+    "removed": "{name} removed."
   }
 }

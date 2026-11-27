@@ -26,11 +26,23 @@ function initialLocale(): SupportedLocale {
 
 type MessageSchema = typeof en;
 
+/**
+ * Slovenian plural forms of a message with five choices: zero, one (1, 101 …), two (2, 102 …), few (3, 4, 103 …)
+ * and other. A message with fewer choices has no zero form.
+ */
+export function slovenianPlural(choice: number, choicesLength: number): number {
+  const n = Math.abs(choice) % 100;
+  const form = n === 1 ? 1 : n === 2 ? 2 : n === 3 || n === 4 ? 3 : 4;
+  if (choicesLength === 5) return choice === 0 ? 0 : form;
+  return Math.min(form - 1, choicesLength - 1);
+}
+
 const i18n = createI18n<[MessageSchema], SupportedLocale, false>({
   legacy: false,
   locale: initialLocale(),
   fallbackLocale: 'en',
   messages: { en, sl },
+  pluralRules: { sl: slovenianPlural },
 });
 
 function applyDocumentLanguage(locale: SupportedLocale): void {

@@ -1,0 +1,1202 @@
+{
+  "requestParameters": {},
+  "from": {
+    "name": "Ljubljana",
+    "stopId": "ijpp_1122804",
+    "importance": 0.49244582653045654,
+    "lat": 46.058508924440005,
+    "lon": 14.512923641400999,
+    "level": 0.0,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "REGIONAL_RAIL",
+      "BUS"
+    ]
+  },
+  "to": {
+    "name": "Lesce-Bled",
+    "stopId": "ijpp_1122816",
+    "importance": 0.1818181872367859,
+    "lat": 46.360324149868,
+    "lon": 14.157864727347,
+    "level": 0.0,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "REGIONAL_RAIL"
+    ]
+  },
+  "direct": [],
+  "itineraries": [
+    {
+      "duration": 3420,
+      "startTime": "2026-11-27T15:21:00Z",
+      "endTime": "2026-11-27T16:18:00Z",
+      "transfers": 0,
+      "id": "CoMBCghMUFYgMjQyMBIaMjAyNjExMjdfMTY6MjFfaWpwcF80NTMyMTAaDGlqcHBfMTEyMjgwNCE6f244fQdHQCk2U3LtnQYtQDIMaWpwcF8xMTIyODE2OS/SCxofLkdAQW5LQqXTUCxASNy/ptgGULjaptgGWg1SRUdJT05BTF9SQUlMYAE=",
+      "legs": [
+        {
+          "mode": "REGIONAL_RAIL",
+          "from": {
+            "name": "Ljubljana",
+            "stopId": "ijpp_1122804",
+            "lat": 46.058508924440005,
+            "lon": 14.512923641400999,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "departure": "2026-11-27T15:21:00Z",
+            "scheduledDeparture": "2026-11-27T15:21:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "REGIONAL_RAIL",
+              "BUS"
+            ]
+          },
+          "to": {
+            "name": "Lesce-Bled",
+            "stopId": "ijpp_1122816",
+            "lat": 46.360324149868,
+            "lon": 14.157864727347,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T16:18:00Z",
+            "scheduledArrival": "2026-11-27T16:18:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "REGIONAL_RAIL"
+            ]
+          },
+          "duration": 3420,
+          "startTime": "2026-11-27T15:21:00Z",
+          "endTime": "2026-11-27T16:18:00Z",
+          "scheduledStartTime": "2026-11-27T15:21:00Z",
+          "scheduledEndTime": "2026-11-27T16:18:00Z",
+          "realTime": false,
+          "scheduled": true,
+          "interlineWithPreviousLeg": false,
+          "headsign": "Ljubljana - Jesenice",
+          "routeId": "ijpp_63771",
+          "routeUrl": "",
+          "directionId": "0",
+          "routeColor": "29ace2",
+          "routeTextColor": "ffffff",
+          "routeType": 2,
+          "agencyName": "SŽ - Potniški promet, d.o.o.",
+          "agencyUrl": "https://potniski.sz.si/",
+          "agencyFareUrl": "",
+          "agencyId": "1161",
+          "tripId": "20261127_16:21_ijpp_453210",
+          "routeShortName": "LPV 2420",
+          "routeLongName": "",
+          "tripShortName": "",
+          "displayName": "LPV 2420",
+          "cancelled": false,
+          "intermediateStops": [
+            {
+              "name": "Litostroj",
+              "stopId": "ijpp_1122819",
+              "lat": 46.077327889885,
+              "lon": 14.489743095395001,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:25:00Z",
+              "departure": "2026-11-27T15:26:00Z",
+              "scheduledArrival": "2026-11-27T15:25:00Z",
+              "scheduledDeparture": "2026-11-27T15:26:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL"
+              ]
+            },
+            {
+              "name": "Ljubljana Stegne",
+              "stopId": "ijpp_1122820",
+              "lat": 46.086771090324,
+              "lon": 14.480004717657001,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:27:00Z",
+              "departure": "2026-11-27T15:28:00Z",
+              "scheduledArrival": "2026-11-27T15:27:00Z",
+              "scheduledDeparture": "2026-11-27T15:28:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL"
+              ]
+            },
+            {
+              "name": "Ljubljana Vižmarje",
+              "stopId": "ijpp_1122806",
+              "lat": 46.10053124492201,
+              "lon": 14.464738081837,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:30:00Z",
+              "departure": "2026-11-27T15:31:00Z",
+              "scheduledArrival": "2026-11-27T15:30:00Z",
+              "scheduledDeparture": "2026-11-27T15:31:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL"
+              ]
+            },
+            {
+              "name": "Medno",
+              "stopId": "ijpp_1122807",
+              "lat": 46.122132021519015,
+              "lon": 14.439149395953,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:33:00Z",
+              "departure": "2026-11-27T15:34:00Z",
+              "scheduledArrival": "2026-11-27T15:33:00Z",
+              "scheduledDeparture": "2026-11-27T15:34:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL",
+                "BUS"
+              ]
+            },
+            {
+              "name": "Medvode",
+              "stopId": "ijpp_1122808",
+              "lat": 46.137888315186,
+              "lon": 14.412226895134001,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:37:00Z",
+              "departure": "2026-11-27T15:38:00Z",
+              "scheduledArrival": "2026-11-27T15:37:00Z",
+              "scheduledDeparture": "2026-11-27T15:38:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL",
+                "BUS"
+              ]
+            },
+            {
+              "name": "Reteče",
+              "stopId": "ijpp_1122809",
+              "lat": 46.15651145932999,
+              "lon": 14.37118288611,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:41:00Z",
+              "departure": "2026-11-27T15:41:00Z",
+              "scheduledArrival": "2026-11-27T15:41:00Z",
+              "scheduledDeparture": "2026-11-27T15:41:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL",
+                "BUS"
+              ]
+            },
+            {
+              "name": "Škofja Loka",
+              "stopId": "ijpp_1122810",
+              "lat": 46.17446542971799,
+              "lon": 14.335724106765001,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:45:00Z",
+              "departure": "2026-11-27T15:45:00Z",
+              "scheduledArrival": "2026-11-27T15:45:00Z",
+              "scheduledDeparture": "2026-11-27T15:45:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL"
+              ]
+            },
+            {
+              "name": "Kranj",
+              "stopId": "ijpp_1122811",
+              "lat": 46.23895514939701,
+              "lon": 14.348072790285999,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:53:00Z",
+              "departure": "2026-11-27T15:56:00Z",
+              "scheduledArrival": "2026-11-27T15:53:00Z",
+              "scheduledDeparture": "2026-11-27T15:56:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL"
+              ]
+            },
+            {
+              "name": "Podnart",
+              "stopId": "ijpp_1122812",
+              "lat": 46.293894438266996,
+              "lon": 14.258474201879,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:05:00Z",
+              "departure": "2026-11-27T16:06:00Z",
+              "scheduledArrival": "2026-11-27T16:05:00Z",
+              "scheduledDeparture": "2026-11-27T16:06:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL",
+                "BUS"
+              ]
+            },
+            {
+              "name": "Otoče",
+              "stopId": "ijpp_1122813",
+              "lat": 46.310989419062984,
+              "lon": 14.232478610311999,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:08:00Z",
+              "departure": "2026-11-27T16:09:00Z",
+              "scheduledArrival": "2026-11-27T16:08:00Z",
+              "scheduledDeparture": "2026-11-27T16:09:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL"
+              ]
+            },
+            {
+              "name": "Globoko",
+              "stopId": "ijpp_1122814",
+              "lat": 46.32327753651,
+              "lon": 14.208458953517999,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:11:00Z",
+              "departure": "2026-11-27T16:12:00Z",
+              "scheduledArrival": "2026-11-27T16:11:00Z",
+              "scheduledDeparture": "2026-11-27T16:12:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL"
+              ]
+            },
+            {
+              "name": "Radovljica",
+              "stopId": "ijpp_1122815",
+              "lat": 46.340415055004996,
+              "lon": 14.173758983305,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:15:00Z",
+              "departure": "2026-11-27T16:16:00Z",
+              "scheduledArrival": "2026-11-27T16:15:00Z",
+              "scheduledDeparture": "2026-11-27T16:16:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL",
+                "BUS"
+              ]
+            }
+          ],
+          "legGeometry": {
+            "points": "y_ezvAwpxtZ??Lvk@b@xpAO|Ia@rI[pEq@vF}@xHShDeAjQgB`ZKfD[bK_@`Pi@rU[xMKpDBhVJvYNjV@bB?THvi@BnKDlKQfJk@~USbKi@lUi@bL?@o@rPiAvNgAvKaBjMcDhQiC`LkDxLeEjMuFtMoExIkEvHyFnIkChD_LxKuIxH_ExCwHxEyD~BgGrCw@ZwB|@yHzBaEfAmKpBkHnAuK|AmR`CwLrAsCTuOrAa]xBkb@pCy[|BsStAuKp@}XjB_G`@kYtBqRjAiVxA[@_@B_H`@mJv@yEx@}Dv@QBkGlAqJ|BwKrDiFhB_GvCiFbCsGxDeG`EeHjF_LzJaNzMgI|IsP~P{RtSmJ`KmTrTgRtRmOvPyN|NuXxYmS~SqSfT{UxV{OnPgOxOgMvM}KbLoKbLoK~KmOhPyFvFwZf[uW|XuN~NiNzN_XtXsSbTqOvOkO`P_KzJ_WpWyNrO{H`IsFxF{D~DeItI{DdEoPbQ_StSaNlNwMvMuNnOaKxKmJrJkJ`K{OfPoLzLqZf[sCvCsLxLeNtNMJyKlLsMzMcSvSyZl[aMzM_MfMwTlUyNhOkV`W_PvPgXzXwMjNcNlN_XzXoTfUcPjPePbQsMzM_RpRqAtAq[l\\qMbNsVlWsNdOsJxJqK`LsTnUsQ`RuK`LkP|PwQdRyTrUgQ|QkTbUoQzQkUlV}_@~`@{QlRaVtV}QxRsXnYoZf[cPxP{HbI{R|SeTzTcEjEcOlOkVdWwJhKyA|AkY`ZaMbMoPvQiHnHcHzHoMpMmQdRkXlYoMrOaQxToNnSoDbG{Xjf@gW`f@gHzM_L|Sc@t@yLtUwGxLyB~DyL~T}NxXcM~TeM`Vy^hr@mGfM_HrLoGjLcIfOwOzYqQ`]eRx]_Tr`@uPn[yNlXqVrd@uP~[eM|VcL|VmMfZeLvXkIjUeKhZ{I`YmGtS}GnVkJh^iF`TuH~ZiJ`a@oE~QkCvLiEfQuFhVkDnNkClLuC~LkB~H}FfU}F~TyHjXqHnToJfVqJpSiL~SaI|L}GlJoN~PkJxJqJ|IwOnM}OrL_MvIqIzFsRlMuRjMiQdLcPnKeMhIaK|GqChBeFdD}RjMqRjMoOvJ_M~HsIjFuNzHoNlHuNvGkNrGkLnFmSjJ}RtIaS~IsQbIyCtAiAf@_PhHyOhHsO`HoOxGyOlHoO`H{NlGuM~FeNfGyMhG{MfGqMxFaMrFkLhFaLbF}KdFqKvEgKpEyJnEsJhE}IhEuI`EyHpDaHlD_FbCk@XOFaFbCgEvBiKpFeKrF_KhFaJ|E}IrEcIhEcHzDgGnCgKvFaKdFoJ|EaKlFaKrF_LdG{K`GyKfGcLbHoKrHyJvIuJtIcJlJ_JlKuIzLsIbM_I~MkH`OiHjP_HzP}FbQiFnQiF|RmEjTyDhTmCrTqCvTmAnO{@fNs@bPu@tP[zPIbQSbQA`QEnPChQIbQYrPU`Qc@hPi@nO_AnMeAlN{ApNcBjOiBvNuBjM_ClMiDjQoElPsG|ToGpRkG|PoGrO{GfOeF`LgDrH{FfMkGlNeG~MkGlNaGnMeGrMgGrNoGpNaGfMeFtLaF|K}ErKqF`LcGnLkG|KkGrKmGjJeHrJgHjJgH`HwHtHwInHuInHaJtG_JtGcHfG}LdHyMfJgMrI{KlHgGbEmItD{DhByK~GuKfImLvKmKvKoJxKyItKeInKeIxLiHpNkG~MeGlOiFlPeF|QuErP}D|NoEnPwDdOuEdPuE~PqEfPeEtOsA|D_Mjd@a^~qAoQhp@cZzfAmLhc@sVd}@wHxYgG`U}Jz^aJl]iIhYaHzSqMdVcOrUoPdTuKdL_EnEgMnKiWvRkGbEaf@x[{F~DuIfGoJxH}GnFaJxIsD~DmM~NkFzGoI~LsIxNeIfOgI`QkIjT{IzWeHpVyFbW_CxLcD`SgD~VwBhU_BfWoAjXu@n[Wd[Cxn@Apn@Q|f@g@hXcA|\\mAfS{BxUgDrWyDtVgDvPuDtO_GdSuI|VuJ~UaLpTeJvOyDrFeK`NmOjP_PtNkS`O{P|J}LtGyOjIkTxKuJvE}NvH}GtD_JtF{GpEuLvImMtKgNjLqMbOgL|OmJbPuIjQgJjSyInTcIbVuEfOyAtFwDdPcDxPcDxRwCjSiCvRgBnReBrRuAfSoArU}@pQwAjUqAlSoArQoAbRkBvQaC|RsCzRuChQaEzTsE`SmFnTeHdV_IpVyHnUoIhU{IvW_IjUcKbYgJrVkCbIuF|PwGfSsFnPiEbOoGrTgFzQsBxHqHfZUx@kIp[{H|ZuHjZ_HjYcHxXwFhVwFjT}FtUwFjUqFzTqFpS_F`SyEjRmEvQmEbQeExOcFnQiGrSiHdT}HjSaI|R}IrQoItPyIbOuIpNwIdMyInLyHnJ_MtN{M`NuMvLoMfKcMdJoNbJoMvHyOvHgQvHaPzGaPxGyQhH}FhC_LnEkKbEgJtDsIzDwNbGmNdGoNtFwMlFcMlFkL|EeLxEwKnEyJ`E}LtFwLnGoLzGqKvH}JvHgI|GgH~G_DtDeIjJ_IlJ_H|JaGpJmFfJiEhIqCnFgGbNcGrOiFbOsE`OeFzPuEpPsDhN]tAwC|LiFbTyC|KcDpLeDdM{F|TkFtSsDvNkApEiMpf@_E|OgElP_G`U}EpRmFrSuGdWyG|ViIb[kFlTqI|\\qDdOcC|JuC`NoCtNoCzO_CfOmBbPyC|SmCjUsFrf@cBvO}@hIgBlOqFlg@uCfW}D`]qD~[sCzWaHvl@qB`RgCfTsBjQiBzQmB|QkAbKw@pFkCzUoBxP}Dz\\_DjVcBrKcKhs@uGba@}AnJ?BiBlJuBtKeBdJ}BnK}BbIkBhHmCzI_DvJeDnJaElK_EbK{DnI{DfIgF~IsD~GkFzJwFrI_H`JyGbIiFzGeGbGwHtHkHjGyGfF{IbGiGfEmKnFcO|HcSvH_ThG}UpEkVbC{T`AuVCyUmAeRsBeReDiQsEsNuFsO_HoNcHwNkIkMqIcDoBiOcKoPwLuJuHwLcJ_SoNkWuRgWaRiVyQ}Q_NkRoNkSiOqTaPmUoPyUiQeUuPeUwPwV}QyViRwYkTqSaO}UmQkWoRwUsPqVgRwVaS}SoRiMaNoQqRqSaVoTkWwUeYoRkUwSuViTaW{RoUcT}ViSgVqUqX{UgYkV}X{UqX}SgWcWmZa\\}_@}^qb@e\\}`@{Xi\\i\\g`@i_@gc@__@}c@}`@ae@_a@qe@y_@cd@eVqYaRoTwT{W{UkYyWe[}Xu\\kJiKaEiFqB}B_WoZcTeWsYk]sa@of@q`@ae@}a@ef@{Xk\\ct@q{@s[}^{]ab@g]ia@eb@cg@a]sa@ic@ah@ew@a~@a]e`@wU_Z}QuU}FoGsq@ax@s\\a`@uQeP_N{J{RiMqM{GaJyE_O{FoNsE}LwCcVgEcPeB{Km@yIWuVHuNp@_Kz@_KpAsHlAeIbBgHbBeEfAsDlA}FjBsGfCkIvDkIvDeIvE}H~EeFhDyGlEiH`GcLlJkLpKwJpJiIxIuL~LcNxOmUjXyWlZwQ|SmPjRiRlT{NtOwMxMcLpJ_H|FmExC}KvH_JzFyNlIy^~Ra]zQcYvOgMfHkHdEgIpFkIvFmJjHwIpHeGxE}GnGwQpQiLxKsI|IwH|HyFpGgIrJsGnIuFdIqF`IiFhIoI~Mqf@ny@gYve@uKjQGHuDxGwL`TqQf[_HpKcIlNoK`TeMfXgIvRAB}JfZyJlZ}IfZkGnRsGhR{BtHqFpOoL|XkItPuI|OkIxL_LbOmPfQiIlHmLdJqWbPwQlImFzA}WdHwKxBsIzAezB`MS@sb@rBe@?oV`A}a@vBQ?}^tAo]lBo^hEaHzAgR|E_ZbLwLdHsJvF{E|DyJzHwKfKoI~I}OhSwKxOgMhPaJjL}FvHuLtPiW`^wKbPqS|]sPv[oKfXwLj\\mKv\\wIj[wFjVeFtWsKdj@eHn_@eMrp@sPbbA{Ixo@iGhc@gA|HwLj|@qFl^sEpZuDfYkDlXqBlWqAzT_Bf\\_Cjn@yCdjASdTNhRj@xRdAfVpC|^bBhQXvErA~RtCdo@?bc@mC~c@aFj^mGzXsIvVkMpYiBzDcCnEgCjFwBhEuBlEoBdE}BhEiCdF_AdBs@tAmCnFmCpFyC~F_DpGgDlGyClGkDjHwDfHqDlH}DpHkDhHiDdHeDbHqDjHqDdH}D|H}D~HqDbHyCrFyCdFuChEgC|DqBfCwBhCwBbCqBxBcCvBkBbBuAbAaCfBoExCeEfCsEtBsEfB_F~AsEpAuDz@mDj@eFx@sFx@gGn@wJ`AcCVgBRmCX{H`AwI~@kI|@qI~@oHx@cHv@qGp@eG|@aG`AcGhAaFnAmEfA{DvAgDrAcDtAcD|A{C|AiDjBaDvB_DtB{C`CoDhCgDnCaDlCmDvCoD~CiD~CcC~B{CxCuClCcDzCaD~CaDhDaDjD{BlCiC|CoCbEoBdCkBzBgClDiCxDsCnEkDvFkDvFiDzFaDzFmD|FoChFkC`FiCrEeCnEcCrEkC|EiCzEgCjEuC~EqCrEqBxCkCbEaCfDwCrDeCvCsDxDiE|DkFlE_G`EyE`DmElCeGxDqFdD{EpCyEzCyEhDuEtDuDjDgEbEiEvEgE`FuEvFwAjBkA|Ac@l@yEdGaFpGeFtGeGbI}FpHwGrIaHdJcHjJgDpFqD~FcDdGaDtGiDnHgD|H_DlIaBbFwB|GqBxHkBnHqBvIgA~FsArHwArIiAdJgAlJ}@pJs@|Je@`Ki@nK[xK[zKW|K[dL[hL[nJk@dLs@rLaAlMiAxMuAhNaBnNcBdMkBtM}BdNkBfKcApFcB`IkBlIyB`J_CjJcClJ{BzHaCnIyCpIqCjIyClIqCxH}C~HaDfI}CjIgBnEoAjD{CrImBzFiB|F_B~FeB~F_BbG_BjGcB|GaBnHyAvHcBdImAhIqApIiApIgA`J{@~Iu@|IaAhMYnEa@bG]dHc@tHi@rIk@fJi@lLs@jMs@pMy@bN{@nN{@`OkAhSa@pF_@zGg@`Iy@zO_AtP_ApPiA`Ou@xKmApK}AvNoBhNmC~P{DdSuE`T{AnH_ApEm@rC{ErTgFbUsExSaF~TQt@q@zCqEpSsFzWsFbVcEbRwD|PcDfOwAvGqEfSeFfV_GdXkFpViGzXyFjWwFjW{ElToEjSgFxUeFxUiEdRiEjQ}DlPoEjQ_FtRiBdHeBzGsC`LgD`O}BdLgBjKeAzH{@nHsBzSm@fGy@fK_BrUmBfWk@tHU~CSpCaBxSiAvQw@nNg@|J[hLMdLBbVDvHHjUEzQ_@vRk@rN_AnMs@zH{AjNeCdRaA`I}A|K_CdPgCnRsBtN}ArM}BtPaCbQgClRiBpMw@tFAFsCjRoD|T_EzRyDlOsC`KsCjJ}DzKuFfN}FfM_HhMgHjLqB|CuDvF}IzLuInL{GdJuGrI_IfKgHlJoF|GiGzIcGnIiF`I}EpHcGlJqFzIuItNkIzMgHbLuGxKiIhMoGrKoFzIcGzJeH~KyGjJwFnHwFtGqE`FmExDaEbDkEvCuDvBsDnBsAn@{GtBmI`CiIzAaJdAgIZiKBgJ]yKe@kW_CsLu@cAGeIg@iHEwHA{JZ}Jp@qFn@u@Jw@LyIzAmKhCcMdEwS~IuJtE}G~CoLjF_ShJcJfEiInEqKzF}[jTwM`KoHxFoO|KiJlHeIhGwMzJuJ~ImFbE}InGsMzJmK`IeJxGcJdHiJhHaJxGeIfGcI`GkIrGqIjGaHlFaHpE}EdDqF~CiEbCeEjBgE|AsDpAwCv@_Bb@}Cl@oDl@_Ed@sDVqCNqBDsCE_BAaEImFYgHeAqGmAyGuAsHiBmI}BgIoBwG_BeIuB{HgBsHwA}Gw@qGg@}FO_HFyFRmE\\cFv@gEv@{D~@aElAoEjBsEjBiDfBaAf@cAl@aAj@oFzD}FfE{FbEkFhEoFbEmDvCwFpEoFfEuFfEiFbEuG`FmG~EaEbDiFpEgKpImJrHcDhCqElDsJrHaK~HgKhIgJrHgKvH_GvEgCpBmJvHuJvHsJvHwIxGmH`GkH`GgHtFeHpFaG`FwIxGeIrGcIrGqLfJcLdJ}O~LcOrLmN~KyMdKuLrJeL`J_EbDyD|CoIpGyGpFmKjIkK`ImJxH{I`HwIzG{IfHaJdHaJbHmJrHmJxHuItGoI`HuIxGmJxHmJdIoInHiIzHqGdHuHtIuGpIsGhJoGbKeGbK_GdLsFpL}EjLqEbLiEjMkDrLcDlLyCvLqChMkCzLyCtNkEbTkEfT_E|SqEbUcFzVqElUkExSuDdRuCzOiDjP}CrOsCzN_DpOcChMuBxJeClMeCjMwC`N_CfMkCfM_CdMkCbMkCtMeChM_CvLwBdLuB|JeClL{BpL}BvLqB`LkClMmCjMwB`LoBjJgBxJiBjIqBnKgCzLeCpMeCnMiBjJiCfMwB|K_CzKaBlIwBnK{BrKmBvJoBnJy@rDUjAoD~OmFrRgEjMiG|NoDtGaFnIoFjHuKzLeGvFmLtIeQnKuO|IeHbEcHfE_IpEsHpEeHzDsJtFeKfGkBfA{IfFsMrIwCbCa@ZkGdFuKlLqHhI_GfIuGjK_IrMeGdM_GdMoFtNuFnQgFpRuDpQ}CrP{CrRoD~W}BhSkCdQgDpYaDnWuDbViD~U{ClS{CxRoCjR{CbRgCvOoBvOyB|NwD~SuDnQuDbNcErLmE~K{EvIkFtIcFjH_E`FwAbBoApA{D`DyFlEmEdDoEjCuFxCeGbDmH|DiGvDyD|BsClB}EvDaHxGaGxG_EfFsEvGoDtGiCtF_DtHmDtIqC~HsClIwCxHkBdGiChHsBzFiCnGeEbJuEdIoFxIaG|IqFlIcFdImGjJ}HjLkHbLkHzKsHtL{HxLwIfNoIjMqInM}GtKsD|FkC`EsFtHkI|MiJlNaG~JiGjJ_KvO_KlOoKrPeK`PmKfPgK|OeH~KaDfFiDlFmEbHmE~HiDlGcCfFaDlHgDbJyCjJiCrJsB|JeBtJ}A`LoAjLw@bLa@zLS`NCxF@fHFjGPxG^jKn@hMl@hMv@~MBp@j@|Kt@bOv@vPv@vP~@`Q|@~P~@rO|@jN~@jS|AzXbBtWjBpSxDrY|C|RpFp_@`CzQzAvPx@pP\\bVKtQw@lS{BzW{CdTmFnVyGpTuHvQwHlNuH|K_HvIqIlIqI`I_RzO}ZnWqZpWwV~SiZ|Vc_@d[uLhKuS|OeSlGgS|@aOsCeP{FoU{KiQyHiUgM}ZqO_NgEoQqCwKs@oNNuJt@_InAwG|AoIvCsCjAsLlGeOdL{GrGuFxGuD`FqJxNyLrSgNxU{KbSiQf\\_DbGmRva@aLlVoGlOgHvPwS|j@aLzZ{FbPwJlXwIhXeF~ReDpRwCtVwAfUc@jVBhRr@|RhBnVxBdQzFhYfGrSlEdMdOx\\hQr_@lEdMbHtS~EjSdD|R`CjVhAbSZtSStR]jKg@hLeAhL_ClR{D~R{EhQeEhOiEnKuJfRwJhNiMhNyH|GuZ`U_p@rc@ed@pZq]bViY|RcMjJ{EtDmHrHiKzLyHxL{G|MqGtOkA~CkEjLgGhQsGjRwGjRmHpTgInVaIhVgHlTeHxR}DlKuArDqDtJsD|IoHnQuK~V{JnTcInQeIhRiFvNmFbQmDxNoDlQwBfOoCxUeDfYwEl]yE|UgGpTuG`PgItP_KvOiKfLuKxJiJtG{MvGaKbDsKvBmKbAgKb@mMEkO_@sOe@}NUyMHeM~@qMnBiKvB}J~CqHzCcKfFeXpNuXhOiZfPyVzMoWpNuY|OmYxOuWpNy[fQs\\tQs\\tQoWpNuMbHaKtFc[vPi[xPgZlPmZdPyXhOaXbO_XrNwRpKuW`OgMvGiR`Kw`@jTy]jRqb@rUe_@nSs[`Qi\\lQmXbOmEbC??",
+            "precision": 6,
+            "length": 1945
+          },
+          "bikesAllowed": false,
+          "wheelchairAccessible": "NOT_ACCESSIBLE",
+          "reservation": "NONE",
+          "ticketUrls": {
+            "web": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22453210%22%5D&from_ticketing_stop_time_id=%5B%221122804%22%5D&to_ticketing_stop_time_id=%5B%221122816%22%5D&boarding_time=%5B%222026-11-27T15:21:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T16:18:00%2B00:00%22%5D",
+            "ios": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22453210%22%5D&from_ticketing_stop_time_id=%5B%221122804%22%5D&to_ticketing_stop_time_id=%5B%221122816%22%5D&boarding_time=%5B%222026-11-27T15:21:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T16:18:00%2B00:00%22%5D"
+          },
+          "alternatives": []
+        }
+      ]
+    },
+    {
+      "duration": 5880,
+      "startTime": "2026-11-27T15:26:00Z",
+      "endTime": "2026-11-27T17:04:00Z",
+      "transfers": 1,
+      "id": "ClQaDGlqcHBfMTEyMjgwNCE6f244fQdHQCk2U3LtnQYtQDIMaWpwcF8xMTY4ODEzOVOGjLNqB0dAQesucCKGBy1ASIjCptgGUPjDptgGWgRXQUxLYAEKdgoFQTYzNzASGjIwMjYxMTI3XzE2OjMwX2lqcHBfNDg3NTQ2GgxpanBwXzExNjg4MTMhU4aMs2oHR0Ap6y5wIoYHLUAyDGlqcHBfMTEyMzQwNTkCvtY/JS9HQEHlvRlKXTosQEj4w6bYBlCI4KbYBloDQlVTYAEKVBoMaWpwcF8xMTIzNDA1IQK+1j8lL0dAKeW9GUpdOixAMgxpanBwXzExMjM0MDY5kuYG6h8vR0BBH8zlWWw6LEBIiOCm2AZQgOGm2AZaBFdBTEtgAQp2CgVBNjQxNRIaMjAyNjExMjdfMTc6NDBfaWpwcF80Nzc0MDUaDGlqcHBfMTEyMzQwNiGS5gbqHy9HQCkfzOVZbDosQDIMaWpwcF8xMTI2ODA2ORrG+v8sLkdAQdA0vlDZUCxASKDsptgGUIDwptgGWgNCVVNgAQ==",
+      "legs": [
+        {
+          "mode": "WALK",
+          "from": {
+            "name": "Ljubljana",
+            "stopId": "ijpp_1122804",
+            "lat": 46.058508924440005,
+            "lon": 14.512923641400999,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "departure": "2026-11-27T15:26:00Z",
+            "scheduledDeparture": "2026-11-27T15:26:00Z",
+            "vertexType": "TRANSIT",
+            "modes": [
+              "REGIONAL_RAIL",
+              "BUS"
+            ]
+          },
+          "to": {
+            "name": "Ljubljana AP",
+            "stopId": "ijpp_1168813",
+            "lat": 46.057943767180994,
+            "lon": 14.514695240206,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T15:30:00Z",
+            "scheduledArrival": "2026-11-27T15:30:00Z",
+            "vertexType": "TRANSIT",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "duration": 240,
+          "startTime": "2026-11-27T15:26:00Z",
+          "endTime": "2026-11-27T15:30:00Z",
+          "scheduledStartTime": "2026-11-27T15:26:00Z",
+          "scheduledEndTime": "2026-11-27T15:30:00Z",
+          "realTime": false,
+          "scheduled": false,
+          "distance": 241.0,
+          "legGeometry": {
+            "points": "{_ezvAwtxtZ`FE??dHG??f@A???vCX????o@GuNS???AeACo\\??R???\\dHx@`@??nAO??hAO??x@M??c@cB??AqA???}A???eA???{A??AqA???sA???eA???}A??AeA???wA???oA???qA??AoA???oA???kA???wA???iA??AwA???sA???oA???oA??AsA???mA???sA???mA??AuA???iA???sA???qA??nB|A??`EbD??Ay@",
+            "precision": 6,
+            "length": 93
+          }
+        },
+        {
+          "mode": "BUS",
+          "from": {
+            "name": "Ljubljana AP",
+            "stopId": "ijpp_1168813",
+            "lat": 46.057943767180994,
+            "lon": 14.514695240206,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "departure": "2026-11-27T15:30:00Z",
+            "scheduledDeparture": "2026-11-27T15:30:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "to": {
+            "name": "Bled Union",
+            "stopId": "ijpp_1123405",
+            "lat": 46.368324260573004,
+            "lon": 14.11399299206,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T16:30:00Z",
+            "scheduledArrival": "2026-11-27T16:30:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "duration": 3600,
+          "startTime": "2026-11-27T15:30:00Z",
+          "endTime": "2026-11-27T16:30:00Z",
+          "scheduledStartTime": "2026-11-27T15:30:00Z",
+          "scheduledEndTime": "2026-11-27T16:30:00Z",
+          "realTime": false,
+          "scheduled": true,
+          "interlineWithPreviousLeg": false,
+          "headsign": "Ljubljana AP - Bled",
+          "routeId": "ijpp_67255",
+          "routeUrl": "",
+          "directionId": "0",
+          "routeColor": "24b7c7",
+          "routeTextColor": "ffffff",
+          "routeType": 3,
+          "agencyName": "Arriva d.o.o.",
+          "agencyUrl": "https://arriva.si/",
+          "agencyFareUrl": "",
+          "agencyId": "1123",
+          "tripId": "20261127_16:30_ijpp_487546",
+          "routeShortName": "A6370",
+          "routeLongName": "",
+          "tripShortName": "",
+          "displayName": "A6370",
+          "cancelled": false,
+          "intermediateStops": [
+            {
+              "name": "Ljubljana Tivoli",
+              "stopId": "ijpp_1165687",
+              "lat": 46.06023017898801,
+              "lon": 14.497763788955998,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:33:00Z",
+              "departure": "2026-11-27T15:33:00Z",
+              "scheduledArrival": "2026-11-27T15:33:00Z",
+              "scheduledDeparture": "2026-11-27T15:33:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Kino Šiška",
+              "stopId": "ijpp_1165649",
+              "lat": 46.069202191939006,
+              "lon": 14.490310246287,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:36:00Z",
+              "departure": "2026-11-27T15:36:00Z",
+              "scheduledArrival": "2026-11-27T15:36:00Z",
+              "scheduledDeparture": "2026-11-27T15:36:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Remiza",
+              "stopId": "ijpp_1165662",
+              "lat": 46.07429318306299,
+              "lon": 14.485482044068004,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:37:00Z",
+              "departure": "2026-11-27T15:37:00Z",
+              "scheduledArrival": "2026-11-27T15:37:00Z",
+              "scheduledDeparture": "2026-11-27T15:37:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Trata",
+              "stopId": "ijpp_1165692",
+              "lat": 46.086877443655986,
+              "lon": 14.474781037596001,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:40:00Z",
+              "departure": "2026-11-27T15:40:00Z",
+              "scheduledArrival": "2026-11-27T15:40:00Z",
+              "scheduledDeparture": "2026-11-27T15:40:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Šentvid",
+              "stopId": "ijpp_1165684",
+              "lat": 46.096780871878,
+              "lon": 14.465046883917003,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:42:00Z",
+              "departure": "2026-11-27T15:42:00Z",
+              "scheduledArrival": "2026-11-27T15:42:00Z",
+              "scheduledDeparture": "2026-11-27T15:42:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Brnik/airport Ljubljana",
+              "stopId": "ijpp_1167050",
+              "lat": 46.231955000000006,
+              "lon": 14.454515,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:00:00Z",
+              "departure": "2026-11-27T16:00:00Z",
+              "scheduledArrival": "2026-11-27T16:00:00Z",
+              "scheduledDeparture": "2026-11-27T16:00:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            }
+          ],
+          "legGeometry": {
+            "points": "o|czvAm_|tZD_@]cu@IoJk@y@a@g@kJgDOuVda@pFq@biBt@jfEj@b}CoHfWrEn}BdA|PsC|LqAvK}@nHw@xMsAh\\l@f`@b@tHdAfPbCdS`AtG|@hFfDlOnGfTjEpKnDjH~MbUhEdFrQbTma@z_@_TzUui@`i@_HtH_u@rw@ma@|c@k[na@oBkD_eErwDsJxE}KnEqJvCg^fKuDjAo`@~PqVdR{l@pj@iqAjkAiF`A_[t[WZ{EjFsx@lw@{B_C|@bCgu@js@w\\l[aLbJkDzC}yAlsAiLrJo}@ty@s@l@}KrO{NxIoQxSyClDgR~T_LjNmKdNyUpYw^fb@iHhHaGvFmIxHkMnJyw@rj@kSlMuR`MsN`IoEzBkDbHoDeBgMpH{IjF{CzJiHkCsg@f]__@tVqa@jXgi@l\\c[dReEtCgT`NmT~MkF~GeIfA_b@d[}c@ha@gSrSkAnAsh@lj@er@~s@mf@xe@EDm^b]gRjPqErHoGx@yfAv~@cs@dn@}VtS}F~J_JxBa|@bu@ch@`c@qr@dn@}DfHuHvAcc@l_@s\\x[u[z\\GH_UdX{SdXuWn_@qQdYmCpJoGvEgVp_@cAeBpHtE_M|RcOnU{Vxa@cGjKwExClAwJtGwKiAiBoAz@eAT{Ch@eCHqB?y@GqCaAsBqBwAcBaBgB}AkBkKsLsP_PqS}PyRqP}OyMi\\qXaHsFySaQmO}LwPuMiQ{MgDkCu@hCiVkSwO{LoRaOcMcJyNiKwN{JwOqKuPuKkQ_L}YwPqFcDcJeFkReKaRoJ{HyDyQsIuHoDmRkIiRgIaSyHkRuHoRwGeTmHkRkGuR}FoSyFqRmFkSaF_SkEuIkBeRaEuS{DeI}A_SqDkS_EsSaE{RkE{HgBeSiF_SuF{RsG_IsCkRuHaIiDsQgIsHkDcRuJkH}DgQmK_RaL_Q{LgHiFyP_NaHsFiP}NgHqG_PsOuOoP{O_QeOuQsNsQcGqHiNaR}FmHiNeRgGaIcOaRmGwHuNwP{O_QsOuOwGsGgP_OwG_GiPcN_QmMoQmMkQkLgHqEuQiKmH}D}QmJsHoDkRkIoRuHiT_ImH}BmIkCcSkFyHwBsSsE{H}AgSoD{HqA{SgCgSsBgS}AkIg@qS{@qSc@eIMuSCiSVaIJiTx@ySlAcIn@sSrBiIz@_StCqSdDwR|D{H`BgSbFwRxFaSrGsHhC{RvHaRzHqHpDmRnIwQnJaI|DqQ|JqQdKaRnKoQnKeRtKaHtE_R~KiQfKqQ~KqHjEoQhKcRdKmQzJgHvDoRjJeRfJaInDyRdIiRrHqR|G{RpGeHzBqS|FcSfFeSxEwH~AiSbEcShDoS|CmIhAmS~B}Hx@ySbBeIl@oSnA}Sx@aIVyS^uIHkSJsSUeICeTe@sH]kT}@uIc@uRyAsSgBoS}BeIcAuSyC_ScDwI{AcScE_SkE{RwEyHmBkRkFkIcC_SiGmRkGeSsG}RsGaRwGaIsC_ScHaSmHkR_HqRiH{RiHqRgH{ReHoRiHcIsCeRcHeIqCyRmHyHmCkR_HyH{C}RiHiHiCyRoHeIoCmReHiHoC{RgH}HsC}RmHuHmCsReHoHqCyRkHmReHcIuCiRgH}RiHmI{CeR{GqRgHcIwCsRiHuRiHmRcHyRiHwRgHiRyGyHyC}RgHmHiCoReH}HwCsRaH}R}GoHgC}ReHmHeCwRoGcImCyRcGcI_CqR}F}HaCiRkFaI}BgSuFaS}E_IqB_SsEgSsEeS{DcYgFiSiDoS}CeSoCgIiAoS_CeSuBiSiByS}AoSkAqIk@eS_AgSs@qIWsSe@sSO}HMwSKqSJkIDsSXkIFaTb@gSr@mS|@sIh@wShAgSnAwSnBaSnBu]|DkShCsIjA_SbDiIpAiSrDaSvDeShEaSnEcS~EeIvBcSlFuRvFyH`C{RfG{RzGwHnCsRbHoRnHyH|CiR`IkRnIsHfDgR~IeRfJsHrDiRnKeQpJ{QfKyQ~KiHnEkQhLiHtEiQvL_H|EeQdMcHbF_QzMyGdFsPhNyGpFmPnNwPdOgP|NoGxFmPtOgPrOcPbPgGjGcPdPqGtGmO`PsGxGwOnPkOrPaPvPkOtPeOjPaOrPaOpP{NrPcGzGwNlPuNpPcGzGwNrPoHlJuStVaIlJcSxUcStVeJ`LyThXcIlJuJzLeJ`LeJ`LeStVcSzUyThXaTrVeHdIkOjReNlQuFbHcNhQeNrQsFdHqN|QiFdHkNtQmFnHaNfQuFlHeNdRyMrQ_NxQeN~QqMvQ_N|QgNpRyM~QuMzQoFnH_U|[wMdR{MpRuFfIqM|QeFnHsMnRmFxHmMhReFpHsM~RuMpRoM~RqMlRcFdIoMhRiM~RmM|RoMbScMvRkMdSaMrRgMdSkFhIcMfSgMdS_F`IaMbScMjSaF`IcMjSkMnSuEfIuLdScMvS}ElIiMzSwLhS{ElIyLpS{L~S}ElIyLpSuEnIsLxSwEdI_MfTuEhIoLvSwEpIwLnT{EjIsLfTgL|SqLfTqEjIoLhTwEtIgLfToLpTmL`TeLhTyExIgLpTkLpTaLrTuEvIaLnTeLxTaLrT{KtTqE~IeL~T{K|T_LxTsKpUeErI_LbUsKzTkEzI{KnUuK`UuKnUiLdVcLbVmBcCiRxT}JdI}LjHeNlFmO`D}ObAiNOcN{AgL}CcL{EsIkEcAbDo[gZaK{KmK}KaLeL_MmLeO{MwQ{NaRyLiRmJmQaHaJkCiSiEwS}BkIk@kISoSDsSvAsSpCoSzEwHzB}H|CeR~IqOpJeAp@yP|MeP~OgOnQsNxS_FxIsLrTyLzVmKlVeEbKqK~W}JzUwKrW_EnKqKpV{KxVgCjF{GjNsErIoMhUmFvImMdSwN|RiOrRaG`HqOjPcPpOwGjGqP~OoGxFgQhPwHbHmIzHaJlIgK|IeLtHoL|EaO~CiFf@oGJsNy@uF}@mFuAyMmFwN{FwKeFoJiEyEcB_Bo@r@iRrAqa@fAm[vAoa@~@_V|Aa\\NiD~Ak[pA_VnA{UdCka@|A}UpB}]NgCpCqa@fAiPVuDvCw_@rA_VhBia@lB_c@xAia@|Asa@bB}a@dB{a@rAeVx@iJEcp@wAegCgGgtAsi@etDhBg_@pe@oLvo@aGdH~DtE?bF_C|BaI|f@cG|d@gEd[}z@|Vi}AdfAy{AssEerFuFuNWeFu@oD{AaDuCs@}CJuBv@_CvBeAbFCzDFfGmFfUm`@|jAqRvs@{Mz{@kDj^kEzk@{Aj_@wBhdAzA~v@hBrs@d@rTmAfC_ArCi@vCIrD`@lDbA`DbBhCpBnBzH`Xdg@lnDlH~{@xBd_By@bnAkC|^wQblFwTneDs[bkHiG`pCsC`pCoE|uHkLfoFcCh@mBdBuAjC[zAQ~ARxCr@bC~@|BbCbCsSvcBeTdjBeF|_@u@Ba@h@g@l@U`AKlAFnAXdAb@x@yDfYkAhGeUzuAoHv`@wX~qAwAVk@`@Yn@Q~@CpAVbCmAtGa@vGiTt{@kUlbA_TbiAc[fwB}BzKoE|ZyD|@uArAmAfCe@hDOtCNvCLxClAvB|AlBnBbAnBThBi@pBkAnAkB`A_C`KjD~ShLdNfI|KfHtFzInDlJxCvLnAnQFrLu@|K{FrUiI~UoN`S}NtRuFlHuNrRuN~Q}FnHaO~Q{FxH_PtRgNlPuOrQaGrGqGfHmGjHkGvGiG~GiFlG{OzPsPlQgQdRuGhHoPhPiOfPwG`HgPnPiOpOaHfHoOzO}ObPoGtGwPzPcQrQwHxHmLpLuJzJ{MzMiNnNiNpNe^|^mNzN{PvQkQlRma@nc@iQzRsPlReQhSkQ~SeRrUqOnRaPhTwNdRwOnTwNjSiOxTqNlTmNxTmMxSaMvSmLlSwLlTeL`T}LnU}KvT_M|VmKrTuLpWoK~UaK`ViKrVqKdXqJ`WwJjWqJ`XyJ|X}IxW}IlX{I`YoJr[gJp[oExPmIxZiJj^_Jn^qIn^eIh^kHl]cHj]yG|\\aGh\\eGf]yErYeE|W{DpWeEfYuD~W}DzZeDvW}C~WqD~YmDhZaDbZeDzZ{CtZcDp[gDj\\aDr[_D~ZeD|[cDx\\_Dt[}C~ZeDl[eDf\\cDb\\cDb\\aD|[cDd\\{CpZeDz[qCrYmDp]_Ed`@iEfb@uDj_@aDf\\wDz_@kDr]{Dv_@qDv]gElb@_Dr[yDn_@cEna@}D|_@oFdg@_Er^kEz]iE``@iEh\\{El]uEh^{El\\}El\\eFz[uFh]aGx^wFtZkFtZsG|]sGl\\aHd]gGn[eGxY_GvYuGvX_Jha@wE~QkCbLcHxXuHd[aIh[qKha@uFzReOhj@_C|H{IdZeJhZkIlXuJhZuIbX}JdZoFfPgJbXqMf^mMb]kMb]sMb]{LjZiM|ZaN`\\kNz[uN|[sMjZyL~WsMhYwLrWkOl\\{Nt[oM|XoOb]{LhXyNp\\sNl\\}KxWqLtY{KbXyKlYmKjY}JjXsKtZmI|VyKf]iTzs@gHtV_I~XcHxWyGjWcHbYsGtXuFtUwEpTeHf\\cEfScEpSoEdVsChOmExViInf@cD|RoDtUoFx^mDzVcEb[wDz[mDzYgDvYmDz\\iC`XyB|VaClXmCnZyBrWuBvWkBzUyCd`@sB`XuBxX}BxZkBvV}BvYiBfX}B`ZeBpTqBvX_CnYgCh\\{B|ZyBhYqBtWyBfYyBdYuBtW{Cb^kCtZqCnZkCfWqB|QqEh`@{D~[{DxW_E|WiFzZcE~TiEzToHb^gFdUcD~KkIr[gItVyHfTwLvYyTdd@}Rr\\uMtReY~\\}MzN{OjOaLnJ{MpJgTtNqMrGoQtIu[hM}R~FsX~Gc\\bH_[nHgWdGiNhEyVnImQjHmQlIgRvK_P~JmTxO_QbNoNbLcPlMsOrM{SpPgRjN}TpOsPnKcNvH}RzJsd@bSuShH}P`Fo\\lIm_@fG}KnBiQrBmYtBsQt@cX`@w[K}Sa@gRe@aTaAaZo@gYg@i^AyWN{_@~@qTdA{]vBsX|BsU|Ba^|Eez@|N}e@zKgd@fM{a@|Lu`@|OwP`HyQjIke@dUyVrMuT~Loa@vVqa@tYeb@p\\gY~WeXvYeRnU}ObTkRbYyRx\\}KhSuKzTkNf[mCvGkGtOcMn]sFxPkHvUoEjPeGvTsFbVuHp^gHp`@gGr`@kEz[yDr]qChY{BdXiCd`@}Cvf@eCrm@eBzi@gAjb@y@t^a@fYyAdhAyC|oCmBriBeB|gA_Avg@cBln@iBzg@qB|_@yCzi@{Cxb@uD`b@wE|g@_Ex_@sGlf@_Jxk@{Jfj@aJbc@kGbYmIn\\oIn[yH~W_Oxd@oUvp@{\\d_A{Ypy@ePte@}rAxtDyLf[yO`c@u[l|@m[l|@sJfXiVzp@k]rbAiXnz@{Llb@gJl^kYpjAeQtu@aVheA_VbcAo\\~vAs]p`BiLbl@oNnt@mJnh@gNpx@yKhr@iKtq@wIdm@gKlv@mHjk@mJbx@iD`]mHvp@mNdyAgHdv@oLpkAcDvYmFfe@eHri@kCnSgJfo@gCjN}Hvf@_Krk@{Jfh@{Q||@kE`SoLvg@eT~z@aUjz@qVfy@oWjx@qXjw@sYjv@wLjZ_MzYw[bt@_Slb@{K|TmUvd@sWhg@aXng@qXtg@{\\xm@{U~b@iu@dqAedAbeB}eAxcBuSr[_hA~aB{sAdnB}CdEeRrWkr@`_Acl@hv@og@lo@ie@dl@ah@nn@i^nb@oa@ze@{{@faAya@hd@_b@vc@e[f\\c]r]maDhcDwhEpjEqj@`k@cUnUcoLxsL_TfT{PxPk`@|`@{ZhZaj@lh@me@tb@}[jYkRlPaA{BsE`@wDp@{BTuBJuCGuCSuCk@_DaAyCuA{EoCeD{BiLqE_D{AqDy@qBQ_BB}BXsBd@oCrAqC|BuAdB}BdEcBxFk@lD]fFAvETdH`@`FfAvH~ApIvBbJdCvJfIhZ`JtZlDrKbMx\\jC`HjEjK|K|VlShb@lPt]`HfPoAbBoAjC{@~Ci@jDUrD@tDVrDj@hD~@zCpAjCtAdB`A|@pBhAxBl@|BL|BQxBo@pBoA^a@`[p{@|EnMvHdVhBlFhG`ShJhYjJ`ZpFjRnGxQhGxRdLz[tCfIxExNfG|QlBbFfFxOpFtQdCdKbBzJ`AxKPxKYdLw@bLwBbLsDfOsD`QsCfNgBlLiAtKaBbZk@nNg@|Kk@jMo@zYe@dN_Bt[gAbP}@lIkElYoCpMqNln@qGjXkGzXoErUaEzQoD|OqA|FgG|W{FjW{DrT}DfVaE|VaEdZyEpYaHlb@wEjX_EpVcCvNsBtJcDvKoF`NiG~KsGvKkJvLkF`I_N|S}EpJqElLkB`H{Hn[oErTcBjLaBtSq@dMWtMEhGnDzBjAdAz@lAhBlDpBvErDlKfE~LhI~UdJbZrB~Hn@`Cd@fAf@`@AlBBhATlBlArGtDpQzD`RlDlNnCfLp@rC`@nCZlDN|BFzB@|BSbEu@dIo@lGc@rFSrEInDA`EHnDPdET|AlDzN~B~JnA~Fx@jFhAfLzA|Rd@vIPrF?hDSzEc@dHcAdJeArGgAlFcDtPuDfSmBpLiBvNsAjOg@vGSrEC`C@dCJhGLfJFzDV~Hn@~O^xNXlNBzOMfLOzFSbDQjA_@t@m@\\iA?k@|GcAtHyAnJs@xDsF|W_FxRkFxQkGpQkJ|U{@bCmC`GoJrVcHjV{F|XeBbKeBjMuCh^]bEY|GUlIMnGErPXfYFnG\\pIf@jOtA`RvArOxA`P|Cf]l@`HZjEf@dMbAtZwCH??",
+            "precision": 6,
+            "length": 1620
+          },
+          "bikesAllowed": false,
+          "wheelchairAccessible": "NOT_ACCESSIBLE",
+          "reservation": "NONE",
+          "ticketUrls": {
+            "web": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22487546%22%5D&from_ticketing_stop_time_id=%5B%221168813%22%5D&to_ticketing_stop_time_id=%5B%221123405%22%5D&boarding_time=%5B%222026-11-27T15:30:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T16:30:00%2B00:00%22%5D",
+            "ios": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22487546%22%5D&from_ticketing_stop_time_id=%5B%221168813%22%5D&to_ticketing_stop_time_id=%5B%221123405%22%5D&boarding_time=%5B%222026-11-27T15:30:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T16:30:00%2B00:00%22%5D"
+          },
+          "alternatives": []
+        },
+        {
+          "mode": "WALK",
+          "from": {
+            "name": "Bled Union",
+            "stopId": "ijpp_1123405",
+            "lat": 46.368324260573004,
+            "lon": 14.11399299206,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T16:30:00Z",
+            "departure": "2026-11-27T16:30:00Z",
+            "scheduledArrival": "2026-11-27T16:30:00Z",
+            "scheduledDeparture": "2026-11-27T16:30:00Z",
+            "vertexType": "TRANSIT",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "to": {
+            "name": "Bled Union",
+            "stopId": "ijpp_1123406",
+            "lat": 46.368161443109,
+            "lon": 14.114107903768,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T16:32:00Z",
+            "scheduledArrival": "2026-11-27T16:32:00Z",
+            "vertexType": "TRANSIT",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "duration": 120,
+          "startTime": "2026-11-27T16:30:00Z",
+          "endTime": "2026-11-27T16:32:00Z",
+          "scheduledStartTime": "2026-11-27T16:30:00Z",
+          "scheduledEndTime": "2026-11-27T16:32:00Z",
+          "realTime": false,
+          "scheduled": false,
+          "distance": 7.0,
+          "legGeometry": {
+            "points": "g_bmwAglm|YMkD",
+            "precision": 6,
+            "length": 2
+          }
+        },
+        {
+          "mode": "BUS",
+          "from": {
+            "name": "Bled Union",
+            "stopId": "ijpp_1123406",
+            "lat": 46.368161443109,
+            "lon": 14.114107903768,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "departure": "2026-11-27T16:56:00Z",
+            "scheduledDeparture": "2026-11-27T16:56:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "to": {
+            "name": "Lesce ŽP",
+            "stopId": "ijpp_1126806",
+            "lat": 46.360748288582,
+            "lon": 14.157907984942,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T17:04:00Z",
+            "scheduledArrival": "2026-11-27T17:04:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "duration": 480,
+          "startTime": "2026-11-27T16:56:00Z",
+          "endTime": "2026-11-27T17:04:00Z",
+          "scheduledStartTime": "2026-11-27T16:56:00Z",
+          "scheduledEndTime": "2026-11-27T17:04:00Z",
+          "realTime": false,
+          "scheduled": true,
+          "interlineWithPreviousLeg": false,
+          "headsign": "Krnica - Hrušica Belo Polje",
+          "routeId": "ijpp_66481",
+          "routeUrl": "",
+          "directionId": "0",
+          "routeColor": "24b7c7",
+          "routeTextColor": "ffffff",
+          "routeType": 3,
+          "agencyName": "Arriva d.o.o.",
+          "agencyUrl": "https://arriva.si/",
+          "agencyFareUrl": "",
+          "agencyId": "1123",
+          "tripId": "20261127_17:40_ijpp_477405",
+          "routeShortName": "A6415",
+          "routeLongName": "",
+          "tripShortName": "",
+          "displayName": "A6415",
+          "cancelled": false,
+          "intermediateStops": [],
+          "legGeometry": {
+            "points": "ayamwAwrm|YwBLI}Co@uPe@eM[mEm@_H}Ci]qDu`@sAcQi@gP]sIa@wa@BqPNeHTwHX_H\\cEtCi^dBkMbBcK|F{X`HkVnJsVlCcGz@aCjJ}UlGsQhFyQ~EyRrF}Wt@yDvAoJbAsHj@}G`@qHNoFPcK?cKKeKcAwb@m@aWGiKAsMt@sUxByZlBsYl@iMh@{MNcMCgNI{Mc@mMy@eMsAeNuAiMuEiYoBcMoFmZ_F_Z{EyY}@eFs@gE}EyYkBeLeI}d@qGkb@qCgYw@iLa@iNSsSDiGVuMp@cM`BwSbBkLnEsTzHo[jBaHpEkL|EsJ~M}SjFaIjJwLrGwKhG_LnFaNbDwKrBsJbCyN~DoVtEmXbHkb@vEsYbEcZ`E_WzDeV|DuTxFkWhG}WpA}FnD}O~D{QpEsUjGyXnGkXpNon@pCqMjEmYz@mIfAaP`Bw[d@eNn@{Yh@iMf@_Lj@oNbBcZhAuKfBmLpCeNrDcQtDgOtBcLx@cLXeLSyKaAyKaB{JgCeKqFuQgFyOhAqGfCqPlDqSjBiJz@uDpBgNn@iEj@iDxCkS~AmIhBeItGsTzJsY~F_RhFeRlK{^`B_HtByKpBgKbE_ZTyC`@iE\\uCdBmZpAaNzEuBdD}BjEcC`r@k_@rOyIj@rB",
+            "precision": 6,
+            "length": 163
+          },
+          "bikesAllowed": false,
+          "wheelchairAccessible": "NOT_ACCESSIBLE",
+          "reservation": "NONE",
+          "ticketUrls": {
+            "web": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22477405%22%5D&from_ticketing_stop_time_id=%5B%221123406%22%5D&to_ticketing_stop_time_id=%5B%221126806%22%5D&boarding_time=%5B%222026-11-27T16:56:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T17:04:00%2B00:00%22%5D",
+            "ios": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22477405%22%5D&from_ticketing_stop_time_id=%5B%221123406%22%5D&to_ticketing_stop_time_id=%5B%221126806%22%5D&boarding_time=%5B%222026-11-27T16:56:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T17:04:00%2B00:00%22%5D"
+          },
+          "alternatives": []
+        }
+      ]
+    },
+    {
+      "duration": 4500,
+      "startTime": "2026-11-27T15:51:00Z",
+      "endTime": "2026-11-27T17:06:00Z",
+      "transfers": 0,
+      "id": "ClQaDGlqcHBfMTEyMjgwNCE6f244fQdHQCk2U3LtnQYtQDIMaWpwcF8xMTY4ODEzOVOGjLNqB0dAQesucCKGBy1ASOTNptgGUNTPptgGWgRXQUxLYAEKdgoFQTYzNTASGjIwMjYxMTI3XzE2OjU1X2lqcHBfNDg3NTIwGgxpanBwXzExNjg4MTMhU4aMs2oHR0Ap6y5wIoYHLUAyDGlqcHBfMTEyNjgwNTlf5ulyJy5HQEF/bv4B/lAsQEjUz6bYBlD48KbYBloDQlVTYAE=",
+      "legs": [
+        {
+          "mode": "WALK",
+          "from": {
+            "name": "Ljubljana",
+            "stopId": "ijpp_1122804",
+            "lat": 46.058508924440005,
+            "lon": 14.512923641400999,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "departure": "2026-11-27T15:51:00Z",
+            "scheduledDeparture": "2026-11-27T15:51:00Z",
+            "vertexType": "TRANSIT",
+            "modes": [
+              "REGIONAL_RAIL",
+              "BUS"
+            ]
+          },
+          "to": {
+            "name": "Ljubljana AP",
+            "stopId": "ijpp_1168813",
+            "lat": 46.057943767180994,
+            "lon": 14.514695240206,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T15:55:00Z",
+            "scheduledArrival": "2026-11-27T15:55:00Z",
+            "vertexType": "TRANSIT",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "duration": 240,
+          "startTime": "2026-11-27T15:51:00Z",
+          "endTime": "2026-11-27T15:55:00Z",
+          "scheduledStartTime": "2026-11-27T15:51:00Z",
+          "scheduledEndTime": "2026-11-27T15:55:00Z",
+          "realTime": false,
+          "scheduled": false,
+          "distance": 241.0,
+          "legGeometry": {
+            "points": "{_ezvAwtxtZ`FE??dHG??f@A???vCX????o@GuNS???AeACo\\??R???\\dHx@`@??nAO??hAO??x@M??c@cB??AqA???}A???eA???{A??AqA???sA???eA???}A??AeA???wA???oA???qA??AoA???oA???kA???wA???iA??AwA???sA???oA???oA??AsA???mA???sA???mA??AuA???iA???sA???qA??nB|A??`EbD??Ay@",
+            "precision": 6,
+            "length": 93
+          }
+        },
+        {
+          "mode": "BUS",
+          "from": {
+            "name": "Ljubljana AP",
+            "stopId": "ijpp_1168813",
+            "lat": 46.057943767180994,
+            "lon": 14.514695240206,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "departure": "2026-11-27T15:55:00Z",
+            "scheduledDeparture": "2026-11-27T15:55:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "to": {
+            "name": "Lesce ŽP",
+            "stopId": "ijpp_1126805",
+            "lat": 46.360578884324006,
+            "lon": 14.158187925633,
+            "level": 0.0,
+            "tz": "Europe/Belgrade",
+            "arrival": "2026-11-27T17:06:00Z",
+            "scheduledArrival": "2026-11-27T17:06:00Z",
+            "vertexType": "TRANSIT",
+            "pickupType": "NORMAL",
+            "dropoffType": "NORMAL",
+            "cancelled": false,
+            "arrivalTimestampReason": "NO_RT_DATA",
+            "departureTimestampReason": "NO_RT_DATA",
+            "modes": [
+              "BUS"
+            ]
+          },
+          "duration": 4260,
+          "startTime": "2026-11-27T15:55:00Z",
+          "endTime": "2026-11-27T17:06:00Z",
+          "scheduledStartTime": "2026-11-27T15:55:00Z",
+          "scheduledEndTime": "2026-11-27T17:06:00Z",
+          "realTime": false,
+          "scheduled": true,
+          "interlineWithPreviousLeg": false,
+          "headsign": "Ljubljana AP - Bohinj Ukanc",
+          "routeId": "ijpp_67254",
+          "routeUrl": "",
+          "directionId": "0",
+          "routeColor": "24b7c7",
+          "routeTextColor": "ffffff",
+          "routeType": 3,
+          "agencyName": "Arriva d.o.o.",
+          "agencyUrl": "https://arriva.si/",
+          "agencyFareUrl": "",
+          "agencyId": "1123",
+          "tripId": "20261127_16:55_ijpp_487520",
+          "routeShortName": "A6350",
+          "routeLongName": "",
+          "tripShortName": "",
+          "displayName": "A6350",
+          "cancelled": false,
+          "intermediateStops": [
+            {
+              "name": "Ljubljana Tivoli",
+              "stopId": "ijpp_1165687",
+              "lat": 46.06023017898801,
+              "lon": 14.497763788955998,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T15:58:00Z",
+              "departure": "2026-11-27T15:58:00Z",
+              "scheduledArrival": "2026-11-27T15:58:00Z",
+              "scheduledDeparture": "2026-11-27T15:58:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Kino Šiška",
+              "stopId": "ijpp_1165649",
+              "lat": 46.069202191939006,
+              "lon": 14.490310246287,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:01:00Z",
+              "departure": "2026-11-27T16:01:00Z",
+              "scheduledArrival": "2026-11-27T16:01:00Z",
+              "scheduledDeparture": "2026-11-27T16:01:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Remiza",
+              "stopId": "ijpp_1165662",
+              "lat": 46.07429318306299,
+              "lon": 14.485482044068004,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:02:00Z",
+              "departure": "2026-11-27T16:02:00Z",
+              "scheduledArrival": "2026-11-27T16:02:00Z",
+              "scheduledDeparture": "2026-11-27T16:02:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Trata",
+              "stopId": "ijpp_1165692",
+              "lat": 46.086877443655986,
+              "lon": 14.474781037596001,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:05:00Z",
+              "departure": "2026-11-27T16:05:00Z",
+              "scheduledArrival": "2026-11-27T16:05:00Z",
+              "scheduledDeparture": "2026-11-27T16:05:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Ljubljana Šentvid",
+              "stopId": "ijpp_1165684",
+              "lat": 46.096780871878,
+              "lon": 14.465046883917003,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:07:00Z",
+              "departure": "2026-11-27T16:07:00Z",
+              "scheduledArrival": "2026-11-27T16:07:00Z",
+              "scheduledDeparture": "2026-11-27T16:07:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Kranj Plinarna",
+              "stopId": "ijpp_1121274",
+              "lat": 46.24307605469599,
+              "lon": 14.370314120708,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:25:00Z",
+              "departure": "2026-11-27T16:25:00Z",
+              "scheduledArrival": "2026-11-27T16:25:00Z",
+              "scheduledDeparture": "2026-11-27T16:25:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Kranj AP",
+              "stopId": "ijpp_1121238",
+              "lat": 46.24581555477901,
+              "lon": 14.354530347791002,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:27:00Z",
+              "departure": "2026-11-27T16:35:00Z",
+              "scheduledArrival": "2026-11-27T16:27:00Z",
+              "scheduledDeparture": "2026-11-27T16:35:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Kranj Zlato Polje P+R",
+              "stopId": "ijpp_1167549",
+              "lat": 46.25053238396501,
+              "lon": 14.346164999791,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:37:00Z",
+              "departure": "2026-11-27T16:37:00Z",
+              "scheduledArrival": "2026-11-27T16:37:00Z",
+              "scheduledDeparture": "2026-11-27T16:37:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Naklo/Kr.",
+              "stopId": "ijpp_1127782",
+              "lat": 46.27071205807101,
+              "lon": 14.313215124113999,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:43:00Z",
+              "departure": "2026-11-27T16:43:00Z",
+              "scheduledArrival": "2026-11-27T16:43:00Z",
+              "scheduledDeparture": "2026-11-27T16:43:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Črnivec/Rad.",
+              "stopId": "ijpp_1124167",
+              "lat": 46.33087440481499,
+              "lon": 14.222020606314999,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:54:00Z",
+              "departure": "2026-11-27T16:54:00Z",
+              "scheduledArrival": "2026-11-27T16:54:00Z",
+              "scheduledDeparture": "2026-11-27T16:54:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Podvin/Rad.",
+              "stopId": "ijpp_1128610",
+              "lat": 46.34071751103699,
+              "lon": 14.211010968017998,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T16:55:00Z",
+              "departure": "2026-11-27T16:55:00Z",
+              "scheduledArrival": "2026-11-27T16:55:00Z",
+              "scheduledDeparture": "2026-11-27T16:55:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Radovljica",
+              "stopId": "ijpp_1129160",
+              "lat": 46.34341747371598,
+              "lon": 14.172809888932,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T17:00:00Z",
+              "departure": "2026-11-27T17:01:00Z",
+              "scheduledArrival": "2026-11-27T17:00:00Z",
+              "scheduledDeparture": "2026-11-27T17:01:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "REGIONAL_RAIL",
+                "BUS"
+              ]
+            },
+            {
+              "name": "Radovljica zahod",
+              "stopId": "ijpp_1165165",
+              "lat": 46.350133701051995,
+              "lon": 14.168341461669996,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T17:02:00Z",
+              "departure": "2026-11-27T17:02:00Z",
+              "scheduledArrival": "2026-11-27T17:02:00Z",
+              "scheduledDeparture": "2026-11-27T17:02:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            },
+            {
+              "name": "Lesce",
+              "stopId": "ijpp_1126803",
+              "lat": 46.357345130511995,
+              "lon": 14.163505381521,
+              "level": 0.0,
+              "tz": "Europe/Belgrade",
+              "arrival": "2026-11-27T17:04:00Z",
+              "departure": "2026-11-27T17:04:00Z",
+              "scheduledArrival": "2026-11-27T17:04:00Z",
+              "scheduledDeparture": "2026-11-27T17:04:00Z",
+              "vertexType": "TRANSIT",
+              "pickupType": "NORMAL",
+              "dropoffType": "NORMAL",
+              "cancelled": false,
+              "arrivalTimestampReason": "NO_RT_DATA",
+              "departureTimestampReason": "NO_RT_DATA",
+              "modes": [
+                "BUS"
+              ]
+            }
+          ],
+          "legGeometry": {
+            "points": "o|czvAm_|tZD_@]cu@IoJk@y@a@g@kJgDOuVda@pFq@biBt@jfEj@b}CoHfWrEn}BdA|PsC|LqAvK}@nHw@xMsAh\\l@f`@b@tHdAfPbCdS`AtG|@hFfDlOnGfTjEpKnDjH~MbUhEdFrQbTma@z_@_TzUui@`i@_HtH_u@rw@ma@|c@k[na@oBkD_eErwDsJxE}KnEqJvCg^fKuDjAo`@~PqVdR{l@pj@iqAjkAiF`A_[t[WZ{EjFsx@lw@{B_C|@bCgu@js@w\\l[aLbJkDzC}yAlsAiLrJo}@ty@s@l@}KrO{NxIoQxSyClDgR~T_LjNmKdNyUpYw^fb@iHhHaGvFmIxHkMnJyw@rj@kSlMuR`MsN`IoEzBkDbHoDeBgMpH{IjF{CzJiHkCsg@f]__@tVqa@jXgi@l\\c[dReEtCgT`NmT~MkF~GeIfA_b@d[}c@ha@gSrSkAnAsh@lj@er@~s@mf@xe@EDm^b]gRjPqErHoGx@yfAv~@cs@dn@}VtS}F~J_JxBa|@bu@ch@`c@qr@dn@}DfHuHvAcc@l_@s\\x[u[z\\GH_UdX{SdXuWn_@qQdYmCpJoGvEgVp_@cAeBm\\|t@kRfWk_@eDor@mm@m{DoaDaoAy~@stAat@utB{bAsXoKuReH{HqCuHuCeSyG_ImCeSoG_SeGgSuFkRyEiI{BkSsE_SgEoS_E_I}AeSoDeS}DeI{AkSaEyRgEuS{EaSuF_IuBeSwG{RiHuR}HuHcDsRcJgRuJ{QkKwd@iYmHeFcQyM_QgNcQ_OgG{FcP_PaPmPqGeHkOmQoO{Q{NmR_OkRuNeR{NkRoOqRaOwQoOaQ}OoPqGyGmP{OgHuGkPcNwP_NuQmMiHkFaHkEsRwLkQ}JiR}JyReJwRgI_ReH_IyCkLwD{O{E{S{FkIsBgScEqSsDwHuAeTsC}SyBgIs@eTwAgS{@gTk@kSMiI@_TPeTl@uIZmSnAoIp@mSnBySnCwInAcSpDcIxAwSpEcSjF}HxBkSrGeIlCkRlHkSnIkQ`IwRpJeRrJiR|JyHzDmQzKeI`EqQ|KeRdLmHhEyQvKkQrK{HtEaR|KyPdKgInEkRlKwQtJkRnJ_IxDaSfJkRzHqTtImIxCwPvF_JtCyR`GmRfFuSfFwHlBgSvD_SrDsSdDuSvCsSzBaIz@iS`BmSvAuS`AkI\\uSh@mS\\ySDoSOeSWcUm@gIWaIg@oRmAwHe@kSeB_V}B}PiCkIoAoScDyRoDoSiEkSwEqR}EmRkFmQ_FaT_HeS}GqH_CyR_HsH_CoRwG_SkHyHoCoR_HsHsCoRcHaIwC_ScHwRmHyHmCaR{G}RmHyHoCsRaHkRkHwRiH{RgHoHmCsRcHyHwCyReH_IuC_RyGcI{CyRmHiHiCsReH_IyCyRkHgReH_IqCsRcHmReHyHqCmRiHsRgHcIwCcR{GoRgHyHsC}RgHmRaHuHoCaSkHoRiHsHoCmRiHyRyGyHuCmRaHwRcHuHmCwR_HwRsGwRqG}RgG}RgGwRuFwR}FaSuFgSoF}RaFgIoBqSyEmH_BaS_EgIaBeSoD_TqDgSyCkImAeSgCsIiAiSwB_SmB_TaBgS{AySkAcIc@e^mA}Sm@}RS}SWySKgIAkSNgTTwS^}Sr@qSv@qSfAoIf@oSxA{SzAwSrBqHr@oS|BgIx@eSnC}S`DkSpD_IxAmSrDeSjEcI`BaSrEgSdFaShF}RxFcI`CyRbG}RzGwHfCoRdHcIzCoRvHyHxCoRfI{HfDoRzI_RzIoHzDcRnJgLfGwW`OqQnKuQvK}QrLkQrLcHxEeQtLiQtMcHlF_QzMwPfNsPhNsP|NyG|FmP`OsGbGcPhOsGjGaPxOcP`PaP~O}OrPmGpG{OlPmOrPmGxG{OtPuObQqOzPkO|PmGxGiO`QiGbHoOdQcGbHoOfQgGhHsMfO{SfXuStVuStVqRxUeJ`LeJ`LwStVgKzLcIlJuStVsIfKgTnWuStVwJzLeSxU}FpHkNdQiNlQiNxQeNjQiN`RuFhHeNnQsFtHaNvQoFjHkNzQmFjHuNtRoNrRyNxRmNtRmNtRuNbSiNrRqFzHeVf]oNtRiF`IoNfSuF`IaN`SsFdIiNdSgNhScNpSaNjSiNrS}MlS}MlSaNhS{MpSeNbT}MnSkMhSaNdTuFrImMrS}M|SsFzImMhSwMdTkF|IuM~SoM|SuMfToMdTsMnTqMnTiM~SmMlTgFzIkMrTeFnIgMtT}EpIkMtTeF|IcMpTiFbJeMxT}LrTiFdJyLpTcMvT_FzIoGnL}DlHwLvTaMzT{LhUyE|IwL~TmLpTcFdJeMjU{LpUuEbJoL`U{LxUyE`JwLpUoLnUuLzUkLhUyEjJaLzU{ErJaLbUcFlK_LfUoLbV{KjUwEvJ{KnUsEtJgL~UaL~UiLjV{KxUoEtJgLtVqKhUqErJwJnTuFrLcL|VoKxUiEnJ}KrVyKvVwKnVqEfKsQna@_MjYkE~JsKzVqKtVmKpVaKfVmEfKmK|VaFtLeDxHeE`KaKrVoKtWcKzVgK~VcEjKaKdWaE|JaKdWgKlWaE~JcKpWiKnW}JnVeKnWaEhKkKrW}JxVaKdWeKhWiKlWcKdW}JfWyNl^}O`a@iSng@aV`m@}]~|@eZhu@{Uvl@}KfYiEjK_K|VaKfWcEfKoK`X{JrVcKbWgKvW}JtVeKlW_K|VeKpWuJfVgKhWgKjWeKhW}D`K{JdVmElKgK`WkK`WuKlWwK|ViE~JgKvUkEtJ{KvV_LlViLlVmMfXoL~UmExIyL`VkLdUwE`JyLlUwL`U}LzTgMrT}EtIiMpT}EfIoMlTiFzIcNrTmM`TaNbTkFhIaNjSeWz_@jAnCwEpKoCzJwB|J}AzJkAlKi@|KQfL^lZr@rMdEde@bBjRxCt_@dBzMl@pM\\zMKfMc@dPmAbOeBlMyCbO{CvLcDnJ_ElIyEdJuGtIcHbIcIrGkJ`GcJlEqJlDyKrC{YrFkNnB{LfBuHh@mDDqAQi@jSg@nVy@lb@s@rb@i@vb@StVKlVGdV?l[Lz`@@xANrRPhU\\p`@TlURtUXna@Eva@]z[k@ra@]bV_@bV]tUk@r`@_@jU]lU]lUg@n`@WfUY~_@St^C~RDtWMpVpCZpAlAv@tBTlDEtAo@~Ba@v@g@`@wAh@e@B^pUPvMVrRPnQ\\rR\\bPVzNVrNVpMP|Ij@hRh@pP\\hN^xL\\|Md@`RHvGJ|GDvGDvH@hIE`JG~GItFQjGYjHa@lHk@tHk@lGk@hFi@pEe@~Cg@|Cs@tD}@zEqAnG_BbH{A|FsA~EoAdE{ApEkBbFiBlEsDnIuCrG}C`H}C`HmCpGcD~G{AdDoClGoC|FoElKmE`KwB_A~AjBm@rAoC~G{CrHeElKuGbOiD|HeDvHqBpEkGxNiCnFcDfHsDdIyCzGkD`IiC`GcDpHcDpHyBfFgCbGsB|FgD~ImDhJcDfIkCbHkEbLkEnKsEbLqJdTqEnKsFjMaDnHaFtL_DjHmEtKcJxS{AlDoEzJqF~LgD~HoE~JuD~IcDrHgEtJuB~EqDlIaDvHmDhIiD~HmDvHaFdLcBrEtDzMhCjJlDvM~DxOzE`RlGlUrC`LXnAdHlXvDrNhEbPrDnNvCxKfIl[nDvNxE~Q~BzI`IzZ~B`JdBpGdAhEhEpPbCnJlCpKdC~I|E`QnClKjAhFyEQyFOeFQyISq@tN[fEyDw@oD~dCg`HxcKg_AvvAe_A`lAqiEp~D{qDbbCwwEfzE}uA|aDqnAzlElD`COj@cFdRqIh\\}@fD}GpWcD`MeA|DkFfSaIr\\{Hp\\gEhSkHl^mDrSuAlIwEnZiAQmARcAx@q@vA[jB@pBZhBp@vAdAz@a@vCmCxRgDjUuC|TsF``@uCpUqFv_@[zBsE|[sC`S{CxSiD`TaHt^sE|SaB~GoFrTiJz\\aKz[yKxZsAfDmE~KoBpE_ElJ{HzPmIzPsInPeOhYwItPiOrYwIxP{@`BuGjMqAdC{F|KoNlXiItOABsFhKsAfCaIlO}LpUkJ`RcN|WiNdX{N`YkOvYyIvPsIxPsOxYyN|XoBtDoKpSuIdPsIjPsIjPqIjPoIfPsIfPuIbPsI~OyDnG_NvWiFbKeT`b@sHbOgNfXiIzOgI|OkI~OsNvXcDlGeDnGgIvOgIvOiNdX}HdPwHtPcMlZ}GpQmG`RaKj\\iA`Do@_@q@Su@Es@Fs@Rm@^k@l@e@t@]|@G^Kd@MhACjABjALhAVbA\\|@d@t@j@j@_CxI}@bD}DlMsFtRsFhRoFnRoFfRiF~QcBpGaBtHsA`Hc@pCaDhVEl@oB|SuAtOgB|RgB|ReAfKoB~PiBxNe@Ms@Es@Dq@Rm@^i@j@c@t@]z@eAyA{AiAqAcAkA}@eAy@eAy@gAy@kA}@oA_AqAaAqAaAqAaAqA_AmA}@kAy@eAu@_Aq@}@m@w@i@s@g@q@a@k@a@i@[e@[c@Wa@U_@S[Q[O[MYM[MYKYIYIWGYGYGWCWEK?KAWAWAW@U?W@WBUBWDUDWFUFWHUHUHUJUJUJSLUNUNSPURURSTUVUVUXUXU\\WZW\\U\\W^W^W`@W`@W`@Wb@Wb@Wd@Wb@Wf@Wd@Wf@Wh@Wh@Yh@Wj@Yl@[n@[n@[r@]r@]v@_@x@a@|@c@~@c@`Ae@bAe@dAg@fAi@hAi@hAi@lAk@lAk@lAk@nAk@lAk@nAk@lAi@lAk@jAjTt[hFjJ`BtGt@vKKvJeBxL_HnT}GnLuMtReY~\\}MzN{OjOaLnJ{MpJgTtNqMrGoQtIu[hM}R~FsX`Hc\\`H_[pHgWbGiNhEyVnImQjHmQlIgRvK_P~JmTzO_Q`NoNbLcPnMsOpMySrPiRjN}TpOqPlKeNxH}RzJsd@bSuShH}P`Fm\\jIo_@hG}KnBiQrBmYtBsQt@aX`@y[K}Sa@eRe@cTaA_Zo@iYg@i^AwWN{_@~@qTdA}]vBsX|BsU|Ba^~Eez@zN{e@zKgd@hMsa@pN_a@hNwP`HwQhI{e@rTkVfNsT~Lqa@vVoa@tYgb@p\\gY~W_XzYkRjUgc@hn@eSh\\sKvSeLhT{Mx[uCvFyGlPaM`]aGzPmHzTgFfRsFbTgFxUmHv^aHt`@eGp`@gEf[cEj^yCjY{B~WeCz`@eCjf@cCrm@qBpi@mAlb@g@~^a@dYu@ve@}CzbE}AzhAc@th@mCnwA}@`^kDx}@yLtgB}D`f@_Ehb@_Ep^sEn^oEp[aFj[qF`[_GvZmGnZgIx]cGfV{HnYuJj\\_Lx]mlHxjScFpOoHvVyK|_@yThs@av@xnCmk@xaCyTvbAg]hxAw]r`By[zaB_Z~bB_X~cB_V~dBcTzeBcDbZgHxp@iCc@yC|EsBnDcCdCkCvAqCp@gCPoL_Ao@u@yCqDgBgEyAcEo@sDUwG@gF`@yLt@iPfByRPeBaDu@cGmAgI[}EKyFIaI`AwH|AeKvDuK~E}JtDmIfCuJ^cHUiIcB_IaEwFuDuGwHkGuMoMoYwJyO}HmJ[OiIoE_NkD_Ko@_KDuNnB}NnGmOjJ}M|GqRzKgi@lZmc@jV{QhMaPdLsPtL_StP}PxNcb@n_@{QdR}KrN}CpEgFpI}EhJoCpFgHtOqJ~TqKfUsDpGiKbOgFhGyFnHoEhF_LhN_LnNsKfOgKtOqPnXsObYwI`QqI|RaJlV}BhI}EfToDnTkAbJwB`Vo@nJc@rJc@tJUlKO|HApI?vBAfKf@lT\\tIlBhYrDtc@tBzTzAnOnBhQlArMfAjMr@tLpAxV`AdSdAda@^xTZtURrNIjQ[xVS`VQhVm@tWe@rVk@ta@_@nb@o@xe@e@`a@Qtp@_@rVKtZg@t^m@~d@]j^c@zd@c@vd@U`SYn]SxSY`]]`X[|WcA``A]hq@OpMg@ha@YzYGbt@w@d\\]hRq@rQ_C`UkBxNqBrKqBvIaGrSuFpM{GlMgGxIaIlJ}GhHkRlRqQpPa`@n`@qzD`}Dql@fl@alBvpBjm@v_An_@pd@dO`RpJhJvOjQzIk@rIrDfBt@bGbD|GhE|KxMjCfEjJjNzJzPlQh]vKzUdFtL`FbLzH`Q~G~MdHlKtFrH~JnKjOtQ^dAj@xAp@rDXdJYjHEbAUrD}@|DaDrIqAjDkLhZ{FdOkBb@ga@~I{XjGcUfFaO`D{JnCmKxEiZtQ}MhImJbGyHrEwHrEmJfGuJjFsLtHoKvHuJfHmJ~H}KdLaJpJoJ`IyL`JoM~H}KlEeQvEgLbCyAVwIrAqHfA{JvAiSvEeQzFuLzEsPzHgHlDoUnJkT`EkX~B{RxBqJjCeCXa@}As@iA}@s@gAUgADiAd@w@~@k@rAW`BD|DoDxB}P~JwTbMmPdJcFxCwAv@cUhMqKnGeEhCcE`DaKlI}JzI_KdJcK`JcK~I}A|AuGxG_J`LeDdFoErIcBdDsGbPiBpEcDdIkBvDuDtHaDfFmFtGwBlC_K~IyKtG}RtIeL|EcRfI{KdFcKrFqOxJeKjIiEjD{SnSeGbFsBbCgCbEmBzDaElKk@|Cs@lDyGf\\mFvTkA`GoBxGlGlMnCzDdB~BfDfDrVpM`I|DyAtD_BxByAtAqDxBwLpIKHc@sA",
+            "precision": 6,
+            "length": 1649
+          },
+          "bikesAllowed": false,
+          "wheelchairAccessible": "NOT_ACCESSIBLE",
+          "reservation": "NONE",
+          "ticketUrls": {
+            "web": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22487520%22%5D&from_ticketing_stop_time_id=%5B%221168813%22%5D&to_ticketing_stop_time_id=%5B%221126805%22%5D&boarding_time=%5B%222026-11-27T15:55:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T17:06:00%2B00:00%22%5D",
+            "ios": "https://karte.brezavta.si/ticket-deeplink/?service_date=%5B%2220261127%22%5D&ticketing_trip_id=%5B%22487520%22%5D&from_ticketing_stop_time_id=%5B%221168813%22%5D&to_ticketing_stop_time_id=%5B%221126805%22%5D&boarding_time=%5B%222026-11-27T15:55:00%2B00:00%22%5D&arrival_time=%5B%222026-11-27T17:06:00%2B00:00%22%5D"
+          },
+          "alternatives": []
+        }
+      ]
+    }
+  ],
+  "previousPageCursor": "EARLIER|1795791600",
+  "nextPageCursor": "LATER|1795797720"
+}

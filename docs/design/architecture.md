@@ -91,8 +91,18 @@ Requests for permission ask for redistribution through the public API, not only 
 
 ## User interface
 
-- The start screen lists departures from the nearest stop in the next 30 to 60 minutes.
-- A destination filter matches every stop on a vehicle's route, not only its terminus.
+- The start screen has a journey form: "From" (filled with the nearest stop), "To", a swap button and the time
+  choice "Leave now", "Depart at" or "Arrive by".
+- Without "To" the start screen lists departures from the "From" stop in the next 60 minutes. Other stops within
+  300 m are filter chips (mode icons, name, distance; screen readers get checkboxes) that add their departures to the
+  list; the settings choose the modes whose nearby stops are checked by default. "Add a stop" finds any other stop
+  by name; added stops are kept on the device per "From" stop and checked by default. The list takes at most 10
+  stops, "From" included. A list of several stops names the stop of each departure.
+- With "To" the start screen lists journeys from MOTIS, one page at a time, with earlier and later pages. The map
+  draws the selected journey: one line per leg coloured by mode, walks dashed.
+- Departures and journeys refresh while the page is visible, when 30 seconds have passed since the last load (checked
+  every half second, so a page shown again or resumed after a freeze refreshes at once). Data older than two
+  minutes carries a notice with the time of the last update.
 - The app learns frequent stop, time and destination combinations on the device and offers them as one-tap
   filters. This data does not leave the device.
 - When the device moves along a vehicle's route, the start screen shows the journey: time to the destination,
@@ -102,8 +112,8 @@ Requests for permission ask for redistribution through the public API, not only 
 
 Accessibility is a primary feature:
 
-- Every screen works with TalkBack and VoiceOver from the first release. The departures list is the primary
-  view; the map has a text equivalent.
+- Every screen works with TalkBack and VoiceOver from the first release. The departures and journey lists are
+  the primary view and the text equivalent of the map.
 - Delay changes are announced through live regions.
 - The app follows the system font size, `prefers-reduced-motion` and contrast settings.
 - On the first start the app asks for an experience: "Simple and large" or "Lively". The choice is stored on

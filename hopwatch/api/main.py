@@ -13,7 +13,7 @@ from hopwatch.motis import DATA_ATTRIBUTION
 
 app = FastAPI(
     title="Hopwatch API",
-    description=f"Stops, departures and the account of the logged-in user.\n\n{DATA_ATTRIBUTION}",
+    description=f"Stops, departures, journey planning and the account of the logged-in user.\n\n{DATA_ATTRIBUTION}",
     version=hopwatch.__version__,
     docs_url="/api/docs",
     redoc_url="/api/redoc",

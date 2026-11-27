@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 
 import { mockApi } from '../test-utils';
 
-import { accountMe, departures, nearbyStops, searchStops } from './hopwatch-api';
+import { accountMe, departures, journeys, nearbyStops, searchStops } from './hopwatch-api';
 
-const STOP = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058 };
+const STOP = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, modes: ['rail'] };
 
 describe('Hopwatch API client', () => {
   it('asks for stops around a position within 1 km by default', async () => {
@@ -27,15 +27,49 @@ describe('Hopwatch API client', () => {
     expect(requests[0].url.searchParams.get('q')).toBe('Ljub');
   });
 
-  it('asks for departures of the next hour and sends a destination only when given', async () => {
+  it('asks for departures of the next hour of all stops, as a repeated stop key', async () => {
     const requests = mockApi('get', '/departures', []);
 
-    await expect(departures('si:1')).resolves.toEqual([]);
-    await departures('si:1', 'Koper', 90);
+    await expect(departures(['si:1'])).resolves.toEqual([]);
+    await departures(['si:1', 'si:3'], 90);
+
+    expect(requests.map((request) => [...request.url.searchParams])).toEqual([
+      [
+        ['stop_id', 'si:1'],
+        ['window_minutes', '60'],
+      ],
+      [
+        ['stop_id', 'si:1'],
+        ['stop_id', 'si:3'],
+        ['window_minutes', '90'],
+      ],
+    ]);
+  });
+
+  it('plans journeys from now and sends time, arrival and page only when given', async () => {
+    const answer = { itineraries: [], earlier_cursor: 'e', later_cursor: null };
+    const requests = mockApi('get', '/journeys', answer);
+
+    await expect(journeys({ fromStopId: 'si:1', toStopId: 'si:2' })).resolves.toEqual(answer);
+    await journeys({
+      fromStopId: 'si:1',
+      toStopId: 'si:2',
+      time: '2026-11-27T10:00:00+01:00',
+      arriveBy: true,
+      pageCursor: 'abc',
+    });
+    await journeys({ fromStopId: 'si:1', toStopId: 'si:2', arriveBy: false });
 
     expect(requests.map((request) => Object.fromEntries(request.url.searchParams))).toEqual([
-      { stop_id: 'si:1', window_minutes: '60' },
-      { stop_id: 'si:1', window_minutes: '90', destination: 'Koper' },
+      { from_stop_id: 'si:1', to_stop_id: 'si:2' },
+      {
+        from_stop_id: 'si:1',
+        to_stop_id: 'si:2',
+        time: '2026-11-27T10:00:00+01:00',
+        arrive_by: 'true',
+        page_cursor: 'abc',
+      },
+      { from_stop_id: 'si:1', to_stop_id: 'si:2' },
     ]);
   });
 

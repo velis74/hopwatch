@@ -1,7 +1,10 @@
 import { config } from '@vue/test-utils';
+import { createPinia, setActivePinia } from 'pinia';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { Departure } from '../api/hopwatch-api';
+import { usePreferencesStore } from '../stores/preferences';
+import { itinerary, journeysPage } from '../test-journeys';
 import { flushPromises, HttpResponse, maplibreFake, mockApi, mockGeolocation, mountApp } from '../test-utils';
 
 import HomePage from './home-page.vue';
@@ -12,14 +15,15 @@ vi.mock('maplibre-gl', async () => (await import('../test-utils')).maplibreFake.
 config.global.stubs = { ...config.global.stubs, 'transition-group': false };
 
 const HERE = { lat: 46.0569, lon: 14.5058 };
-const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, distance_m: 150 };
-const KOPER = { id: 'si:2', name: 'Koper', lat: 45.548, lon: 13.7302 };
-
-const REFRESH_MS = 30000;
+const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, modes: ['rail'], distance_m: 150 };
+const LJUBLJANA_AP = { id: 'si:3', name: 'Ljubljana AP', lat: 46.058, lon: 14.5147, modes: ['bus'], distance_m: 162 };
+const KOPER = { id: 'si:2', name: 'Koper', lat: 45.548, lon: 13.7302, modes: ['rail'] };
 
 function departure(overrides: Partial<Departure> = {}): Departure {
   return {
     trip_id: 'trip-1',
+    stop_id: 'si:1',
+    stop_name: 'Ljubljana',
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',
@@ -37,19 +41,6 @@ function wait(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/** A response that waits until `release()` is called. */
-function held(body: unknown) {
-  let release: () => void = () => undefined;
-  const gate = new Promise<void>((resolve) => (release = resolve));
-  return {
-    answer: async () => {
-      await gate;
-      return HttpResponse.json(body as never);
-    },
-    release: () => release(),
-  };
-}
-
 /** Lets the mocked network and the component finish what they started. */
 async function settle(): Promise<void> {
   for (let round = 0; round < 5; round += 1) {
@@ -58,29 +49,33 @@ async function settle(): Promise<void> {
   }
 }
 
+/** Answers `/stops/nearby` with the stop closest to the user, and the stops within 300 m of it. */
+function mockNearby(closest: unknown[] = [LJUBLJANA], around: unknown[] = [LJUBLJANA]) {
+  return mockApi('get', '/stops/nearby', ({ request }: { request: Request }) =>
+    HttpResponse.json(new URL(request.url).searchParams.get('radius_m') === '300' ? around : closest),
+  );
+}
+
 async function render() {
   const mounted = await mountApp(HomePage);
   await settle();
   return mounted;
 }
 
-function liveRegion(): string {
-  return document.body.querySelector('[aria-live="polite"]')?.textContent?.trim() ?? '';
-}
-
 function departureItems(): string[] {
   return [...document.body.querySelectorAll('[role="list"] li')].map((item) => item.textContent ?? '');
 }
 
-async function refresh(): Promise<void> {
-  await vi.advanceTimersByTimeAsync(REFRESH_MS);
-  await flushPromises();
-  await wait(10);
-  await flushPromises();
+function stopField(label: string): HTMLInputElement {
+  const field = [...document.body.querySelectorAll('.v-autocomplete')].find(
+    (candidate) => candidate.querySelector('label')?.textContent?.trim() === label,
+  );
+  if (!field) throw new Error(`No field ${label}`);
+  return field.querySelector('input')!;
 }
 
-async function pickStop(name: string): Promise<void> {
-  const input = document.body.querySelector<HTMLInputElement>('.v-autocomplete input')!;
+async function pickStop(label: string, name: string): Promise<void> {
+  const input = stopField(label);
   input.focus();
   await settle();
   input.value = name;
@@ -95,48 +90,54 @@ async function pickStop(name: string): Promise<void> {
   await settle();
 }
 
+function button(text: string): HTMLButtonElement {
+  const found = [...document.body.querySelectorAll<HTMLButtonElement>('button')].find(
+    (candidate) => candidate.textContent?.trim() === text,
+  );
+  if (!found) throw new Error(`No button ${text}`);
+  return found;
+}
+
 describe('HomePage', () => {
   beforeEach(() => {
-    vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval'] });
+    vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval', 'Date'] });
   });
   afterEach(() => {
     vi.useRealTimers();
   });
 
-  it('shows departures of the nearest stop', async () => {
+  it('fills From with the nearest stop and shows its departures', async () => {
     mockGeolocation(HERE);
-    const nearby = mockApi('get', '/stops/nearby', [LJUBLJANA]);
+    const nearby = mockNearby();
     const departures = mockApi('get', '/departures', [departure()]);
     const { wrapper } = await render();
 
     expect(wrapper.get('h1').text()).toBe('Departures');
-    expect(wrapper.get('h2').text()).toBe('Ljubljana');
     expect(Object.fromEntries(nearby[0].url.searchParams)).toEqual({
       lat: '46.0569',
       lon: '14.5058',
       radius_m: '1000',
     });
-    expect(Object.fromEntries(departures[0].url.searchParams)).toEqual({ stop_id: 'si:1', window_minutes: '60' });
+    expect(stopField('From').closest('.v-autocomplete')?.textContent).toContain('Ljubljana');
+    expect(stopField('To').value).toBe('');
+    expect(wrapper.get('h2').text()).toBe('Ljubljana');
+    expect(departures[0].url.searchParams.getAll('stop_id')).toEqual(['si:1']);
     expect(wrapper.get('[role="list"]').attributes('aria-label')).toBe('Departures from Ljubljana');
-    expect(departureItems()).toHaveLength(1);
     expect(departureItems()[0]).toContain('IC 502');
-    expect(wrapper.text()).toMatch(/Updated at \d\d:\d\d\. Refreshes every 30 seconds\./u);
-    expect(wrapper.find('.v-autocomplete').exists()).toBe(false);
+    expect(wrapper.findAll('button').some((entry) => entry.text() === 'Change stop')).toBe(false);
     expect(maplibreFake.maps[0].options.center).toEqual([14.5058, 46.0569]);
   });
 
   it('says it is finding the location while the device answers', async () => {
     const geolocation = mockGeolocation('pending');
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
+    mockNearby();
     mockApi('get', '/departures', []);
     const { wrapper } = await render();
 
     expect(wrapper.text()).toContain('Finding your location…');
 
     geolocation.resolve(HERE);
-    await flushPromises();
-    await wait(10);
-    await flushPromises();
+    await settle();
 
     expect(wrapper.text()).not.toContain('Finding your location…');
     expect(wrapper.get('h2').text()).toBe('Ljubljana');
@@ -150,270 +151,193 @@ describe('HomePage', () => {
     mockApi('get', '/departures', []);
     const { wrapper } = await render();
 
-    expect(nearby.map((request) => request.url.searchParams.get('radius_m'))).toEqual(['1000', '5000']);
+    expect(nearby.map((request) => request.url.searchParams.get('radius_m')).slice(0, 2)).toEqual(['1000', '5000']);
     expect(wrapper.get('h2').text()).toBe('Ljubljana');
   });
 
-  it('offers the search when no stop is near', async () => {
+  it('asks for a stop by name when no stop is near', async () => {
     mockGeolocation(HERE);
     mockApi('get', '/stops/nearby', []);
     const { wrapper } = await render();
 
     expect(wrapper.text()).toContain('There is no stop near you. Find a stop by name.');
-    expect(wrapper.find('.v-autocomplete').exists()).toBe(true);
     expect(wrapper.find('h2').exists()).toBe(false);
+    expect(maplibreFake.maps).toHaveLength(0);
   });
 
-  it('offers the search when the nearby stops are not available', async () => {
+  it('asks for a stop by name when the nearby stops are not available', async () => {
     mockGeolocation(HERE);
     mockApi('get', '/stops/nearby', () => HttpResponse.error());
     const { wrapper } = await render();
 
-    expect(wrapper.text()).toContain('Your location is not available. Find a stop by name.');
-    expect(wrapper.find('.v-autocomplete').exists()).toBe(true);
+    expect(wrapper.text()).toContain('Stops near you are not available right now. Find a stop by name.');
+    expect(wrapper.text()).toContain('Try my location again');
   });
 
-  it('lets the user find a stop by name without a location and moves focus to it', async () => {
-    mockGeolocation('denied');
-    mockApi('get', '/stops', [KOPER]);
-    const departures = mockApi('get', '/departures', [departure({ headsign: 'Ljubljana' })]);
-    const { wrapper } = await render();
-    expect(wrapper.text()).toContain('Your location is not available. Find a stop by name.');
-
-    await pickStop('Koper');
-
-    const heading = wrapper.get('h2');
-    expect(heading.text()).toBe('Koper');
-    expect(document.activeElement).toBe(heading.element);
-    expect(wrapper.text()).not.toContain('Your location is not available.');
-    expect(wrapper.find('.v-autocomplete').exists()).toBe(false);
-    expect(departures[0].url.searchParams.get('stop_id')).toBe('si:2');
-    expect(departureItems()[0]).toContain('to Ljubljana');
-  });
-
-  it('changes the stop', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    mockApi('get', '/stops', [KOPER]);
-    const departures = mockApi('get', '/departures', [departure()]);
+  it.each([
+    ['unavailable', 'The device could not find your location.', true],
+    ['timeout', 'Finding your location took too long.', true],
+    ['denied', 'Location access is turned off for this page.', false],
+  ] as const)('names the reason when the position is %s', async (failure, text, retry) => {
+    mockGeolocation(failure);
     const { wrapper } = await render();
 
-    const change = wrapper.findAll('button').find((button) => button.text() === 'Change stop')!;
-    await change.trigger('click');
-    await flushPromises();
-    expect(document.activeElement).toBe(document.body.querySelector('.v-autocomplete input'));
-
-    await pickStop('Koper');
-
-    expect(wrapper.get('h2').text()).toBe('Koper');
-    expect(departures.map((request) => request.url.searchParams.get('stop_id'))).toEqual(['si:1', 'si:2']);
-    expect(maplibreFake.maps[0].moves.at(-1)?.center).toEqual([13.7302, 45.548]);
+    expect(wrapper.text()).toContain(text);
+    expect(wrapper.text().includes('Try my location again')).toBe(retry);
   });
 
-  it('closes the search again with the same button', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    mockApi('get', '/departures', []);
-    const { wrapper } = await render();
-    const change = wrapper.findAll('button').find((button) => button.text() === 'Change stop')!;
-
-    await change.trigger('click');
-    expect(wrapper.find('.v-autocomplete').exists()).toBe(true);
-    await change.trigger('click');
-
-    expect(wrapper.find('.v-autocomplete').exists()).toBe(false);
-  });
-
-  it('says departures are loading until they arrive', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    const response = held([]);
-    mockApi('get', '/departures', response.answer);
-    const { wrapper } = await render();
-
-    expect(wrapper.text()).toContain('Loading departures…');
-
-    response.release();
-    await wait(10);
-    await flushPromises();
-
-    expect(wrapper.text()).not.toContain('Loading departures…');
-    expect(wrapper.text()).toContain('No departures in the next 60 minutes.');
-  });
-
-  it('warns when departures are not available', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    mockApi('get', '/departures', { detail: 'down' }, { status: 503 });
-    const { wrapper } = await render();
-
-    expect(wrapper.get('[role="alert"]').text()).toContain(
-      'Departures are not available right now. Please try again later.',
-    );
-    expect(wrapper.text()).not.toContain('Loading departures…');
-  });
-
-  it('filters by destination once the user stops typing', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    const stops = ['A', 'B', 'C', 'D', 'Divača', 'Koper'];
-    const departures = mockApi('get', '/departures', ({ request }: { request: Request }) =>
-      HttpResponse.json(
-        new URL(request.url).searchParams.get('destination') === 'Postojna' ? [] : [departure({ next_stops: stops })],
-      ),
-    );
-    const { wrapper } = await render();
-    const field = wrapper.get('input[aria-describedby="destination-hint"]');
-    expect(wrapper.get('#destination-hint').text()).toBe('Shows only departures that stop at a matching later stop.');
-
-    await field.setValue('  Divač ');
-    await wait(450);
-    await flushPromises();
-
-    expect(departures.map((request) => request.url.searchParams.get('destination'))).toEqual([null, 'Divač']);
-    expect(departureItems()[0]).toContain('Calls at Divača');
-
-    await field.setValue('Postojna');
-    await wait(450);
-    await flushPromises();
-
-    expect(wrapper.text()).toContain('No departures to Postojna in the next 60 minutes.');
-  });
-
-  it('shows only the answer to the latest filter', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    const first = held([departure({ line: 'first' })]);
-    mockApi('get', '/departures', ({ request }: { request: Request }) =>
-      new URL(request.url).searchParams.get('destination') === 'Koper'
-        ? HttpResponse.json([departure({ line: 'latest' })])
-        : first.answer(),
-    );
-    const { wrapper } = await render();
-
-    await wrapper.get('input[aria-describedby="destination-hint"]').setValue('Koper');
-    await wait(450);
-    await flushPromises();
-    first.release();
-    await wait(10);
-    await flushPromises();
-
-    expect(departureItems()).toHaveLength(1);
-    expect(departureItems()[0]).toContain('latest');
-  });
-
-  it('ignores a failure of an outdated request', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    let failFirst: () => void = () => undefined;
-    const gate = new Promise<void>((resolve) => (failFirst = resolve));
-    mockApi('get', '/departures', async ({ request }: { request: Request }) => {
-      if (new URL(request.url).searchParams.get('destination') === 'Koper') return HttpResponse.json([departure()]);
-      await gate;
-      return HttpResponse.json({ detail: 'down' }, { status: 503 });
-    });
-    const { wrapper } = await render();
-
-    await wrapper.get('input[aria-describedby="destination-hint"]').setValue('Koper');
-    await wait(450);
-    await flushPromises();
-    failFirst();
-    await wait(10);
-    await flushPromises();
-
-    expect(wrapper.find('[role="alert"]').exists()).toBe(false);
-    expect(departureItems()).toHaveLength(1);
-  });
-
-  it('refreshes every 30 seconds and announces changed delays', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    const before = [
-      departure({ trip_id: 'a', delay_minutes: 2 }),
-      departure({ trip_id: 'b', mode: 'bus', line: '6', headsign: 'Črnuče', delay_minutes: 4 }),
-      departure({ trip_id: 'c', line: 'LP 2', delay_minutes: 1 }),
-      departure({ trip_id: 'd', line: 'LP 3', delay_minutes: 3 }),
-    ];
-    const after = [
-      departure({ trip_id: 'a', delay_minutes: 5 }),
-      departure({ trip_id: 'b', mode: 'bus', line: '6', headsign: 'Črnuče', delay_minutes: 0 }),
-      departure({ trip_id: 'c', line: 'LP 2', delay_minutes: null }),
-      departure({ trip_id: 'd', line: 'LP 3', delay_minutes: -1 }),
-      departure({ trip_id: 'e', line: 'new', delay_minutes: 9 }),
-    ];
-    let answer = before;
-    const departures = mockApi('get', '/departures', () => HttpResponse.json(answer));
-    await render();
-    expect(liveRegion()).toBe('');
-
-    answer = after;
-    await refresh();
-
-    expect(departures).toHaveLength(2);
-    expect(departureItems()).toHaveLength(5);
-    expect(liveRegion()).toBe(
-      [
-        'Train IC 502 to Koper: delay now +5 min.',
-        'Bus 6 to Črnuče: now on time.',
-        'Train LP 3 to Koper: delay now 1 min early.',
-      ].join(' '),
-    );
-  });
-
-  it('does not announce anything when no delay changed', async () => {
-    mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    const departures = mockApi('get', '/departures', [departure()]);
-    await render();
-
-    await refresh();
-
-    expect(departures).toHaveLength(2);
-    expect(liveRegion()).toBe('');
-  });
-
-  it('keeps the departures shown when a refresh fails', async () => {
-    mockGeolocation(HERE);
+  it('tries the location again on request', async () => {
+    mockGeolocation('timeout');
     mockApi('get', '/stops/nearby', [LJUBLJANA]);
     mockApi('get', '/departures', [departure()]);
     const { wrapper } = await render();
-    mockApi('get', '/departures', () => HttpResponse.error());
 
-    await refresh();
-
-    expect(departureItems()).toHaveLength(1);
-    expect(wrapper.find('[role="alert"]').exists()).toBe(false);
-  });
-
-  it('does not refresh while the page is hidden', async () => {
     mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
-    const departures = mockApi('get', '/departures', [departure()]);
-    await render();
-    vi.spyOn(document, 'hidden', 'get').mockReturnValue(true);
+    const retry = wrapper.findAll('button').find((button) => button.text() === 'Try my location again')!;
+    await retry.trigger('click');
+    await settle();
 
-    await refresh();
-
-    expect(departures).toHaveLength(1);
+    expect(wrapper.text()).not.toContain('Finding your location took too long.');
+    expect(wrapper.get('h2').text()).toBe('Ljubljana');
   });
 
-  it('does not refresh without a stop', async () => {
-    await render();
+  it('starts from the stop chosen last on this device when there is no location', async () => {
+    mockGeolocation('denied');
+    mockApi('get', '/stops', [KOPER]);
+    mockApi('get', '/stops/nearby', []);
+    const departures = mockApi('get', '/departures', [departure({ stop_id: 'si:2', headsign: 'Ljubljana' })]);
+    const first = await render();
+    await pickStop('From', 'Koper');
+    first.wrapper.unmount();
 
-    await refresh();
-    // A request here would have no mocked answer and fail the test.
+    const { wrapper } = await render();
+
+    expect(wrapper.get('h2').text()).toBe('Koper');
+    expect(wrapper.text()).toContain('Location access is turned off for this page.');
+    expect(departures.at(-1)!.url.searchParams.getAll('stop_id')).toEqual(['si:2']);
   });
 
-  it('stops refreshing when the page is left', async () => {
+  it('ignores a damaged last stop', async () => {
+    localStorage.setItem('hopwatch.lastFrom', '{not json');
+    mockGeolocation('denied');
+    mockApi('get', '/stops/nearby', []);
+    const { wrapper } = await render();
+
+    expect(wrapper.find('h2').exists()).toBe(false);
+  });
+
+  it('lets the user choose From by name without a location', async () => {
+    mockGeolocation('denied');
+    mockApi('get', '/stops', [KOPER]);
+    mockApi('get', '/stops/nearby', []);
+    const departures = mockApi('get', '/departures', [departure({ stop_id: 'si:2', headsign: 'Ljubljana' })]);
+    const { wrapper } = await render();
+    expect(wrapper.text()).toContain('Location access is turned off for this page.');
+
+    await pickStop('From', 'Koper');
+
+    expect(wrapper.get('h2').text()).toBe('Koper');
+    expect(wrapper.text()).not.toContain('Location access is turned off');
+    expect(departures[0].url.searchParams.getAll('stop_id')).toEqual(['si:2']);
+    expect(departureItems()[0]).toContain('to Ljubljana');
+  });
+
+  it('merges the departures of the nearby stops the user checks and names their stops', async () => {
     mockGeolocation(HERE);
-    mockApi('get', '/stops/nearby', [LJUBLJANA]);
+    mockNearby([LJUBLJANA], [LJUBLJANA, LJUBLJANA_AP]);
+    const departures = mockApi('get', '/departures', ({ request }: { request: Request }) =>
+      HttpResponse.json(
+        new URL(request.url).searchParams.getAll('stop_id').length > 1
+          ? [departure(), departure({ trip_id: 'b', stop_id: 'si:3', stop_name: 'Ljubljana AP', mode: 'bus' })]
+          : [departure()],
+      ),
+    );
+    const { wrapper } = await render();
+
+    const fieldset = wrapper.get('fieldset');
+    expect(fieldset.get('legend').text()).toBe('Nearby stops');
+    const box = fieldset.get('[role="checkbox"]');
+    expect(box.attributes('aria-label')).toBe('Ljubljana AP, Bus, 162 m');
+    expect(box.attributes('aria-checked')).toBe('false');
+    expect(departureItems()[0]).not.toContain('From Ljubljana');
+
+    await box.trigger('click');
+    await settle();
+
+    expect(departures.at(-1)?.url.searchParams.getAll('stop_id')).toEqual(['si:1', 'si:3']);
+    expect(departureItems()[0]).toContain('From Ljubljana');
+    expect(departureItems()[1]).toContain('From Ljubljana AP');
+  });
+
+  it('includes the nearby stops of the modes chosen in the settings', async () => {
+    setActivePinia(createPinia());
+    usePreferencesStore().setNearbyModes(['bus']);
+    mockGeolocation(HERE);
+    mockNearby([LJUBLJANA], [LJUBLJANA, LJUBLJANA_AP]);
     const departures = mockApi('get', '/departures', [departure()]);
     const { wrapper } = await render();
 
-    wrapper.unmount();
-    await refresh();
+    expect(wrapper.get('fieldset [role="checkbox"]').attributes('aria-checked')).toBe('true');
+    expect(departures.at(-1)?.url.searchParams.getAll('stop_id')).toEqual(['si:1', 'si:3']);
+  });
 
-    expect(departures).toHaveLength(1);
+  it('plans journeys when To is set, draws the first on the map and shows departures again without To', async () => {
+    mockGeolocation(HERE);
+    mockNearby();
+    mockApi('get', '/departures', [departure()]);
+    mockApi('get', '/stops', [KOPER]);
+    const journeys = mockApi('get', '/journeys', journeysPage([itinerary(), itinerary({ id: 'it-2' })]));
+    const { wrapper } = await render();
+
+    await pickStop('To', 'Koper');
+
+    expect(journeys.map((request) => Object.fromEntries(request.url.searchParams))).toEqual([
+      { from_stop_id: 'si:1', to_stop_id: 'si:2' },
+    ]);
+    expect(wrapper.find('fieldset').exists()).toBe(false);
+    expect(wrapper.find('[role="list"][aria-label^="Departures"]').exists()).toBe(false);
+    expect(wrapper.get('h2').text()).toBe('Journeys');
+    expect(wrapper.findAll('ol > li')).toHaveLength(2);
+    const [map] = maplibreFake.maps;
+    expect(map.getSource('journey')).toBeTruthy();
+    expect(maplibreFake.markers).toHaveLength(2);
+    expect(wrapper.get('section[aria-label="Map"]').text()).toContain('Map of the selected journey.');
+
+    await wrapper.get('button[aria-label="Clear To"]').trigger('click');
+    await settle();
+
+    expect(wrapper.get('h2').text()).toBe('Ljubljana');
+    expect(wrapper.get('section[aria-label="Map"]').text()).toContain('Map of the stop Ljubljana.');
+  });
+
+  it('asks where the journey starts when only To is set', async () => {
+    mockGeolocation(HERE);
+    mockNearby();
+    mockApi('get', '/departures', [departure()]);
+    const { wrapper } = await render();
+
+    button('Swap from and to').click();
+    await settle();
+
+    expect(wrapper.text()).toContain('Choose where the journey starts.');
+    expect(stopField('To').closest('.v-autocomplete')?.textContent).toContain('Ljubljana');
+    expect(maplibreFake.maps[0].removed).toBe(true);
+  });
+
+  it('swaps From and To and plans the other way', async () => {
+    mockGeolocation(HERE);
+    mockNearby();
+    mockApi('get', '/departures', [departure()]);
+    mockApi('get', '/stops', [KOPER]);
+    const journeys = mockApi('get', '/journeys', journeysPage([itinerary()]));
+    await render();
+    await pickStop('To', 'Koper');
+
+    button('Swap from and to').click();
+    await settle();
+
+    expect(journeys.map((request) => request.url.searchParams.get('from_stop_id'))).toEqual(['si:1', 'si:2']);
+    expect(journeys.at(-1)?.url.searchParams.get('to_stop_id')).toBe('si:1');
   });
 
   it('credits the timetable data and its licence', async () => {

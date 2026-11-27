@@ -57,6 +57,21 @@ class FakeMotis:
         """Answer GET `path` with a JSON body, an `httpx.Response` or a handler of the request."""
         self.answers[path] = answer
 
+    def answer_by_param(self, path: str, param: str, answers: dict[str, Any]) -> None:
+        """
+        Answer GET `path` by the value of the query parameter `param`: the JSON body or `httpx.Response` of
+        `answers[value]`, a 404 for a value not in `answers`.
+        """
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            value = request.url.params.get(param)
+            if value not in answers:
+                return httpx.Response(404, json={"error": f'Could not find timetable location "{value}"'})
+            answer = answers[value]
+            return answer if isinstance(answer, httpx.Response) else httpx.Response(200, json=copy.deepcopy(answer))
+
+        self.answers[path] = handler
+
     def requests_to(self, path: str) -> list[httpx.Request]:
         return [request for request in self.requests if request.url.path == path]
 

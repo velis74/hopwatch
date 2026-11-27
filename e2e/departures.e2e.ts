@@ -2,9 +2,9 @@ import { expect, test } from '@playwright/test';
 
 import {
   chooseExperience,
+  chooseStop,
   departureItems,
   departuresList,
-  DESTINATION,
   expectHeadingsInOrder,
   expectNoSeriousViolations,
   inServiceHours,
@@ -42,43 +42,14 @@ test.describe('with location', () => {
       // A delayed departure keeps its scheduled time, which can be in the past.
       expect(minutes, text).toBeGreaterThanOrEqual(now - 60);
       expect(minutes, text).toBeLessThanOrEqual(now + 61);
-      if (/[+−-]\s?\d+ min/.test(text)) expect(text, 'delay names its source').toMatch(/official/i);
+      if (/[+−-]\s?\d+ min/.test(text)) expect(text, 'delay names its source').toMatch(/official|riders|estimate/i);
     }
     await expectNoSeriousViolations(page);
   });
 
-  test('the destination filter narrows the list and an empty field shows all', async ({ page }) => {
-    test.skip(!inServiceHours(), 'no departures expected at the fixture stop at this hour');
-    const list = departuresList(page);
-    const items = departureItems(list);
-    await expect(items.first()).toBeVisible();
-    const all = await items.count();
-
-    const destination = page.getByLabel('Destination', { exact: true });
-    const filtered = page.waitForResponse(
-      (response) =>
-        response.url().includes('/api/v1/departures') && response.url().includes(`destination=${DESTINATION}`),
-    );
-    await destination.fill(DESTINATION);
-    await filtered;
-    // Each remaining departure names the matching later stop ("Via …" or "Calls at …").
-    await expect
-      .poll(async () => (await items.allInnerTexts()).filter((text) => !text.includes(DESTINATION)))
-      .toEqual([]);
-    expect(await items.count()).toBeLessThanOrEqual(all);
-
-    await destination.fill('Xqzwy');
-    await expect(items).toHaveCount(0);
-
-    await destination.fill('');
-    // Departures can leave the 60-minute window while the test runs.
-    await expect.poll(() => items.count()).toBeGreaterThanOrEqual(Math.max(1, all - 2));
-  });
-
-  test('"Change stop" opens the stop search and shows the chosen stop', async ({ page }) => {
+  test('choosing another "From" stop shows its departures', async ({ page }) => {
     await expect(page.getByRole('heading', { level: 2, name: NEAREST_STOP, exact: true })).toBeVisible();
-    await page.getByRole('button', { name: 'Change stop', exact: true }).click();
-    await pickStop(page, OTHER_STOP);
+    await chooseStop(page, 'From', OTHER_STOP);
     await expect(page.getByRole('heading', { level: 2, name: OTHER_STOP, exact: true })).toBeVisible();
     if (inServiceHours()) await expect(departuresList(page, OTHER_STOP)).toBeVisible();
     await expectNoSeriousViolations(page);

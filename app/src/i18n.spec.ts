@@ -73,4 +73,33 @@ describe('i18n', () => {
     const next = await load(['en-GB']);
     expect(next.default.global.locale.value).toBe('sl');
   });
+
+  it.each([
+    [0, 'Brez prestopov'],
+    [1, '1 prestop'],
+    [2, '2 prestopa'],
+    [3, '3 prestopi'],
+    [4, '4 prestopi'],
+    [5, '5 prestopov'],
+    [101, '101 prestop'],
+    [102, '102 prestopa'],
+    [111, '111 prestopov'],
+  ])('uses the Slovenian plural form for %i', async (count, text) => {
+    const { default: i18n } = await load(['sl-SI']);
+
+    expect(i18n.global.t('journey.transfers', { count }, count)).toBe(text);
+  });
+
+  it.each([
+    [1, 2, 0],
+    [2, 2, 1],
+    [5, 2, 1],
+    [1, 4, 0],
+    [3, 4, 2],
+    [7, 4, 3],
+  ])('picks a Slovenian form among fewer choices: %i of %i is form %i', async (choice, length, form) => {
+    const { slovenianPlural } = await load();
+
+    expect(slovenianPlural(choice, length)).toBe(form);
+  });
 });
