@@ -37,3 +37,20 @@ Not in the MOTIS data, because the feeds state no licence or need an account:
 
 To decide per operator: licence request, permission for Velis d.o.o. (adapter in `hopwatch-server`), or
 rider-derived data only.
+
+## Data quality reports for operators
+
+2026-11-27, session 1164b4e8-b9fc-4415-a3b0-91e0f3dba77a.
+
+Compare the actual running (real-time feeds, later rider-shared positions) with the published timetable and offer
+operators a data quality report where the deviations are significant:
+
+- punctuality by line, stop and hour; sections where the timetable is systematically wrong;
+- wrong stop coordinates (vehicles stop elsewhere), missing or extra stops, wrong platforms, trips that do not run;
+- accuracy of the operator's own real-time predictions against the actual arrival.
+
+Conditions:
+
+- needs a history of delays and vehicle positions, which nothing stores today: a new server component with a database
+  and processing, in `hopwatch-server` (a Velis d.o.o. service, not part of the open core);
+- reports derived from CC BY-SA data: decide how their licence follows from the sources.
