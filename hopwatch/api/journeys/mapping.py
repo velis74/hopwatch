@@ -44,7 +44,7 @@ class Leg(BaseModel):
     mode: LegMode = Field(description="Kind of vehicle, or `walk`.")
     line: str | None = Field(description="Line or train name and number (`LPV 2420`); null for a walk.")
     headsign: str | None = Field(description="Destination shown on the vehicle; null for a walk.")
-    trip_id: str | None = Field(description="MOTIS trip id, valid for its service day; null for a walk.")
+    trip_id: str | None = Field(description="Trip id, valid for its service day; null for a walk.")
     from_: LegStop = Field(alias="from", description="Where the leg starts.")
     to: LegStop = Field(description="Where the leg ends.")
     delay_minutes: int | None = Field(

@@ -11,7 +11,7 @@ from fastapi_viewsets.response_classes import error_entry, merge_responses
 from pydantic import BaseModel, Field
 
 from hopwatch.api.departures.mapping import Departure, departures_from_stops, UnknownStopError
-from hopwatch.motis import DATA_ATTRIBUTION, ERROR_NAMESPACE, get_motis, MOTIS_UNAVAILABLE_RESPONSE
+from hopwatch.motis import attribution_section, DATA_ATTRIBUTION, ERROR_NAMESPACE, get_motis, MOTIS_UNAVAILABLE_RESPONSE
 
 
 class StopNotFoundError(DfViewSetError):
@@ -51,7 +51,7 @@ class DeparturesFilter(BaseModel):
                 "Departures from the stops within `window_minutes` from now, merged in order of the expected "
                 "departure (the scheduled one where there is no real-time data). Each departure names the stop it "
                 "leaves from. Cancelled departures are left out. Public: no login needed.\n\n"
-                f"{DATA_ATTRIBUTION}"
+                f"{attribution_section(DATA_ATTRIBUTION)}"
             ),
             "response_description": "The departures, in order of departure.",
             "parameters": {"sort": "Ordering; by departure time when omitted."},
@@ -67,7 +67,7 @@ class DeparturesFilter(BaseModel):
     }
 )
 class DeparturesViewSet(ListMixin[Departure, DeparturesFilter]):
-    """Departures from stops with real-time delays where the operator publishes them. Read from MOTIS."""
+    """Departures from stops with real-time delays where the operator publishes them."""
 
     async def get_list(self, context: Context, query: ListQuery) -> Any:
         fltr: DeparturesFilter = query.fltr

@@ -127,7 +127,7 @@ STATIC_ROOT = BASE_DIR / "var" / "static"
 
 EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
 
-# allauth: email address as the login, no username; headless API only.
+# allauth: email address as the login, no username; its flows run through the API (hopwatch.accounts.bridge).
 ACCOUNT_LOGIN_METHODS = {"email"}
 ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_UNIQUE_EMAIL = True
@@ -151,11 +151,12 @@ def social_providers() -> dict:
     """
     Google and Apple, each only when all of its environment variables are set.
 
-    Both offer the browser redirect flow and the app client's token flow (`/_allauth/app/v1/auth/provider/token`,
-    an ID token obtained by the native SDK). Google: the token's audience is `GOOGLE_CLIENT_ID` (the web client ID
+    Both offer the browser redirect flow and the app client's token flow (`POST /api/v1/account/social/token`, an
+    ID token obtained by the native SDK). Google: the token's audience is `GOOGLE_CLIENT_ID` (the web client ID
     requested as the server client ID), or one of `GOOGLE_MOBILE_CLIENT_IDS` (comma-separated native client IDs,
-    hidden from the config endpoint; the app sends the one it used as `client_id`). Apple: `APPLE_CLIENT_ID` is the
-    Services ID, optionally followed by the app's bundle ID, comma-separated; the token's audience may be either.
+    left out of `GET /api/v1/account/providers`; the app sends the one it used as `client_id`). Apple:
+    `APPLE_CLIENT_ID` is the Services ID, optionally followed by the app's bundle ID, comma-separated; the token's
+    audience may be either.
     """
     providers = {}
     google_id = os.environ.get("GOOGLE_CLIENT_ID")

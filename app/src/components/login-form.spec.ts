@@ -1,11 +1,11 @@
 import type { VueWrapper } from '@vue/test-utils';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { allauthBody, flushPromises, HttpResponse, mockAllauth, mockApi, mountApp } from '../test-utils';
+import { apiError, flushPromises, HttpResponse, mockApi, mockSession, mountApp, validationError } from '../test-utils';
 
 import LoginForm from './login-form.vue';
 
-const USER = { id: 7, email: 'ana@example.com', display: 'Ana' };
+const LOGGED_IN = { is_authenticated: true, session_token: null };
 
 /** The input labelled `label`. */
 function input(wrapper: VueWrapper, label: string) {
@@ -44,7 +44,7 @@ describe('login form', () => {
   });
 
   it('requires both fields and sends nothing without them', async () => {
-    const requests = mockAllauth('post', '/auth/login', allauthBody(200, { user: USER }));
+    const requests = mockApi('post', '/account/login', LOGGED_IN);
     const { wrapper } = await mountApp(LoginForm);
 
     await button(wrapper, 'Log in').trigger('click');
@@ -56,9 +56,8 @@ describe('login form', () => {
   });
 
   it('logs in with the trimmed email and the password as typed', async () => {
-    const requests = mockAllauth('post', '/auth/login', allauthBody(200, { user: USER }));
-    mockAllauth('get', '/auth/session', allauthBody(200, { user: USER }));
-    mockApi('get', '/account/me', { id: 7, email: 'ana@example.com', display_name: 'Ana' });
+    const requests = mockApi('post', '/account/login', LOGGED_IN);
+    mockSession({ id: 7, email: 'ana@example.com', display_name: 'Ana' });
     const { wrapper } = await mountApp(LoginForm);
 
     await logIn(wrapper, '  ana@example.com ', ' secret ');
@@ -68,13 +67,10 @@ describe('login form', () => {
     expect(wrapper.find('[role="alert"]').exists()).toBe(false);
   });
 
-  it('shows why allauth refused the login and keeps the user on the form', async () => {
-    mockAllauth(
-      'post',
-      '/auth/login',
-      allauthBody(400, {}, { errors: [{ code: 'email_password_mismatch', message: 'x', param: 'password' }] }),
-      { status: 400 },
-    );
+  it('shows why the server refused the login and keeps the user on the form', async () => {
+    mockApi('post', '/account/login', validationError({ password: ['hopwatch.email_password_mismatch'] }), {
+      status: 422,
+    });
     const { wrapper } = await mountApp(LoginForm);
 
     await logIn(wrapper, 'ana@example.com', 'wrong');
@@ -86,12 +82,12 @@ describe('login form', () => {
 
   it('shows a busy button while the login is under way', async () => {
     let answer!: () => void;
-    mockAllauth(
+    mockApi(
       'post',
-      '/auth/login',
+      '/account/login',
       () =>
         new Promise<Response>((resolve) => {
-          answer = () => resolve(HttpResponse.json(allauthBody(400, {}), { status: 400 }));
+          answer = () => resolve(HttpResponse.json(apiError('hopwatch.unknown'), { status: 400 }));
         }),
     );
     const { wrapper } = await mountApp(LoginForm);
@@ -106,9 +102,8 @@ describe('login form', () => {
   });
 
   it('shows the error it was opened with until the next attempt', async () => {
-    mockAllauth('post', '/auth/login', allauthBody(200, { user: USER }));
-    mockAllauth('get', '/auth/session', allauthBody(200, { user: USER }));
-    mockApi('get', '/account/me', { id: 7, email: 'ana@example.com', display_name: 'Ana' });
+    mockApi('post', '/account/login', LOGGED_IN);
+    mockSession({ id: 7, email: 'ana@example.com', display_name: 'Ana' });
     const { wrapper } = await mountApp(LoginForm, { props: { initialError: 'The provider login failed.' } });
 
     expect(wrapper.get('[role="alert"]').text()).toBe('The provider login failed.');

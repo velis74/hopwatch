@@ -14,7 +14,7 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       '/api': { target: fastApiTarget },
-      '/_allauth': { target: djangoTarget },
+      // The social providers' callbacks.
       '/accounts': { target: djangoTarget },
       '/admin': { target: djangoTarget },
       // Django admin assets.
