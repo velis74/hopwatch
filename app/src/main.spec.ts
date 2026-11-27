@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { flushPromises, mockAnonymousSession } from './test-utils';
+import { flushPromises, mockAnonymousSession, mockApi } from './test-utils';
 
 vi.mock('maplibre-gl', async () => (await import('./test-utils')).maplibreFake.module);
 
@@ -26,6 +26,7 @@ describe('main', () => {
     window.localStorage.setItem('hopwatch.experience', 'lively');
     window.localStorage.setItem('hopwatch.locale', 'sl');
     mockAnonymousSession();
+    mockApi('get', '/operators', []);
 
     await openApp('/settings');
 

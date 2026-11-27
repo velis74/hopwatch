@@ -60,11 +60,21 @@ Requests for permission ask for redistribution through the public API, not only 
 
 ## Accounts
 
-- Django with django-allauth in headless mode serves sign-up, login and social login. The web app uses the
-  `browser` client (session cookie, CSRF header); the mobile app uses the `app` client (session token).
-- On the phone, Google and Apple login use the native SDK, which returns an ID token; the app posts it to the
-  allauth provider token endpoint and receives a session token.
-- FastAPI resolves the user from the Django session cookie or the `X-Session-Token` header.
+- Every operation the apps call is a fastapi-viewsets action under `/api/v1` and is documented in the OpenAPI
+  schema. Sign-up, login, logout, social login and the session state are actions of `/api/v1/account`; no other
+  URL is called by the apps.
+- The account actions run django-allauth's flows (`hopwatch.accounts.flows`) in a Django request built from the
+  API request (`hopwatch.accounts.bridge`), prepared as allauth's headless views prepare theirs; the API does not
+  reimplement authentication.
+- The web app is a `browser` client: the session is Django's session cookie, `GET /api/v1/account/session` sets
+  the CSRF cookie, and every `POST` passes Django's CSRF check (origin and `X-CSRFToken`). The mobile app is an
+  `app` client (`X-Client-Type: app`): login answers a session token that it sends in `X-Session-Token`, without
+  cookies or CSRF.
+- On the phone, Google and Apple login use the native SDK, which returns an ID token; the app posts it to
+  `POST /api/v1/account/social/token` and receives a session token. In the browser,
+  `POST /api/v1/account/social/redirect` answers the provider's URL; the provider returns to its callback under
+  `/accounts/` (a Django view, the only route the providers call), which redirects to the app.
+- Other actions resolve the user from the Django session cookie or the `X-Session-Token` header.
 - A social provider is enabled only when its credentials are set in the environment; the login page shows only
   the enabled providers.
 

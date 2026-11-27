@@ -12,8 +12,10 @@ All notable changes to this project are documented in this file. The format is b
 - Local MOTIS instance with the open IJPP timetable and real-time feeds for Slovenia (`motis/`).
 - API: nearby stops, stop search, departures with real-time delay and a destination filter over later stops, and
   the current account.
-- Accounts: email sign-up and login, logout, Google and Apple login configured from environment variables, the
-  allauth app client for the mobile app.
+- Accounts: email sign-up and login, logout, Google and Apple login configured from environment variables, and the
+  session token flow for the mobile app, all as API operations under `/api/v1/account`.
+- API documentation: ReDoc at `/api/redoc` with a "Try it" button per operation that opens it in Swagger UI
+  (`/api/docs`); sessions, errors and data licences documented for every operation.
 - Web app: departures from the nearest stop with a map, stop search, destination filter, experience modes,
   settings, English and Slovenian.
 - App icon and logo (`branding/`).

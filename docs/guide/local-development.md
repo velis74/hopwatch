@@ -4,8 +4,8 @@ Hopwatch runs locally as four processes:
 
 | Process | Address | Serves |
 | --- | --- | --- |
-| Django | `127.0.0.1:8100` | `/_allauth/` (allauth headless), `/accounts/` (social login callbacks), `/admin/` |
-| FastAPI | `127.0.0.1:8101` | `/api/v1/` |
+| Django | `127.0.0.1:8100` | `/accounts/` (social login callbacks), `/admin/` |
+| FastAPI | `127.0.0.1:8101` | `/api/v1/`, the API documentation (`/api/redoc`, `/api/docs`) |
 | Vite | `127.0.0.1:5180` | the Vue app; proxies `/api` to FastAPI and the other paths above to Django |
 | MOTIS | `127.0.0.1:8180` | timetables and real-time data |
 
@@ -65,7 +65,7 @@ A provider appears on the login page only when all of its variables are set.
 | Apple | `APPLE_CLIENT_ID` (Services ID, optionally `,<bundle ID>`), `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` (PEM; `\n` escapes allowed) |
 
 The mobile app logs in with the provider's native SDK and sends the ID token to
-`/_allauth/app/v1/auth/provider/token`. The token's audience must be `GOOGLE_CLIENT_ID` or one of
+`POST /api/v1/account/social/token`. The token's audience must be `GOOGLE_CLIENT_ID` or one of
 `GOOGLE_MOBILE_CLIENT_IDS` for Google, and the Services ID or the bundle ID for Apple.
 
 The redirect URIs to register with the provider are `http://127.0.0.1:5180/accounts/google/login/callback/` and

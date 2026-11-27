@@ -19,6 +19,9 @@
         {{ t('auth.continueWith', { provider: t(`auth.providers.${provider}`) }) }}
       </v-btn>
     </div>
+    <v-alert v-if="failed" type="error" variant="tonal" class="mt-2" role="alert">
+      {{ t('auth.errors.socialFailed') }}
+    </v-alert>
   </div>
 </template>
 
@@ -31,6 +34,7 @@ import { type SocialProvider, useSessionStore } from '../stores/session';
 const { t } = useI18n();
 const session = useSessionStore();
 const pending = ref<SocialProvider | null>(null);
+const failed = ref(false);
 
 /** A page restored from the back/forward cache keeps the pending state of the redirect. */
 function reset() {
@@ -41,8 +45,14 @@ onMounted(() => window.addEventListener('pageshow', reset));
 onBeforeUnmount(() => window.removeEventListener('pageshow', reset));
 
 async function start(provider: SocialProvider) {
+  failed.value = false;
   pending.value = provider;
-  await session.loginWith(provider);
+  try {
+    await session.loginWith(provider);
+  } catch {
+    pending.value = null;
+    failed.value = true;
+  }
 }
 </script>
 

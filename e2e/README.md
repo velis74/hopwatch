@@ -41,7 +41,7 @@ Departures come from the imported timetable for the current time:
 - Many service calendars in the current IJPP feed end on 2026-12-13. From 14 December 2026 the fixture stop has
   almost no departures until the feed with the new timetable is fetched and imported again (motis/README.md).
 
-The social login buttons are expected exactly for the providers that `/_allauth/browser/v1/config` lists, so the
+The social login buttons are expected exactly for the providers that `/api/v1/account/providers` lists, so the
 tests pass with and without configured providers.
 
 Each sign-up scenario creates a new user `e2e-<time>-<random>@example.com` in the development database.

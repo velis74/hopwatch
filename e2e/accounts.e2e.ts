@@ -80,10 +80,12 @@ test('sign up, log out, a wrong password and log in again', async ({ page }) => 
 });
 
 test('social login buttons follow the providers the server lists', async ({ page }) => {
-  const response = await page.request.get('/_allauth/browser/v1/config');
+  const response = await page.request.get('/api/v1/account/providers');
   expect(response.ok()).toBe(true);
-  const config = (await response.json()) as { data?: { socialaccount?: { providers?: { id: string }[] } } };
-  const configured = new Set((config.data?.socialaccount?.providers ?? []).map((provider) => provider.id));
+  const providers = (await response.json()) as { id: string; flows: string[] }[];
+  const configured = new Set(
+    providers.filter((provider) => provider.flows.includes('redirect')).map((provider) => provider.id),
+  );
 
   await openLogin(page);
   for (const { id, button } of SOCIAL) {

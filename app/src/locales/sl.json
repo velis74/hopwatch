@@ -41,7 +41,7 @@
     },
     "saved": "Shranjeno na tej napravi.",
     "nearbyLegend": "Privzeto vključi bližnje postaje",
-    "nearbyHint": "Bližnje postaje, na katerih ustavljajo ta prevozna sredstva, so dodane na tablo odhodov.",
+    "nearbyHint": "Bližnje postaje, na katerih ustavljajo ta prevozna sredstva, so privzeto vključene v zadetke prevozov. Ostale bližnje postaje so prikazane, vključite jih s klikom.",
     "nearbyModes": {
       "rail": "Vlaki",
       "bus": "Avtobusi",

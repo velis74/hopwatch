@@ -52,7 +52,7 @@ class Departure(BaseModel):
 
     stop_id: str = Field(description="Id of the requested stop the vehicle departs from.")
     stop_name: str = Field(description="Name of that stop.")
-    trip_id: str = Field(description="MOTIS trip id; contains the service date, so it is valid for that day only.")
+    trip_id: str = Field(description="Trip id; contains the service date, so it is valid for that day only.")
     mode: TransportMode = Field(description="Kind of vehicle.")
     line: str = Field(description="Line or train name and number as the operator shows it (`EC 214`, `LPV 2415`).")
     headsign: str = Field(description="Destination shown on the vehicle.")

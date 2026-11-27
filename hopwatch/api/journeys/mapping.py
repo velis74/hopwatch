@@ -48,7 +48,7 @@ class Leg(BaseModel):
     operator: Operator | None = Field(
         description="Operator that runs the trip; null for a walk and when the timetable names none."
     )
-    trip_id: str | None = Field(description="MOTIS trip id, valid for its service day; null for a walk.")
+    trip_id: str | None = Field(description="Trip id, valid for its service day; null for a walk.")
     from_: LegStop = Field(alias="from", description="Where the leg starts.")
     to: LegStop = Field(description="Where the leg ends.")
     delay_minutes: int | None = Field(

@@ -122,5 +122,5 @@ def test_motis_failure_is_a_502(api, motis, answer, reason):
         assert response.status_code == 502
         body = response.json()
         assert body["detail"] == "The timetable service is unavailable"
-        assert body["detail_code"] == "hopwatch.motis_unavailable"
+        assert body["detail_code"] == "hopwatch.timetable_unavailable"
         assert body["detail_params"] == {"reason": reason}

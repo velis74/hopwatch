@@ -5,22 +5,19 @@ import { useLocale } from 'vuetify';
 import App from './app.vue';
 import i18n from './i18n';
 import {
-  allauthBody,
+  apiError,
   APP_ROUTES,
   flushPromises,
-  mockAllauth,
   mockAnonymousSession,
   mockApi,
+  mockSession,
   mountApp,
   STUB_ROUTES,
 } from './test-utils';
 
-const ANA = { id: 7, email: 'ana@example.com', display: 'Ana' };
-
 function mockLoggedInSession(): void {
-  mockAllauth('get', '/config', allauthBody(200, { socialaccount: { providers: [] } }));
-  mockAllauth('get', '/auth/session', allauthBody(200, { user: ANA }, { meta: { is_authenticated: true } }));
-  mockApi('get', '/account/me', { id: 7, email: ANA.email, display_name: 'Ana' });
+  mockApi('get', '/account/providers', []);
+  mockSession({ id: 7, email: 'ana@example.com', display_name: 'Ana' });
 }
 
 function navigation(): HTMLElement {
@@ -104,7 +101,7 @@ describe('app', () => {
     expect(user.querySelector('.visually-hidden')?.textContent).toBe('Logged in as');
     expect(navigationControl('Log in')).toBeUndefined();
 
-    const logout = mockAllauth('delete', '/auth/session', allauthBody(401, { flows: [] }), { status: 401 });
+    const logout = mockApi('post', '/account/logout', { is_authenticated: false, session_token: null });
     navigationControl('Log out')!.click();
     await vi.waitFor(() => expect(router.currentRoute.value.name).toBe('home'));
 
@@ -121,7 +118,7 @@ describe('app', () => {
     mockLoggedInSession();
     const { router } = await mountLoggedIn('/settings');
 
-    mockAllauth('delete', '/auth/session', allauthBody(500, {}), { status: 500 });
+    mockApi('post', '/account/logout', apiError('hopwatch.anything'), { status: 500 });
     navigationControl('Log out')!.click();
     await vi.waitFor(() => expect(document.body.textContent).toContain('Logging out did not succeed.'));
 
@@ -140,7 +137,7 @@ describe('app', () => {
       document.cookie = 'csrftoken=x; path=/';
       mockLoggedInSession();
       await mountLoggedIn('/');
-      mockAllauth('delete', '/auth/session', allauthBody(500, {}), { status: 500 });
+      mockApi('post', '/account/logout', apiError('hopwatch.anything'), { status: 500 });
       navigationControl('Log out')!.click();
       await vi.waitFor(() => expect(document.body.textContent).toContain('Logging out did not succeed.'));
 
