@@ -89,7 +89,10 @@ describe('DeparturesBoard', () => {
 
     expect(wrapper.get('h2').text()).toBe('Ljubljana');
     expect(wrapper.get('section').attributes('aria-labelledby')).toBe(wrapper.get('h2').attributes('id'));
-    expect(departures[0].url.search).toBe('?stop_id=si%3A1&window_minutes=60');
+    expect([...departures[0].url.searchParams]).toEqual([
+      ['stop_id', 'si:1'],
+      ['window_minutes', '60'],
+    ]);
     expect(wrapper.get('[role="list"]').attributes('aria-label')).toBe('Departures from Ljubljana');
     expect(departureItems()).toHaveLength(1);
     expect(departureItems()[0]).toContain('IC 502');

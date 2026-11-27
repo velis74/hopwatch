@@ -13,19 +13,14 @@ type Model = { from: Stop | null; to: Stop | null; timeMode: TimeMode; time: str
 async function render(initial: Partial<Model> = {}) {
   const model: Model = { from: LJUBLJANA, to: null, timeMode: 'now', time: '', ...initial };
   const { wrapper } = await mountApp(JourneyForm, {
-    props: {
-      ...model,
-      'onUpdate:from': (value: Stop | null) => wrapper.setProps({ from: value }),
-      'onUpdate:to': (value: Stop | null) => wrapper.setProps({ to: value }),
-      'onUpdate:timeMode': (value: TimeMode) => wrapper.setProps({ timeMode: value }),
-      'onUpdate:time': (value: string) => wrapper.setProps({ time: value }),
-    },
+    models: model,
   });
   return wrapper;
 }
 
 function labelled(wrapper: Awaited<ReturnType<typeof render>>, text: string) {
-  const label = wrapper.findAll('label').find((candidate) => candidate.text() === text);
+  // Vuetify renders the field's label twice; only the one shown for the field's current state names the input.
+  const label = wrapper.findAll('label[for]').find((candidate) => candidate.text() === text);
   if (!label) throw new Error(`No label ${text}`);
   return wrapper.get(`#${label.attributes('for')}`);
 }

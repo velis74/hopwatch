@@ -33,9 +33,16 @@ describe('Hopwatch API client', () => {
     await expect(departures(['si:1'])).resolves.toEqual([]);
     await departures(['si:1', 'si:3'], 90);
 
-    expect(requests.map((request) => request.url.search)).toEqual([
-      '?stop_id=si%3A1&window_minutes=60',
-      '?stop_id=si%3A1&stop_id=si%3A3&window_minutes=90',
+    expect(requests.map((request) => [...request.url.searchParams])).toEqual([
+      [
+        ['stop_id', 'si:1'],
+        ['window_minutes', '60'],
+      ],
+      [
+        ['stop_id', 'si:1'],
+        ['stop_id', 'si:3'],
+        ['window_minutes', '90'],
+      ],
     ]);
   });
 

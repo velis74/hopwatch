@@ -19,11 +19,8 @@ const AROUND: NearbyStop[] = [
 
 async function render(stop = LJUBLJANA, modelValue: string[] = []) {
   const { wrapper } = await mountApp(NearbyStops, {
-    props: {
-      stop,
-      modelValue,
-      'onUpdate:modelValue': (value: string[]) => wrapper.setProps({ modelValue: value }),
-    },
+    props: { stop },
+    models: { modelValue },
   });
   await flushPromises();
   return wrapper;

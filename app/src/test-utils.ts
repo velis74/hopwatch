@@ -373,6 +373,11 @@ export const APP_ROUTES: RouteRecordRaw[] = [
 
 export interface MountOptions {
   props?: Record<string, unknown>;
+  /**
+   * Props bound as `v-model:<name>` with these initial values: every `update:<name>` sets the prop on the mounted
+   * component, also while `mountApp` still waits for pending promises.
+   */
+  models?: Record<string, unknown>;
   slots?: Record<string, unknown>;
   /** The location the router starts at; default `/`. */
   route?: string;
@@ -412,11 +417,18 @@ export async function mountApp<C extends Component>(component: C, options: Mount
   await router.push(options.route ?? '/');
   await router.isReady();
 
+  const mounted: { wrapper?: { setProps(props: Record<string, unknown>): Promise<void> } } = {};
+  const models = Object.fromEntries(
+    Object.entries(options.models ?? {}).flatMap(([name, value]) => [
+      [name, value],
+      [`onUpdate:${name}`, (update: unknown) => mounted.wrapper?.setProps({ [name]: update })],
+    ]),
+  );
   const attachTo = document.createElement('div');
   document.body.appendChild(attachTo);
   const wrapper = mount(component, {
     attachTo,
-    props: options.props as never,
+    props: { ...options.props, ...models } as never,
     slots: options.slots as never,
     global: {
       plugins: [
@@ -439,6 +451,7 @@ export async function mountApp<C extends Component>(component: C, options: Mount
       ] as never,
     },
   });
+  mounted.wrapper = wrapper as never;
   await flushPromises();
   return { wrapper: wrapper as never, router, pinia };
 }

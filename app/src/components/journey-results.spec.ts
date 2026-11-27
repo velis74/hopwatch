@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import type { Itinerary } from '../api/hopwatch-api';
 import { toOffsetIso } from '../composables/local-time';
 import { itinerary, journeysPage } from '../test-journeys';
 import { flushPromises, HttpResponse, mockApi, mountApp } from '../test-utils';
@@ -31,10 +30,9 @@ async function render(props: Record<string, unknown> = {}) {
       to: KOPER,
       timeMode: 'now',
       time: '',
-      itinerary: null,
-      'onUpdate:itinerary': (value: Itinerary | null) => wrapper.setProps({ itinerary: value }),
       ...props,
     },
+    models: { itinerary: null },
   });
   await settle();
   return wrapper;
