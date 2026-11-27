@@ -1,0 +1,62 @@
+import { nextTick, watch } from 'vue';
+import { createRouter, createWebHistory, type RouteRecordRaw, START_LOCATION } from 'vue-router';
+
+import i18n from '../i18n';
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    /** Message key of the page title, shown in the document title. */
+    titleKey?: string;
+  }
+}
+
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('../pages/home-page.vue'),
+    meta: { titleKey: 'pages.home.title' },
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../pages/login-page.vue'),
+    meta: { titleKey: 'pages.login.title' },
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: () => import('../pages/signup-page.vue'),
+    meta: { titleKey: 'pages.signup.title' },
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../pages/settings-page.vue'),
+    meta: { titleKey: 'pages.settings.title' },
+  },
+];
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
+});
+
+function applyDocumentTitle(): void {
+  const app = i18n.global.t('app.title');
+  const key = router.currentRoute.value.meta.titleKey;
+  document.title = key ? `${i18n.global.t(key)} – ${app}` : app;
+}
+
+router.afterEach((to, from, failure) => {
+  if (failure) return;
+  void nextTick(() => {
+    applyDocumentTitle();
+    // A route change moves focus to the main region, so screen readers announce the new page.
+    if (from !== START_LOCATION && to.path !== from.path) document.getElementById('main-content')?.focus();
+  });
+});
+
+watch(() => i18n.global.locale.value, applyDocumentTitle);
+
+export default router;
