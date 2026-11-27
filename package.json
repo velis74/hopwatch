@@ -1,0 +1,32 @@
+{
+  "name": "hopwatch",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Real-time public transport information: timetables, vehicle positions and rider reports",
+  "author": "Jure Erznožnik <jure.erznoznik@velis.si>",
+  "license": "MIT",
+  "homepage": "https://docs.velis.si/hopwatch/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/velis74/hopwatch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/velis74/hopwatch/issues"
+  },
+  "workspaces": [
+    "docs"
+  ],
+  "scripts": {
+    "lint": "node scripts/lint.mjs",
+    "docs:dev": "npm run docs:dev -w docs",
+    "docs:build": "npm run docs:build -w docs",
+    "docs:preview": "npm run docs:preview -w docs"
+  },
+  "devDependencies": {
+    "@types/node": "^26",
+    "eslint-config-velis": "^3.0.1",
+    "markdownlint-cli2": "^0.24.2",
+    "typescript": "^5"
+  }
+}

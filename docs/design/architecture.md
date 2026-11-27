@@ -1,0 +1,108 @@
+# Architecture
+
+Design of Hopwatch. The components described here are not implemented yet; this document is the reference for
+the implementation.
+
+## Purpose
+
+Hopwatch shows public transport (trains, buses, later shared mobility) in real time on an OpenStreetMap map. It
+fills the gap where operators hold real-time data but do not publish it: rider-shared vehicle positions and
+sources read with the operator's permission provide delays that other journey planners do not show.
+
+## Components
+
+| Component | Repository | Licence | Role |
+| --- | --- | --- | --- |
+| Core (`hopwatch`, Python) | `velis74/hopwatch` | MIT | source adapter interface, open adapters, rider position matching, public API |
+| App (Vue, Capacitor) | `velis74/hopwatch` | MIT | mobile app for Android and iOS |
+| Routing engine | MOTIS (upstream) | MIT | timetables, journey planning, real-time updates |
+| Server (`hopwatch-server`) | `velis-doo/hopwatch-server` (private) | proprietary | adapters for sources used with permission, deployment |
+
+The server package depends on the core and registers its adapters through Python entry points. The core finds
+every installed adapter; only Velis d.o.o. servers have the server package installed. The adapter interface is
+public API of the core and follows semantic versioning.
+
+MOTIS reads three kinds of input:
+
+- open feeds (GTFS, GTFS-RT, NeTEx, SIRI); the list of open feeds for Slovenia, Croatia and Austria is
+  contributed to Transitous, and the Hopwatch instance uses the same list;
+- feeds that the server package's adapters produce from sources used with permission;
+- the GTFS-RT feed that the core derives from rider-shared positions.
+
+Hopwatch runs its own MOTIS instance and does not use the public Transitous API.
+
+## Data layers
+
+| Layer | Licence of the data | Available through |
+| --- | --- | --- |
+| Open sources | the source's licence (ODbL stays ODbL, CC BY keeps attribution) | app, public API |
+| Rider-derived vehicle positions and delays | ODbL | app, public API |
+| Sources used with permission | the terms of the permission | app; public API only where the permission allows redistribution |
+
+Raw rider traces are never published. Data under a share-alike licence is stored apart from data used with
+permission, so that combining them does not extend the share-alike obligation.
+
+Requests for permission ask for redistribution through the public API, not only for display in the app.
+
+## Rider-shared positions
+
+- Sharing is one opt-in for the whole app, revocable in the settings at any time. The app works fully without
+  it.
+- Positions are sent only while the app is in the foreground. The app does not request background location.
+- The device matches its position to a vehicle (trip and stop sequence) and sends only the trip, the position
+  and the time, without a user identity. The start and the end of a journey are not sent.
+- With approximate location (Android coarse, iOS reduced accuracy) the app neither matches nor shares; the
+  position only selects nearby stops.
+- While sharing, the app shows which vehicle the position is shared for.
+- A position off the vehicle's route or implying an impossible speed is rejected; a vehicle position is
+  published when it is consistent across devices.
+- Every delay shown names its source: official, riders or estimate.
+
+## Public API
+
+- Standard formats first: GTFS, GTFS-RT and, where needed, SIRI. A Hopwatch API (REST, muxws push) covers what
+  the standards do not: rider reports and subscriptions to a trip or a stop.
+- Access requires an API key. A free key has a quota above the use of one phone; higher quotas are paid and
+  managed with allowances.
+- Third-party applications use the public API. The app does not load third-party plugins.
+
+## App
+
+- The Vue code is compiled into the app. A newer bundle downloads in the background and becomes active on the
+  next start; a bundle that does not confirm a successful start is rolled back. Capgo
+  (`@capgo/capacitor-updater`, self-hosted) is the first candidate.
+- Versions: the bundle declares the minimum native shell version it needs, and the server offers each shell the
+  newest compatible bundle. The API supports a window of older bundle versions, because a bundle stays in use
+  until the app restarts. The API, the bundle and the native shell each follow semantic versioning.
+- Offline: when a journey is planned, the app stores its stops, timetable, route shape, transfers and map tiles
+  for the corridor. Without a connection the device's GPS and the stored route give the position, the time to
+  the destination and the time to a transfer. The delay of a connecting vehicle is shown as the last known value
+  with its age. Rider reports collected offline are sent when the connection returns.
+
+## User interface
+
+- The start screen lists departures from the nearest stop in the next 30 to 60 minutes.
+- A destination filter matches every stop on a vehicle's route, not only its terminus.
+- The app learns frequent stop, time and destination combinations on the device and offers them as one-tap
+  filters. This data does not leave the device.
+- When the device moves along a vehicle's route, the start screen shows the journey: time to the destination,
+  time to a transfer and the state of the connection.
+
+## Accessibility
+
+Accessibility is a primary feature:
+
+- Every screen works with TalkBack and VoiceOver from the first release. The departures list is the primary
+  view; the map has a text equivalent.
+- Delay changes are announced through live regions.
+- The app follows the system font size, `prefers-reduced-motion` and contrast settings.
+- On the first start the app asks for an experience: "Simple and large" or "Lively". The choice is stored on
+  the device and changes presentation only (density, font scale, animation, contrast). Both meet WCAG 2.2 AA.
+  The user guide describes the differences.
+- Automated accessibility checks run in the end-to-end tests.
+
+## Languages
+
+Slovenian, English (en-GB), German, Croatian, Serbian in Cyrillic (`sr-Cyrl`, the source) and Serbian in Latin
+script (`sr-Latn`, derived by transliteration). The app uses vue-i18n, the server vue-i18n-python with the same
+messages.
