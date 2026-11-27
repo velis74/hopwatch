@@ -1,0 +1,25 @@
+# MOTIS for local development. Fetch data first (scripts/fetch-motis-data.sh), then:
+#   docker compose -f motis/docker-compose.yml run --rm motis-import
+#   docker compose -f motis/docker-compose.yml up -d motis
+name: hopwatch-motis
+
+x-motis: &motis
+  image: ghcr.io/motis-project/motis:2.11.4
+  user: "${MOTIS_UID:-1000}:${MOTIS_GID:-1000}"
+  working_dir: /data
+  volumes:
+    - ./data:/data
+    - ./config.yml:/config.yml:ro
+
+services:
+  motis-import:
+    <<: *motis
+    profiles: [import]
+    command: ["/motis", "import", "-c", "/config.yml", "-d", "/data/import"]
+
+  motis:
+    <<: *motis
+    command: ["/motis", "server", "-d", "/data/import"]
+    ports:
+      - "127.0.0.1:8180:8080"
+    restart: unless-stopped

@@ -1,0 +1,30 @@
+# MOTIS configuration for Slovenia. Paths are relative to motis/data/ (mounted at /data).
+# Feed sources, licences and attribution: motis/README.md.
+server:
+  host: 0.0.0.0
+  port: 8080
+  web_folder: /ui
+osm: slovenia-latest.osm.pbf
+tiles:
+  profile: /tiles-profiles/full.lua
+  db_size: 68719476736
+timetable:
+  first_day: TODAY
+  num_days: 365
+  railviz: true
+  with_shapes: true
+  update_interval: 60
+  datasets:
+    # IJPP: national integrated public transport (buses, SŽ trains, international trains), CC BY-SA 4.0.
+    ijpp:
+      path: gtfs/ijpp.zip
+      rt:
+        - url: https://rt.gtfs.derp.si/sources/ijpp/trip_updates
+        - url: https://rt.gtfs.derp.si/sources/ijpp/service_alerts
+    # Kranjska Gora local buses, CC BY-SA 4.0.
+    kranjskagora:
+      path: gtfs/kranjska-gora.zip
+street_routing: true
+osr_footpath: true
+geocoding: true
+reverse_geocoding: true

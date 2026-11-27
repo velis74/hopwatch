@@ -1,0 +1,128 @@
+{
+  "app": {
+    "title": "Hopwatch",
+    "mainNavigation": "Main navigation",
+    "home": "Hopwatch, departures",
+    "settings": "Settings",
+    "login": "Log in",
+    "logout": "Log out",
+    "loggedInAs": "Logged in as",
+    "skipToContent": "Skip to main content"
+  },
+  "experience": {
+    "dialogTitle": "Choose your experience",
+    "dialogIntro": "You can change this later in Settings.",
+    "label": "Experience",
+    "simple": "Simple and large",
+    "simpleDescription": "Larger text and buttons, calm screens without animation.",
+    "lively": "Lively",
+    "livelyDescription": "Compact layout with subtle animation.",
+    "continue": "Continue"
+  },
+  "pages": {
+    "home": {
+      "title": "Departures"
+    },
+    "login": {
+      "title": "Log in"
+    },
+    "signup": {
+      "title": "Create an account"
+    },
+    "settings": {
+      "title": "Settings"
+    }
+  },
+  "settings": {
+    "language": "Language",
+    "languages": {
+      "en": "English",
+      "sl": "Slovenščina"
+    },
+    "saved": "Saved on this device."
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "login": "Log in",
+    "loginLink": "Log in to your account",
+    "createAccount": "Create account",
+    "createAccountLink": "Create an account",
+    "haveAccount": "Already have an account?",
+    "noAccount": "No account yet?",
+    "or": "or",
+    "continueWith": "Continue with {provider}",
+    "providers": {
+      "google": "Google",
+      "apple": "Apple"
+    },
+    "errors": {
+      "invalidCredentials": "The email address or password is incorrect.",
+      "emailTaken": "An account with this email address already exists.",
+      "socialFailed": "Logging in with the provider did not succeed. Please try again.",
+      "logoutFailed": "Logging out did not succeed. Please try again.",
+      "passwordTooShort": "The password is too short. It must contain at least 8 characters.",
+      "passwordTooCommon": "This password is too common.",
+      "passwordEntirelyNumeric": "The password cannot consist of digits only.",
+      "passwordTooSimilar": "The password is too similar to the email address.",
+      "invalidEmail": "Enter a valid email address.",
+      "tooManyAttempts": "Too many failed login attempts. Try again later.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "errors": {
+    "vue-forms": {
+      "required": "This field is required.",
+      "compare_to": "The passwords do not match."
+    },
+    "hopwatch": {
+      "passwords_mismatch": "The passwords do not match."
+    }
+  },
+  "departures": {
+    "locating": "Finding your location…",
+    "locationUnavailable": "Your location is not available. Find a stop by name.",
+    "noNearbyStop": "There is no stop near you. Find a stop by name.",
+    "findStop": "Find a stop",
+    "findStopHint": "Type at least two letters of the stop name.",
+    "noStopsFound": "No stops found.",
+    "changeStop": "Change stop",
+    "destination": "Destination",
+    "destinationHint": "Shows only departures that stop at a matching later stop.",
+    "listLabel": "Departures from {stop}",
+    "loading": "Loading departures…",
+    "empty": "No departures in the next {minutes} minutes.",
+    "emptyFiltered": "No departures to {destination} in the next {minutes} minutes.",
+    "unavailable": "Departures are not available right now. Please try again later.",
+    "updatedAt": "Updated at {time}. Refreshes every 30 seconds.",
+    "dataAttribution": "Timetable data:",
+    "toHeadsign": "to {headsign}",
+    "scheduled": "Scheduled {time}",
+    "expected": "Expected {time}",
+    "onTime": "On time",
+    "delay": "+{minutes} min",
+    "early": "{minutes} min early",
+    "delaySource": "({source})",
+    "sources": {
+      "official": "official",
+      "riders": "riders",
+      "estimate": "estimate"
+    },
+    "platform": "Platform {platform}",
+    "via": "Via {stops}",
+    "callsAt": "Calls at {stop}",
+    "modes": {
+      "rail": "Train",
+      "bus": "Bus",
+      "tram": "Tram",
+      "other": "Service"
+    },
+    "announceDelay": "{mode} {line} to {headsign}: delay now {delay}.",
+    "announceOnTime": "{mode} {line} to {headsign}: now on time."
+  },
+  "map": {
+    "title": "Map",
+    "textEquivalent": "Map of the stop {stop}. The list of departures is the text version of this map."
+  }
+}

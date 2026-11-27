@@ -1,0 +1,132 @@
+[
+  {
+    "type": "STOP",
+    "tokens": [
+      [
+        0.0,
+        9.0
+      ]
+    ],
+    "name": "Ljubljana",
+    "id": "ijpp_1122804",
+    "lat": 46.058508924440005,
+    "lon": 14.512923641400999,
+    "country": "SI",
+    "tz": "Europe/Ljubljana",
+    "areas": [
+      {
+        "name": "Slovenija",
+        "adminLevel": 2.0,
+        "matched": false,
+        "unique": false,
+        "default": false
+      },
+      {
+        "name": "Upravna Enota Ljubljana",
+        "adminLevel": 7.0,
+        "matched": false,
+        "unique": false,
+        "default": false
+      },
+      {
+        "name": "Ljubljana",
+        "adminLevel": 8.0,
+        "matched": false,
+        "unique": true,
+        "default": true
+      }
+    ],
+    "score": -22.149999618530273,
+    "modes": [
+      "REGIONAL_RAIL",
+      "BUS"
+    ],
+    "importance": 0.49244582653045654
+  },
+  {
+    "type": "STOP",
+    "tokens": [
+      [
+        0.0,
+        9.0
+      ]
+    ],
+    "name": "Ljubljana AP",
+    "id": "ijpp_1168813",
+    "lat": 46.057943767180994,
+    "lon": 14.514695240206,
+    "country": "SI",
+    "tz": "Europe/Ljubljana",
+    "areas": [
+      {
+        "name": "Slovenija",
+        "adminLevel": 2.0,
+        "matched": false,
+        "unique": false,
+        "default": false
+      },
+      {
+        "name": "Upravna Enota Ljubljana",
+        "adminLevel": 7.0,
+        "matched": false,
+        "unique": false,
+        "default": false
+      },
+      {
+        "name": "Ljubljana",
+        "adminLevel": 8.0,
+        "matched": false,
+        "unique": true,
+        "default": true
+      }
+    ],
+    "score": -21.399999618530273,
+    "modes": [
+      "BUS"
+    ],
+    "importance": 0.3242533206939697
+  },
+  {
+    "type": "STOP",
+    "tokens": [
+      [
+        0.0,
+        9.0
+      ]
+    ],
+    "name": "Ljubljana Vič",
+    "id": "ijpp_1165697",
+    "lat": 46.04225231685901,
+    "lon": 14.477896299908004,
+    "country": "SI",
+    "tz": "Europe/Ljubljana",
+    "areas": [
+      {
+        "name": "Slovenija",
+        "adminLevel": 2.0,
+        "matched": false,
+        "unique": false,
+        "default": false
+      },
+      {
+        "name": "Upravna Enota Ljubljana",
+        "adminLevel": 7.0,
+        "matched": false,
+        "unique": false,
+        "default": false
+      },
+      {
+        "name": "Ljubljana",
+        "adminLevel": 8.0,
+        "matched": false,
+        "unique": true,
+        "default": true
+      }
+    ],
+    "score": -21.35826301574707,
+    "modes": [
+      "BUS"
+    ],
+    "importance": 0.09270813316106796
+  }
+]

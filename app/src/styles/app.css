@@ -1,0 +1,104 @@
+/* Experience modes: the root element carries `experience-simple` or `experience-lively`. Sizes are relative,
+   so the system font size still applies. */
+html.experience-simple {
+  font-size: 125%;
+}
+
+html.experience-simple .v-btn {
+  min-height: 48px;
+}
+
+/* Labels and secondary text reach 4.5:1 contrast on the light theme's filled fields. */
+html .v-theme--light {
+  --v-medium-emphasis-opacity: 0.7;
+}
+
+/* Hidden on screen, read by screen readers. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* A visible focus indicator on every focusable element, in both themes. */
+:focus-visible {
+  outline: 3px solid rgb(var(--v-theme-primary)) !important;
+  outline-offset: 2px;
+}
+
+/* A text field shows focus with its own border and label colour; browsers match :focus-visible on a clicked text field. */
+.v-field input:focus-visible,
+.v-field textarea:focus-visible {
+  outline: none !important;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  z-index: 10000;
+  padding: 8px 16px;
+  background: rgb(var(--v-theme-surface));
+  color: rgb(var(--v-theme-on-surface));
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* Decorative animation: only in the lively experience and only when the system allows motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html.experience-lively .decorative-pulse {
+    animation: hopwatch-pulse 2s ease-in-out infinite;
+  }
+
+  html.experience-lively .departure-enter-active,
+  html.experience-lively .departure-leave-active {
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  html.experience-lively .departure-enter-from,
+  html.experience-lively .departure-leave-to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes hopwatch-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* No motion in the simple experience, nor when the system asks for reduced motion. */
+html.experience-simple *,
+html.experience-simple *::before,
+html.experience-simple *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

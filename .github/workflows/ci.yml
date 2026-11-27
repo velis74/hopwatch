@@ -33,12 +33,19 @@ jobs:
           node-version: '22'
       - run: npm ci
       - run: npm run lint
+      - run: npm test
+      - run: npm run build
       - run: npm run docs:build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: node-coverage
+          path: coverage/coverage-final.json
+        if: github.event_name == 'pull_request'
 
   coverage:
     name: Incremental coverage check
     runs-on: ubuntu-latest
-    needs: [python]
+    needs: [python, node]
     if: github.event_name == 'pull_request'
     permissions:
       contents: read
@@ -53,7 +60,9 @@ jobs:
           merge-multiple: true
       - uses: velis74/incremental-coverage-check@v3
         with:
-          coverage-files: coverage.json
+          coverage-files: |
+            coverage.json
+            coverage-final.json
           extra-ignore-patterns: |
             docs/**
             scripts/**

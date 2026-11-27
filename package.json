@@ -18,15 +18,48 @@
     "docs"
   ],
   "scripts": {
+    "dev": "vite --config app/vite.config.ts",
+    "build": "vite build --config app/vite.config.ts",
+    "preview": "vite preview --config app/vite.config.ts",
+    "test": "vitest run --coverage",
+    "test:e2e": "playwright test -c e2e/playwright.config.ts",
     "lint": "node scripts/lint.mjs",
     "docs:dev": "npm run docs:dev -w docs",
     "docs:build": "npm run docs:build -w docs",
     "docs:preview": "npm run docs:preview -w docs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.1",
+    "@playwright/test": "^1.65.1",
     "@types/node": "^26",
+    "@vitejs/plugin-vue": "^6.0.11",
+    "@vitest/coverage-v8": "^5.1.0",
+    "@vue/test-utils": "^2.5.1",
     "eslint-config-velis": "^3.0.1",
+    "jsdom": "^31.0.0",
     "markdownlint-cli2": "^0.24.2",
-    "typescript": "^5"
+    "msw": "^3.0.5",
+    "typescript": "^5",
+    "vite": "^8.4.0",
+    "vite-plugin-vuetify": "^2.1.3",
+    "vitest": "^5.1.0",
+    "vue-tsc": "^3.3.14"
+  },
+  "dependencies": {
+    "@dynamicforms/fastapi-viewsets": "^0.16.3",
+    "@dynamicforms/translatable": "^0.3.0",
+    "@dynamicforms/vue-forms": "^3.0.0-alpha.4",
+    "@dynamicforms/vuetify-inputs": "^0.16.4",
+    "@dynamicforms/vuetify-modal-form-kit": "^0.11.2",
+    "@mdi/font": "^7.4.47",
+    "axios": "^1.21.1",
+    "isomorphic-dompurify": "^2.36.0",
+    "maplibre-gl": "^6.19.0",
+    "pinia": "^4.1.0",
+    "vue": "^3.5.46",
+    "vue-cached-icon": "^3.2.2",
+    "vue-i18n": "^11.4.24",
+    "vue-router": "^5.5.3",
+    "vuetify": "^3.13.8"
   }
 }

@@ -1,0 +1,302 @@
+{
+  "duration": 17940,
+  "startTime": "2026-11-27T07:16:00Z",
+  "endTime": "2026-11-27T12:15:00Z",
+  "transfers": 0,
+  "id": "CqwBCgZFQyAyMTQSKTIwMjYxMTI3XzA4OjE2X2lqcHBfSU5UTC00YTEyNWM4YjY5ZDFhMTk5GhFpanBwX0lOVEwtNzgwMDAyMCHO3EPC9+ZGQCnE7dCwGPUvQDIRaWpwcF9JTlRMLTgxMDAxNDc5g2xZvi5PR0BB16VG6GeyK0BIsNyk2AZQxOil2AZaDVJFR0lPTkFMX1JBSUxgAWkAAAAAAAAAAHEAAAAAAAAAAA==",
+  "legs": [
+    {
+      "mode": "REGIONAL_RAIL",
+      "from": {
+        "name": "Zagreb Glavni kolodvor",
+        "stopId": "ijpp_INTL-7800020",
+        "importance": 0.17939768731594086,
+        "lat": 45.804435999999995,
+        "lon": 15.978704,
+        "level": 0.0,
+        "tz": "Europe/Belgrade",
+        "departure": "2026-11-27T07:16:00Z",
+        "scheduledDeparture": "2026-11-27T07:16:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NORMAL",
+        "dropoffType": "NOT_ALLOWED",
+        "cancelled": false,
+        "departureTimestampReason": "NO_RT_DATA",
+        "modes": [
+          "REGIONAL_RAIL"
+        ]
+      },
+      "to": {
+        "name": "Villach Hbf",
+        "stopId": "ijpp_INTL-8100147",
+        "importance": 0.1815975159406662,
+        "lat": 46.618614,
+        "lon": 13.848449,
+        "level": 0.0,
+        "tz": "Europe/Belgrade",
+        "arrival": "2026-11-27T12:15:00Z",
+        "scheduledArrival": "2026-11-27T12:15:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NOT_ALLOWED",
+        "dropoffType": "NORMAL",
+        "cancelled": false,
+        "arrivalTimestampReason": "NO_RT_DATA",
+        "modes": [
+          "REGIONAL_RAIL",
+          "BUS"
+        ]
+      },
+      "duration": 17940,
+      "startTime": "2026-11-27T07:16:00Z",
+      "endTime": "2026-11-27T12:15:00Z",
+      "scheduledStartTime": "2026-11-27T07:16:00Z",
+      "scheduledEndTime": "2026-11-27T12:15:00Z",
+      "realTime": false,
+      "scheduled": true,
+      "interlineWithPreviousLeg": false,
+      "headsign": "Zagreb Glavni kolodvor - Dobova",
+      "tripFrom": {
+        "name": "Jesenice",
+        "stopId": "ijpp_1122836",
+        "importance": 0.20597128570079803,
+        "lat": 46.436126635069,
+        "lon": 14.053726165113,
+        "tz": "Europe/Belgrade",
+        "departure": "2026-11-27T11:30:00Z",
+        "scheduledDeparture": "2026-11-27T11:30:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NORMAL",
+        "dropoffType": "NORMAL",
+        "cancelled": false,
+        "arrivalTimestampReason": "PROPAGATED",
+        "departureTimestampReason": "NO_RT_DATA",
+        "modes": [
+          "REGIONAL_RAIL",
+          "BUS"
+        ]
+      },
+      "tripTo": {
+        "name": "Dobova",
+        "stopId": "ijpp_1122782",
+        "importance": 0.21053194999694824,
+        "lat": 45.898645702483,
+        "lon": 15.654863820527,
+        "tz": "Europe/Belgrade",
+        "arrival": "2026-11-27T07:41:00Z",
+        "scheduledArrival": "2026-11-27T07:41:00Z",
+        "vertexType": "TRANSIT",
+        "pickupType": "NORMAL",
+        "dropoffType": "NORMAL",
+        "cancelled": false,
+        "arrivalTimestampReason": "NO_RT_DATA",
+        "departureTimestampReason": "NO_RT_DATA",
+        "modes": [
+          "REGIONAL_RAIL",
+          "BUS"
+        ]
+      },
+      "routeId": "ijpp_INTL-ROUTE-65455-HZPP-FOREIGN-b5e1441d611b2ac2",
+      "routeUrl": "",
+      "directionId": "0",
+      "routeColor": "29ace2",
+      "routeTextColor": "ffffff",
+      "routeType": 2,
+      "agencyName": "HŽ Putnički prijevoz",
+      "agencyUrl": "https://www.hzpp.hr/",
+      "agencyFareUrl": "",
+      "agencyId": "INTL-HZPP",
+      "tripId": "20261127_08:16_ijpp_INTL-4a125c8b69d1a199",
+      "routeShortName": "EC 214",
+      "routeLongName": "",
+      "tripShortName": "EC 214",
+      "displayName": "EC 214",
+      "cancelled": false,
+      "source": "gtfs/ijpp.zip/stop_times.txt:429213:429215",
+      "intermediateStops": [
+        {
+          "name": "Zapresic",
+          "stopId": "ijpp_INTL-7800061",
+          "importance": 0.10081621259450912,
+          "lat": 45.84449399999999,
+          "lon": 15.813185,
+          "level": 0.0,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T07:28:00Z",
+          "departure": "2026-11-27T07:29:00Z",
+          "scheduledArrival": "2026-11-27T07:28:00Z",
+          "scheduledDeparture": "2026-11-27T07:29:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "NO_RT_DATA",
+          "departureTimestampReason": "NO_RT_DATA",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Dobova",
+          "stopId": "ijpp_1122782",
+          "importance": 0.21053194999694824,
+          "lat": 45.898645702483,
+          "lon": 15.654863820527,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T07:41:00Z",
+          "departure": "2026-11-27T07:56:00Z",
+          "scheduledArrival": "2026-11-27T07:41:00Z",
+          "scheduledDeparture": "2026-11-27T07:56:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "NO_RT_DATA",
+          "departureTimestampReason": "NO_RT_DATA",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Sevnica",
+          "stopId": "ijpp_1122788",
+          "importance": 0.2078682780265808,
+          "lat": 46.009514757045,
+          "lon": 15.301098615612,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T08:34:00Z",
+          "departure": "2026-11-27T08:36:00Z",
+          "scheduledArrival": "2026-11-27T08:34:00Z",
+          "scheduledDeparture": "2026-11-27T08:36:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "NO_RT_DATA",
+          "departureTimestampReason": "NO_RT_DATA",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Zidani Most",
+          "stopId": "ijpp_1122792",
+          "importance": 0.3717872202396393,
+          "lat": 46.08532062078,
+          "lon": 15.170453399877001,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T09:06:00Z",
+          "departure": "2026-11-27T09:08:00Z",
+          "scheduledArrival": "2026-11-27T08:57:00Z",
+          "scheduledDeparture": "2026-11-27T08:59:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PREDICTED",
+          "departureTimestampReason": "PREDICTED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Ljubljana",
+          "stopId": "ijpp_1122804",
+          "importance": 0.49244582653045654,
+          "lat": 46.058508924440005,
+          "lon": 14.512923641400999,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T10:10:00Z",
+          "departure": "2026-11-27T10:12:00Z",
+          "scheduledArrival": "2026-11-27T09:57:00Z",
+          "scheduledDeparture": "2026-11-27T10:08:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PREDICTED",
+          "departureTimestampReason": "PREDICTED",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        },
+        {
+          "name": "Kranj",
+          "stopId": "ijpp_1122811",
+          "importance": 0.18587109446525574,
+          "lat": 46.23895514939701,
+          "lon": 14.348072790285999,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T10:34:00Z",
+          "departure": "2026-11-27T10:36:00Z",
+          "scheduledArrival": "2026-11-27T10:30:00Z",
+          "scheduledDeparture": "2026-11-27T10:32:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Lesce-Bled",
+          "stopId": "ijpp_1122816",
+          "importance": 0.1818181872367859,
+          "lat": 46.360324149868,
+          "lon": 14.157864727347,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T11:00:00Z",
+          "departure": "2026-11-27T11:02:00Z",
+          "scheduledArrival": "2026-11-27T10:56:00Z",
+          "scheduledDeparture": "2026-11-27T10:58:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "PROPAGATED",
+          "modes": [
+            "REGIONAL_RAIL"
+          ]
+        },
+        {
+          "name": "Jesenice",
+          "stopId": "ijpp_1122836",
+          "importance": 0.20597128570079803,
+          "lat": 46.436126635069,
+          "lon": 14.053726165113,
+          "tz": "Europe/Belgrade",
+          "arrival": "2026-11-27T11:12:00Z",
+          "departure": "2026-11-27T11:30:00Z",
+          "scheduledArrival": "2026-11-27T11:08:00Z",
+          "scheduledDeparture": "2026-11-27T11:30:00Z",
+          "vertexType": "TRANSIT",
+          "pickupType": "NORMAL",
+          "dropoffType": "NORMAL",
+          "cancelled": false,
+          "arrivalTimestampReason": "PROPAGATED",
+          "departureTimestampReason": "NO_RT_DATA",
+          "modes": [
+            "REGIONAL_RAIL",
+            "BUS"
+          ]
+        }
+      ],
+      "legGeometry": {
+        "points": "...",
+        "precision": 6,
+        "length": 0
+      },
+      "bikesAllowed": true,
+      "wheelchairAccessible": "ACCESSIBLE",
+      "reservation": "NONE",
+      "alternatives": []
+    }
+  ]
+}
