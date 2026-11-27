@@ -3,6 +3,7 @@ import { expect, type Page, test } from '@playwright/test';
 import {
   chooseExperience,
   departureItems,
+  DESTINATION,
   departuresBoard,
   escapeRegExp,
   expectNoSeriousViolations,
@@ -12,6 +13,7 @@ import {
   NEAR_LJUBLJANA,
   NEAREST_STOP,
   STOP_IDS,
+  stopNamePattern,
 } from './support';
 
 /** A bus station about 160 m from the fixture stop (MOTIS stop ijpp_1168813). */
@@ -132,4 +134,35 @@ test('"Include nearby stops by default" checks the stops of the chosen modes', a
     expect(checked, label).toBe(busStops.some((stop) => stop.label === label));
   }
   await expect(nearbyCheckbox(page, NEARBY_STOP)).toBeChecked();
+});
+
+test('"Add a stop" adds a stop by name, checked, and merges its departures', async ({ page }) => {
+  const merged = page.waitForRequest((request) => {
+    if (!isApiRequest(request.url(), '/api/v1/departures')) return false;
+    const ids = new URL(request.url()).searchParams.getAll('stop_id');
+    return ids.includes(STOP_IDS[NEAREST_STOP]) && ids.includes(STOP_IDS[DESTINATION]);
+  });
+  const add = nearbyStops(page).getByRole('combobox', { name: 'Add a stop', exact: true });
+  await add.fill(DESTINATION);
+  await page
+    .getByRole('option', { name: stopNamePattern(DESTINATION) })
+    .first()
+    .click();
+
+  const box = nearbyCheckbox(page, DESTINATION);
+  await expect(box).toBeChecked();
+  await expect(nearbyStops(page).getByRole('button', { name: `Remove ${DESTINATION}`, exact: true })).toBeVisible();
+  const response = await (await merged).response();
+  expect(response?.status()).toBe(200);
+  const departures = (await response!.json()) as { stop_id: string }[];
+  await expectNoSeriousViolations(page);
+
+  if (inServiceHours() && departures.some((departure) => departure.stop_id === STOP_IDS[DESTINATION])) {
+    await expect(departureItems(departuresBoard(page)).filter({ hasText: DESTINATION }).first()).toBeVisible();
+  }
+
+  // The added stop is remembered for this From stop.
+  await page.reload();
+  await openHome(page);
+  await expect(nearbyCheckbox(page, DESTINATION)).toBeChecked();
 });

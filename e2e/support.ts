@@ -43,8 +43,24 @@ export async function chooseExperience(page: Page, option: Experience = 'Lively'
   await expect(dialog).toBeHidden();
 }
 
-/** Asserts that axe finds no serious or critical WCAG 2.2 A/AA violations on the page. */
+/** Waits until the page's finite animations and transitions (e.g. list items fading in) have finished. */
+export async function settleAnimations(page: Page): Promise<void> {
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((animation) => animation.effect?.getComputedTiming().endTime !== Infinity)
+        .map((animation) => animation.finished.catch(() => undefined)),
+    ),
+  );
+}
+
+/**
+ * Asserts that axe finds no serious or critical WCAG 2.2 A/AA violations on the page. Finite animations finish first:
+ * text half faded in fails the contrast check.
+ */
 export async function expectNoSeriousViolations(page: Page): Promise<void> {
+  await settleAnimations(page);
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze();

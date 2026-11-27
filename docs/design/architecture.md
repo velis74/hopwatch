@@ -94,8 +94,10 @@ Requests for permission ask for redistribution through the public API, not only 
 - The start screen has a journey form: "From" (filled with the nearest stop), "To", a swap button and the time
   choice "Leave now", "Depart at" or "Arrive by".
 - Without "To" the start screen lists departures from the "From" stop in the next 60 minutes. Other stops within
-  300 m can be added to the list one by one; the settings choose the modes whose nearby stops are added by
-  default. A list of several stops names the stop of each departure.
+  300 m are filter chips (mode icons, name, distance; screen readers get checkboxes) that add their departures to the
+  list; the settings choose the modes whose nearby stops are checked by default. "Add a stop" finds any other stop
+  by name; added stops are kept on the device per "From" stop and checked by default. The list takes at most 10
+  stops, "From" included. A list of several stops names the stop of each departure.
 - With "To" the start screen lists journeys from MOTIS, one page at a time, with earlier and later pages. The map
   draws the selected journey: one line per leg coloured by mode, walks dashed.
 - Departures and journeys refresh while the page is visible, when 30 seconds have passed since the last load (checked

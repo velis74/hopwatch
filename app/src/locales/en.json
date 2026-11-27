@@ -178,6 +178,13 @@
     "legend": "Nearby stops",
     "option": "{name}, {modes}, {distance} m",
     "optionNoModes": "{name}, {distance} m",
-    "none": "No other stops within {radius} m."
+    "none": "No other stops within {radius} m.",
+    "addedOption": "{name}, {modes}",
+    "add": "Add a stop",
+    "remove": "Remove {name}",
+    "limit": "The departures board shows at most {max} stops. Uncheck a stop to choose another.",
+    "added": "{name} added.",
+    "addedChecked": "{name} added and checked.",
+    "removed": "{name} removed."
   }
 }

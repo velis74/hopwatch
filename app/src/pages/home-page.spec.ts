@@ -256,11 +256,9 @@ describe('HomePage', () => {
 
     const fieldset = wrapper.get('fieldset');
     expect(fieldset.get('legend').text()).toBe('Nearby stops');
-    const box = fieldset.get<HTMLInputElement>('input[type="checkbox"]');
-    expect(document.querySelector(`label[for="${box.attributes('id')}"]`)?.textContent?.trim()).toBe(
-      'Ljubljana AP, Bus, 162 m',
-    );
-    expect(box.element.checked).toBe(false);
+    const box = fieldset.get('[role="checkbox"]');
+    expect(box.attributes('aria-label')).toBe('Ljubljana AP, Bus, 162 m');
+    expect(box.attributes('aria-checked')).toBe('false');
     expect(departureItems()[0]).not.toContain('From Ljubljana');
 
     await box.trigger('click');
@@ -279,7 +277,7 @@ describe('HomePage', () => {
     const departures = mockApi('get', '/departures', [departure()]);
     const { wrapper } = await render();
 
-    expect(wrapper.get<HTMLInputElement>('fieldset input[type="checkbox"]').element.checked).toBe(true);
+    expect(wrapper.get('fieldset [role="checkbox"]').attributes('aria-checked')).toBe('true');
     expect(departures.at(-1)?.url.searchParams.getAll('stop_id')).toEqual(['si:1', 'si:3']);
   });
 

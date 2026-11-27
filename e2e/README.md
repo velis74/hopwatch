@@ -9,7 +9,7 @@ WCAG 2.2 A/AA violations).
 | `experience.e2e.ts` | experience dialog, its persistence, settings (experience, language), reduced motion |
 | `departures.e2e.ts` | departures from the nearest stop, "From" stop search, map, live region, refresh |
 | `journeys.e2e.ts` | "From"/"To" form, journey list, "Earlier"/"Later", "Depart at"/"Arrive by", swap, map, clearing "To" |
-| `nearby-stops.e2e.ts` | "Nearby stops" checkboxes, merged departures, "Include nearby stops by default" setting |
+| `nearby-stops.e2e.ts` | "Nearby stops" chips, merged departures, "Add a stop", "Include nearby stops by default" setting |
 | `refresh.e2e.ts` | refresh every 30 s, on visibility and after a frozen page; "Not updated since" (fake clock) |
 | `accounts.e2e.ts` | sign-up, log-out, failed and keyboard log-in, social login buttons |
 | `support.ts` | fixture constants and shared helpers |

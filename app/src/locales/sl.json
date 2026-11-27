@@ -178,6 +178,13 @@
     "legend": "Bližnje postaje",
     "option": "{name}, {modes}, {distance} m",
     "optionNoModes": "{name}, {distance} m",
-    "none": "V {radius} m ni drugih postaj."
+    "none": "V {radius} m ni drugih postaj.",
+    "addedOption": "{name}, {modes}",
+    "add": "Dodaj postajo",
+    "remove": "Odstrani {name}",
+    "limit": "Seznam odhodov prikaže največ {max} postaj. Odznačite postajo, da izberete drugo.",
+    "added": "Postaja {name} je dodana.",
+    "addedChecked": "Postaja {name} je dodana in označena.",
+    "removed": "Postaja {name} je odstranjena."
   }
 }
