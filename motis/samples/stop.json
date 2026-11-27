@@ -1,0 +1,77 @@
+{
+  "place": {
+    "name": "Ljubljana",
+    "stopId": "ijpp_1122804",
+    "importance": 0.49244582653045654,
+    "lat": 46.058508924440005,
+    "lon": 14.512923641400999,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "REGIONAL_RAIL",
+      "BUS"
+    ]
+  },
+  "routes": [
+    {
+      "routeId": "ijpp_64281",
+      "routeShortName": "BUS 14006",
+      "routeLongName": "",
+      "mode": "BUS",
+      "agencyId": "1161",
+      "agencyName": "SŽ - Potniški promet, d.o.o.",
+      "agencyUrl": "https://potniski.sz.si/",
+      "routeColor": "29ace2",
+      "routeTextColor": "ffffff",
+      "routeType": 3
+    },
+    {
+      "routeId": "ijpp_64284",
+      "routeShortName": "BUS 17006",
+      "routeLongName": "",
+      "mode": "BUS",
+      "agencyId": "1161",
+      "agencyName": "SŽ - Potniški promet, d.o.o.",
+      "agencyUrl": "https://potniski.sz.si/",
+      "routeColor": "29ace2",
+      "routeTextColor": "ffffff",
+      "routeType": 3
+    },
+    {
+      "routeId": "ijpp_65266",
+      "routeShortName": "BUS 18968",
+      "routeLongName": "",
+      "mode": "BUS",
+      "agencyId": "1161",
+      "agencyName": "SŽ - Potniški promet, d.o.o.",
+      "agencyUrl": "https://potniski.sz.si/",
+      "routeColor": "29ace2",
+      "routeTextColor": "ffffff",
+      "routeType": 3
+    },
+    {
+      "routeId": "ijpp_65267",
+      "routeShortName": "BUS 18969",
+      "routeLongName": "",
+      "mode": "BUS",
+      "agencyId": "1161",
+      "agencyName": "SŽ - Potniški promet, d.o.o.",
+      "agencyUrl": "https://potniski.sz.si/",
+      "routeColor": "29ace2",
+      "routeTextColor": "ffffff",
+      "routeType": 3
+    },
+    {
+      "routeId": "ijpp_65160",
+      "routeShortName": "BUS 26018",
+      "routeLongName": "",
+      "mode": "BUS",
+      "agencyId": "1161",
+      "agencyName": "SŽ - Potniški promet, d.o.o.",
+      "agencyUrl": "https://potniski.sz.si/",
+      "routeColor": "29ace2",
+      "routeTextColor": "ffffff",
+      "routeType": 3
+    }
+  ]
+}

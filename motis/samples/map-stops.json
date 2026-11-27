@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Ljubljana AP",
+    "stopId": "ijpp_1168813",
+    "importance": 0.3242533206939697,
+    "lat": 46.057943767180994,
+    "lon": 14.514695240206,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "BUS"
+    ]
+  },
+  {
+    "name": "Kolodvor",
+    "stopId": "ijpp_1167299",
+    "importance": 0.016526877880096436,
+    "lat": 46.05763332174399,
+    "lon": 14.509413986098,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "BUS"
+    ]
+  },
+  {
+    "name": "Kolodvor",
+    "stopId": "ijpp_1167300",
+    "importance": 0.016526877880096436,
+    "lat": 46.057553128470005,
+    "lon": 14.511280896505001,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "BUS"
+    ]
+  },
+  {
+    "name": "Navje",
+    "stopId": "ijpp_1121396",
+    "importance": 0.025138193741440773,
+    "lat": 46.059692052079,
+    "lon": 14.509407232047003,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "BUS"
+    ]
+  },
+  {
+    "name": "Ljubljana",
+    "stopId": "ijpp_1122804",
+    "importance": 0.49244582653045654,
+    "lat": 46.058508924440005,
+    "lon": 14.512923641400999,
+    "tz": "Europe/Belgrade",
+    "vertexType": "TRANSIT",
+    "modes": [
+      "REGIONAL_RAIL",
+      "BUS"
+    ]
+  }
+]
