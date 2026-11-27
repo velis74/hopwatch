@@ -139,7 +139,7 @@ def test_motis_failure_is_a_502(api, motis):
     response = api.get(URL, params={"stop_id": LJUBLJANA})
 
     assert response.status_code == 502
-    assert response.json()["detail_code"] == "hopwatch.motis_unavailable"
+    assert response.json()["detail_code"] == "hopwatch.timetable_unavailable"
     assert response.json()["detail_params"] == {"reason": "http_500"}
 
 

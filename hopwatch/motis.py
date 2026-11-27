@@ -19,9 +19,24 @@ ERROR_NAMESPACE = "hopwatch"
 JsonObject = dict[str, Any]
 
 DATA_ATTRIBUTION = (
-    "Timetable and real-time data: Družba za upravljanje javnega potniškega prometa (DUJPP), nap.si "
-    "(https://nap.si); SŽ – Potniški promet. Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)."
+    "- Timetable and real-time data: Družba za upravljanje javnega potniškega prometa (DUJPP), "
+    "[nap.si](https://nap.si)\n"
+    "- Timetable and real-time data: SŽ – Potniški promet\n"
+    "- Licence of the timetable and real-time data: "
+    "[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)"
 )
+"""The sources of the timetable and real-time data and their licence, a Markdown list."""
+
+MAP_ATTRIBUTION = (
+    "- Streets and walking routes: © OpenStreetMap contributors, "
+    "[ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/)"
+)
+"""The source of the street network and its licence, a Markdown list item."""
+
+
+def attribution_section(*items: str) -> str:
+    """The Markdown section "Data sources and licences" with the lists `items`."""
+    return "**Data sources and licences**\n\n" + "\n".join(items)
 
 
 class MotisUnavailableError(DfViewSetError):
@@ -29,13 +44,13 @@ class MotisUnavailableError(DfViewSetError):
 
     def __init__(self, reason: str):
         super().__init__(
-            502, "The timetable service is unavailable", f"{ERROR_NAMESPACE}.motis_unavailable", {"reason": reason}
+            502, "The timetable service is unavailable", f"{ERROR_NAMESPACE}.timetable_unavailable", {"reason": reason}
         )
 
 
 MOTIS_UNAVAILABLE_RESPONSE = error_entry(
     502,
-    "MOTIS, the timetable service, did not answer: `hopwatch.motis_unavailable`.",
+    "The timetable service did not answer: `hopwatch.timetable_unavailable`.",
     MotisUnavailableError("ConnectError"),
 )
 

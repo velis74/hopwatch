@@ -2,11 +2,11 @@ import type { VueWrapper } from '@vue/test-utils';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { useSessionStore } from '../stores/session';
-import { allauthBody, flushPromises, mockAllauth, mockApi, mountApp } from '../test-utils';
+import { flushPromises, mockApi, mockSession, mountApp } from '../test-utils';
 
 import LoginPage from './login-page.vue';
 
-const USER = { id: 7, email: 'ana@example.com', display: 'Ana' };
+const LOGGED_IN = { is_authenticated: true, session_token: null };
 
 function input(wrapper: VueWrapper, label: string) {
   const element = wrapper.findAll('label').find((candidate) => candidate.text() === label);
@@ -33,9 +33,8 @@ describe('login page', () => {
   });
 
   it('opens the home page after a successful login', async () => {
-    mockAllauth('post', '/auth/login', allauthBody(200, { user: USER }));
-    mockAllauth('get', '/auth/session', allauthBody(200, { user: USER }));
-    mockApi('get', '/account/me', { id: 7, email: 'ana@example.com', display_name: 'Ana' });
+    mockApi('post', '/account/login', LOGGED_IN);
+    mockSession({ id: 7, email: 'ana@example.com', display_name: 'Ana' });
     const { wrapper, router } = await mountApp(LoginPage, { route: '/login' });
 
     await input(wrapper, 'Email').setValue('ana@example.com');
@@ -46,7 +45,7 @@ describe('login page', () => {
     expect(router.currentRoute.value.name).toBe('home');
   });
 
-  it('explains a failed provider login allauth returned with', async () => {
+  it('explains a failed provider login the server returned with', async () => {
     const { wrapper } = await mountApp(LoginPage, { route: '/login?error=cancelled' });
 
     expect(wrapper.get('[role="alert"]').text()).toBe(

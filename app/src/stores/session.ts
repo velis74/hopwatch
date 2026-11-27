@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
-import * as allauth from '../api/allauth';
-import { accountMe, type Account } from '../api/hopwatch-api';
+import * as accountApi from '../api/account';
+import type { Account } from '../api/hopwatch-api';
 
 export const SOCIAL_PROVIDERS = ['google', 'apple'] as const;
 export type SocialProvider = (typeof SOCIAL_PROVIDERS)[number];
@@ -16,50 +16,42 @@ export const useSessionStore = defineStore('session', {
     loggedIn: (state) => state.account !== null,
   },
   actions: {
-    /** Loads the configured social providers and the logged-in user; sets the CSRF cookie as a side effect. */
+    /** Loads the social providers a browser can log in with and the logged-in user; sets the CSRF cookie. */
     async initialise(): Promise<void> {
+      await this.refresh();
       try {
-        const config = await allauth.fetchConfig();
-        const configured = (config.socialaccount?.providers ?? []).map((provider) => provider.id);
-        this.providers = SOCIAL_PROVIDERS.filter((id) => configured.includes(id));
+        const offered = (await accountApi.fetchProviders())
+          .filter((provider) => provider.flows.includes('redirect'))
+          .map((provider) => provider.id);
+        this.providers = SOCIAL_PROVIDERS.filter((id) => offered.includes(id));
       } catch {
         this.providers = [];
       }
-      await this.refresh();
       this.checked = true;
     },
 
     async refresh(): Promise<void> {
       try {
-        const user = await allauth.fetchSession();
-        if (!user) {
-          this.account = null;
-          return;
-        }
-        try {
-          this.account = await accountMe();
-        } catch {
-          this.account = { id: user.id, email: user.email, display_name: user.display };
-        }
+        this.account = (await accountApi.fetchSession()).account;
       } catch {
         this.account = null;
       }
     },
 
     async login(email: string, password: string): Promise<void> {
-      await allauth.login(email, password);
+      await accountApi.login(email, password);
       await this.refresh();
     },
 
     async signup(email: string, password: string): Promise<void> {
-      await allauth.signup(email, password);
+      await accountApi.signup(email, password);
       await this.refresh();
     },
 
     /** Ends the session; on failure reloads the session state and rethrows. */
     async logout(): Promise<void> {
       try {
-        await allauth.logout();
+        await accountApi.logout();
       } catch (error) {
         await this.refresh();
         throw error;
@@ -67,9 +59,9 @@ export const useSessionStore = defineStore('session', {
       this.account = null;
     },
 
-    /** allauth returns to the login page, with `?error=` when the login failed. */
+    /** The server returns to the login page, with `?error=` when the login failed. */
     async loginWith(provider: SocialProvider): Promise<void> {
-      await allauth.redirectToProvider(provider, `${window.location.origin}/login`);
+      await accountApi.redirectToProvider(provider, `${window.location.origin}/login`);
     },
   },
 });

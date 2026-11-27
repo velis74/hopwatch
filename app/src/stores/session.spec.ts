@@ -1,19 +1,16 @@
 import { createPinia, setActivePinia } from 'pinia';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { allauthBody, HttpResponse, mockAllauth, mockAnonymousSession, mockApi } from '../test-utils';
+import { browser } from '../api/account';
+import { apiError, HttpResponse, mockAnonymousSession, mockApi, mockSession, validationError } from '../test-utils';
 
 import { useSessionStore } from './session';
 
-const USER = { id: 7, email: 'ana@example.com', display: 'Ana' };
 const ACCOUNT = { id: 7, email: 'ana@example.com', display_name: 'Ana Novak' };
+const LOGGED_IN = { is_authenticated: true, session_token: null };
 
-function mockLoggedInSession() {
-  mockAllauth('get', '/auth/session', allauthBody(200, { user: USER }, { meta: { is_authenticated: true } }));
-}
-
-function mockAnonymous() {
-  mockAllauth('get', '/auth/session', allauthBody(401, { flows: [] }), { status: 401 });
+function provider(id: string, flows = ['redirect', 'token']) {
+  return { id, name: id, flows, client_id: null };
 }
 
 describe('session store', () => {
@@ -31,10 +28,14 @@ describe('session store', () => {
   });
 
   describe('initialise', () => {
-    it('offers the supported providers allauth has configured, in the app’s order', async () => {
-      const providers = ['facebook', 'apple', 'google'].map((id) => ({ id, name: id, flows: ['provider_redirect'] }));
-      mockAllauth('get', '/config', allauthBody(200, { socialaccount: { providers } }));
-      mockAnonymous();
+    it('offers the supported providers with a browser login, in the app’s order', async () => {
+      mockApi('get', '/account/providers', [
+        provider('facebook'),
+        provider('apple'),
+        provider('google'),
+        provider('github', ['token']),
+      ]);
+      mockSession(null);
       const session = useSessionStore();
 
       await session.initialise();
@@ -44,9 +45,9 @@ describe('session store', () => {
       expect(session.loggedIn).toBe(false);
     });
 
-    it('offers no providers when social login is not configured', async () => {
-      mockAllauth('get', '/config', allauthBody(200, {}));
-      mockAnonymous();
+    it('leaves out a provider without a browser login', async () => {
+      mockApi('get', '/account/providers', [provider('google', ['token'])]);
+      mockSession(null);
       const session = useSessionStore();
 
       await session.initialise();
@@ -54,10 +55,9 @@ describe('session store', () => {
       expect(session.providers).toEqual([]);
     });
 
-    it('offers no providers but still checks the session when the configuration fails', async () => {
-      mockAllauth('get', '/config', () => HttpResponse.error());
-      mockLoggedInSession();
-      mockApi('get', '/account/me', ACCOUNT);
+    it('offers no providers but still checks the session when the providers fail', async () => {
+      mockApi('get', '/account/providers', () => HttpResponse.error());
+      mockSession(ACCOUNT);
       const session = useSessionStore();
 
       await session.initialise();
@@ -79,9 +79,8 @@ describe('session store', () => {
   });
 
   describe('refresh', () => {
-    it('loads the Hopwatch account of the logged-in user', async () => {
-      mockLoggedInSession();
-      mockApi('get', '/account/me', ACCOUNT);
+    it('loads the account of the logged-in user', async () => {
+      mockSession(ACCOUNT);
       const session = useSessionStore();
 
       await session.refresh();
@@ -90,22 +89,11 @@ describe('session store', () => {
       expect(session.account).toEqual(ACCOUNT);
     });
 
-    it('falls back to allauth’s user when the account cannot be loaded', async () => {
-      mockLoggedInSession();
-      mockApi('get', '/account/me', { detail: 'down' }, { status: 503 });
-      const session = useSessionStore();
-
-      await session.refresh();
-
-      expect(session.account).toEqual({ id: 7, email: 'ana@example.com', display_name: 'Ana' });
-    });
-
     it('is logged out when the session cannot be read', async () => {
-      mockLoggedInSession();
-      mockApi('get', '/account/me', ACCOUNT);
+      mockSession(ACCOUNT);
       const session = useSessionStore();
       await session.refresh();
-      mockAllauth('get', '/auth/session', () => HttpResponse.error());
+      mockApi('get', '/account/session', () => HttpResponse.error());
 
       await session.refresh();
 
@@ -114,9 +102,8 @@ describe('session store', () => {
   });
 
   it('logs in and loads the account', async () => {
-    const requests = mockAllauth('post', '/auth/login', allauthBody(200, { user: USER }));
-    mockLoggedInSession();
-    mockApi('get', '/account/me', ACCOUNT);
+    const requests = mockApi('post', '/account/login', LOGGED_IN);
+    mockSession(ACCOUNT);
     const session = useSessionStore();
 
     await session.login('ana@example.com', 'secret');
@@ -126,20 +113,19 @@ describe('session store', () => {
   });
 
   it('leaves the session logged out when the login is refused', async () => {
-    mockAllauth('post', '/auth/login', allauthBody(400, {}, { errors: [{ code: 'x', message: 'No.' }] }), {
-      status: 400,
+    mockApi('post', '/account/login', validationError({ password: ['hopwatch.email_password_mismatch'] }), {
+      status: 422,
     });
     const session = useSessionStore();
 
-    await expect(session.login('ana@example.com', 'wrong')).rejects.toThrow('No.');
+    await expect(session.login('ana@example.com', 'wrong')).rejects.toThrow();
 
     expect(session.loggedIn).toBe(false);
   });
 
   it('signs up and loads the account', async () => {
-    const requests = mockAllauth('post', '/auth/signup', allauthBody(200, { user: USER }));
-    mockLoggedInSession();
-    mockApi('get', '/account/me', ACCOUNT);
+    const requests = mockApi('post', '/account/signup', LOGGED_IN);
+    mockSession(ACCOUNT);
     const session = useSessionStore();
 
     await session.signup('ana@example.com', 'long-secret');
@@ -150,14 +136,13 @@ describe('session store', () => {
 
   describe('logout', () => {
     beforeEach(() => {
-      mockLoggedInSession();
-      mockApi('get', '/account/me', ACCOUNT);
+      mockSession(ACCOUNT);
     });
 
     it('ends the session', async () => {
       const session = useSessionStore();
       await session.refresh();
-      const requests = mockAllauth('delete', '/auth/session', allauthBody(401, {}), { status: 401 });
+      const requests = mockApi('post', '/account/logout', { is_authenticated: false, session_token: null });
 
       await session.logout();
 
@@ -168,28 +153,23 @@ describe('session store', () => {
     it('reloads the session and reports the error when the logout fails', async () => {
       const session = useSessionStore();
       await session.refresh();
-      mockAllauth('delete', '/auth/session', allauthBody(500, {}, { errors: [{ code: 'x', message: 'Failed.' }] }), {
-        status: 500,
-      });
-      mockApi('get', '/account/me', { ...ACCOUNT, display_name: 'Ana N.' });
+      mockApi('post', '/account/logout', apiError('hopwatch.csrf_failed'), { status: 403 });
+      mockSession({ ...ACCOUNT, display_name: 'Ana N.' });
 
-      await expect(session.logout()).rejects.toThrow('Failed.');
+      await expect(session.logout()).rejects.toThrow();
 
       expect(session.account).toEqual({ ...ACCOUNT, display_name: 'Ana N.' });
     });
   });
 
-  it('logs in with a provider and asks allauth to return to the login page', async () => {
-    const submitted: HTMLFormElement[] = [];
-    vi.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(function (this: HTMLFormElement) {
-      submitted.push(this);
-    });
+  it('logs in with a provider and asks the server to return to the login page', async () => {
+    const requests = mockApi('post', '/account/social/redirect', { location: 'https://appleid.example/auth' });
+    const navigate = vi.spyOn(browser, 'navigate').mockImplementation(() => undefined);
     const session = useSessionStore();
 
     await session.loginWith('apple');
 
-    const fields = Object.fromEntries(new FormData(submitted[0]));
-    expect(fields.provider).toBe('apple');
-    expect(fields.callback_url).toBe(`${window.location.origin}/login`);
+    expect(requests[0].body).toEqual({ provider: 'apple', callback_url: `${window.location.origin}/login` });
+    expect(navigate).toHaveBeenCalledWith('https://appleid.example/auth');
   });
 });

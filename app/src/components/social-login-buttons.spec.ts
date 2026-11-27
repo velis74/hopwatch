@@ -1,8 +1,9 @@
 import type { VueWrapper } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 
+import { browser } from '../api/account';
 import { useSessionStore } from '../stores/session';
-import { flushPromises, mountApp } from '../test-utils';
+import { flushPromises, mockApi, mountApp, validationError } from '../test-utils';
 
 import SocialLoginButtons from './social-login-buttons.vue';
 
@@ -10,13 +11,11 @@ function buttons(wrapper: VueWrapper) {
   return wrapper.findAll('button');
 }
 
-/** Captures the provider redirect form instead of leaving the page. */
-function captureRedirects(): HTMLFormElement[] {
-  const submitted: HTMLFormElement[] = [];
-  vi.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(function (this: HTMLFormElement) {
-    submitted.push(this);
-  });
-  return submitted;
+/** Answers the redirect request and captures the navigation to the provider instead of leaving the page. */
+function captureRedirects() {
+  const requests = mockApi('post', '/account/social/redirect', { location: 'https://provider.example/auth' });
+  const navigate = vi.spyOn(browser, 'navigate').mockImplementation(() => undefined);
+  return { requests, navigate };
 }
 
 async function mountWith(providers: ('google' | 'apple')[], locale: 'en' | 'sl' = 'en') {
@@ -50,15 +49,15 @@ describe('social login buttons', () => {
 
   it('starts the provider login, returning to the login page, and shows the button busy', async () => {
     document.cookie = 'csrftoken=test-token; path=/';
-    const submitted = captureRedirects();
+    const { requests, navigate } = captureRedirects();
     const { wrapper } = await mountWith(['google', 'apple']);
 
     await buttons(wrapper)[1].trigger('click');
     await flushPromises();
 
-    expect(submitted).toHaveLength(1);
-    const fields = Object.fromEntries(new FormData(submitted[0]));
-    expect(fields).toMatchObject({ provider: 'apple', callback_url: `${window.location.origin}/login` });
+    expect(requests).toHaveLength(1);
+    expect(requests[0].body).toEqual({ provider: 'apple', callback_url: `${window.location.origin}/login` });
+    expect(navigate).toHaveBeenCalledWith('https://provider.example/auth');
     expect(buttons(wrapper)[1].classes()).toContain('v-btn--loading');
     expect(buttons(wrapper)[0].classes()).not.toContain('v-btn--loading');
   });
@@ -73,6 +72,24 @@ describe('social login buttons', () => {
     window.dispatchEvent(new Event('pageshow'));
     await flushPromises();
 
+    expect(buttons(wrapper)[0].classes()).not.toContain('v-btn--loading');
+  });
+
+  it('tells the user when the provider login cannot start, and is no longer busy', async () => {
+    document.cookie = 'csrftoken=test-token; path=/';
+    mockApi('post', '/account/social/redirect', validationError({ provider: ['hopwatch.unknown_provider'] }), {
+      status: 422,
+    });
+    const navigate = vi.spyOn(browser, 'navigate').mockImplementation(() => undefined);
+    const { wrapper } = await mountWith(['google']);
+
+    await buttons(wrapper)[0].trigger('click');
+    await flushPromises();
+
+    expect(navigate).not.toHaveBeenCalled();
+    expect(wrapper.get('[role="alert"]').text()).toBe(
+      'Logging in with the provider did not succeed. Please try again.',
+    );
     expect(buttons(wrapper)[0].classes()).not.toContain('v-btn--loading');
   });
 
