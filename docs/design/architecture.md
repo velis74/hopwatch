@@ -58,6 +58,16 @@ Requests for permission ask for redistribution through the public API, not only 
   published when it is consistent across devices.
 - Every delay shown names its source: official, riders or estimate.
 
+## Accounts
+
+- Django with django-allauth in headless mode serves sign-up, login and social login. The web app uses the
+  `browser` client (session cookie, CSRF header); the mobile app uses the `app` client (session token).
+- On the phone, Google and Apple login use the native SDK, which returns an ID token; the app posts it to the
+  allauth provider token endpoint and receives a session token.
+- FastAPI resolves the user from the Django session cookie or the `X-Session-Token` header.
+- A social provider is enabled only when its credentials are set in the environment; the login page shows only
+  the enabled providers.
+
 ## Public API
 
 - Standard formats first: GTFS, GTFS-RT and, where needed, SIRI. A Hopwatch API (REST, muxws push) covers what
