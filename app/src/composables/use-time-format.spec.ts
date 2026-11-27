@@ -48,4 +48,16 @@ describe('useTimeFormat', () => {
 
     expect(wrapper.text()).toBe(expected('en-GB', value));
   });
+
+  it.each([
+    ['de', 'de'],
+    ['hr', 'hr'],
+    ['sr-Cyrl', 'sr-Cyrl'],
+    ['sr-Latn', 'sr-Latn'],
+  ] as const)('formats in %s with the language tag %s', async (locale, tag) => {
+    const value = new Date(2026, 10, 27, 7, 3);
+    const { wrapper } = await mountApp(Clock, { props: { value }, locale });
+
+    expect(wrapper.text()).toBe(expected(tag, value));
+  });
 });

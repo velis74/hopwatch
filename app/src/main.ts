@@ -6,10 +6,9 @@ import {
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
-import { en as vuetifyEn, sl as vuetifySl } from 'vuetify/locale';
 
 import App from './app.vue';
-import i18n from './i18n';
+import i18n, { VUETIFY_MESSAGES } from './i18n';
 import router from './router';
 
 import '@mdi/font/css/materialdesignicons.css';
@@ -23,7 +22,7 @@ translateModalStrings(i18n.global.t, 'modal');
 const vuetify = createVuetify({
   theme: { defaultTheme: 'system' },
   // Vuetify's own strings; app.vue keeps the locale in step with vue-i18n.
-  locale: { locale: i18n.global.locale.value, fallback: 'en', messages: { en: vuetifyEn, sl: vuetifySl } },
+  locale: { locale: i18n.global.locale.value, fallback: 'en', messages: VUETIFY_MESSAGES },
 });
 
 createApp(App)

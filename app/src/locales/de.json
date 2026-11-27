@@ -1,0 +1,262 @@
+{
+  "app": {
+    "title": "Hopwatch",
+    "mainNavigation": "Hauptnavigation",
+    "home": "Hopwatch, Abfahrten",
+    "settings": "Einstellungen",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "loggedInAs": "Angemeldet als",
+    "skipToContent": "Zum Hauptinhalt springen"
+  },
+  "experience": {
+    "dialogTitle": "Wählen Sie Ihre Darstellung",
+    "dialogIntro": "Sie können das später in den Einstellungen ändern.",
+    "label": "Darstellung",
+    "simple": "Einfach und groß",
+    "simpleDescription": "Größere Schrift und Schaltflächen, ruhige Bildschirme ohne Animation.",
+    "lively": "Lebendig",
+    "livelyDescription": "Kompakte Darstellung mit dezenter Animation.",
+    "continue": "Weiter"
+  },
+  "pages": {
+    "home": {
+      "title": "Abfahrten"
+    },
+    "login": {
+      "title": "Anmelden"
+    },
+    "signup": {
+      "title": "Konto erstellen"
+    },
+    "settings": {
+      "title": "Einstellungen"
+    }
+  },
+  "settings": {
+    "language": "Sprache",
+    "saved": "Auf diesem Gerät gespeichert.",
+    "nearbyLegend": "Haltestellen in der Nähe standardmäßig einbeziehen",
+    "nearbyHint": "Haltestellen in der Nähe, die diese Verkehrsmittel bedienen, werden zur Abfahrtstafel hinzugefügt.",
+    "nearbyModes": {
+      "rail": "Züge",
+      "bus": "Busse",
+      "tram": "Straßenbahnen",
+      "other": "Sonstige"
+    }
+  },
+  "auth": {
+    "email": "E-Mail",
+    "password": "Passwort",
+    "repeatPassword": "Passwort wiederholen",
+    "login": "Anmelden",
+    "loginLink": "Bei Ihrem Konto anmelden",
+    "createAccount": "Konto erstellen",
+    "createAccountLink": "Ein Konto erstellen",
+    "haveAccount": "Sie haben bereits ein Konto?",
+    "noAccount": "Noch kein Konto?",
+    "or": "oder",
+    "continueWith": "Weiter mit {provider}",
+    "providers": {
+      "google": "Google",
+      "apple": "Apple"
+    },
+    "errors": {
+      "invalidCredentials": "Die E-Mail-Adresse oder das Passwort ist falsch.",
+      "emailTaken": "Es gibt bereits ein Konto mit dieser E-Mail-Adresse.",
+      "socialFailed": "Die Anmeldung über den Anbieter ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "logoutFailed": "Die Abmeldung ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "passwordTooShort": "Das Passwort ist zu kurz. Es muss mindestens 8 Zeichen enthalten.",
+      "passwordTooCommon": "Dieses Passwort ist zu verbreitet.",
+      "passwordEntirelyNumeric": "Das Passwort darf nicht nur aus Ziffern bestehen.",
+      "passwordTooSimilar": "Das Passwort ist der E-Mail-Adresse zu ähnlich.",
+      "invalidEmail": "Geben Sie eine gültige E-Mail-Adresse ein.",
+      "tooManyAttempts": "Zu viele fehlgeschlagene Anmeldeversuche. Versuchen Sie es später erneut.",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+    }
+  },
+  "errors": {
+    "vue-forms": {
+      "required": "Dieses Feld ist erforderlich.",
+      "compare_to": "Die Passwörter stimmen nicht überein."
+    },
+    "hopwatch": {
+      "passwords_mismatch": "Die Passwörter stimmen nicht überein."
+    }
+  },
+  "departures": {
+    "locating": "Ihr Standort wird ermittelt …",
+    "locateAgain": "Meinen Standort erneut versuchen",
+    "locationFailure": {
+      "unsupported": "Dieses Gerät liefert keinen Standort. Suchen Sie eine Haltestelle nach ihrem Namen.",
+      "insecure": "Der Browser gibt den Standort nur an Seiten weiter, die über HTTPS geladen werden. Suchen Sie eine Haltestelle nach ihrem Namen.",
+      "denied": "Der Standortzugriff ist für diese Seite ausgeschaltet. Suchen Sie eine Haltestelle nach ihrem Namen oder erlauben Sie den Standort in den Browsereinstellungen.",
+      "unavailable": "Das Gerät konnte Ihren Standort nicht ermitteln. Suchen Sie eine Haltestelle nach ihrem Namen.",
+      "timeout": "Die Standortermittlung hat zu lange gedauert. Suchen Sie eine Haltestelle nach ihrem Namen.",
+      "stops": "Haltestellen in Ihrer Nähe sind gerade nicht verfügbar. Suchen Sie eine Haltestelle nach ihrem Namen."
+    },
+    "noNearbyStop": "In Ihrer Nähe gibt es keine Haltestelle. Suchen Sie eine Haltestelle nach ihrem Namen.",
+    "findStopHint": "Geben Sie mindestens zwei Buchstaben des Haltestellennamens ein.",
+    "noStopsFound": "Keine Haltestellen gefunden.",
+    "listLabel": "Abfahrten ab {stop}",
+    "loading": "Abfahrten werden geladen …",
+    "empty": "Keine Abfahrten in den nächsten {minutes} Minuten.",
+    "unavailable": "Abfahrten sind gerade nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "updatedAt": "Aktualisiert um {time}. Wird alle 30 Sekunden aktualisiert.",
+    "dataAttribution": "Fahrplandaten:",
+    "toHeadsign": "nach {headsign}",
+    "scheduled": "Planmäßig {time}",
+    "expected": "Voraussichtlich {time}",
+    "onTime": "Pünktlich",
+    "delay": "+{minutes} min",
+    "early": "{minutes} min zu früh",
+    "delaySource": "({source})",
+    "sources": {
+      "official": "offiziell",
+      "riders": "Fahrgäste",
+      "estimate": "Schätzung"
+    },
+    "platform": "Gleis {platform}",
+    "via": "Über {stops}",
+    "modes": {
+      "rail": "Zug",
+      "bus": "Bus",
+      "tram": "Straßenbahn",
+      "other": "Linie"
+    },
+    "announceDelay": "{mode} {line} nach {headsign}: Verspätung jetzt {delay}.",
+    "announceOnTime": "{mode} {line} nach {headsign}: jetzt pünktlich.",
+    "listLabelNearby": "Abfahrten ab {stop} und Haltestellen in der Nähe",
+    "atStop": "Ab {stop}",
+    "clearStop": "{field} leeren"
+  },
+  "map": {
+    "title": "Karte",
+    "textEquivalent": "Karte der Haltestelle {stop}. Die Liste der Abfahrten ist die Textfassung dieser Karte.",
+    "journeyTextEquivalent": "Karte der ausgewählten Verbindung. Die Liste der Verbindungen ist die Textfassung dieser Karte."
+  },
+  "refresh": {
+    "staleSince": "Nicht aktualisiert seit {time}"
+  },
+  "journey": {
+    "formLabel": "Reise",
+    "from": "Von",
+    "to": "Nach",
+    "swap": "Start und Ziel tauschen",
+    "when": "Wann",
+    "leaveNow": "Jetzt abfahren",
+    "departAt": "Abfahrt um",
+    "arriveBy": "Ankunft bis",
+    "time": "Uhrzeit",
+    "chooseFrom": "Wählen Sie, wo die Reise beginnt.",
+    "title": "Verbindungen",
+    "loading": "Verbindungen werden gesucht …",
+    "empty": "Keine Verbindungen gefunden.",
+    "unavailable": "Verbindungen sind gerade nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "earlier": "Früher",
+    "later": "Später",
+    "showOnMap": "Auf der Karte zeigen",
+    "times": "{departure} – {arrival}",
+    "minutes": "{minutes} min",
+    "hoursMinutes": "{hours} h {minutes} min",
+    "transfers": "Ohne Umstieg | {count} Umstieg | {count} Umstiege",
+    "expectedDeparture": "Voraussichtliche Abfahrt {time}",
+    "expectedArrival": "Voraussichtliche Ankunft {time}",
+    "legsLabel": "Teilstrecken",
+    "ride": "{mode} {line} nach {headsign}",
+    "rideNoHeadsign": "{mode} {line}",
+    "walk": "Fußweg",
+    "walkDistance": "Fußweg {distance} m",
+    "legFromTo": "{departure} {from} – {arrival} {to}",
+    "tickets": "Fahrkarten"
+  },
+  "nearby": {
+    "legend": "Haltestellen in der Nähe",
+    "option": "{name}, {modes}, {distance} m",
+    "optionNoModes": "{name}, {distance} m",
+    "none": "Keine anderen Haltestellen im Umkreis von {radius} m.",
+    "addedOption": "{name}, {modes}",
+    "add": "Haltestelle hinzufügen",
+    "remove": "{name} entfernen",
+    "limit": "Die Abfahrtstafel zeigt höchstens {max} Haltestellen. Wählen Sie eine Haltestelle ab, um eine andere zu wählen.",
+    "added": "{name} hinzugefügt.",
+    "addedChecked": "{name} hinzugefügt und ausgewählt.",
+    "removed": "{name} entfernt."
+  },
+  "inputs": {
+    "Cancel": "Abbrechen",
+    "Ok": "OK",
+    "ColorPalette": "Farbpalette",
+    "Lightness": "Helligkeit {level}",
+    "LightnessRange": "Helligkeit",
+    "Loading": "Wird geladen",
+    "Uploading": "Wird hochgeladen",
+    "RemoveChoice": "{choice} entfernen",
+    "Paragraph": "Absatz",
+    "Heading1": "Überschrift 1",
+    "Heading2": "Überschrift 2",
+    "Heading3": "Überschrift 3",
+    "Heading4": "Überschrift 4",
+    "Heading5": "Überschrift 5",
+    "Heading6": "Überschrift 6",
+    "Downloadable": "Herunterladbar",
+    "ArticleCategory": "Artikelkategorie",
+    "Title": "Titel",
+    "Subtitle": "Untertitel",
+    "InfoBox": "Infobox",
+    "SideQuote": "Randzitat",
+    "Marker": "Markierung",
+    "Spoiler": "Spoiler",
+    "CodeDark": "Code (dunkel)",
+    "CodeBright": "Code (hell)",
+    "Undo": "Rückgängig",
+    "Redo": "Wiederholen",
+    "SelectAll": "Alles auswählen",
+    "Bold": "Fett",
+    "Italic": "Kursiv",
+    "HorizontalLine": "Horizontale Linie",
+    "Blockquote": "Zitat",
+    "BulletedList": "Aufzählung",
+    "NumberedList": "Nummerierte Liste",
+    "Outdent": "Einzug verkleinern",
+    "Indent": "Einzug vergrößern",
+    "AlignLeft": "Linksbündig",
+    "AlignCenter": "Zentriert",
+    "AlignRight": "Rechtsbündig",
+    "AlignJustify": "Blocksatz",
+    "Link": "Link",
+    "LinkUrl": "URL",
+    "LinkApply": "Übernehmen",
+    "LinkRemove": "Link entfernen",
+    "Image": "Bild",
+    "ImageUrl": "Bild-URL",
+    "ImageUpload": "Bild hochladen",
+    "ImageInsert": "Einfügen",
+    "ImageDropHint": "Bild hier ablegen oder zum Durchsuchen klicken",
+    "ImageReplace": "Bild ersetzen",
+    "ImagePaste": "Bild aus der Zwischenablage einfügen",
+    "ImageDownload": "Bild herunterladen",
+    "FileDownload": "Datei herunterladen",
+    "Date": "Datum",
+    "Time": "Uhrzeit",
+    "Table": "Tabelle",
+    "TableInsert": "Tabelle einfügen",
+    "TableAddRowAbove": "Zeile darüber einfügen",
+    "TableAddRowBelow": "Zeile darunter einfügen",
+    "TableDeleteRow": "Zeile löschen",
+    "TableAddColumnBefore": "Spalte davor einfügen",
+    "TableAddColumnAfter": "Spalte danach einfügen",
+    "TableDeleteColumn": "Spalte löschen",
+    "TableToggleHeaderRow": "Kopfzeile ein/aus",
+    "TableDeleteTable": "Tabelle löschen",
+    "Style": "Stil",
+    "MediaEmbed": "Medien einfügen",
+    "MediaEmbedUrl": "Video-URL",
+    "MediaEmbedInsert": "Einfügen"
+  },
+  "modal": {
+    "Close": "Schließen",
+    "Yes": "Ja",
+    "No": "Nein"
+  }
+}

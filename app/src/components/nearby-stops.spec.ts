@@ -251,6 +251,20 @@ describe('NearbyStops', () => {
     ]);
   });
 
+  it('names the progress of a search in the interface language', async () => {
+    mockApi('get', '/stops/nearby', AROUND);
+    mockApi('get', '/stops', () => new Promise(() => undefined));
+    const { wrapper } = await mountApp(NearbyStops, {
+      props: { stop: LJUBLJANA },
+      models: { modelValue: [] },
+      locale: 'sl',
+    });
+
+    await typeAdd(wrapper, 'Ko');
+
+    expect(wrapper.find('.nearby-add [aria-label="Nalaganje"]').exists()).toBe(true);
+  });
+
   it('says so when no stop is found', async () => {
     mockApi('get', '/stops/nearby', AROUND);
     mockApi('get', '/stops', []);

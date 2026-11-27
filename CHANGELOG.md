@@ -17,7 +17,7 @@ All notable changes to this project are documented in this file. The format is b
 - API documentation: ReDoc at `/api/redoc` with a "Try it" button per operation that opens it in Swagger UI
   (`/api/docs`); sessions, errors and data licences documented for every operation.
 - Web app: departures from the nearest stop with a map, stop search, destination filter, experience modes,
-  settings, English and Slovenian.
+  settings; in English, Slovenian, German, Croatian and Serbian in Cyrillic and Latin script.
 - App icon and logo (`branding/`).
 - API: journey planning (`/journeys`) through MOTIS, by departure or arrival time, with earlier and later pages;
   departures of several stops at once; transport modes of stops.

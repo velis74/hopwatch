@@ -10,9 +10,8 @@ import { createPinia, type Pinia, setActivePinia } from 'pinia';
 import type { Component } from 'vue';
 import { createMemoryHistory, createRouter, type Router, type RouteRecordRaw } from 'vue-router';
 import { createVuetify } from 'vuetify';
-import { en as vuetifyEn, sl as vuetifySl } from 'vuetify/locale';
 
-import i18n, { type SupportedLocale } from './i18n';
+import i18n, { type SupportedLocale, VUETIFY_MESSAGES } from './i18n';
 
 export { flushPromises, http, HttpResponse };
 
@@ -411,7 +410,7 @@ export async function mountApp<C extends Component>(component: C, options: Mount
   }
   const vuetify = createVuetify({
     theme: { defaultTheme: 'light' },
-    locale: { locale: i18n.global.locale.value, fallback: 'en', messages: { en: vuetifyEn, sl: vuetifySl } },
+    locale: { locale: i18n.global.locale.value, fallback: 'en', messages: VUETIFY_MESSAGES },
   });
   const pinia = createPinia();
   setActivePinia(pinia);
