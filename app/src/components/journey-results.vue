@@ -7,6 +7,7 @@
       :error="loadError"
       :selected-id="itinerary?.id ?? null"
       @select="select"
+      @details="openDetails"
       @earlier="turnPage(result?.earlier_cursor)"
       @later="turnPage(result?.later_cursor)"
     />
@@ -19,11 +20,13 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 import { type Itinerary, type Journeys, journeys as fetchJourneys, type Stop } from '../api/hopwatch-api';
 import { toOffsetIso } from '../composables/local-time';
 import { useRefreshScheduler } from '../composables/use-refresh-scheduler';
 import { useTimeFormat } from '../composables/use-time-format';
+import { useTripDetailsStore } from '../stores/trip-details';
 
 import type { TimeMode } from './journey-form.vue';
 import JourneyList from './journey-list.vue';
@@ -35,6 +38,8 @@ const itinerary = defineModel<Itinerary | null>('itinerary', { required: true })
 
 const { t } = useI18n();
 const formatTime = useTimeFormat();
+const router = useRouter();
+const details = useTripDetailsStore();
 const list = ref<InstanceType<typeof JourneyList> | null>(null);
 
 const result = ref<Journeys | null>(null);
@@ -71,6 +76,7 @@ async function load(): Promise<void> {
     loadError.value = false;
     updatedAt.value = scheduler.now.value;
     itinerary.value = pick(answer);
+    details.refreshItinerary(answer.itineraries);
     if (focus) await list.value?.focusFirst();
   } catch {
     if (current === sequence) loadError.value = true;
@@ -82,6 +88,13 @@ const scheduler = useRefreshScheduler(load);
 function select(id: string): void {
   selectedId.value = id;
   itinerary.value = pick(result.value);
+}
+
+function openDetails(id: string): void {
+  const chosen = result.value?.itineraries.find((candidate) => candidate.id === id);
+  if (!chosen) return;
+  details.openItinerary(chosen);
+  void router.push({ name: 'journey', query: { id } });
 }
 
 function turnPage(cursor: string | null | undefined): void {

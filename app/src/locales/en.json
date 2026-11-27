@@ -31,6 +31,12 @@
     },
     "settings": {
       "title": "Settings"
+    },
+    "ride": {
+      "title": "Ride details"
+    },
+    "journey": {
+      "title": "Journey details"
     }
   },
   "settings": {
@@ -138,7 +144,9 @@
   "map": {
     "title": "Map",
     "textEquivalent": "Map of the stop {stop}. The list of departures is the text version of this map.",
-    "journeyTextEquivalent": "Map of the selected journey. The list of journeys is the text version of this map."
+    "journeyTextEquivalent": "Map of the selected journey. The list of journeys is the text version of this map.",
+    "rideTextEquivalent": "Map of the selected ride. The ride details are the text version of this map.",
+    "journeyDetailsTextEquivalent": "Map of the selected journey. The journey details are the text version of this map."
   },
   "refresh": {
     "staleSince": "Not updated since {time}"
@@ -173,7 +181,8 @@
     "walk": "Walk",
     "walkDistance": "Walk {distance} m",
     "legFromTo": "{departure} {from} – {arrival} {to}",
-    "tickets": "Tickets"
+    "tickets": "Tickets",
+    "details": "Details"
   },
   "nearby": {
     "legend": "Nearby stops",
@@ -267,5 +276,58 @@
   "operators": {
     "favourite": "Favourite",
     "favouriteToggle": "Favourite operator: {operator}"
+  },
+  "home": {
+    "showDepartures": "Show departures",
+    "showJourneys": "Find journeys",
+    "change": "Change",
+    "summaryDepartures": "Departures from {from}",
+    "summaryJourney": "{from} → {to}, {when}",
+    "whenNow": "leave now",
+    "whenDepart": "depart {time}",
+    "whenArrive": "arrive by {time}",
+    "views": {
+      "filter": "Search",
+      "list": "List: {heading}"
+    }
+  },
+  "details": {
+    "backToList": "Back to the list"
+  },
+  "ride": {
+    "title": "Ride",
+    "loading": "Loading the ride…",
+    "unavailable": "The ride details are not available right now. Please try again later.",
+    "notFound": "This ride was not found in the timetable.",
+    "stopsUnavailable": "The stops of this ride are not available right now.",
+    "cancelled": "This ride is cancelled.",
+    "departure": "Departure",
+    "arrival": "Arrival",
+    "travelTime": "Travel time",
+    "platformUnknown": "Platform not known",
+    "amenities": "On board",
+    "bikes": "Bicycles allowed",
+    "noBikes": "No bicycles",
+    "wheelchair": "Wheelchair accessible",
+    "noWheelchair": "Not wheelchair accessible",
+    "buyTicket": "Buy ticket",
+    "opensNewWindow": "(opens in a new window)",
+    "stopsLabel": "Stops of {ride}",
+    "boardHere": "Get on here",
+    "getOffHere": "Get off here",
+    "arrivesDeparts": "arr. {arrival}, dep. {departure}",
+    "passed": "Passed",
+    "stopCancelled": "Stop cancelled",
+    "announceDelay": "{ride} at {stop}: delay now {delay}."
+  },
+  "journeyDetails": {
+    "title": "Journey",
+    "titleFromTo": "Journey from {from} to {to}",
+    "notAvailable": "This journey is no longer available. Go back to the list and choose a journey.",
+    "duration": "Duration",
+    "transfers": "Transfers",
+    "transfer": "Transfer at {stop}, {minutes} min",
+    "walkMinutes": "Walk to {to}, {minutes} min",
+    "walkDistanceMinutes": "Walk {distance} m to {to}, {minutes} min"
   }
 }

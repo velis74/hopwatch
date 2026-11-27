@@ -4,6 +4,7 @@ import hopwatch.api.django_setup  # noqa: F401,I001 - must be the first import
 
 from django.conf import settings
 from fastapi import FastAPI
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import HTMLResponse
@@ -23,6 +24,8 @@ app = FastAPI(
     openapi_url="/api/openapi.json",
 )
 
+# Rides and journeys carry long route lines.
+app.add_middleware(GZipMiddleware, minimum_size=1024)
 install_error_handlers(app)
 app.include_router(router, prefix="/api/v1")
 apply_viewset_tags(app)

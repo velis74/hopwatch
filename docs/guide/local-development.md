@@ -13,7 +13,7 @@ Open the app at <http://127.0.0.1:5180>. Django and FastAPI share the session co
 
 ## Setup
 
-Requirements: Python 3.13 or newer with [uv](https://docs.astral.sh/uv/), Node.js 22 or newer, Docker.
+Requirements: Python 3.13 or newer with [uv](https://docs.astral.sh/uv/), Node.js 22 (`.nvmrc`), Docker.
 
 ```sh
 uv sync

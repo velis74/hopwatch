@@ -1,6 +1,6 @@
 <template>
   <section :aria-labelledby="headingId" class="departures-board">
-    <h2 :id="headingId" class="text-h5 mb-2">{{ stop.name }}</h2>
+    <h2 :id="headingId" tabindex="-1" class="text-h5 mb-2">{{ stop.name }}</h2>
 
     <v-alert v-if="loadError && !departureList" type="warning" variant="tonal" class="mb-4">
       {{ t('departures.unavailable') }}

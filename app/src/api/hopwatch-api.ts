@@ -99,6 +99,43 @@ export interface JourneyQuery {
   pageCursor?: string;
 }
 
+export interface TripStop {
+  id: string;
+  name: string;
+  lat: number;
+  lon: number;
+  /** Null at the first stop. */
+  scheduled_arrival: string | null;
+  expected_arrival: string | null;
+  /** Null at the last stop. */
+  scheduled_departure: string | null;
+  expected_departure: string | null;
+  delay_minutes: number | null;
+  delay_source: DelaySource | null;
+  platform: string | null;
+  cancelled: boolean;
+  /** The vehicle has left (or, at the last stop, reached) the stop. */
+  passed: boolean;
+}
+
+/** One ride of a vehicle with every stop in order. */
+export interface Trip {
+  trip_id: string;
+  mode: TransportMode;
+  line: string;
+  headsign: string;
+  operator: Operator | null;
+  cancelled: boolean;
+  /** Null when unknown. */
+  bikes_allowed: boolean | null;
+  /** Null when unknown. */
+  wheelchair_accessible: boolean | null;
+  ticket_url: string | null;
+  /** The ride's path as `[lat, lon]` points. */
+  geometry: [number, number][];
+  stops: TripStop[];
+}
+
 export interface Account {
   id: number;
   email: string;
@@ -131,6 +168,11 @@ export async function journeys(query: JourneyQuery): Promise<Journeys> {
   if (query.arriveBy) params.arrive_by = true;
   if (query.pageCursor) params.page_cursor = query.pageCursor;
   const response = await api.get<Journeys>('/journeys', { params });
+  return response.data;
+}
+
+export async function trip(tripId: string): Promise<Trip> {
+  const response = await api.get<Trip>(`/trips/${encodeURIComponent(tripId)}`);
   return response.data;
 }
 

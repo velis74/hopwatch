@@ -13,6 +13,8 @@ WCAG 2.2 A/AA violations).
 | `refresh.e2e.ts` | refresh every 30 s, on visibility and after a frozen page; "Not updated since" (fake clock) |
 | `favourites.e2e.ts` | marking an operator as favourite from a departure, "Favourite" tag, "Favourite operators" setting |
 | `accounts.e2e.ts` | sign-up, log-out, failed and keyboard log-in, social login buttons |
+| `details.e2e.ts` | ride details (stop timeline, entry and exit, travel time, amenities, ticket), journey details (rides, transfers with waiting time, walks, totals), unknown ride |
+| `layout.e2e.ts` | wide screens: form on top, list and sticky map side by side, details in the list column; narrow screens: filter → list → details and back, collapsed form summary |
 | `support.ts` | fixture constants and shared helpers |
 
 ## Running

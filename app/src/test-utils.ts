@@ -343,7 +343,15 @@ const Blank = { render: () => null };
 
 /** The app's routes by name and path; a page renders only where a spec passes its own `routes`. */
 export const STUB_ROUTES: RouteRecordRaw[] = [
-  { path: '/', name: 'home', component: Blank, meta: { titleKey: 'pages.home.title' } },
+  {
+    path: '/',
+    component: Blank,
+    children: [
+      { path: '', name: 'home', component: Blank, meta: { titleKey: 'pages.home.title' } },
+      { path: 'ride/:tripId', name: 'ride', component: Blank, meta: { titleKey: 'pages.ride.title' } },
+      { path: 'journey', name: 'journey', component: Blank, meta: { titleKey: 'pages.journey.title' } },
+    ],
+  },
   { path: '/login', name: 'login', component: Blank, meta: { titleKey: 'pages.login.title' } },
   { path: '/signup', name: 'signup', component: Blank, meta: { titleKey: 'pages.signup.title' } },
   { path: '/settings', name: 'settings', component: Blank, meta: { titleKey: 'pages.settings.title' } },
@@ -351,7 +359,25 @@ export const STUB_ROUTES: RouteRecordRaw[] = [
 
 /** The app's routes with their real pages. */
 export const APP_ROUTES: RouteRecordRaw[] = [
-  { path: '/', name: 'home', component: () => import('./pages/home-page.vue'), meta: { titleKey: 'pages.home.title' } },
+  {
+    path: '/',
+    component: () => import('./pages/home-page.vue'),
+    children: [
+      { path: '', name: 'home', component: Blank, meta: { titleKey: 'pages.home.title' } },
+      {
+        path: 'ride/:tripId',
+        name: 'ride',
+        component: () => import('./pages/ride-page.vue'),
+        meta: { titleKey: 'pages.ride.title' },
+      },
+      {
+        path: 'journey',
+        name: 'journey',
+        component: () => import('./pages/journey-page.vue'),
+        meta: { titleKey: 'pages.journey.title' },
+      },
+    ],
+  },
   {
     path: '/login',
     name: 'login',

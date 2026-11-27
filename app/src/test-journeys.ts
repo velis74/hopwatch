@@ -1,4 +1,4 @@
-import type { Itinerary, Journeys, Leg, LegStop } from './api/hopwatch-api';
+import type { Itinerary, Journeys, Leg, LegStop, Trip, TripStop } from './api/hopwatch-api';
 
 /** Test data of the journey specs. */
 export function legStop(name: string, scheduled: string, overrides: Partial<LegStop> = {}): LegStop {
@@ -66,4 +66,61 @@ export function itinerary(overrides: Partial<Itinerary> = {}): Itinerary {
 
 export function journeysPage(itineraries: Itinerary[], cursors: Partial<Journeys> = {}): Journeys {
   return { itineraries, earlier_cursor: 'earlier-1', later_cursor: 'later-1', ...cursors };
+}
+
+/** A stop of a ride; `arrival` and `departure` are local times on 27 November 2026 ("10:05"), null for none. */
+export function tripStop(
+  id: string,
+  name: string,
+  arrival: string | null,
+  departure: string | null,
+  overrides: Partial<TripStop> = {},
+): TripStop {
+  const at = (time: string | null) => (time ? `2026-11-27T${time}:00+01:00` : null);
+  return {
+    id,
+    name,
+    lat: 46,
+    lon: 14.5,
+    scheduled_arrival: at(arrival),
+    expected_arrival: null,
+    scheduled_departure: at(departure),
+    expected_departure: null,
+    delay_minutes: null,
+    delay_source: null,
+    platform: null,
+    cancelled: false,
+    passed: false,
+    ...overrides,
+  };
+}
+
+/** The ride Ljubljana – Jesenice with four stops. */
+export function trip(overrides: Partial<Trip> = {}): Trip {
+  return {
+    trip_id: 'trip-1',
+    mode: 'rail',
+    line: 'RG 2100',
+    headsign: 'Jesenice',
+    operator: { id: '1161', name: 'SŽ - Potniški promet, d.o.o.', url: 'https://potniski.sz.si/' },
+    cancelled: false,
+    bikes_allowed: true,
+    wheelchair_accessible: false,
+    ticket_url: null,
+    geometry: [
+      [46.05, 14.51],
+      [46.1, 14.4],
+      [46.24, 14.36],
+      [46.3, 14.2],
+      [46.36, 14.17],
+      [46.43, 14.05],
+    ],
+    stops: [
+      tripStop('s1', 'Ljubljana', null, '10:00', { lat: 46.05, lon: 14.51, platform: '3', passed: true }),
+      tripStop('s2', 'Kranj', '10:25', '10:27', { lat: 46.24, lon: 14.36 }),
+      tripStop('s3', 'Lesce-Bled', '10:45', '10:46', { lat: 46.36, lon: 14.17 }),
+      tripStop('s4', 'Jesenice', '10:58', null, { lat: 46.43, lon: 14.05 }),
+    ],
+    ...overrides,
+  };
 }

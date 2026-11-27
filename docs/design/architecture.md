@@ -110,7 +110,30 @@ Requests for permission ask for redistribution through the public API, not only 
   stops, "From" included. A list of several stops names the stop of each departure.
 - With "To" the start screen lists journeys from MOTIS, one page at a time, with earlier and later pages. The map
   draws the selected journey: one line per leg coloured by mode, walks dashed.
-- Departures and journeys refresh while the page is visible, when 30 seconds have passed since the last load (checked
+- Layout: on wide screens (Vuetify `md` and up) the form is on top and below it the list (departures or journeys) is
+  on the left and the map on the right, sticky and as high as the viewport below the app bar. Narrow screens have one
+  column with the map below the list or the details.
+- Narrow screens show the views in succession: form, list, details. The form's submit button ("Show departures",
+  "Find journeys") opens the list (`/?view=list`) with the form collapsed to a one-line summary and a "Change"
+  button; a departure or a journey's "Details" opens its details. The browser Back returns to the list, then to the
+  form. Wide screens show the details in place of the list, beside the form and the map, with "Back to the list"; a
+  changed search closes them. On every view change focus moves to the heading of the new view and a live region
+  announces it.
+- Details are child routes of the start page, which keeps the search and the list while they are open:
+  `/ride/:tripId` (query `from` and `to`: the stop ids where the rider boards and gets off; `at`: the scheduled
+  departure at the boarding stop, which picks the visit of a stop the ride calls at more than once and the boarding
+  stop when `from` is a station the ride calls at by another stop id; without them the ride from its first to its
+  last stop) and `/journey` (query `id`: the itinerary chosen in the journeys list, kept in a
+  store for the browser tab and replaced by its newer version on every refresh of the list).
+- Ride details (`GET /api/v1/trips/{trip_id}`): mode, line and headsign, the operator with the favourite toggle, the
+  boarding stop with time, expected time, delay and platform, the exit stop, the travel time, a timeline of every stop
+  between them with its times (passed stops dimmed and marked "Passed"), the amenities that are known (bicycles,
+  wheelchairs; icon and text), "Buy ticket" when the ride has a ticket link, and a prominent notice for a cancelled
+  ride or stop. The map draws the ride between the two stops with a dot at each stop. Journey details: departure,
+  arrival, duration and transfers, then each leg in order: a ride as in the ride details (the leg's own times until
+  its ride has loaded), a walk with distance and time, and before each ride that follows another the transfer with
+  its waiting time. Details refresh like the lists and announce a changed delay at the boarding stop.
+- Departures, journeys and details refresh while the page is visible, when 30 seconds have passed since the last load (checked
   every half second, so a page shown again or resumed after a freeze refreshes at once). Data older than two
   minutes carries a notice with the time of the last update.
 - Favourite operators: the user marks operators (from a departure or in the settings) as favourites; their ids and

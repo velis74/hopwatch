@@ -3,7 +3,9 @@ import { describe, expect, it, vi } from 'vitest';
 import { defineComponent, h, onMounted, ref } from 'vue';
 
 import type { Itinerary, Leg } from '../api/hopwatch-api';
+import { itineraryRoute, rideRoute } from '../composables/map-route';
 import { usePreferencesStore } from '../stores/preferences';
+import { trip } from '../test-journeys';
 import { flushPromises, maplibreFake, mountApp } from '../test-utils';
 
 import StopMap from './stop-map.vue';
@@ -308,5 +310,29 @@ describe('StopMap', () => {
 
     expect(wrapper.text()).toBe('');
     expect(maplibreFake.maps[0].moves).toEqual([]);
+  });
+
+  it('draws the route of the open details with a dot at each stop, in place of the itinerary', async () => {
+    const { wrapper } = await render();
+    await wrapper.setProps({ itinerary: ITINERARY });
+
+    await wrapper.setProps({ route: rideRoute(trip(), 1, 3) });
+
+    const [map] = maplibreFake.maps;
+    expect(journeyFeatures().map((feature) => feature.properties)).toEqual([{ mode: 'rail', walk: false }]);
+    expect((map.getSource('route-stops')!.data as { features: unknown[] }).features).toHaveLength(3);
+    expect(map.layers.find((layer) => layer.id === 'route-stops')).toBeTruthy();
+    expect(maplibreFake.markers.map((marker) => marker.lngLat)).toEqual([
+      [14.36, 46.24],
+      [14.05, 46.43],
+    ]);
+    expect(map.fits.at(-1)?.bounds).toEqual([
+      [14.05, 46.24],
+      [14.36, 46.43],
+    ]);
+    expect(wrapper.text()).toBe('Map of the selected ride. The ride details are the text version of this map.');
+
+    await wrapper.setProps({ route: itineraryRoute(ITINERARY) });
+    expect(wrapper.text()).toBe('Map of the selected journey. The journey details are the text version of this map.');
   });
 });
