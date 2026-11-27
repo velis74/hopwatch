@@ -20,6 +20,13 @@ export interface NearbyStop extends Stop {
   distance_m: number;
 }
 
+/** A transport operator: the company that runs a trip. */
+export interface Operator {
+  id: string;
+  name: string;
+  url: string | null;
+}
+
 export interface Departure {
   trip_id: string;
   stop_id: string;
@@ -27,6 +34,8 @@ export interface Departure {
   mode: TransportMode;
   line: string;
   headsign: string;
+  /** Null when the timetable names no operator. */
+  operator: Operator | null;
   scheduled_departure: string;
   expected_departure: string | null;
   delay_minutes: number | null;
@@ -49,6 +58,8 @@ export interface Leg {
   mode: TransportMode | 'walk';
   line: string | null;
   headsign: string | null;
+  /** Null for a walk and when the timetable names no operator. */
+  operator: Operator | null;
   trip_id: string | null;
   from: LegStop;
   to: LegStop;
@@ -120,6 +131,12 @@ export async function journeys(query: JourneyQuery): Promise<Journeys> {
   if (query.arriveBy) params.arrive_by = true;
   if (query.pageCursor) params.page_cursor = query.pageCursor;
   const response = await api.get<Journeys>('/journeys', { params });
+  return response.data;
+}
+
+/** The operators of the timetable, by name. */
+export async function operators(): Promise<Operator[]> {
+  const response = await api.get<Operator[]>('/operators');
   return response.data;
 }
 

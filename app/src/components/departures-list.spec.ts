@@ -18,6 +18,7 @@ function departure(overrides: Partial<Departure> = {}): Departure {
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',
+    operator: null,
     scheduled_departure: '2026-11-27T10:05:00+01:00',
     expected_departure: null,
     delay_minutes: null,
@@ -160,5 +161,41 @@ describe('DeparturesList', () => {
     const text = wrapper.get('li').text();
     expect(text).toContain('Vlak');
     expect(text).not.toContain('Train');
+  });
+
+  it('names the operator and tags a favourite one', async () => {
+    window.localStorage.setItem('hopwatch.favouriteOperators', '["1161"]');
+    const wrapper = await render([
+      departure({ operator: { id: '1161', name: 'SŽ - Potniški promet, d.o.o.', url: null } }),
+      departure({ trip_id: 'trip-2', mode: 'bus', operator: { id: '1123', name: 'Arriva d.o.o.', url: null } }),
+    ]);
+
+    const [train, bus] = wrapper.findAll('li');
+    expect(train.get('.departure-operator').text()).toContain('SŽ - Potniški promet, d.o.o.');
+    expect(train.get('.favourite-tag').text()).toBe('Favourite');
+    expect(bus.get('.departure-operator').text()).toContain('Arriva d.o.o.');
+    expect(bus.find('.favourite-tag').exists()).toBe(false);
+  });
+
+  it('marks an operator as favourite from a departure, tagging all its departures', async () => {
+    const arriva = { id: '1123', name: 'Arriva d.o.o.', url: null };
+    const wrapper = await render([departure({ operator: arriva }), departure({ trip_id: 'trip-2', operator: arriva })]);
+
+    const first = wrapper.get('li').get('button');
+    expect(first.attributes('aria-label')).toBe('Favourite operator: Arriva d.o.o.');
+    expect(first.attributes('aria-pressed')).toBe('false');
+    await first.trigger('click');
+
+    expect(wrapper.findAll('.favourite-tag')).toHaveLength(2);
+    const buttons = wrapper.findAll('li button');
+    expect(buttons.map((button) => button.attributes('aria-pressed'))).toEqual(['true', 'true']);
+    expect(buttons[1].attributes('aria-label')).toBe('Favourite operator: Arriva d.o.o.');
+  });
+
+  it('shows no operator and no favourite button when the timetable names none', async () => {
+    const wrapper = await render([departure()]);
+
+    expect(wrapper.find('.departure-operator').exists()).toBe(false);
+    expect(wrapper.find('li button').exists()).toBe(false);
   });
 });

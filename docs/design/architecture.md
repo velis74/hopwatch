@@ -103,6 +103,11 @@ Requests for permission ask for redistribution through the public API, not only 
 - Departures and journeys refresh while the page is visible, when 30 seconds have passed since the last load (checked
   every half second, so a page shown again or resumed after a freeze refreshes at once). Data older than two
   minutes carries a notice with the time of the last update.
+- Favourite operators: the user marks operators (from a departure or in the settings) as favourites; their ids and
+  names are kept on the device, so the settings also list a favourite the API does not list. Departures and journey
+  legs of a favourite operator carry a "Favourite" tag. MOTIS answers name the operator (`agencyId`) of each trip but
+  have no operator list, so `/api/v1/operators` reads the `agency.txt` of the GTFS feeds MOTIS loads
+  (`TIMETABLE_FEEDS`, re-read when a file changes) and adds every operator an answer named since the process started.
 - The app learns frequent stop, time and destination combinations on the device and offers them as one-tap
   filters. This data does not leave the device.
 - When the device moves along a vehicle's route, the start screen shows the journey: time to the destination,

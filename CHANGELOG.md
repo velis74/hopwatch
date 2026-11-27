@@ -23,6 +23,9 @@ All notable changes to this project are documented in this file. The format is b
   within 300 m to add to the departures board, with a setting for the modes included by default; refresh every
   30 seconds with a notice when data is older than two minutes; the reason when the location is not available;
   the last "From" stop when there is no location.
+- API: the operator of each departure and journey leg; the list of transport operators (`/operators`).
+- Web app: favourite operators, marked from a departure or in the settings and kept on the device; their
+  departures and journey legs carry a "Favourite" tag.
 
 ### Changed
 

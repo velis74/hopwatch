@@ -11,6 +11,7 @@ WCAG 2.2 A/AA violations).
 | `journeys.e2e.ts` | "From"/"To" form, journey list, "Earlier"/"Later", "Depart at"/"Arrive by", swap, map, clearing "To" |
 | `nearby-stops.e2e.ts` | "Nearby stops" chips, merged departures, "Add a stop", "Include nearby stops by default" setting |
 | `refresh.e2e.ts` | refresh every 30 s, on visibility and after a frozen page; "Not updated since" (fake clock) |
+| `favourites.e2e.ts` | marking an operator as favourite from a departure, "Favourite" tag, "Favourite operators" setting |
 | `accounts.e2e.ts` | sign-up, log-out, failed and keyboard log-in, social login buttons |
 | `support.ts` | fixture constants and shared helpers |
 

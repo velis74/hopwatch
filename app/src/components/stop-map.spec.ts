@@ -22,6 +22,7 @@ function leg(overrides: Partial<Leg> = {}): Leg {
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',
+    operator: null,
     trip_id: 't1',
     from: legStop('Ljubljana', 46.0569, 14.5058),
     to: legStop('Divača', 45.68, 13.97),

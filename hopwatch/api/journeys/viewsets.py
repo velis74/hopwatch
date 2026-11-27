@@ -12,6 +12,7 @@ from pydantic import AwareDatetime, BaseModel, Field, model_validator
 
 from hopwatch.api.departures.viewsets import StopNotFoundError
 from hopwatch.api.journeys.mapping import Journeys, journeys_from
+from hopwatch.api.operators.mapping import known_operators
 from hopwatch.motis import DATA_ATTRIBUTION, get_motis, MOTIS_UNAVAILABLE_RESPONSE, MotisNotFoundError
 
 # MOTIS's 404 body names the place it does not know: {"error": "Could not find timetable location \"ijpp_0\""}.
@@ -100,4 +101,6 @@ class JourneysViewSet:
             )
         except MotisNotFoundError as error:
             raise StopNotFoundError(unknown_stop(query, str(error))) from None
-        return journeys_from(answer)
+        journeys = journeys_from(answer)
+        known_operators.remember(leg.operator for itinerary in journeys.itineraries for leg in itinerary.legs)
+        return journeys

@@ -77,6 +77,7 @@ describe('app', () => {
   it('gives the simple experience larger controls and switches the layout when the choice changes', async () => {
     window.localStorage.setItem('hopwatch.experience', 'simple');
     mockAnonymousSession();
+    mockApi('get', '/operators', []);
     const { wrapper } = await mountApp(App, { routes: APP_ROUTES, route: '/settings' });
 
     expect(document.getElementById('experience-dialog-title')).toBeNull();

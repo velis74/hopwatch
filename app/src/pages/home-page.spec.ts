@@ -27,6 +27,7 @@ function departure(overrides: Partial<Departure> = {}): Departure {
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',
+    operator: null,
     scheduled_departure: '2026-11-27T10:05:00+01:00',
     expected_departure: null,
     delay_minutes: 2,

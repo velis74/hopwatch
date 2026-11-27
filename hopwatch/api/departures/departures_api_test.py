@@ -225,3 +225,16 @@ def test_stop_id_is_a_repeated_query_parameter_in_openapi(api):
     assert parameter["in"] == "query"
     assert parameter["required"] is True
     assert parameter["schema"]["type"] == "array"
+
+
+def test_each_departure_names_its_operator(api, motis):
+    motis.answer("/api/v6/stoptimes", stop_times_from_now())
+
+    response = api.get(URL, params={"stop_id": LJUBLJANA})
+
+    assert {departure["operator"]["id"] for departure in response.json()} == {"1161"}
+    assert response.json()[0]["operator"] == {
+        "id": "1161",
+        "name": "SŽ - Potniški promet, d.o.o.",
+        "url": "https://potniski.sz.si/",
+    }

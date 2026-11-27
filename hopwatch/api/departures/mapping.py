@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from pydantic import BaseModel, Field
 
+from hopwatch.api.operators.mapping import Operator, operator_from
 from hopwatch.api.stops.matching import matches_word_prefixes, words
 from hopwatch.motis import JsonObject, MotisClient, MotisNotFoundError, TtlCache
 
@@ -55,6 +56,7 @@ class Departure(BaseModel):
     mode: TransportMode = Field(description="Kind of vehicle.")
     line: str = Field(description="Line or train name and number as the operator shows it (`EC 214`, `LPV 2415`).")
     headsign: str = Field(description="Destination shown on the vehicle.")
+    operator: Operator | None = Field(description="Operator that runs the trip; null when the timetable names none.")
     scheduled_departure: datetime = Field(description="Departure time in the timetable, in the stop's time zone.")
     expected_departure: datetime | None = Field(
         description="Departure time expected from real-time data, in the stop's time zone; null without real-time data."
@@ -158,6 +160,7 @@ def departure_from(
         mode=transport_mode(stop_time.get("routeType"), stop_time.get("mode")),
         line=stop_time.get("displayName") or stop_time.get("routeShortName") or stop_time.get("tripShortName") or "",
         headsign=stop_time.get("headsign") or (stop_time.get("tripTo") or {}).get("name") or "",
+        operator=operator_from(stop_time),
         scheduled_departure=scheduled,
         expected_departure=expected,
         delay_minutes=delay,

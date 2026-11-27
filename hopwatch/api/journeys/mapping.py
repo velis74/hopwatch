@@ -9,6 +9,7 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, Field
 
 from hopwatch.api.departures.mapping import DelaySource, transport_mode
+from hopwatch.api.operators.mapping import Operator, operator_from
 from hopwatch.motis import JsonObject
 
 ITINERARY_ID_LENGTH = 16
@@ -44,6 +45,9 @@ class Leg(BaseModel):
     mode: LegMode = Field(description="Kind of vehicle, or `walk`.")
     line: str | None = Field(description="Line or train name and number (`LPV 2420`); null for a walk.")
     headsign: str | None = Field(description="Destination shown on the vehicle; null for a walk.")
+    operator: Operator | None = Field(
+        description="Operator that runs the trip; null for a walk and when the timetable names none."
+    )
     trip_id: str | None = Field(description="MOTIS trip id, valid for its service day; null for a walk.")
     from_: LegStop = Field(alias="from", description="Where the leg starts.")
     to: LegStop = Field(description="Where the leg ends.")
@@ -162,6 +166,7 @@ def leg_from(leg: JsonObject) -> Leg:
         mode=LegMode.WALK if walk else LegMode(transport_mode(leg.get("routeType"), leg.get("mode")).value),
         line=None if walk else line,
         headsign=None if walk else leg.get("headsign") or None,
+        operator=None if walk else operator_from(leg),
         trip_id=None if walk else leg.get("tripId") or None,
         from_=start,
         to=end,

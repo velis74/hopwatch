@@ -118,3 +118,14 @@ def api():
     from hopwatch.api.main import app
 
     return TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def operators(monkeypatch, settings):
+    """No timetable feeds and no operator remembered from earlier tests; returns the operators registry."""
+    from hopwatch.api.operators.mapping import known_operators
+
+    settings.TIMETABLE_FEEDS = []
+    monkeypatch.setattr(known_operators, "_read", {})
+    monkeypatch.setattr(known_operators, "_remembered", {})
+    return known_operators

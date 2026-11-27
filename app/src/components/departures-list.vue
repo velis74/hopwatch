@@ -32,6 +32,10 @@
       <div v-if="departure.next_stops.length" class="departure-via text-body-2 text-medium-emphasis">
         {{ t('departures.via', { stops: departure.next_stops.slice(0, VIA_STOPS).join(', ') }) }}
       </div>
+      <div v-if="departure.operator" class="departure-operator text-body-2">
+        <operator-name :operator="departure.operator" />
+        <favourite-operator-button :operator="departure.operator" />
+      </div>
       <div v-if="showStop" class="departure-stop text-body-2">
         {{ t('departures.atStop', { stop: departure.stop_name }) }}
       </div>
@@ -44,6 +48,9 @@ import { useI18n } from 'vue-i18n';
 
 import type { Departure, TransportMode } from '../api/hopwatch-api';
 import { useTimeFormat } from '../composables/use-time-format';
+
+import FavouriteOperatorButton from './favourite-operator-button.vue';
+import OperatorName from './operator-name.vue';
 
 defineProps<{ departures: Departure[]; label: string; showStop?: boolean }>();
 
@@ -99,5 +106,12 @@ function delayClass(minutes: number): string {
 
 .departure-via {
   margin-top: 2px;
+}
+
+.departure-operator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 4px;
 }
 </style>
