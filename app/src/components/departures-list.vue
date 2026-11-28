@@ -4,7 +4,6 @@
     ref="root"
     class="departures-list"
     :class="[`departures-list--${layout}`, { 'departures-list--stops': showStop }]"
-    :style="{ '--departure-rows': departures.length }"
   >
     <df-grid
       :columns="columns"
@@ -215,23 +214,17 @@ function delayClass(minutes: number): string {
 </script>
 
 <style scoped>
-.departures-list {
-  --departure-row-height: 4.5rem;
-  --departure-header-height: 2.5rem;
+/*
+ * The grid is as tall as its rows and scrolls with the page: its body is no scroller, so every row is inside the
+ * body's viewport and mounted.
+ */
+.departures-list :deep(.df-grid-body) {
+  flex: none;
 }
 
-.departures-list--narrow {
-  --departure-row-height: 9rem;
-  --departure-header-height: 0rem;
-}
-
-.departures-list--narrow.departures-list--stops {
-  --departure-row-height: 10.5rem;
-}
-
-/* Bounded height for the grid's scroller: the estimated height of all rows, at most 70% of the screen. */
-.departures-grid {
-  height: min(70dvh, calc(var(--departure-rows) * var(--departure-row-height) + var(--departure-header-height)));
+.departures-list :deep(.df-grid-body .body-grid) {
+  height: auto;
+  overflow-y: hidden;
 }
 
 .departures-list :deep(.df-record-grid) {

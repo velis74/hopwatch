@@ -34,7 +34,7 @@ test('an operator marked as favourite from a departure is tagged, listed in the 
   await expect(remove.first()).toHaveAttribute('aria-pressed', 'true');
   const count = await ofOperator.count();
   expect(count).toBeGreaterThan(0);
-  await expect(ofOperator.filter({ hasText: /\bFavourite\b/u })).toHaveCount(count);
+  await expect(ofOperator.filter({ has: page.getByText('Favourite', { exact: true }) })).toHaveCount(count);
   await expect(remove).toHaveCount(count);
   await expectNoSeriousViolations(page);
 
@@ -60,5 +60,7 @@ test('an operator marked as favourite from a departure is tagged, listed in the 
       .getByRole('button', { name: `Favourite operator: ${operator}`, exact: true })
       .first(),
   ).toHaveAttribute('aria-pressed', 'false');
-  await expect(departureItems(departuresList(page)).filter({ hasText: /\bFavourite\b/u })).toHaveCount(0);
+  await expect(
+    departureItems(departuresList(page)).filter({ has: page.getByText('Favourite', { exact: true }) }),
+  ).toHaveCount(0);
 });

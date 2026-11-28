@@ -97,6 +97,8 @@ test.describe('wide screen', () => {
     const listBox = await boxOf(departuresList(page));
     const distance = Math.min(2000, Math.floor(listBox.y + listBox.height - viewport.height - 20));
     test.skip(distance < 200, 'the list is too short to scroll');
+    const needed = (await boxOf(map)).y - (await appBarBottom(page));
+    test.skip(distance < needed, 'the list ends before the map reaches the app bar');
 
     // The wheel over the map zooms the map; the page scrolls with the wheel over the list.
     await page.mouse.move(listBox.x + listBox.width / 2, Math.min(listBox.y + 20, viewport.height - 20));

@@ -80,6 +80,26 @@ semantics (see below).
 - Everything stays on the device; syncing with the account is a later decision. Design goes into
   `docs/design/architecture.md` (User interface).
 
+## "Get moving" reminder
+
+2026-11-28, session 1164b4e8-b9fc-4415-a3b0-91e0f3dba77a.
+
+- For a ride in "My rides" or the current leg of the active journey, the app notifies the rider when it is time to set
+  off for the boarding stop: departure (expected, with the delay) minus the time to reach the stop minus a margin
+  (setting).
+- Optional loud alarm for the same moment (alarm sound, also when the phone is silent where the platform allows it):
+  Capacitor local notifications with an alarm channel on Android, a time-sensitive / critical alert on iOS.
+- The time to reach the stop follows the current position: MOTIS plans from coordinates (`fromPlace` as
+  `lat,lon`) with the first mile on foot (`preTransitModes`), later also with public transport to the boarding stop
+  (a plan from the position to the boarding stop, arriving by the departure). The reminder is rescheduled when the
+  position or the delay changes.
+- UI: a bell button on every ride in "My rides" opens the reminder's settings: on / off, minutes before, reserve
+  time as a percentage of the time to the stop, loud alarm, alarm ringtone, and "set the alarm in the clock app
+  instead" (Android `AlarmClock.ACTION_SET_ALARM`; iOS has no public API for the Clock app). The bell shows whether a
+  reminder is set.
+- To decide: positions while the app is in the background. The architecture allows location only in the foreground;
+  without background location the reminder uses the last position the app saw and a scheduled refresh of the delay.
+
 ## Library work this app waits for
 
 2026-11-27, session 1164b4e8-b9fc-4415-a3b0-91e0f3dba77a.

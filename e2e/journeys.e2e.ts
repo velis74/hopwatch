@@ -221,9 +221,9 @@ test('"Depart at" with a time lists journeys leaving from that time', async ({ p
   await page.getByRole('radiogroup', { name: 'When', exact: true }).getByRole('radio', { name: 'Leave now' }).check();
   await expect(page.locator('.journey-form-time')).toHaveCount(0);
   const current = await journeysFrom(await nowAnswer);
-  for (const itinerary of current.itineraries) {
-    expect(Date.parse(itinerary.scheduled_departure)).toBeLessThan(target!.getTime());
-  }
+  // A sparse timetable can reach past the target with later journeys; the first one leaves before it.
+  expect(current.itineraries.length).toBeGreaterThan(0);
+  expect(Date.parse(current.itineraries[0].scheduled_departure)).toBeLessThan(target!.getTime());
 });
 
 test('"Swap from and to" swaps the stops and plans the way back', async ({ page }) => {

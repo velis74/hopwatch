@@ -9,8 +9,9 @@ export const OTHER_STOP = 'Lesce-Bled';
 
 export type Experience = 'Simple and large' | 'Lively';
 
+/** The table of departures from `stop`. */
 export function departuresList(page: Page, stop: string = NEAREST_STOP): Locator {
-  return page.getByRole('list', {
+  return page.getByRole('table', {
     name: `Departures from ${stop}`,
     exact: true,
   });
@@ -120,13 +121,18 @@ export async function chooseOption(page: Page, field: Locator, option: RegExp): 
     return;
   }
   // A combobox input may sit under its field's decoration (Vuetify sets `pointer-events: none` on it), so the
-  // click goes to the field's position, as a pointer user's does.
+  // click goes to the field's position, as a pointer user's does. A click outside the viewport reaches nothing.
   await expect(field).toBeVisible();
   await expect(field).toBeEnabled();
+  await field.scrollIntoViewIfNeeded();
   const box = await field.boundingBox();
   expect(box).not.toBeNull();
   await page.mouse.click(box!.x + box!.width / 2, box!.y + box!.height / 2);
-  await page.getByRole('option', { name: option }).click();
+  const choice = page.getByRole('option', { name: option });
+  await expect(choice).toBeVisible();
+  // The menu has finished opening, as a user sees it before choosing.
+  await settleAnimations(page);
+  await choice.click();
 }
 
 /** Searches for a stop through the "From" field and chooses it. */
@@ -214,7 +220,7 @@ export async function clearStop(page: Page, label: StopField): Promise<void> {
 
 /** The departures board; its name names the From stop. */
 export function departuresBoard(page: Page): Locator {
-  return page.getByRole('list', { name: /^Departures from /u });
+  return page.getByRole('table', { name: /^Departures from /u });
 }
 
 /** The table of itineraries, named by the "Journeys" heading. */
@@ -254,9 +260,9 @@ export function ljubljanaParts(date: Date): {
   };
 }
 
-/** Visible departure items of a list. */
+/** Rendered departure rows of a departures table (not its header row). */
 export function departureItems(list: Locator): Locator {
-  return list.getByRole('listitem');
+  return list.locator('[role="row"].df-anchored');
 }
 
 export function randomEmail(): string {
