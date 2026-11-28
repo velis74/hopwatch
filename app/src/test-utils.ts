@@ -1,3 +1,4 @@
+import { DynamicFormsVueGrid, translateStrings as translateGridStrings } from '@dynamicforms/vue-grid';
 import { DynamicFormsInputs, translateStrings as translateInputsStrings } from '@dynamicforms/vuetify-inputs';
 import {
   DynamicFormsModalFormKit,
@@ -432,6 +433,7 @@ export async function mountApp<C extends Component>(component: C, options: Mount
   if (!installedTranslations) {
     translateInputsStrings(i18n.global.t, 'inputs');
     translateModalStrings(i18n.global.t, 'modal');
+    translateGridStrings(i18n.global.t, 'grid');
     installedTranslations = true;
   }
   const vuetify = createVuetify({
@@ -475,6 +477,7 @@ export async function mountApp<C extends Component>(component: C, options: Mount
           },
         ],
         [DynamicFormsModalFormKit, { registerComponents: true, registerVuetifyComponents: true }],
+        [DynamicFormsVueGrid, { registerComponents: true }],
       ] as never,
     },
   });

@@ -266,7 +266,9 @@
     "Style": "Stil",
     "MediaEmbed": "Umetni medij",
     "MediaEmbedUrl": "URL videozapisa",
-    "MediaEmbedInsert": "Umetni"
+    "MediaEmbedInsert": "Umetni",
+    "NoChoices": "Nema izbora",
+    "MinQuery": "Upišite barem {count} znakova"
   },
   "modal": {
     "Close": "Zatvori",
@@ -329,5 +331,21 @@
     "transfer": "Presjedanje: {stop}, {minutes} min",
     "walkMinutes": "Pješice do {to}, {minutes} min",
     "walkDistanceMinutes": "Pješice {distance} m do {to}, {minutes} min"
+  },
+  "grid": {
+    "Loading": "Učitavanje…",
+    "NoData": "Nema podataka",
+    "FilterColumn": "Filtriraj {column}…",
+    "FilterColumnName": "Filtriraj {column}",
+    "SortByColumn": "Poredaj po {column}",
+    "Sort": "Poredaj",
+    "CancelSelectionMode": "Prekini odabir",
+    "InvertSelection": "Obrni odabir",
+    "SelectionCountSelected": "Odabrano: {count}",
+    "SelectionCountExcluded": "Isključeno: {count}",
+    "ActiveFilters": "Aktivni filtri: {count}",
+    "RecordCount": "Zapisa: {count}",
+    "RecordCountOfTotal": "{count} od {total} zapisa",
+    "NullValue": "prazno"
   }
 }

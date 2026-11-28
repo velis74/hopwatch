@@ -1,3 +1,4 @@
+import { DynamicFormsVueGrid, translateStrings as translateGridStrings } from '@dynamicforms/vue-grid';
 import { DynamicFormsInputs, translateStrings as translateInputsStrings } from '@dynamicforms/vuetify-inputs';
 import {
   DynamicFormsModalFormKit,
@@ -13,11 +14,13 @@ import router from './router';
 
 import '@mdi/font/css/materialdesignicons.css';
 import '@dynamicforms/vuetify-inputs/styles.css';
+import '@dynamicforms/vue-grid/styles.css';
 import 'vuetify/styles';
 import './styles/app.css';
 
 translateInputsStrings(i18n.global.t, 'inputs');
 translateModalStrings(i18n.global.t, 'modal');
+translateGridStrings(i18n.global.t, 'grid');
 
 const vuetify = createVuetify({
   theme: { defaultTheme: 'system' },
@@ -40,4 +43,5 @@ createApp(App)
     },
   })
   .use(DynamicFormsModalFormKit, { registerComponents: true, registerVuetifyComponents: true })
+  .use(DynamicFormsVueGrid, { registerComponents: true })
   .mount('#app');

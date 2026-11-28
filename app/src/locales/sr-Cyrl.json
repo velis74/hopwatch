@@ -266,7 +266,9 @@
     "Style": "Стил",
     "MediaEmbed": "Уметни медиј",
     "MediaEmbedUrl": "URL видео-снимка",
-    "MediaEmbedInsert": "Уметни"
+    "MediaEmbedInsert": "Уметни",
+    "NoChoices": "Нема избора",
+    "MinQuery": "Унесите бар {count} знакова"
   },
   "modal": {
     "Close": "Затвори",
@@ -329,5 +331,21 @@
     "transfer": "Преседање: {stop}, {minutes} мин",
     "walkMinutes": "Пешке до {to}, {minutes} мин",
     "walkDistanceMinutes": "Пешке {distance} м до {to}, {minutes} мин"
+  },
+  "grid": {
+    "Loading": "Учитавање…",
+    "NoData": "Нема података",
+    "FilterColumn": "Филтрирај {column}…",
+    "FilterColumnName": "Филтрирај {column}",
+    "SortByColumn": "Поређај по {column}",
+    "Sort": "Поређај",
+    "CancelSelectionMode": "Прекини избор",
+    "InvertSelection": "Обрни избор",
+    "SelectionCountSelected": "Изабрано: {count}",
+    "SelectionCountExcluded": "Искључено: {count}",
+    "ActiveFilters": "Активни филтри: {count}",
+    "RecordCount": "Записа: {count}",
+    "RecordCountOfTotal": "{count} од {total} записа",
+    "NullValue": "празно"
   }
 }

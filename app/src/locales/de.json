@@ -266,7 +266,9 @@
     "Style": "Stil",
     "MediaEmbed": "Medien einfügen",
     "MediaEmbedUrl": "Video-URL",
-    "MediaEmbedInsert": "Einfügen"
+    "MediaEmbedInsert": "Einfügen",
+    "NoChoices": "Keine Auswahl",
+    "MinQuery": "Mindestens {count} Zeichen eingeben"
   },
   "modal": {
     "Close": "Schließen",
@@ -329,5 +331,21 @@
     "transfer": "Umstieg in {stop}, {minutes} min",
     "walkMinutes": "Fußweg nach {to}, {minutes} min",
     "walkDistanceMinutes": "Fußweg {distance} m nach {to}, {minutes} min"
+  },
+  "grid": {
+    "Loading": "Wird geladen …",
+    "NoData": "Keine Daten",
+    "FilterColumn": "{column} filtern …",
+    "FilterColumnName": "{column} filtern",
+    "SortByColumn": "Nach {column} sortieren",
+    "Sort": "Sortieren",
+    "CancelSelectionMode": "Auswahlmodus beenden",
+    "InvertSelection": "Auswahl umkehren",
+    "SelectionCountSelected": "{count} ausgewählt",
+    "SelectionCountExcluded": "{count} ausgeschlossen",
+    "ActiveFilters": "Aktive Filter: {count}",
+    "RecordCount": "{count} Einträge",
+    "RecordCountOfTotal": "{count} von {total} Einträgen",
+    "NullValue": "leer"
   }
 }
