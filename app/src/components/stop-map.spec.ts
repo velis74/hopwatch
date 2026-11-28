@@ -1,3 +1,4 @@
+import type { TransformStyleFunction } from 'maplibre-gl';
 import { createPinia, setActivePinia } from 'pinia';
 import { describe, expect, it, vi } from 'vitest';
 import { defineComponent, h, onMounted, ref } from 'vue';
@@ -16,7 +17,16 @@ const LJUBLJANA = { id: 'si:1', name: 'Ljubljana', lat: 46.0569, lon: 14.5058, m
 const KOPER = { id: 'si:2', name: 'Koper', lat: 45.548, lon: 13.7302, modes: [] };
 
 function legStop(name: string, lat: number, lon: number) {
-  return { id: name, name, lat, lon, scheduled: '2026-11-27T10:00:00Z', expected: null, platform: null };
+  return {
+    id: name,
+    name,
+    lat,
+    lon,
+    scheduled: '2026-11-27T10:00:00Z',
+    expected: null,
+    platform: null,
+    time_zone: 'Europe/Ljubljana',
+  };
 }
 
 function leg(overrides: Partial<Leg> = {}): Leg {
@@ -92,7 +102,7 @@ describe('StopMap', () => {
     expect(region.text()).toBe('Map of the stop Ljubljana. The list of departures is the text version of this map.');
   });
 
-  it('shows the stop at the centre with a marker, attributing OpenStreetMap', async () => {
+  it('shows the stop at the centre with a marker, attributing OpenMapTiles and OpenStreetMap', async () => {
     const { wrapper } = await render();
 
     const [map] = maplibreFake.maps;
@@ -103,15 +113,39 @@ describe('StopMap', () => {
       keyboard: false,
     });
     expect(map.options.container).toBe(wrapper.get('.stop-map-canvas').element);
-    expect(String((map.options.attributionControl as { customAttribution: string }).customAttribution)).toContain(
-      'OpenStreetMap',
-    );
+    expect(map.options.attributionControl).toEqual({
+      compact: false,
+      customAttribution:
+        '<a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> · ' +
+        '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>',
+    });
     const [marker] = maplibreFake.markers;
     expect(marker.lngLat).toEqual([14.5058, 46.0569]);
     expect(marker.map).toBe(map);
     expect(marker.options.element?.getAttribute('aria-hidden')).toBe('true');
     expect(wrapper.find('.stop-map-marker').exists()).toBe(true);
     expect(maplibreFake.workerUrl).toBeTruthy();
+  });
+
+  it("drops the sources' own attributions, so the map shows only its own", async () => {
+    await render();
+
+    const transform = maplibreFake.maps[0].options.transformStyle as TransformStyleFunction;
+    const style = {
+      version: 8 as const,
+      sources: {
+        openmaptiles: { type: 'vector' as const, url: 'https://tiles.openfreemap.org/planet' },
+        shaded: { type: 'raster' as const, url: 'https://tiles.openfreemap.org/natural_earth', attribution: 'NE' },
+      },
+      layers: [{ id: 'background', type: 'background' as const }],
+    };
+
+    const transformed = transform(undefined, style);
+    expect(transformed.sources).toEqual({
+      openmaptiles: { type: 'vector', url: 'https://tiles.openfreemap.org/planet', attribution: '' },
+      shaded: { type: 'raster', url: 'https://tiles.openfreemap.org/natural_earth', attribution: '' },
+    });
+    expect(transformed.layers).toBe(style.layers);
   });
 
   it('hides the map picture from assistive technology and from the tab order', async () => {

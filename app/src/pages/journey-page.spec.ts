@@ -8,8 +8,11 @@ import { flushPromises, HttpResponse, mockApi, mountApp } from '../test-utils';
 
 import JourneyPage from './journey-page.vue';
 
+/** `iso` as the page shows it: local time at the stops of the test journey in Ljubljana. */
 function time(iso: string): string {
-  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Ljubljana' }).format(
+    new Date(iso),
+  );
 }
 
 /** Ljubljana – Divača by train, a walk to Divača AP, Divača AP – Koper by bus. */
@@ -64,6 +67,21 @@ describe('JourneyPage', () => {
     expect(totals).toContain(`Arrival${time('2026-11-27T10:35:00Z')}`);
     expect(totals).toContain('Duration1 h 30 min');
     expect(totals).toContain('Transfers1 transfer');
+  });
+
+  it('shows the departure and arrival as local time of the start and of the destination', async () => {
+    const value = journey();
+    value.legs[0].from.time_zone = 'Asia/Tokyo';
+    value.legs[2].to.time_zone = 'America/New_York';
+    value.expected_departure = '2026-11-27T09:07:00Z';
+    value.expected_arrival = '2026-11-27T10:41:00Z';
+    const { wrapper } = await render(value);
+
+    const totals = wrapper.get('.journey-totals').text();
+    expect(totals).toContain('Departure18:05');
+    expect(totals).toContain('Expected 18:07');
+    expect(totals).toContain('Arrival05:35');
+    expect(totals).toContain('Expected 05:41');
   });
 
   it('lists the rides with their stops, the walk with distance and time, and the transfer with its wait', async () => {

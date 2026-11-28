@@ -68,11 +68,8 @@
       {{ viewAnnouncement }}
     </div>
 
-    <p class="data-attribution text-body-2 text-medium-emphasis mt-6">
-      {{ t('departures.dataAttribution') }}
-      <a href="https://nap.si" target="_blank" rel="noopener">DUJPP, nap.si</a>
-      · SŽ – Potniški promet ·
-      <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+    <p class="data-attribution text-body-2 mt-6">
+      <router-link to="/about">{{ t('about.sourcesHeading') }}</router-link>
     </p>
   </v-container>
 </template>
@@ -90,6 +87,7 @@ import JourneyResults from '../components/journey-results.vue';
 import NearbyStops from '../components/nearby-stops.vue';
 import StopMap from '../components/stop-map.vue';
 import { currentPosition } from '../composables/use-geolocation';
+import { formatTime } from '../composables/use-time-format';
 import { readDeviceValue, writeDeviceValue } from '../device-storage';
 import { LOCALE_TAGS, type SupportedLocale } from '../i18n';
 import { useTripDetailsStore } from '../stores/trip-details';
@@ -255,11 +253,7 @@ function backToList(): void {
 
 const whenText = computed(() => {
   if (timeMode.value === 'now' || !time.value) return t('home.whenNow');
-  const formatted = new Intl.DateTimeFormat(LOCALE_TAGS[locale.value as SupportedLocale], {
-    weekday: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(time.value));
+  const formatted = formatTime(LOCALE_TAGS[locale.value as SupportedLocale], time.value, null, { weekday: true });
   return t(timeMode.value === 'arrive' ? 'home.whenArrive' : 'home.whenDepart', { time: formatted });
 });
 
@@ -349,6 +343,12 @@ onMounted(() => {
   max-width: 1400px;
 }
 
+/* A link alone on its line is a touch target of at least 24px (WCAG 2.5.8). */
+.data-attribution a {
+  display: inline-block;
+  padding-block: 4px;
+}
+
 .search-summary {
   display: flex;
   flex-wrap: wrap;
@@ -369,6 +369,45 @@ onMounted(() => {
 
 .home-map :deep(.stop-map-canvas) {
   height: 260px;
+}
+
+/* Wide: a departures table fills the list column below the app bar and scrolls its rows inside itself. */
+.home-page--wide .home-list-column > :first-child:has(> .departures-board > .departures-list) {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - var(--v-layout-top, 64px));
+  overflow-y: auto;
+}
+
+.home-page--wide .home-list-column > :first-child:has(> .departures-board > .departures-list) > * {
+  flex: none;
+}
+
+.home-page--wide .home-list-column > :first-child > .departures-board:has(> .departures-list) {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.home-page--wide .home-list-column > :first-child > .departures-board:has(> .departures-list) > :deep(*) {
+  flex: none;
+}
+
+.home-page--wide .home-list-column > :first-child > .departures-board > :deep(.departures-list) {
+  flex: 1 1 0;
+  min-height: 15em;
+}
+
+/* Narrow: a departures table is as high as its rows, at most the viewport below the app bar. */
+.home-page:not(.home-page--wide) .home-list-column > :first-child > .departures-board > :deep(.departures-list) {
+  height: min(var(--departures-list-content-height), calc(100dvh - var(--v-layout-top, 64px)));
+  min-height: 15em;
+}
+
+/* The journeys fill the viewport below the app bar; their table scrolls its rows inside itself. */
+.home-list-column > :first-child > .journey-results {
+  height: calc(100dvh - var(--v-layout-top, 64px));
 }
 
 .home-page--wide .home-columns {

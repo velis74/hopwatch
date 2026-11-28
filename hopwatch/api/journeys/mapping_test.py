@@ -163,6 +163,24 @@ def test_journeys_serialise_with_from_and_utc_times():
     assert isinstance(leg["geometry"][0], list)
 
 
+def test_leg_stops_name_their_time_zone_and_keep_utc_times():
+    itinerary = rail_itinerary()
+    itinerary["legs"][0]["to"]["tz"] = "Europe/Ljubljana"
+    leg = leg_from(itinerary["legs"][0]).model_dump(mode="json")
+    assert (leg["from"]["time_zone"], leg["to"]["time_zone"]) == ("Europe/Belgrade", "Europe/Ljubljana")
+    assert leg["from"]["scheduled"] == "2026-11-27T15:21:00Z"
+
+
+def test_a_place_without_a_time_zone_takes_the_zone_of_the_other_end_of_the_leg():
+    walk = sample("plan.json")["itineraries"][1]["legs"][0]
+    del walk["from"]["tz"]
+    walk["to"]["tz"] = "Europe/Ljubljana"
+    assert leg_from(walk).from_.time_zone == "Europe/Ljubljana"
+
+    del walk["to"]["tz"]
+    assert (leg_from(walk).from_.time_zone, leg_from(walk).to.time_zone) == ("UTC", "UTC")
+
+
 def test_ride_legs_name_their_operator_and_walks_none():
     rail = leg_from(rail_itinerary()["legs"][0])
     walk, bus, *_ = (leg_from(leg) for leg in sample("plan.json")["itineraries"][1]["legs"])

@@ -48,6 +48,16 @@ if (!browser.visualViewport) {
 }
 window.scrollTo = () => undefined;
 
+// vue-grid's shadow grid re-reads its grid-template-columns every frame until it is not "none", also after unmount.
+const computedStyle = window.getComputedStyle.bind(window);
+window.getComputedStyle = (element, pseudoElement) => {
+  const style = computedStyle(element, pseudoElement);
+  if (!element.classList.contains('shadow-grid')) return style;
+  const read = style.getPropertyValue.bind(style);
+  style.getPropertyValue = (property) => (property === 'grid-template-columns' ? '0px' : read(property));
+  return style;
+};
+
 beforeAll(listen);
 afterAll(() => server.close());
 

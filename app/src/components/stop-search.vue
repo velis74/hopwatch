@@ -1,125 +1,108 @@
 <template>
-  <div @focusin="selectChosenName">
-    <v-autocomplete
-      ref="field"
-      v-model:search="query"
-      v-model:menu="menu"
-      :model-value="model"
+  <div ref="root" class="stop-search">
+    <!-- aria-description: the input announces the chosen stop, which df-select shows only as a chip. -->
+    <df-select
+      :model-value="model?.id ?? null"
       :label="label"
-      hide-details
-      :aria-describedby="hintId"
-      :items="results"
-      item-title="name"
-      item-value="id"
-      :item-props="itemProps"
-      return-object
-      no-filter
-      :clearable="clearable"
-      persistent-clear
-      :hide-no-data="!noResults"
-      :loading="loading"
-      prepend-inner-icon="mdi-magnify"
+      :hint="t('departures.findStopHint')"
+      variant="filled"
+      :allow-null="false"
+      :fetch-choices="fetchChoices"
+      :fetch-debounce="SEARCH_DEBOUNCE_MS"
+      :min-query-length="MIN_QUERY_LENGTH"
+      :min-query-text="t('departures.findStopHint')"
+      :no-data-text="t('departures.noStopsFound')"
+      :passthrough-attrs="{ 'no-filter': true, 'prepend-inner-icon': 'mdi-magnify', 'aria-description': model?.name }"
       @update:model-value="choose"
     >
-      <template v-if="clearable" #clear>
+      <template v-if="clearable && model" #append-inner>
         <!-- A button of its own: Vuetify's clear icon is not in the tab order. -->
         <button
-          v-if="model"
           type="button"
           class="stop-search-clear"
           :aria-label="t('departures.clearStop', { field: label })"
-          @click="clear"
+          @click.stop="clear"
+          @mousedown.stop
         >
           <v-icon icon="mdi-close-circle" aria-hidden="true" />
         </button>
       </template>
-      <template #no-data>
-        <v-list-item :title="t('departures.noStopsFound')" disabled />
-      </template>
-    </v-autocomplete>
-    <p :id="hintId" class="text-body-2 text-medium-emphasis mt-1">{{ t('departures.findStopHint') }}</p>
+    </df-select>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useId, watch } from 'vue';
+import { lookupChoices, type LookupChoicesParams } from '@dynamicforms/fastapi-viewsets';
+import { DfSelect, type RenderContentNonCallable } from '@dynamicforms/vuetify-inputs';
+import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { searchStops, type Stop } from '../api/hopwatch-api';
-import { useDebounced } from '../composables/use-debounced';
 import { useModeNames } from '../composables/use-mode-names';
 
 const props = defineProps<{ label: string; autofocus?: boolean; clearable?: boolean }>();
 const model = defineModel<Stop | null>({ default: null });
 
+const SEARCH_DEBOUNCE_MS = 250;
+const MIN_QUERY_LENGTH = 2;
+
 const { t } = useI18n();
 const modeNames = useModeNames();
-const hintId = `${useId()}-hint`;
 
-const field = ref<{ focus: () => void } | null>(null);
-const query = ref('');
-const debouncedQuery = useDebounced(query, 250);
-const results = ref<Stop[]>([]);
-const loading = ref(false);
-const searched = ref('');
-const menu = ref(false);
-let sequence = 0;
+const root = ref<HTMLElement | null>(null);
+/** The stops offered so far, by id: the select's value is the id. */
+const known = new Map<string, Stop>();
 
-const noResults = computed(() => !loading.value && searched.value.length >= 2 && results.value.length === 0);
-// The option's name separates the stop's name from its modes; read as one, they would run together.
-function itemProps(stop: Stop) {
-  const modes = modeNames(stop.modes);
-  return { subtitle: modes || undefined, 'aria-label': modes ? `${stop.name}, ${modes}` : stop.name };
-}
-
-watch(debouncedQuery, async (value) => {
-  const text = (value ?? '').trim();
-  const current = ++sequence;
-  // The field shows the chosen stop's name as its text; that is not a search.
-  if (text.length < 2 || text === model.value?.name) {
-    results.value = [];
-    searched.value = '';
-    loading.value = false;
-    return;
-  }
-  loading.value = true;
+/** Stops named like `q`; for `ids`, the chosen stop. A failed search finds no stops. */
+async function findStops({ q, ids }: LookupChoicesParams): Promise<Stop[]> {
+  if (ids) return model.value && ids.includes(model.value.id) ? [model.value] : [];
+  const text = (q ?? '').trim();
+  if (text.length < MIN_QUERY_LENGTH) return [];
   try {
-    const stops = await searchStops(text);
-    if (current === sequence) results.value = stops;
+    return await searchStops(text);
   } catch {
-    if (current === sequence) results.value = [];
-  } finally {
-    if (current === sequence) {
-      loading.value = false;
-      searched.value = text;
-    }
+    return [];
   }
-});
-
-// The menu opens by itself only when items arrive; an empty answer opens it for the "no stops" line.
-watch(noResults, (value) => {
-  if (value) menu.value = true;
-});
-
-function choose(stop: Stop | null) {
-  model.value = stop;
 }
 
-// On focus the field's text becomes the chosen stop's name; selecting it lets typing replace the name.
-async function selectChosenName(event: FocusEvent) {
-  if (!(event.target instanceof HTMLInputElement) || !model.value) return;
-  const input = event.target;
-  await nextTick();
-  if (document.activeElement === input && input.value === model.value?.name) input.select();
+/** The stop name, and its modes on a second line; the hidden comma separates them in the option's name. */
+function stopChoiceText(stop: Stop): RenderContentNonCallable {
+  const modes = modeNames(stop.modes);
+  if (!modes) return { componentName: 'div', children: stop.name };
+  return {
+    componentName: 'div',
+    children: [
+      {
+        componentName: 'div',
+        children: [
+          stop.name,
+          { componentName: 'span', componentProps: { class: 'stop-search-modes d-sr-only' }, children: ', ' },
+        ],
+      },
+      {
+        componentName: 'div',
+        componentProps: { class: 'stop-search-modes text-body-2 text-medium-emphasis' },
+        children: modes,
+      },
+    ],
+  };
+}
+
+const fetchChoices = lookupChoices(findStops, (stop) => {
+  known.set(stop.id, stop);
+  return { id: stop.id, text: () => stopChoiceText(stop) };
+});
+
+function choose(id: string | null) {
+  model.value = id == null ? null : (known.get(id) ?? null);
 }
 
 function clear() {
   model.value = null;
-  query.value = '';
 }
 
 onMounted(() => {
-  if (props.autofocus) field.value?.focus();
+  if (props.autofocus) root.value?.querySelector('input')?.focus();
 });
 </script>
 
@@ -135,5 +118,10 @@ onMounted(() => {
 
 .stop-search-clear:focus-visible {
   outline: 2px solid rgb(var(--v-theme-primary));
+}
+
+/* The chosen stop's chip shows its name only. */
+.stop-search :deep(.v-chip .stop-search-modes) {
+  display: none;
 }
 </style>

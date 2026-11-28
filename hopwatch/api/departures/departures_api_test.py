@@ -85,6 +85,7 @@ def test_unknown_time_zone_shows_times_in_utc(api, motis):
     scheduled = datetime.fromisoformat(response.json()[0]["scheduled_departure"])
     assert scheduled.utcoffset() == timedelta(0)
     assert scheduled == datetime.fromisoformat(stop_times["stopTimes"][0]["place"]["scheduledDeparture"])
+    assert response.json()[0]["time_zone"] == "UTC"
 
 
 def test_later_stops_come_from_the_trip_when_motis_leaves_them_out(api, motis):
@@ -217,6 +218,18 @@ def test_one_to_ten_stops(api, motis):
     assert api.get(URL).status_code == 422
     assert api.get(URL, params={"stop_id": ""}).status_code == 422
     assert motis.requests == []
+
+
+def test_departures_name_the_time_zone_of_the_stop(api, motis):
+    motis.answer("/api/v6/stoptimes", stop_times_from_now())
+
+    response = api.get(URL, params={"stop_id": LJUBLJANA})
+
+    departure = response.json()[0]
+    assert departure["time_zone"] == "Europe/Belgrade"
+    assert datetime.fromisoformat(departure["scheduled_departure"]).utcoffset() == timedelta(hours=1)
+    field = api.get("/api/openapi.json").json()["components"]["schemas"]["Departure"]["properties"]["time_zone"]
+    assert "IANA time zone" in field["description"]
 
 
 def test_stop_id_is_a_repeated_query_parameter_in_openapi(api):

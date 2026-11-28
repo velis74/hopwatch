@@ -61,6 +61,12 @@ class Departure(BaseModel):
     expected_departure: datetime | None = Field(
         description="Departure time expected from real-time data, in the stop's time zone; null without real-time data."
     )
+    time_zone: str = Field(
+        description=(
+            "IANA time zone of the stop (`Europe/Ljubljana`), in which the times are local transport time; `UTC` when "
+            "the timetable names no known zone."
+        )
+    )
     delay_minutes: int | None = Field(
         description="Expected minus scheduled departure in whole minutes (negative when early); null when unknown."
     )
@@ -164,6 +170,7 @@ def departure_from(
         operator=operator_from(stop_time),
         scheduled_departure=scheduled,
         expected_departure=expected,
+        time_zone=zone.key,
         delay_minutes=delay,
         # The IJPP real-time feed (derp-si) predicts delays from vehicle positions (TransitClock).
         delay_source=DelaySource.ESTIMATE if delay is not None else None,
