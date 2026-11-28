@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { Journeys } from '../api/hopwatch-api';
 import { itinerary, journeysPage, leg } from '../test-journeys';
@@ -15,24 +15,39 @@ async function render(props: { journeys: Journeys | null; error?: boolean; selec
   return wrapper;
 }
 
+function rows(wrapper: Awaited<ReturnType<typeof render>>) {
+  return wrapper.findAll('[role="row"].df-anchored');
+}
+
 function button(wrapper: Awaited<ReturnType<typeof render>>, text: string) {
   return wrapper.findAll('button').filter((candidate) => candidate.text() === text);
 }
 
 describe('JourneyList', () => {
-  it('is a section headed "Journeys" with an ordered list of itineraries', async () => {
+  it('is a section headed "Journeys" with a table of itineraries named by the heading', async () => {
     const wrapper = await render({ journeys: journeysPage([itinerary(), itinerary({ id: 'it-2' })]) });
 
     const heading = wrapper.get('h2');
     expect(heading.text()).toBe('Journeys');
     expect(wrapper.get('section').attributes('aria-labelledby')).toBe(heading.attributes('id'));
-    expect(wrapper.findAll('ol > li')).toHaveLength(2);
+    const table = wrapper.get('[role="table"]');
+    expect(table.attributes('aria-labelledby')).toBe(heading.attributes('id'));
+    expect(rows(wrapper)).toHaveLength(2);
+    expect(rows(wrapper)[0].findAll('[role="cell"]')).toHaveLength(3);
+  });
+
+  it('names the columns of the table', async () => {
+    const wrapper = await render({ journeys: journeysPage([itinerary()]) });
+
+    const headerRowId = wrapper.get('[role="table"]').attributes('aria-owns')!.split(' ')[0];
+    const headers = wrapper.get(`[id="${headerRowId}"]`).findAll('[role="columnheader"]');
+    expect(headers.map((header) => header.text())).toEqual(['Journey', 'Legs', 'Actions']);
   });
 
   it('shows the times, duration, transfers and legs of an itinerary', async () => {
     const wrapper = await render({ journeys: journeysPage([itinerary()]) });
 
-    const item = wrapper.get('ol > li');
+    const item = rows(wrapper)[0];
     expect(item.get('.journey-summary').text()).toContain(
       `${time('2026-11-27T09:05:00Z')} – ${time('2026-11-27T10:35:00Z')}`,
     );
@@ -147,14 +162,14 @@ describe('JourneyList', () => {
 
     await (wrapper.vm as unknown as { focusFirst: () => Promise<void> }).focusFirst();
 
-    expect(document.activeElement).toBe(wrapper.findAll('ol > li')[0].element);
+    expect(document.activeElement).toBe(rows(wrapper)[0].get('.journey-cell.journey').element);
   });
 
   it('says so when no journey is found', async () => {
     const wrapper = await render({ journeys: journeysPage([]) });
 
     expect(wrapper.text()).toContain('No journeys found.');
-    expect(wrapper.find('ol').exists()).toBe(false);
+    expect(wrapper.find('[role="table"]').exists()).toBe(false);
   });
 
   it('says journeys are being found until they arrive', async () => {
@@ -191,5 +206,35 @@ describe('JourneyList', () => {
     await buttons[1].trigger('click');
 
     expect(wrapper.emitted('details')).toEqual([['it-2']]);
+  });
+
+  it('highlights the journeys a refresh adds or changes, and nothing on another page', async () => {
+    const wrapper = await render({ journeys: journeysPage([itinerary(), itinerary({ id: 'it-2' })]) });
+
+    await wrapper.setProps({
+      journeys: journeysPage([itinerary(), itinerary({ id: 'it-2', transfers: 2 }), itinerary({ id: 'it-3' })]),
+    });
+
+    const card = (id: string) => wrapper.get(`.journey-card[data-pk="${id}"]`).classes();
+    // The grid renders an added record once its windowing throttle (100 ms) has passed.
+    await vi.waitFor(() => card('it-3'));
+    expect(card('it-1')).not.toContain('state-updated');
+    expect(card('it-1')).not.toContain('state-adding');
+    expect(card('it-2')).toContain('state-updated');
+    expect(card('it-3')).toContain('state-adding');
+
+    await wrapper.setProps({ journeys: journeysPage([itinerary({ id: 'it-4' })]) });
+
+    expect(card('it-4')).not.toContain('state-adding');
+  });
+
+  it('marks the row of the journey shown on the map', async () => {
+    const wrapper = await render({
+      journeys: journeysPage([itinerary(), itinerary({ id: 'it-2' })]),
+      selectedId: 'it-2',
+    });
+
+    expect(wrapper.get('.journey-card[data-pk="it-1"]').classes()).not.toContain('journey-card--selected');
+    expect(wrapper.get('.journey-card[data-pk="it-2"]').classes()).toContain('journey-card--selected');
   });
 });

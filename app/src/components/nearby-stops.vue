@@ -48,7 +48,11 @@
       :label="t('nearby.add')"
       :hint="t('departures.findStopHint')"
       :fetch-choices="fetchAddChoices"
-      :passthrough-attrs="{ 'no-filter': true, 'prepend-inner-icon': 'mdi-plus', 'no-data-text': noDataText }"
+      :fetch-debounce="SEARCH_DEBOUNCE_MS"
+      :min-query-length="MIN_QUERY_LENGTH"
+      :min-query-text="t('departures.findStopHint')"
+      :no-data-text="t('departures.noStopsFound')"
+      :passthrough-attrs="{ 'no-filter': true, 'prepend-inner-icon': 'mdi-plus' }"
       @update:model-value="add"
     />
     <p class="d-sr-only" role="status">{{ announcement }}</p>
@@ -57,7 +61,7 @@
 
 <script setup lang="ts">
 import { lookupChoices } from '@dynamicforms/fastapi-viewsets';
-import { DfSelect } from '@dynamicforms/vuetify-inputs';
+import { DfSelect, type RenderContentNonCallable } from '@dynamicforms/vuetify-inputs';
 import { computed, nextTick, ref, useId, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -73,6 +77,7 @@ const RADIUS_M = 300;
 /** The departures board takes at most this many stops: From and the checked ones. */
 const MAX_BOARD_STOPS = 10;
 const SEARCH_DEBOUNCE_MS = 250;
+const MIN_QUERY_LENGTH = 2;
 
 const MODE_ICONS: Record<TransportMode, string> = {
   rail: 'mdi-train',
@@ -146,29 +151,35 @@ function onKeydown(event: KeyboardEvent, id: string): void {
 }
 
 const searchResults = new Map<string, Stop>();
-let searchSequence = 0;
-const searchText = ref('');
-const noDataText = computed(() =>
-  searchText.value.length < 2 ? t('departures.findStopHint') : t('departures.noStopsFound'),
-);
 
-/** Stops named like `q` (at least two letters), without From and the stops shown. */
+/** Stops named like `q`, without From and the stops shown. */
 async function findStops({ q }: { q?: string }): Promise<Stop[]> {
   const text = (q ?? '').trim();
-  const current = ++searchSequence;
-  searchText.value = text;
-  if (text.length < 2) return [];
-  await new Promise((resolve) => setTimeout(resolve, SEARCH_DEBOUNCE_MS));
-  // A newer search replaces this one; the select drops the stale answer.
-  if (current !== searchSequence) return [];
+  if (text.length < MIN_QUERY_LENGTH) return [];
   const shown = new Set([props.stop.id, ...chips.value.map((chip) => chip.stop.id)]);
   return (await searchStops(text)).filter((stop) => !shown.has(stop.id));
 }
 
+/** The stop name, and its modes on a second line; the hidden comma separates them in the option's name. */
+function stopChoiceText(stop: Stop): RenderContentNonCallable {
+  const modes = modeNames(stop.modes);
+  if (!modes) return stop.name;
+  return {
+    componentName: 'div',
+    componentProps: { class: 'nearby-add-choice' },
+    children: [
+      {
+        componentName: 'div',
+        children: [stop.name, { componentName: 'span', componentProps: { class: 'd-sr-only' }, children: ', ' }],
+      },
+      { componentName: 'div', componentProps: { class: 'text-caption text-medium-emphasis' }, children: modes },
+    ],
+  };
+}
+
 const fetchAddChoices = lookupChoices(findStops, (stop) => {
   searchResults.set(stop.id, stop);
-  const modes = modeNames(stop.modes);
-  return { id: stop.id, text: modes ? t('nearby.addedOption', { name: stop.name, modes }) : stop.name };
+  return { id: stop.id, text: () => stopChoiceText(stop) };
 });
 
 /** Adds the chosen stop for this From stop and checks it while the board has room. */

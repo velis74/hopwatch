@@ -93,6 +93,10 @@
     },
     "hopwatch": {
       "passwords_mismatch": "The passwords do not match."
+    },
+    "vuetify-inputs": {
+      "invalid_date": "Not a valid date.",
+      "invalid_time": "Not a valid time."
     }
   },
   "departures": {
@@ -139,7 +143,15 @@
     "announceOnTime": "{mode} {line} to {headsign}: now on time.",
     "listLabelNearby": "Departures from {stop} and nearby stops",
     "atStop": "From {stop}",
-    "clearStop": "Clear {field}"
+    "clearStop": "Clear {field}",
+    "columns": {
+      "time": "Time",
+      "service": "Line",
+      "delay": "Delay",
+      "platform": "Platform",
+      "operator": "Operator",
+      "stop": "Stop"
+    }
   },
   "map": {
     "title": "Map",
@@ -152,6 +164,10 @@
     "staleSince": "Not updated since {time}"
   },
   "journey": {
+    "columns": {
+      "journey": "Journey",
+      "actions": "Actions"
+    },
     "formLabel": "Journey",
     "from": "From",
     "to": "To",

@@ -244,10 +244,8 @@ onBeforeUnmount(() => {
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 4px;
-  background: #1a1a1a;
+  border-radius: 6px;
   color: #ffffff;
-  font-size: 18px;
-  box-shadow: 0 0 0 2px #1a1a1a;
+  font-size: 16px;
 }
 </style>

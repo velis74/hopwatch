@@ -58,7 +58,7 @@ describe('JourneyResults', () => {
     const wrapper = await render();
 
     expect(requests.map(params)).toEqual([{ from_stop_id: 'si:1', to_stop_id: 'si:2' }]);
-    expect(wrapper.findAll('ol > li')).toHaveLength(2);
+    expect(wrapper.findAll('[role="row"].df-anchored')).toHaveLength(2);
     expect((wrapper.props('itinerary') as { id: string }).id).toBe('it-1');
     expect(wrapper.text()).toMatch(/Updated at \d\d:\d\d\. Refreshes every 30 seconds\./u);
   });
@@ -112,9 +112,9 @@ describe('JourneyResults', () => {
     await settle();
 
     expect(requests.map((request) => request.url.searchParams.get('page_cursor'))).toEqual([null, 'later-1']);
-    const items = wrapper.findAll('ol > li');
+    const items = wrapper.findAll('[role="row"].df-anchored');
     expect(items).toHaveLength(1);
-    expect(document.activeElement).toBe(items[0].element);
+    expect(document.activeElement).toBe(items[0].get('.journey-cell.journey').element);
     expect((wrapper.props('itinerary') as { id: string }).id).toBe('later');
 
     await vi.advanceTimersByTimeAsync(REFRESH_MS);
@@ -186,7 +186,7 @@ describe('JourneyResults', () => {
     await vi.advanceTimersByTimeAsync(REFRESH_MS * 5);
     await settle();
 
-    expect(wrapper.findAll('ol > li')).toHaveLength(1);
+    expect(wrapper.findAll('[role="row"].df-anchored')).toHaveLength(1);
     expect(wrapper.get('.stale-notice [role="alert"]').text()).toMatch(/^Not updated since \d\d:\d\d$/u);
   });
 

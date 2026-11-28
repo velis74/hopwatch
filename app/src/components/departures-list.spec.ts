@@ -1,14 +1,11 @@
-import { config } from '@vue/test-utils';
-import { describe, expect, it } from 'vitest';
+import type { VueWrapper } from '@vue/test-utils';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type { Departure } from '../api/hopwatch-api';
 import i18n from '../i18n';
 import { mountApp } from '../test-utils';
 
 import DeparturesList from './departures-list.vue';
-
-// Render the real list element instead of the test-utils transition stub.
-config.global.stubs = { ...config.global.stubs, 'transition-group': false };
 
 function departure(overrides: Partial<Departure> = {}): Departure {
   return {
@@ -43,20 +40,25 @@ async function render(departures: Departure[], showStop?: boolean) {
   return wrapper;
 }
 
+/** The record rows of the grid, without its header row. */
+function items(wrapper: VueWrapper) {
+  return wrapper.findAll('[role="row"].df-anchored');
+}
+
 describe('DeparturesList', () => {
-  it('is a labelled list with one item per departure', async () => {
+  it('is a labelled table with one row per departure', async () => {
     const wrapper = await render([departure(), departure({ trip_id: 'trip-2', mode: 'bus', line: '6' })]);
 
-    const list = wrapper.get('ul');
-    expect(list.attributes('role')).toBe('list');
-    expect(list.attributes('aria-label')).toBe('Departures from Ljubljana');
-    expect(list.findAll('li')).toHaveLength(2);
+    const table = wrapper.get('[role="table"]');
+    expect(table.attributes('aria-label')).toBe('Departures from Ljubljana');
+    expect(items(wrapper)).toHaveLength(2);
+    expect(items(wrapper)[0].findAll('[role="cell"]').length).toBeGreaterThan(0);
   });
 
   it('shows mode, line, headsign and scheduled time', async () => {
     const wrapper = await render([departure()]);
 
-    const text = wrapper.get('li').text();
+    const text = items(wrapper)[0].text();
     expect(text).toContain('Train');
     expect(text).toContain('IC 502');
     expect(text).toContain('to Koper');
@@ -73,7 +75,7 @@ describe('DeparturesList', () => {
   ] as const)('names the %s mode', async (mode, name) => {
     const wrapper = await render([departure({ mode })]);
 
-    expect(wrapper.get('li').text()).toContain(name);
+    expect(items(wrapper)[0].text()).toContain(name);
   });
 
   it('shows a delay with its source, the expected time and the platform', async () => {
@@ -86,7 +88,7 @@ describe('DeparturesList', () => {
       }),
     ]);
 
-    const text = wrapper.get('li').text();
+    const text = items(wrapper)[0].text();
     expect(text).toContain(`Expected ${time('2026-11-27T10:12:00+01:00')}`);
     expect(text).toContain('+7 min (official)');
     expect(text).toContain('Platform 3');
@@ -102,7 +104,7 @@ describe('DeparturesList', () => {
       }),
     ]);
 
-    const text = wrapper.get('li').text();
+    const text = items(wrapper)[0].text();
     expect(text).toContain('2 min early (riders)');
     expect(wrapper.find('.text-error').exists()).toBe(false);
   });
@@ -116,7 +118,7 @@ describe('DeparturesList', () => {
       }),
     ]);
 
-    const text = wrapper.get('li').text();
+    const text = items(wrapper)[0].text();
     expect(text).toContain('On time (estimate)');
     expect(text).not.toContain('Expected');
   });
@@ -124,7 +126,7 @@ describe('DeparturesList', () => {
   it('shows a delay without a source', async () => {
     const wrapper = await render([departure({ delay_minutes: 4 })]);
 
-    const text = wrapper.get('li').text();
+    const text = items(wrapper)[0].text();
     expect(text).toContain('+4 min');
     expect(text).not.toContain('(');
   });
@@ -136,7 +138,7 @@ describe('DeparturesList', () => {
       }),
     ]);
 
-    const text = wrapper.get('li').text();
+    const text = items(wrapper)[0].text();
     expect(text).toContain('Via Brezovica, Preserje, Borovnica, Logatec');
     expect(text).not.toContain('Postojna');
   });
@@ -155,7 +157,7 @@ describe('DeparturesList', () => {
       true,
     );
 
-    expect(wrapper.findAll('li').map((item) => item.get('.departure-stop').text())).toEqual([
+    expect(items(wrapper).map((item) => item.get('.departure-stop').text())).toEqual([
       'From Ljubljana',
       'From Ljubljana AP',
     ]);
@@ -170,7 +172,7 @@ describe('DeparturesList', () => {
   it('lists the same trip at two stops as two departures', async () => {
     const wrapper = await render([departure(), departure({ stop_id: 'si:3', stop_name: 'Ljubljana AP' })], true);
 
-    expect(wrapper.findAll('li')).toHaveLength(2);
+    expect(items(wrapper)).toHaveLength(2);
   });
 
   it('follows the interface language', async () => {
@@ -179,7 +181,7 @@ describe('DeparturesList', () => {
     i18n.global.locale.value = 'sl';
     await wrapper.vm.$nextTick();
 
-    const text = wrapper.get('li').text();
+    const text = items(wrapper)[0].text();
     expect(text).toContain('Vlak');
     expect(text).not.toContain('Train');
   });
@@ -201,7 +203,7 @@ describe('DeparturesList', () => {
       }),
     ]);
 
-    const [train, bus] = wrapper.findAll('li');
+    const [train, bus] = items(wrapper);
     expect(train.get('.departure-operator').text()).toContain('SŽ - Potniški promet, d.o.o.');
     expect(train.get('.favourite-tag').text()).toBe('Favourite');
     expect(bus.get('.departure-operator').text()).toContain('Arriva d.o.o.');
@@ -212,13 +214,13 @@ describe('DeparturesList', () => {
     const arriva = { id: '1123', name: 'Arriva d.o.o.', url: null };
     const wrapper = await render([departure({ operator: arriva }), departure({ trip_id: 'trip-2', operator: arriva })]);
 
-    const first = wrapper.get('li').get('button');
+    const first = items(wrapper)[0].get('button');
     expect(first.attributes('aria-label')).toBe('Favourite operator: Arriva d.o.o.');
     expect(first.attributes('aria-pressed')).toBe('false');
     await first.trigger('click');
 
     expect(wrapper.findAll('.favourite-tag')).toHaveLength(2);
-    const buttons = wrapper.findAll('li button');
+    const buttons = items(wrapper).flatMap((item) => item.findAll('button'));
     expect(buttons.map((button) => button.attributes('aria-pressed'))).toEqual(['true', 'true']);
     expect(buttons[1].attributes('aria-label')).toBe('Favourite operator: Arriva d.o.o.');
   });
@@ -227,13 +229,13 @@ describe('DeparturesList', () => {
     const wrapper = await render([departure()]);
 
     expect(wrapper.find('.departure-operator').exists()).toBe(false);
-    expect(wrapper.find('li button').exists()).toBe(false);
+    expect(items(wrapper)[0].find('button').exists()).toBe(false);
   });
 
   it('links each departure to the details of its ride, boarding at its stop at the time of the departure', async () => {
     const wrapper = await render([departure({ trip_id: '20261127_14:42_ijpp/1', stop_id: 'si:3' })]);
 
-    const link = wrapper.get('li a.departure-link');
+    const link = items(wrapper)[0].get('a.departure-link');
     expect(link.text()).toBe('Details');
     const main = wrapper.get(`#${link.attributes('aria-describedby')}`);
     expect(main.text()).toContain('IC 502');
@@ -243,5 +245,62 @@ describe('DeparturesList', () => {
       from: 'si:3',
       at: departure().scheduled_departure,
     });
+  });
+  it('names its columns in the interface language', async () => {
+    const wrapper = await render([departure()], true);
+
+    const headers = () => wrapper.findAll('.df-grid.card.header [role="columnheader"]').map((header) => header.text());
+    expect(headers()).toEqual(['Time', 'Line', 'Delay', 'Platform', 'Operator', 'Stop', 'Details']);
+
+    i18n.global.locale.value = 'sl';
+    await wrapper.vm.$nextTick();
+
+    expect(headers()).toContain('Zamuda');
+  });
+
+  it('renders no table without departures', async () => {
+    const wrapper = await render([]);
+
+    expect(wrapper.find('[role="table"]').exists()).toBe(false);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('marks new departures as added and changed ones as updated on refresh', async () => {
+    const wrapper = await render([departure(), departure({ trip_id: 'trip-2', line: '6' })]);
+    const card = (key: string) => wrapper.get(`.df-grid.card[data-pk="${key}"]`);
+    expect(card('si:1:trip-1').classes()).not.toContain('state-adding');
+    vi.useFakeTimers();
+
+    await wrapper.setProps({
+      departures: [
+        departure({ delay_minutes: 5 }),
+        departure({ trip_id: 'trip-2', line: '6' }),
+        departure({ trip_id: 'trip-3', line: '11' }),
+      ],
+    });
+    // The grid renders an added record once its windowing throttle (100 ms) has passed.
+    await vi.waitFor(() => card('si:1:trip-3'));
+
+    expect(card('si:1:trip-3').classes()).toContain('state-adding');
+    expect(card('si:1:trip-1').classes()).toContain('state-updated');
+    expect(card('si:1:trip-2').classes()).not.toContain('state-updated');
+    expect(card('si:1:trip-2').classes()).not.toContain('state-adding');
+
+    vi.advanceTimersByTime(1500);
+    await wrapper.vm.$nextTick();
+    expect(card('si:1:trip-1').classes()).not.toContain('state-updated');
+
+    await wrapper.setProps({
+      departures: [
+        departure({ delay_minutes: 5, platform: '2' }),
+        departure({ trip_id: 'trip-2', line: '6' }),
+        departure({ trip_id: 'trip-3', line: '11' }),
+      ],
+    });
+
+    expect(card('si:1:trip-1').classes()).toContain('state-updated');
   });
 });

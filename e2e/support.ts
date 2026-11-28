@@ -217,14 +217,14 @@ export function departuresBoard(page: Page): Locator {
   return page.getByRole('list', { name: /^Departures from /u });
 }
 
-/** The ordered list of itineraries under the "Journeys" heading. */
+/** The table of itineraries, named by the "Journeys" heading. */
 export function journeysList(page: Page): Locator {
-  return page.getByRole('heading', { name: 'Journeys', exact: true }).locator('xpath=following::ol[1]');
+  return page.getByRole('table', { name: 'Journeys', exact: true });
 }
 
-/** Itineraries of the journey list (its own items, not the legs inside them). */
+/** Rendered itinerary rows of the journey table (not its header row). */
 export function itineraryItems(list: Locator): Locator {
-  return list.locator('xpath=./li');
+  return list.locator('[role="row"].df-anchored');
 }
 
 export function isApiRequest(url: string, pathname: string): boolean {

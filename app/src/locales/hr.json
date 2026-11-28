@@ -93,6 +93,10 @@
     },
     "hopwatch": {
       "passwords_mismatch": "Lozinke se ne podudaraju."
+    },
+    "vuetify-inputs": {
+      "invalid_date": "Datum nije valjan.",
+      "invalid_time": "Vrijeme nije valjano."
     }
   },
   "departures": {
@@ -139,7 +143,15 @@
     "announceOnTime": "{mode} {line} za {headsign}: sada na vrijeme.",
     "listLabelNearby": "Polasci sa stanice {stop} i obližnjih stanica",
     "atStop": "Sa stanice {stop}",
-    "clearStop": "Očisti polje {field}"
+    "clearStop": "Očisti polje {field}",
+    "columns": {
+      "time": "Vrijeme",
+      "service": "Linija",
+      "delay": "Kašnjenje",
+      "platform": "Peron",
+      "operator": "Prijevoznik",
+      "stop": "Stanica"
+    }
   },
   "map": {
     "title": "Karta",
@@ -152,6 +164,10 @@
     "staleSince": "Nije ažurirano od {time}"
   },
   "journey": {
+    "columns": {
+      "journey": "Veza",
+      "actions": "Radnje"
+    },
     "formLabel": "Putovanje",
     "from": "Od",
     "to": "Do",

@@ -1,3 +1,4 @@
+import type { DOMWrapper } from '@vue/test-utils';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { Stop } from '../api/hopwatch-api';
@@ -18,11 +19,16 @@ async function render(initial: Partial<Model> = {}) {
   return wrapper;
 }
 
-function labelled(wrapper: Awaited<ReturnType<typeof render>>, text: string) {
+function labelled(wrapper: Pick<DOMWrapper<Element>, 'findAll' | 'get'>, text: string) {
   // Vuetify renders the field's label twice; only the one shown for the field's current state names the input.
   const label = wrapper.findAll('label[for]').find((candidate) => candidate.text() === text);
   if (!label) throw new Error(`No label ${text}`);
   return wrapper.get(`#${label.attributes('for')}`);
+}
+
+/** The time part of the time field. */
+function timeInput(wrapper: Awaited<ReturnType<typeof render>>) {
+  return wrapper.get('.journey-form-time .df-datetime-time input');
 }
 
 function radio(value: string): HTMLInputElement {
@@ -53,7 +59,7 @@ describe('JourneyForm', () => {
     );
     expect(labels).toEqual(['Leave now', 'Depart at', 'Arrive by']);
     expect(radio('now').checked).toBe(true);
-    expect(wrapper.findAll('label').some((label) => label.text() === 'Time')).toBe(false);
+    expect(wrapper.find('.journey-form-time').exists()).toBe(false);
   });
 
   it('only the To field can be cleared', async () => {
@@ -82,7 +88,10 @@ describe('JourneyForm', () => {
     expect(swap.attributes('disabled')).toBeDefined();
   });
 
-  it.each(['depart', 'arrive'] as const)('asks for a time starting at now for %s', async (mode) => {
+  it.each([
+    ['depart', 'Depart at'],
+    ['arrive', 'Arrive by'],
+  ] as const)('asks for a time starting at now for %s, named by the mode', async (mode, name) => {
     const wrapper = await render();
 
     radio(mode).click();
@@ -90,9 +99,12 @@ describe('JourneyForm', () => {
 
     expect(wrapper.props('timeMode')).toBe(mode);
     expect(wrapper.props('time')).toBe('2026-11-27T09:41');
-    const input = labelled(wrapper, 'Time');
-    expect(input.attributes('type')).toBe('datetime-local');
-    expect((input.element as HTMLInputElement).value).toBe('2026-11-27T09:41');
+    // The radio of the mode carries the same label.
+    const date = labelled(wrapper.get('.journey-form-time'), name);
+    expect(date.attributes('aria-label')).toBe(`${name} Date`);
+    expect((date.element as HTMLInputElement).value).toBe('27/11/2026');
+    expect(timeInput(wrapper).attributes('aria-label')).toBe(`${name} Time`);
+    expect((timeInput(wrapper).element as HTMLInputElement).value).toBe('09:41');
   });
 
   it('keeps a time already chosen', async () => {
@@ -107,9 +119,26 @@ describe('JourneyForm', () => {
   it('takes the typed time', async () => {
     const wrapper = await render({ timeMode: 'depart', time: '2026-11-27T09:41' });
 
-    await labelled(wrapper, 'Time').setValue('2026-11-27T18:30');
+    await timeInput(wrapper).setValue('1830');
+    await timeInput(wrapper).trigger('blur');
+    await flushPromises();
 
     expect(wrapper.props('time')).toBe('2026-11-27T18:30');
+  });
+
+  it('reports unreadable time in the interface language', async () => {
+    const { wrapper } = await mountApp(JourneyForm, {
+      locale: 'sl',
+      models: { from: LJUBLJANA, to: null, timeMode: 'depart', time: '2026-11-27T09:41' },
+    });
+
+    await timeInput(wrapper).trigger('focus');
+    await timeInput(wrapper).setValue('99:99');
+    await timeInput(wrapper).trigger('blur');
+    await flushPromises();
+
+    expect(wrapper.props('time')).toBe('2026-11-27T09:41');
+    expect(wrapper.get('.journey-form-time').text()).toContain('Čas ni veljaven.');
   });
 
   it('submits with the button it is given, only with From', async () => {

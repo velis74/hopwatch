@@ -93,6 +93,10 @@
     },
     "hopwatch": {
       "passwords_mismatch": "Die Passwörter stimmen nicht überein."
+    },
+    "vuetify-inputs": {
+      "invalid_date": "Kein gültiges Datum.",
+      "invalid_time": "Keine gültige Uhrzeit."
     }
   },
   "departures": {
@@ -139,7 +143,15 @@
     "announceOnTime": "{mode} {line} nach {headsign}: jetzt pünktlich.",
     "listLabelNearby": "Abfahrten ab {stop} und Haltestellen in der Nähe",
     "atStop": "Ab {stop}",
-    "clearStop": "{field} leeren"
+    "clearStop": "{field} leeren",
+    "columns": {
+      "time": "Zeit",
+      "service": "Verbindung",
+      "delay": "Verspätung",
+      "platform": "Gleis",
+      "operator": "Verkehrsunternehmen",
+      "stop": "Haltestelle"
+    }
   },
   "map": {
     "title": "Karte",
@@ -152,6 +164,10 @@
     "staleSince": "Nicht aktualisiert seit {time}"
   },
   "journey": {
+    "columns": {
+      "journey": "Verbindung",
+      "actions": "Aktionen"
+    },
     "formLabel": "Reise",
     "from": "Von",
     "to": "Nach",

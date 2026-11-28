@@ -60,17 +60,18 @@ async function planToDestination(page: Page): Promise<Journeys> {
   return journeys;
 }
 
-/** Sets the "Time" field to the given moment's Ljubljana hour and minute, keeping any date it shows. */
-async function setTime(page: Page, target: Date): Promise<void> {
-  const field = page.getByLabel('Time', { exact: true });
+/** Sets the time part of the "Depart at" / "Arrive by" field to the given moment's Ljubljana hour and minute. */
+async function setTime(page: Page, mode: 'Depart at' | 'Arrive by', target: Date): Promise<void> {
+  const field = timeInput(page, mode);
   await expect(field).toBeVisible();
   const { hour, minute } = ljubljanaParts(target);
-  const hhmm = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
-  const current = await field.inputValue();
-  const lastTime = /(\d{1,2}):(\d{2})(?!.*\d{1,2}:\d{2})/;
-  const next = lastTime.test(current) ? current.replace(lastTime, hhmm) : hhmm;
-  await field.fill(next);
+  await field.fill(`${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`);
   await field.press('Tab');
+}
+
+/** The time part of the date and time field shown for `mode`. */
+function timeInput(page: Page, mode: 'Depart at' | 'Arrive by') {
+  return page.getByRole('textbox', { name: `${mode} Time`, exact: true });
 }
 
 /** A moment a few hours from now on the same Ljubljana day, or null late in the evening. */
@@ -99,7 +100,7 @@ test('"From" is the nearest stop and "To" is empty, with "Leave now" chosen', as
   await expect(when.getByRole('radio', { name: 'Leave now', exact: true })).toBeChecked();
   await expect(when.getByRole('radio', { name: 'Depart at', exact: true })).not.toBeChecked();
   await expect(when.getByRole('radio', { name: 'Arrive by', exact: true })).not.toBeChecked();
-  await expect(page.getByLabel('Time', { exact: true })).toHaveCount(0);
+  await expect(page.locator('.journey-form-time')).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'Swap from and to', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Change stop', exact: true })).toHaveCount(0);
   await expect(page.getByLabel('Destination', { exact: true })).toHaveCount(0);
@@ -163,10 +164,10 @@ test('"Arrive by" with a time lists journeys arriving no later than that time', 
   await planToDestination(page);
 
   await page.getByRole('radiogroup', { name: 'When', exact: true }).getByRole('radio', { name: 'Arrive by' }).check();
-  const time = page.getByLabel('Time', { exact: true });
+  const time = timeInput(page, 'Arrive by');
   await expect(time).toBeVisible();
   // The field starts at the current time.
-  const shown = /(\d{1,2}):(\d{2})(?!.*\d{1,2}:\d{2})/.exec(await time.inputValue());
+  const shown = /^(\d{1,2}):(\d{2})/.exec(await time.inputValue());
   expect(shown, 'Time shows hours and minutes').not.toBeNull();
   const now = ljubljanaParts(new Date());
   expect(Math.abs(Number(shown![1]) * 60 + Number(shown![2]) - (now.hour * 60 + now.minute))).toBeLessThanOrEqual(2);
@@ -177,7 +178,7 @@ test('"Arrive by" with a time lists journeys arriving no later than that time', 
     const value = url.searchParams.get('time');
     return isArriveBy(url) && !!value && ljubljanaParts(new Date(value)).hour === hour;
   });
-  await setTime(page, target!);
+  await setTime(page, 'Arrive by', target!);
   const response = await answer;
   const requested = new Date(new URL(response.url()).searchParams.get('time')!);
   expect(ljubljanaParts(requested)).toEqual({
@@ -205,20 +206,20 @@ test('"Depart at" with a time lists journeys leaving from that time', async ({ p
     const value = url.searchParams.get('time');
     return !isArriveBy(url) && !!value && ljubljanaParts(new Date(value)).hour === hour;
   });
-  await setTime(page, target!);
+  await setTime(page, 'Depart at', target!);
   const journeys = await journeysFrom(await answer);
   expect(journeys.itineraries.length).toBeGreaterThan(0);
   for (const itinerary of journeys.itineraries) {
     expect(Date.parse(itinerary.scheduled_departure), itinerary.id).toBeGreaterThanOrEqual(target!.getTime() - 60_000);
   }
 
-  // "Leave now" plans from the current time again, without a Time field.
+  // "Leave now" plans from the current time again, without a time field.
   const nowAnswer = journeysResponse(page, (url) => {
     const value = url.searchParams.get('time');
     return !isArriveBy(url) && (!value || Math.abs(Date.parse(value) - Date.now()) < 5 * 60_000);
   });
   await page.getByRole('radiogroup', { name: 'When', exact: true }).getByRole('radio', { name: 'Leave now' }).check();
-  await expect(page.getByLabel('Time', { exact: true })).toHaveCount(0);
+  await expect(page.locator('.journey-form-time')).toHaveCount(0);
   const current = await journeysFrom(await nowAnswer);
   for (const itinerary of current.itineraries) {
     expect(Date.parse(itinerary.scheduled_departure)).toBeLessThan(target!.getTime());

@@ -12,7 +12,7 @@ function radio(value: string): HTMLInputElement {
 
 /** Opens the language list and returns its options. */
 async function openLanguages(): Promise<HTMLElement[]> {
-  const field = document.querySelector<HTMLElement>('.v-select .v-field')!;
+  const field = document.querySelector<HTMLElement>('.v-autocomplete .v-field')!;
   field.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
   field.click();
   await flushPromises();
@@ -47,9 +47,9 @@ describe('settings-page', () => {
     expect(wrapper.get('h1').text()).toBe('Settings');
     // Until the user chooses, the lively experience is in effect.
     expect(radio('lively').checked).toBe(true);
-    const language = wrapper.get('.v-select');
+    const language = wrapper.get('.v-autocomplete');
     expect(language.text()).toContain('Language');
-    const selection = language.get('.v-select__selection [lang]');
+    const selection = language.get('.v-autocomplete__selection [lang]');
     expect(selection.text()).toBe('English');
     expect(selection.attributes('lang')).toBe('en-GB');
     expect(wrapper.text()).toContain('Saved on this device.');
@@ -94,7 +94,7 @@ describe('settings-page', () => {
     expect(i18n.global.locale.value).toBe('sl');
     expect(wrapper.get('h1').text()).toBe('Nastavitve');
     expect(wrapper.text()).toContain('Shranjeno na tej napravi.');
-    expect(wrapper.get('.v-select__selection [lang]').text()).toBe('Slovenščina');
+    expect(wrapper.get('.v-autocomplete__selection [lang]').text()).toBe('Slovenščina');
     expect(document.documentElement.lang).toBe('sl-SI');
     expect(window.localStorage.getItem('hopwatch.locale')).toBe('sl');
   });

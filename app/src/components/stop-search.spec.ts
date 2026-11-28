@@ -39,11 +39,11 @@ describe('StopSearch', () => {
 
     const label = wrapper.get('label');
     expect(label.text()).toBe('From');
-    const hintId = input
+    const described = input
       .attributes('aria-describedby')!
       .split(' ')
-      .find((id) => id.endsWith('-hint'))!;
-    expect(document.getElementById(hintId)?.textContent?.trim()).toBe('Type at least two letters of the stop name.');
+      .map((id) => document.getElementById(id)?.textContent?.trim());
+    expect(described).toContain('Type at least two letters of the stop name.');
   });
 
   it('searches the typed name and offers the stops found', async () => {
@@ -53,8 +53,10 @@ describe('StopSearch', () => {
     await type(input, ' Lj ');
 
     expect(requests.map((request) => request.url.searchParams.get('q'))).toEqual(['Lj']);
-    // A stop's modes are the subtitle of its option.
-    expect(options()).toEqual(['LjubljanaTrain and Bus', 'Ljubljana Tivoli']);
+    // A stop's modes are the second line of its option, after a comma only screen readers read.
+    expect(options()).toEqual(['Ljubljana, Train and Bus', 'Ljubljana Tivoli']);
+    const modes = document.body.querySelector('.v-overlay-container .v-list-item div.stop-search-modes');
+    expect(modes?.textContent).toBe('Train and Bus');
   });
 
   it("names each option by the stop's name, then its modes after a comma", async () => {
@@ -70,11 +72,13 @@ describe('StopSearch', () => {
   });
 
   it('does not search fewer than two letters', async () => {
+    const requests = mockApi('get', '/stops', [LJUBLJANA]);
     const { input } = await render();
 
     await type(input, 'L');
 
-    expect(options()).toEqual([]);
+    expect(requests).toHaveLength(0);
+    expect(options()).toEqual(['Type at least two letters of the stop name.']);
   });
 
   it('sets the stop the user picks and shows it', async () => {
@@ -93,24 +97,22 @@ describe('StopSearch', () => {
     expect(wrapper.get('.v-autocomplete').text()).toContain('Ljubljana Tivoli');
   });
 
-  it('shows the stop it is given and does not search its name', async () => {
+  it('shows the stop it is given by its name and does not search for it', async () => {
     const requests = mockApi('get', '/stops', [LJUBLJANA]);
-    const { wrapper, input } = await render({ modelValue: LJUBLJANA });
-    expect(wrapper.get('.v-autocomplete').text()).toContain('Ljubljana');
+    const { wrapper } = await render({ modelValue: LJUBLJANA });
+    await flushPromises();
 
-    await type(input, 'Ljubljana');
-
+    expect(wrapper.get('.v-autocomplete .v-chip').text()).toContain('Ljubljana');
     expect(requests).toHaveLength(0);
   });
 
-  it("selects the chosen stop's name on focus, so typing replaces it", async () => {
-    const { input } = await render({ modelValue: LJUBLJANA });
+  it('describes the chosen stop to screen readers', async () => {
+    const { wrapper, input } = await render({ modelValue: LJUBLJANA });
+    expect(input.attributes('aria-description')).toBe('Ljubljana');
 
-    input.element.focus();
-    await flushPromises();
+    await wrapper.setProps({ modelValue: null });
 
-    expect(input.element.value).toBe('Ljubljana');
-    expect([input.element.selectionStart, input.element.selectionEnd]).toEqual([0, 'Ljubljana'.length]);
+    expect(wrapper.get('input').attributes('aria-description')).toBeUndefined();
   });
 
   it('can be cleared with a button in the tab order when asked to', async () => {
@@ -154,7 +156,7 @@ describe('StopSearch', () => {
     mockApi('get', '/stops', [LJUBLJANA]);
     const { input } = await render();
     await type(input, 'Lj');
-    expect(options()).toEqual(['LjubljanaTrain and Bus']);
+    expect(options()).toEqual(['Ljubljana, Train and Bus']);
 
     await type(input, 'L');
 

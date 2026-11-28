@@ -93,6 +93,10 @@
     },
     "hopwatch": {
       "passwords_mismatch": "Лозинке се не поклапају."
+    },
+    "vuetify-inputs": {
+      "invalid_date": "Датум није исправан.",
+      "invalid_time": "Време није исправно."
     }
   },
   "departures": {
@@ -139,7 +143,15 @@
     "announceOnTime": "{mode} {line} за {headsign}: сада на време.",
     "listLabelNearby": "Поласци са станице {stop} и оближњих станица",
     "atStop": "Са станице {stop}",
-    "clearStop": "Обриши поље {field}"
+    "clearStop": "Обриши поље {field}",
+    "columns": {
+      "time": "Време",
+      "service": "Линија",
+      "delay": "Кашњење",
+      "platform": "Перон",
+      "operator": "Превозник",
+      "stop": "Станица"
+    }
   },
   "map": {
     "title": "Мапа",
@@ -152,6 +164,10 @@
     "staleSince": "Није ажурирано од {time}"
   },
   "journey": {
+    "columns": {
+      "journey": "Веза",
+      "actions": "Радње"
+    },
     "formLabel": "Путовање",
     "from": "Од",
     "to": "До",

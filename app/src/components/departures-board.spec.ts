@@ -68,7 +68,9 @@ function announcements(): string {
 }
 
 function departureItems(): string[] {
-  return [...document.body.querySelectorAll('[role="list"] li')].map((item) => item.textContent ?? '');
+  return [...document.body.querySelectorAll('[role="table"] [role="row"].df-anchored')].map(
+    (item) => item.textContent ?? '',
+  );
 }
 
 async function advance(ms: number): Promise<void> {
@@ -94,7 +96,7 @@ describe('DeparturesBoard', () => {
       ['stop_id', 'si:1'],
       ['window_minutes', '60'],
     ]);
-    expect(wrapper.get('[role="list"]').attributes('aria-label')).toBe('Departures from Ljubljana');
+    expect(wrapper.get('[role="table"]').attributes('aria-label')).toBe('Departures from Ljubljana');
     expect(departureItems()).toHaveLength(1);
     expect(departureItems()[0]).toContain('IC 502');
     expect(departureItems()[0]).not.toContain('From Ljubljana');
@@ -109,7 +111,7 @@ describe('DeparturesBoard', () => {
     const { wrapper } = await render({ stopIds: ['si:1', 'si:3'] });
 
     expect(departures[0].url.searchParams.getAll('stop_id')).toEqual(['si:1', 'si:3']);
-    expect(wrapper.get('[role="list"]').attributes('aria-label')).toBe('Departures from Ljubljana and nearby stops');
+    expect(wrapper.get('[role="table"]').attributes('aria-label')).toBe('Departures from Ljubljana and nearby stops');
     expect(departureItems()[0]).toContain('From Ljubljana');
     expect(departureItems()[1]).toContain('From Ljubljana AP');
   });
