@@ -18,6 +18,7 @@ function departure(overrides: Partial<Departure> = {}): Departure {
     operator: null,
     scheduled_departure: '2026-11-27T10:05:00+01:00',
     expected_departure: null,
+    time_zone: 'Europe/Ljubljana',
     delay_minutes: null,
     delay_source: null,
     platform: null,
@@ -30,6 +31,7 @@ function time(iso: string): string {
   return new Intl.DateTimeFormat('en-GB', {
     hour: '2-digit',
     minute: '2-digit',
+    timeZone: 'Europe/Ljubljana',
   }).format(new Date(iso));
 }
 
@@ -219,7 +221,7 @@ describe('DeparturesList', () => {
     expect(first.attributes('aria-pressed')).toBe('false');
     await first.trigger('click');
 
-    expect(wrapper.findAll('.favourite-tag')).toHaveLength(2);
+    expect(items(wrapper).flatMap((item) => item.findAll('.favourite-tag'))).toHaveLength(2);
     const buttons = items(wrapper).flatMap((item) => item.findAll('button'));
     expect(buttons.map((button) => button.attributes('aria-pressed'))).toEqual(['true', 'true']);
     expect(buttons[1].attributes('aria-label')).toBe('Favourite operator: Arriva d.o.o.');

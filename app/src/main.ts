@@ -9,6 +9,8 @@ import { createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 
 import App from './app.vue';
+import FavouriteOperatorButton from './components/favourite-operator-button.vue';
+import OperatorName from './components/operator-name.vue';
 import i18n, { VUETIFY_MESSAGES } from './i18n';
 import router from './router';
 
@@ -44,4 +46,7 @@ createApp(App)
   })
   .use(DynamicFormsModalFormKit, { registerComponents: true, registerVuetifyComponents: true })
   .use(DynamicFormsVueGrid, { registerComponents: true })
+  // Grid cell content names these components.
+  .component('OperatorName', OperatorName)
+  .component('FavouriteOperatorButton', FavouriteOperatorButton)
   .mount('#app');

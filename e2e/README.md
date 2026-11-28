@@ -7,13 +7,14 @@ WCAG 2.2 A/AA violations).
 | File | Covers |
 | --- | --- |
 | `experience.e2e.ts` | experience dialog, its persistence, settings (experience, language), reduced motion |
-| `departures.e2e.ts` | departures from the nearest stop, "From" stop search, map, live region, refresh |
+| `departures.e2e.ts` | departures from the nearest stop, "From" stop search, map and its attribution, live region, refresh |
 | `journeys.e2e.ts` | "From"/"To" form, journey list, "Earlier"/"Later", "Depart at"/"Arrive by", swap, map, clearing "To" |
 | `nearby-stops.e2e.ts` | "Nearby stops" chips, merged departures, "Add a stop", "Include nearby stops by default" setting |
 | `refresh.e2e.ts` | refresh every 30 s, on visibility and after a frozen page; "Not updated since" (fake clock) |
 | `favourites.e2e.ts` | marking an operator as favourite from a departure, "Favourite" tag, "Favourite operators" setting |
 | `accounts.e2e.ts` | sign-up, log-out, failed and keyboard log-in, social login buttons |
 | `details.e2e.ts` | ride details (stop timeline, entry and exit, travel time, amenities, ticket), journey details (rides, transfers with waiting time, walks, totals), unknown ride |
+| `about.e2e.ts` | link from the results to the About page, every data source, map and app licence link |
 | `layout.e2e.ts` | wide screens: form on top, list and sticky map side by side, details in the list column; narrow screens: filter → list → details and back, collapsed form summary |
 | `support.ts` | fixture constants and shared helpers |
 

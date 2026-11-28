@@ -7,7 +7,9 @@ import { mountApp } from '../test-utils';
 import JourneyList from './journey-list.vue';
 
 function time(iso: string): string {
-  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Ljubljana' }).format(
+    new Date(iso),
+  );
 }
 
 async function render(props: { journeys: Journeys | null; error?: boolean; selectedId?: string | null }) {
@@ -128,7 +130,7 @@ describe('JourneyList', () => {
       selectedId: 'it-2',
     });
 
-    const buttons = button(wrapper, 'Show on map');
+    const buttons = rows(wrapper).map((row) => row.findAll('button').find((entry) => entry.text() === 'Show on map')!);
     expect(buttons.map((entry) => entry.attributes('aria-pressed'))).toEqual(['false', 'true']);
     const summary = wrapper.findAll('.journey-summary')[0];
     expect(buttons[0].attributes('aria-describedby')).toBe(summary.attributes('id'));

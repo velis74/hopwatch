@@ -8,7 +8,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from hopwatch.api.departures.mapping import DelaySource, transport_mode
+from hopwatch.api.departures.mapping import DelaySource, stop_zone, transport_mode
 from hopwatch.api.geometry import simplify
 from hopwatch.api.operators.mapping import Operator, operator_from
 from hopwatch.motis import JsonObject
@@ -36,6 +36,13 @@ class LegStop(BaseModel):
     scheduled: datetime = Field(description="Departure (at the start) or arrival (at the end) in the timetable, UTC.")
     expected: datetime | None = Field(
         description="That time expected from real-time data, UTC; null without real-time data."
+    )
+    time_zone: str = Field(
+        description=(
+            "IANA time zone of the stop (`Europe/Ljubljana`), in which `scheduled` and `expected` are shown as local "
+            "transport time; for a place that is not a stop, the zone of the other end of the leg; `UTC` when the "
+            "timetable names no known zone."
+        )
     )
     platform: str | None = Field(description="Platform or track; null when the timetable publishes none.")
 
@@ -71,13 +78,29 @@ class Itinerary(BaseModel):
     """One way of getting from the start to the destination."""
 
     id: str = Field(description="Identifier of the itinerary; the same for the same trips between the same stops.")
-    scheduled_departure: datetime = Field(description="Departure from the start in the timetable, UTC.")
-    expected_departure: datetime | None = Field(
-        description="Departure expected from real-time data, UTC; null when no leg has real-time data."
+    scheduled_departure: datetime = Field(
+        description=(
+            "Departure from the start in the timetable, UTC (local time at the start in the first leg's "
+            "`from.time_zone`)."
+        )
     )
-    scheduled_arrival: datetime = Field(description="Arrival at the destination in the timetable, UTC.")
+    expected_departure: datetime | None = Field(
+        description=(
+            "Departure expected from real-time data, UTC (local time at the start in the first leg's "
+            "`from.time_zone`); null when no leg has real-time data."
+        )
+    )
+    scheduled_arrival: datetime = Field(
+        description=(
+            "Arrival at the destination in the timetable, UTC (local time at the destination in the last leg's "
+            "`to.time_zone`)."
+        )
+    )
     expected_arrival: datetime | None = Field(
-        description="Arrival expected from real-time data, UTC; null when no leg has real-time data."
+        description=(
+            "Arrival expected from real-time data, UTC (local time at the destination in the last leg's "
+            "`to.time_zone`); null when no leg has real-time data."
+        )
     )
     duration_minutes: int = Field(
         description="Time from departure to arrival in whole minutes, by the expected times where known."
@@ -134,10 +157,10 @@ def _minutes(expected: datetime | None, scheduled: datetime | None) -> int | Non
     return round((expected - scheduled).total_seconds() / 60)
 
 
-def leg_stop(place: JsonObject, time_key: str, fallback: str | None, real_time: bool) -> LegStop:
+def leg_stop(place: JsonObject, time_key: str, fallback: str | None, real_time: bool, zone: str | None) -> LegStop:
     """
     The start (`time_key` "departure") or end ("arrival") of a leg; `fallback` is the leg's scheduled start or end,
-    used where the place has no time.
+    used where the place has no time, and `zone` the MOTIS time zone used where the place has none.
     """
     scheduled_key = f"scheduled{time_key.capitalize()}"
     scheduled = _time(place.get(scheduled_key)) or _time(fallback) or _time(place.get(time_key))
@@ -148,6 +171,7 @@ def leg_stop(place: JsonObject, time_key: str, fallback: str | None, real_time: 
         lon=place["lon"],
         scheduled=scheduled,
         expected=_time(place.get(time_key)) if real_time else None,
+        time_zone=stop_zone(place.get("tz") or zone).key,
         platform=place.get("track") or place.get("scheduledTrack") or None,
     )
 
@@ -156,8 +180,8 @@ def leg_from(leg: JsonObject) -> Leg:
     """The leg of a MOTIS itinerary leg."""
     walk = leg.get("mode") == "WALK"
     real_time = bool(leg.get("realTime")) and not walk
-    start = leg_stop(leg["from"], "departure", leg.get("scheduledStartTime"), real_time)
-    end = leg_stop(leg["to"], "arrival", leg.get("scheduledEndTime"), real_time)
+    start = leg_stop(leg["from"], "departure", leg.get("scheduledStartTime"), real_time, leg["to"].get("tz"))
+    end = leg_stop(leg["to"], "arrival", leg.get("scheduledEndTime"), real_time, leg["from"].get("tz"))
     delay = _minutes(start.expected, start.scheduled)
     if delay is None:
         delay = _minutes(end.expected, end.scheduled)

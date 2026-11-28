@@ -19,6 +19,7 @@ function departure(overrides: Partial<Departure> = {}): Departure {
     trip_id: 'trip-1',
     stop_id: 'si:1',
     stop_name: 'Ljubljana',
+    time_zone: 'Europe/Ljubljana',
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',

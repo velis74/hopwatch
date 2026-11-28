@@ -12,18 +12,28 @@
         <div>
           <dt>{{ t('ride.departure') }}</dt>
           <dd>
-            {{ formatTime(itinerary.scheduled_departure) }}
-            <span v-if="expected(itinerary.expected_departure, itinerary.scheduled_departure)">
-              {{ t('departures.expected', { time: formatTime(itinerary.expected_departure as string) }) }}
+            {{ formatTime(itinerary.scheduled_departure, departureZone(itinerary)) }}
+            <span
+              v-if="expected(itinerary.expected_departure, itinerary.scheduled_departure, departureZone(itinerary))"
+            >
+              {{
+                t('departures.expected', {
+                  time: formatTime(itinerary.expected_departure as string, departureZone(itinerary)),
+                })
+              }}
             </span>
           </dd>
         </div>
         <div>
           <dt>{{ t('ride.arrival') }}</dt>
           <dd>
-            {{ formatTime(itinerary.scheduled_arrival) }}
-            <span v-if="expected(itinerary.expected_arrival, itinerary.scheduled_arrival)">
-              {{ t('departures.expected', { time: formatTime(itinerary.expected_arrival as string) }) }}
+            {{ formatTime(itinerary.scheduled_arrival, arrivalZone(itinerary)) }}
+            <span v-if="expected(itinerary.expected_arrival, itinerary.scheduled_arrival, arrivalZone(itinerary))">
+              {{
+                t('departures.expected', {
+                  time: formatTime(itinerary.expected_arrival as string, arrivalZone(itinerary)),
+                })
+              }}
             </span>
           </dd>
         </div>
@@ -69,7 +79,7 @@ import type { Leg } from '../api/hopwatch-api';
 import JourneyRideLeg from '../components/journey-ride-leg.vue';
 import { itineraryRoute } from '../composables/map-route';
 import { MODE_ICONS, useRideText } from '../composables/use-ride-text';
-import { useTimeFormat } from '../composables/use-time-format';
+import { arrivalZone, departureZone, useTimeFormat } from '../composables/use-time-format';
 import { useTripDetailsStore } from '../stores/trip-details';
 
 type Step = { kind: 'leg'; key: string; leg: Leg } | { kind: 'transfer'; key: string; stop: string; minutes: number };
@@ -115,8 +125,8 @@ const steps = computed<Step[]>(() => {
   return list;
 });
 
-function expected(value: string | null, scheduled: string): boolean {
-  return value !== null && formatTime(value) !== formatTime(scheduled);
+function expected(value: string | null, scheduled: string, timeZone: string | undefined): boolean {
+  return value !== null && formatTime(value, timeZone) !== formatTime(scheduled, timeZone);
 }
 
 function walkText(leg: Leg): string {

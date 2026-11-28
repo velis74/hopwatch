@@ -2,7 +2,17 @@ import type { Itinerary, Journeys, Leg, LegStop, Trip, TripStop } from './api/ho
 
 /** Test data of the journey specs. */
 export function legStop(name: string, scheduled: string, overrides: Partial<LegStop> = {}): LegStop {
-  return { id: `id:${name}`, name, lat: 46, lon: 14.5, scheduled, expected: null, platform: null, ...overrides };
+  return {
+    id: `id:${name}`,
+    name,
+    lat: 46,
+    lon: 14.5,
+    scheduled,
+    expected: null,
+    time_zone: 'Europe/Ljubljana',
+    platform: null,
+    ...overrides,
+  };
 }
 
 export function leg(overrides: Partial<Leg> = {}): Leg {
@@ -86,6 +96,7 @@ export function tripStop(
     expected_arrival: null,
     scheduled_departure: at(departure),
     expected_departure: null,
+    time_zone: 'Europe/Ljubljana',
     delay_minutes: null,
     delay_source: null,
     platform: null,

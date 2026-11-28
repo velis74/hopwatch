@@ -87,34 +87,42 @@ test.describe('wide screen', () => {
     await expectNoSeriousViolations(page);
   });
 
-  test('the map stays in view at the full height below the app bar while the list scrolls', async ({ page }) => {
+  test('the list scrolls its rows inside its table while the map stays in view beside it', async ({ page }) => {
     test.skip(!inServiceHours(), 'the departures list is empty at this hour');
-    await expect(departureItems(departuresList(page)).first()).toBeVisible();
+    const list = departuresList(page);
+    await expect(departureItems(list).first()).toBeVisible();
     const map = mapRegion(page);
     await expect(map).toBeVisible();
-    // Scrolled while the list still reaches below the viewport: past the end of the list the map leaves with it.
-    const viewport = page.viewportSize()!;
-    const listBox = await boxOf(departuresList(page));
-    const distance = Math.min(2000, Math.floor(listBox.y + listBox.height - viewport.height - 20));
-    test.skip(distance < 200, 'the list is too short to scroll');
-    const needed = (await boxOf(map)).y - (await appBarBottom(page));
-    test.skip(distance < needed, 'the list ends before the map reaches the app bar');
+    const rows = list.getByRole('rowgroup');
+    const overflow = await rows.evaluate((element) => element.scrollHeight - element.clientHeight);
+    test.skip(overflow < 200, 'the list is too short to scroll');
 
-    // The wheel over the map zooms the map; the page scrolls with the wheel over the list.
-    await page.mouse.move(listBox.x + listBox.width / 2, Math.min(listBox.y + 20, viewport.height - 20));
-    await page.mouse.wheel(0, distance);
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+    // The page scrolls the list column up to the app bar: the list and the map fill the viewport below it.
+    const viewport = page.viewportSize()!;
     const top = await appBarBottom(page);
+    const distance = Math.round((await boxOf(map)).y - top);
+    await page.evaluate((by) => window.scrollBy(0, by), distance);
     await expect
       .poll(async () => Math.round((await boxOf(map)).y), {
         message: 'map sticks below the app bar',
       })
       .toBeLessThanOrEqual(Math.round(top) + 2);
-    const box = await boxOf(map);
-    expect(box.y + box.height, 'the map reaches the bottom of the viewport').toBeGreaterThanOrEqual(
+    const mapBox = await boxOf(map);
+    expect(mapBox.y, 'the map is not under the app bar').toBeGreaterThanOrEqual(top - 2);
+    expect(mapBox.y + mapBox.height, 'the map reaches the bottom of the viewport').toBeGreaterThanOrEqual(
       viewport.height - 2,
     );
-    expect(box.y, 'the map is not under the app bar').toBeGreaterThanOrEqual(top - 2);
+    const listBox = await boxOf(list);
+    expect(listBox.y + listBox.height, 'the whole table is in the viewport').toBeLessThanOrEqual(viewport.height + 2);
+
+    // The wheel over the rows scrolls the rows; the page and the map stay where they are.
+    const scrollY = await page.evaluate(() => window.scrollY);
+    const rowsBox = await boxOf(rows);
+    await page.mouse.move(rowsBox.x + rowsBox.width / 2, rowsBox.y + Math.min(rowsBox.height / 2, 100));
+    await page.mouse.wheel(0, 150);
+    await expect.poll(() => rows.evaluate((element) => element.scrollTop)).toBeGreaterThan(50);
+    expect(await page.evaluate(() => window.scrollY), 'the page does not scroll with the rows').toBe(scrollY);
+    expect(Math.round((await boxOf(map)).y), 'the map stays in view').toBe(Math.round(mapBox.y));
   });
 
   test('journeys and the map are side by side', async ({ page }) => {

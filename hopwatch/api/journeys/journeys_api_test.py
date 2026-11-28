@@ -171,6 +171,8 @@ def test_openapi_documents_the_endpoint(api):
     leg = schema["components"]["schemas"]["Leg"]
     assert "from" in leg["properties"]
     assert all(field.get("description") for field in leg["properties"].values())
+    leg_stop = schema["components"]["schemas"]["LegStop"]["properties"]
+    assert "IANA time zone" in leg_stop["time_zone"]["description"]
 
 
 def test_ride_legs_name_their_operator(api, motis):

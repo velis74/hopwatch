@@ -87,6 +87,23 @@ def test_departure_serialises_times_with_offset():
     assert data["delay_source"] == "estimate"
 
 
+def test_departure_names_the_time_zone_of_the_stop():
+    stop_time = sample("stoptimes.json")["stopTimes"][0]
+    stop_time["place"]["tz"] = "Europe/Ljubljana"
+    data = departure_from(stop_time, []).model_dump(mode="json")
+    assert data["time_zone"] == "Europe/Ljubljana"
+    assert data["scheduled_departure"] == "2026-11-27T11:08:00+01:00"
+
+
+@pytest.mark.parametrize("zone", [None, "", "Nowhere/Atlantis"])
+def test_departure_without_a_known_time_zone_is_in_utc(zone):
+    stop_time = sample("stoptimes.json")["stopTimes"][0]
+    stop_time["place"]["tz"] = zone
+    departure = departure_from(stop_time, [])
+    assert departure.time_zone == "UTC"
+    assert departure.scheduled_departure.isoformat() == "2026-11-27T10:08:00+00:00"
+
+
 def test_early_departure_has_negative_delay():
     stop_time = sample("stoptimes.json")["stopTimes"][0]
     stop_time["place"]["departure"] = "2026-11-27T10:07:00Z"

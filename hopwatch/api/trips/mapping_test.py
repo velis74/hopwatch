@@ -116,5 +116,18 @@ def test_legs_joined_at_the_shared_stop():
     assert [stop.model_dump() for stop in joined.stops] == [stop.model_dump() for stop in whole.stops]
 
 
+def test_stops_name_their_time_zone():
+    data = detailed()
+    data["legs"][0]["to"]["tz"] = "Europe/Budapest"
+    data["legs"][0]["intermediateStops"][0]["tz"] = "Nowhere/Atlantis"
+
+    trip = trip_from(data, TRIP_ID, now=BEFORE_LJUBLJANA)
+
+    assert trip.stops[0].time_zone == "Europe/Belgrade"
+    assert trip.stops[1].time_zone == "UTC"
+    assert trip.stops[1].scheduled_departure.utcoffset() == timedelta(0)
+    assert trip.stops[-1].time_zone == "Europe/Budapest"
+
+
 def test_no_legs():
     assert trip_from({"legs": []}, TRIP_ID) is None

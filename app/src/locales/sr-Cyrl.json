@@ -37,6 +37,9 @@
     },
     "journey": {
       "title": "Детаљи путовања"
+    },
+    "about": {
+      "title": "О апликацији Hopwatch"
     }
   },
   "settings": {
@@ -118,7 +121,6 @@
     "empty": "Нема полазака у наредних {minutes} минута.",
     "unavailable": "Поласци тренутно нису доступни. Покушајте поново касније.",
     "updatedAt": "Ажурирано у {time}. Освежава се сваких 30 секунди.",
-    "dataAttribution": "Подаци о редовима вожње:",
     "toHeadsign": "за {headsign}",
     "scheduled": "По реду вожње {time}",
     "expected": "Очекивано {time}",
@@ -363,5 +365,18 @@
     "RecordCount": "Записа: {count}",
     "RecordCountOfTotal": "{count} од {total} записа",
     "NullValue": "празно"
+  },
+  "about": {
+    "summary": "Hopwatch приказује наредне поласке аутобуса и возова са станица у вашој близини, станице сваке вожње и везе између два места, са кашњењима у реалном времену где их превозници објављују.",
+    "sourcesHeading": "Извори података и навођење ауторства",
+    "timetablesHeading": "Редови вожње и подаци у реалном времену",
+    "timetables": "Редови вожње и подаци у реалном времену: {dujpp} и {sz}, под лиценцом {licence}.",
+    "mapHeading": "Карта",
+    "mapData": "Подаци карте {osm}, доступни под лиценцом {odbl}.",
+    "odbl": "Open Database Licence (ODbL)",
+    "mapTiles": "Векторске плочице и стил карте {openmaptiles}, сервира их {openfreemap}.",
+    "appHeading": "Лиценца апликације Hopwatch",
+    "appLicence": "Hopwatch је софтвер отвореног кода под лиценцом MIT: {repository}.",
+    "repository": "Изворни код апликације Hopwatch на GitHub-у"
   }
 }

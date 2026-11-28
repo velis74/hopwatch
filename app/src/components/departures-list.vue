@@ -1,96 +1,20 @@
 <template>
   <div
     v-if="departures.length"
-    ref="root"
     class="departures-list"
     :class="[`departures-list--${layout}`, { 'departures-list--stops': showStop }]"
+    :style="{ '--departures-list-content-height': `${contentHeight}px` }"
   >
     <df-grid
+      v-model:active-columns="layout"
       :columns="columns"
-      :active-columns="layout"
       :records="rows"
       key-field="key"
       :aria-label="label"
       :recently-added="recentlyAdded"
-      :estimated-row-height="layout === 'wide' ? 68 : 150"
+      :estimated-row-height="estimatedRowHeight"
       class="departures-grid"
-    >
-      <template #item="{ item, index, cellAttrs }">
-        <div
-          class="df-grid card departure-card"
-          role="none"
-          :class="[
-            `departures-${layout}`,
-            index % 2 === 0 ? 'even' : 'odd',
-            {
-              'state-adding': recentlyAdded.isPendingAdd(item.key),
-              'state-updated': recentlyAdded.isPendingUpdate(item.key),
-            },
-          ]"
-          :data-pk="item.key"
-          :data-idx="index"
-        />
-        <div v-bind="cellAttrs" class="df-grid cell time">
-          <span>{{ t('departures.scheduled', { time: formatTime(item.scheduled_departure) }) }}</span>
-          <span v-if="item.expected_departure && item.delay_minutes !== 0">
-            {{ t('departures.expected', { time: formatTime(item.expected_departure) }) }}
-          </span>
-        </div>
-        <div v-bind="cellAttrs" class="df-grid cell service">
-          <span :id="mainId(item)" class="departure-name">
-            <v-icon :icon="MODE_ICONS[item.mode as TransportMode]" aria-hidden="true" />
-            <span class="departure-mode text-body-2 text-medium-emphasis">
-              {{ t(`departures.modes.${item.mode}`) }}
-            </span>
-            <strong class="departure-line">{{ item.line }}</strong>
-            <span class="departure-headsign">{{ t('departures.toHeadsign', { headsign: item.headsign }) }}</span>
-          </span>
-          <span v-if="item.next_stops.length" class="departure-via text-body-2 text-medium-emphasis">
-            {{ t('departures.via', { stops: item.next_stops.slice(0, VIA_STOPS).join(', ') }) }}
-          </span>
-        </div>
-        <div v-bind="cellAttrs" class="df-grid cell delay text-body-2">
-          <span v-if="item.delay_minutes !== null" :class="delayClass(item.delay_minutes)">
-            <v-icon
-              v-if="item.delay_source"
-              icon="mdi-access-point"
-              size="small"
-              aria-hidden="true"
-              class="decorative-pulse"
-            />
-            {{ delayText(item.delay_minutes) }}
-            <template v-if="item.delay_source">
-              {{ t('departures.delaySource', { source: t(`departures.sources.${item.delay_source}`) }) }}
-            </template>
-          </span>
-        </div>
-        <div v-bind="cellAttrs" class="df-grid cell platform text-body-2">
-          <span v-if="item.platform">{{ t('departures.platform', { platform: item.platform }) }}</span>
-        </div>
-        <div v-bind="cellAttrs" class="df-grid cell operator text-body-2">
-          <span v-if="item.operator" class="departure-operator">
-            <operator-name :operator="item.operator" />
-            <favourite-operator-button :operator="item.operator" />
-          </span>
-        </div>
-        <div v-if="showStop" v-bind="cellAttrs" class="df-grid cell stop departure-stop text-body-2">
-          {{ t('departures.atStop', { stop: item.stop_name }) }}
-        </div>
-        <div v-bind="cellAttrs" class="df-grid cell actions">
-          <v-btn
-            :to="rideLocation(item)"
-            size="small"
-            variant="tonal"
-            color="primary"
-            append-icon="mdi-chevron-right"
-            :aria-describedby="mainId(item)"
-            class="departure-link"
-          >
-            {{ t('journey.details') }}
-          </v-btn>
-        </div>
-      </template>
-    </df-grid>
+    />
   </div>
 </template>
 
@@ -101,21 +25,23 @@ import {
   type RowValue,
   useRecentlyAdded,
 } from '@dynamicforms/vue-grid';
-import { computed, onBeforeUnmount, ref, useId, watch } from 'vue';
+import { RenderableValue, type RenderContentNonCallable, type SimpleComponentDef } from '@dynamicforms/vuetify-inputs';
+import { computed, ref, useId, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import type { RouteLocationRaw } from 'vue-router';
+import { type RouteLocationRaw } from 'vue-router';
 
 import type { Departure, TransportMode } from '../api/hopwatch-api';
 import { useTimeFormat } from '../composables/use-time-format';
-
-import FavouriteOperatorButton from './favourite-operator-button.vue';
-import OperatorName from './operator-name.vue';
 
 const props = defineProps<{ departures: Departure[]; label: string; showStop?: boolean }>();
 
 const { t } = useI18n();
 const formatTime = useTimeFormat();
 const idPrefix = useId();
+
+// Cell content names its components; the application registers them globally.
+const OPERATOR_NAME = 'OperatorName';
+const FAVOURITE_OPERATOR_BUTTON = 'FavouriteOperatorButton';
 
 const MODE_ICONS: Record<TransportMode, string> = {
   rail: 'mdi-train',
@@ -125,8 +51,6 @@ const MODE_ICONS: Record<TransportMode, string> = {
 };
 
 const VIA_STOPS = 4;
-/** Width (px) of the list from which each departure is one table line. */
-const WIDE_FROM = 720;
 /** How long (ms) a new or changed departure keeps its row state. */
 const ROW_STATE_MS = 1500;
 
@@ -136,6 +60,13 @@ const rows = computed<RowValue[]>(() =>
   props.departures.map((departure) => ({ ...departure, key: departureKey(departure) })),
 );
 const recentlyAdded = useRecentlyAdded(rows, 'key');
+
+/** The responsive layout the grid chose for its width. */
+const layout = ref('wide');
+
+const estimatedRowHeight = computed(() => (layout.value === 'wide' ? 68 : 150));
+/** Estimated height (px) of the header and every row; a parent may size the list by it. */
+const contentHeight = computed(() => (layout.value === 'wide' ? 40 : 0) + rows.value.length * estimatedRowHeight.value);
 
 watch(
   () => props.departures,
@@ -154,40 +85,139 @@ watch(
   },
 );
 
+type Content = RenderContentNonCallable | null | false | undefined;
+
+function element(componentName: string, componentProps: SimpleComponentDef['componentProps'], ...children: Content[]) {
+  return {
+    componentName,
+    componentProps,
+    children: children.filter((child): child is RenderContentNonCallable => !!child),
+  } satisfies SimpleComponentDef;
+}
+
+/** A cell: a `div` with `children`. */
+function cell(...children: Content[]): RenderableValue {
+  return new RenderableValue(element('div', {}, ...children));
+}
+
+function icon(name: string, componentProps: SimpleComponentDef['componentProps'] = {}): SimpleComponentDef {
+  return element('VIcon', { icon: name, 'aria-hidden': 'true', ...componentProps });
+}
+
+/** Keeps a click on a control of a row from also being a click on the row. */
+const stopPropagation = (event: Event) => event.stopPropagation();
+
+function renderTime(_value: unknown, row: RowValue): RenderableValue {
+  return cell(
+    element('span', {}, t('departures.scheduled', { time: formatTime(row.scheduled_departure, row.time_zone) })),
+    row.expected_departure &&
+      row.delay_minutes !== 0 &&
+      element('span', {}, t('departures.expected', { time: formatTime(row.expected_departure, row.time_zone) })),
+  );
+}
+
+function renderService(_value: unknown, row: RowValue): RenderableValue {
+  return cell(
+    element(
+      'span',
+      { id: mainId(row), class: 'departure-name' },
+      icon(MODE_ICONS[row.mode as TransportMode]),
+      element('span', { class: 'departure-mode text-body-2 text-medium-emphasis' }, t(`departures.modes.${row.mode}`)),
+      element('strong', { class: 'departure-line' }, row.line),
+      element('span', { class: 'departure-headsign' }, t('departures.toHeadsign', { headsign: row.headsign })),
+    ),
+    row.next_stops.length > 0 &&
+      element(
+        'span',
+        { class: 'departure-via text-body-2 text-medium-emphasis' },
+        t('departures.via', { stops: row.next_stops.slice(0, VIA_STOPS).join(', ') }),
+      ),
+  );
+}
+
+function renderDelay(_value: unknown, row: RowValue): RenderableValue {
+  const minutes: number | null = row.delay_minutes;
+  if (minutes === null) return cell();
+  const source = row.delay_source
+    ? ` ${t('departures.delaySource', { source: t(`departures.sources.${row.delay_source}`) })}`
+    : '';
+  return cell(
+    element(
+      'span',
+      { class: delayClass(minutes) },
+      row.delay_source && icon('mdi-access-point', { size: 'small', class: 'decorative-pulse' }),
+      `${delayText(minutes)}${source}`,
+    ),
+  );
+}
+
+function renderOperator(_value: unknown, row: RowValue): RenderableValue {
+  if (!row.operator) return cell();
+  return cell(
+    element(
+      'span',
+      { class: 'departure-operator' },
+      element(OPERATOR_NAME, { operator: row.operator }),
+      element(FAVOURITE_OPERATOR_BUTTON, { operator: row.operator, onClick: stopPropagation }),
+    ),
+  );
+}
+
+function renderDetails(_value: unknown, row: RowValue): RenderableValue {
+  return cell(
+    element(
+      'VBtn',
+      {
+        to: rideLocation(row),
+        size: 'small',
+        variant: 'tonal',
+        color: 'primary',
+        appendIcon: 'mdi-chevron-right',
+        'aria-describedby': mainId(row),
+        class: 'departure-link',
+        onClick: stopPropagation,
+      },
+      t('journey.details'),
+    ),
+  );
+}
+
 const columns = computed<ResponsiveColumnDefinitions>(() => {
   const unsorted = { sortable: false } as const;
+  const secondary = { ...unsorted, cssClass: 'text-body-2' } as const;
+  // A column rendered from the whole record has rendererOptions, so that its renderer also gets the records whose
+  // field of the column's name is empty.
   const list = [
-    createColumn('time', () => t('departures.columns.time'), 'plain', unsorted),
-    createColumn('service', () => t('departures.columns.service'), 'plain', unsorted),
-    createColumn('delay', () => t('departures.columns.delay'), 'plain', unsorted),
-    createColumn('platform', () => t('departures.columns.platform'), 'plain', unsorted),
-    createColumn('operator', () => t('departures.columns.operator'), 'plain', unsorted),
-    ...(props.showStop ? [createColumn('stop', () => t('departures.columns.stop'), 'plain', unsorted)] : []),
-    createColumn('actions', () => t('journey.details'), 'plain', unsorted),
+    createColumn('time', () => t('departures.columns.time'), renderTime, { ...unsorted, rendererOptions: {} }),
+    createColumn('service', () => t('departures.columns.service'), renderService, { ...unsorted, rendererOptions: {} }),
+    createColumn('delay', () => t('departures.columns.delay'), renderDelay, { ...secondary, rendererOptions: {} }),
+    createColumn('platform', () => t('departures.columns.platform'), 'plain', {
+      ...secondary,
+      rendererOptions: {
+        nullHandler: 'null-empty',
+        transform: (platform: string) => (platform ? t('departures.platform', { platform }) : ''),
+      },
+    }),
+    createColumn('operator', () => t('departures.columns.operator'), renderOperator, {
+      ...secondary,
+      rendererOptions: {},
+    }),
+    ...(props.showStop
+      ? [
+          createColumn('stop_name', () => t('departures.columns.stop'), 'plain', {
+            ...unsorted,
+            cssClass: 'departure-stop text-body-2',
+            rendererOptions: { transform: (stop: string) => t('departures.atStop', { stop }) },
+          }),
+        ]
+      : []),
+    createColumn('actions', () => t('journey.details'), renderDetails, { ...unsorted, rendererOptions: {} }),
   ];
   return [
     { name: 'wide', cssClass: 'departures-wide', columns: list },
     { name: 'narrow', cssClass: 'departures-narrow', rows: props.showStop ? 5 : 4, columns: list },
   ];
 });
-
-// The layout follows the list's own width: the grid's layout measurement does not render the #item slot.
-const root = ref<HTMLElement | null>(null);
-const width = ref(0);
-const layout = computed(() => (width.value >= WIDE_FROM ? 'wide' : 'narrow'));
-
-let observer: ResizeObserver | null = null;
-watch(root, (element) => {
-  observer?.disconnect();
-  observer = null;
-  if (!element) return;
-  width.value = element.clientWidth;
-  observer = new ResizeObserver(([entry]) => {
-    width.value = entry.contentRect.width;
-  });
-  observer.observe(element);
-});
-onBeforeUnmount(() => observer?.disconnect());
 
 function mainId(row: RowValue): string {
   return `${idPrefix}-${row.stop_id}-${row.trip_id}`.replace(/[^\w-]/gu, '_');
@@ -214,17 +244,15 @@ function delayClass(minutes: number): string {
 </script>
 
 <style scoped>
-/*
- * The grid is as tall as its rows and scrolls with the page: its body is no scroller, so every row is inside the
- * body's viewport and mounted.
- */
-.departures-list :deep(.df-grid-body) {
-  flex: none;
+/* The grid scrolls its rows inside itself; its parent gives it a definite height. */
+.departures-list {
+  display: flex;
+  flex-direction: column;
 }
 
-.departures-list :deep(.df-grid-body .body-grid) {
-  height: auto;
-  overflow-y: hidden;
+.departures-grid {
+  height: 100%;
+  min-height: 15em;
 }
 
 .departures-list :deep(.df-record-grid) {
@@ -252,8 +280,12 @@ function delayClass(minutes: number): string {
   overflow-wrap: anywhere;
 }
 
+.departures-list :deep(.body-grid .df-grid.card) {
+  border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+}
+
 /* Wide: one line per departure under a visible header. */
-.departures-list--wide :deep(.df-grid.cell) {
+.departures-list :deep(.df-record-grid.departures-wide .df-grid.cell) {
   align-self: center;
   padding: 10px 0;
 }
@@ -280,83 +312,76 @@ function delayClass(minutes: number): string {
   white-space: nowrap;
 }
 
-.departures-list--narrow :deep(.df-grid.cell) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell) {
   padding-bottom: 4px;
 }
 
-.departures-list--narrow :deep(.df-grid.cell:empty) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell:empty) {
   padding: 0;
 }
 
 /* Visual order of focusable cells follows the DOM: the operator's favourite button before Details. */
-.departures-list--narrow :deep(.df-grid.cell.service) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell.service) {
   grid-column: 1 / -1;
   grid-row: calc(var(--row-base) + 1);
   padding-top: 12px;
   font-size: 1.125rem;
 }
 
-.departures-list--narrow :deep(.df-grid.cell.time) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell.time) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0 16px;
   grid-column: 1 / -1;
   grid-row: calc(var(--row-base) + 2);
 }
 
-.departures-list--narrow :deep(.df-grid.cell.delay) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell.delay) {
   grid-column: 1;
   grid-row: calc(var(--row-base) + 3);
 }
 
-.departures-list--narrow :deep(.df-grid.cell.platform) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell.platform) {
   grid-column: 2;
   grid-row: calc(var(--row-base) + 3);
   text-align: end;
 }
 
-.departures-list--narrow :deep(.df-grid.cell.operator) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell.operator) {
   grid-column: 1;
   grid-row: calc(var(--row-base) + 4);
 }
 
-.departures-list--narrow :deep(.df-grid.cell.stop) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell.departure-stop) {
   grid-column: 1;
   grid-row: calc(var(--row-base) + 5);
 }
 
-.departures-list--narrow :deep(.df-grid.cell.actions) {
+.departures-list :deep(.body-grid.departures-narrow .df-grid.cell.actions) {
   grid-column: 2;
   grid-row: calc(var(--row-base) + 4) / span 2;
   align-self: center;
 }
 
-.departures-list--narrow:not(.departures-list--stops) :deep(.df-grid.cell.actions) {
+.departures-list:not(.departures-list--stops) :deep(.body-grid.departures-narrow .df-grid.cell.actions) {
   grid-row: calc(var(--row-base) + 4);
 }
 
-.departure-card {
-  border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
-}
-
-.time,
-.service {
+.departures-list :deep(.df-grid.cell.time),
+.departures-list :deep(.df-grid.cell.service) {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.departures-list--narrow .time {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0 16px;
-}
-
-.departure-name {
+.departures-list :deep(.departure-name) {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 8px;
 }
 
-.departure-operator {
+.departures-list :deep(.departure-operator) {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
@@ -367,11 +392,11 @@ function delayClass(minutes: number): string {
 <style>
 /* New and changed departures flash: only in the lively experience and only when the system allows motion. */
 @media (prefers-reduced-motion: no-preference) {
-  html.experience-lively .departures-list .departure-card.state-adding {
+  html.experience-lively .departures-list .df-grid.card.state-adding {
     animation: hopwatch-departure-added 1.2s ease-out;
   }
 
-  html.experience-lively .departures-list .departure-card.state-updated {
+  html.experience-lively .departures-list .df-grid.card.state-updated {
     animation: hopwatch-departure-updated 1.2s ease-in-out;
   }
 }

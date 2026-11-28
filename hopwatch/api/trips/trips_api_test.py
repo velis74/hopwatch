@@ -45,6 +45,7 @@ def test_ride_with_every_stop(api, motis):
     scheduled = datetime.fromisoformat(ljubljana["scheduled_departure"])
     assert datetime.fromisoformat(ljubljana["expected_departure"]) - scheduled == timedelta(minutes=6)
     assert scheduled.utcoffset() == timedelta(hours=1)  # Europe/Belgrade in November
+    assert ljubljana["time_zone"] == "Europe/Belgrade"
     assert [stop["passed"] for stop in stops[7:10]] == [True, False, False]
     assert set(ljubljana) == {
         "id",
@@ -55,6 +56,7 @@ def test_ride_with_every_stop(api, motis):
         "expected_arrival",
         "scheduled_departure",
         "expected_departure",
+        "time_zone",
         "delay_minutes",
         "delay_source",
         "platform",
@@ -128,3 +130,4 @@ def test_ride_is_documented(api):
     for name in ("Trip", "TripStop"):
         properties = schema["components"]["schemas"][name]["properties"]
         assert all(field.get("description") or "$ref" in field for field in properties.values()), name
+    assert "IANA time zone" in schema["components"]["schemas"]["TripStop"]["properties"]["time_zone"]["description"]

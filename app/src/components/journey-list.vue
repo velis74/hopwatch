@@ -18,92 +18,11 @@
         key-field="id"
         selection-mode="non-select"
         :recently-added="recentlyAdded"
+        :row-class="rowClass"
         :estimated-row-height="200"
         :aria-labelledby="headingId"
         class="journey-grid"
-      >
-        <template #item="{ item, index, cellAttrs }">
-          <div
-            class="df-grid card journey-card"
-            role="none"
-            :class="rowClasses(item as Itinerary, index)"
-            :data-pk="item.id"
-            :data-idx="index"
-          />
-          <div v-bind="cellAttrs" class="df-grid cell journey journey-cell" tabindex="-1">
-            <p :id="summaryId(item as Itinerary)" class="journey-summary">
-              <strong class="journey-times">
-                {{
-                  t('journey.times', {
-                    departure: formatTime(item.scheduled_departure),
-                    arrival: formatTime(item.scheduled_arrival),
-                  })
-                }}
-              </strong>
-              <span>{{ duration(item.duration_minutes) }}</span>
-              <span>{{ t('journey.transfers', { count: item.transfers }, item.transfers) }}</span>
-            </p>
-            <p v-if="expectedText(item as Itinerary)" class="journey-expected text-body-2">
-              {{ expectedText(item as Itinerary) }}
-            </p>
-          </div>
-          <div v-bind="cellAttrs" class="df-grid cell route journey-cell">
-            <ul class="journey-legs" role="list" :aria-label="t('journey.legsLabel')">
-              <li v-for="(leg, legIndex) in (item as Itinerary).legs" :key="legIndex" class="journey-leg text-body-2">
-                <v-icon :icon="LEG_ICONS[leg.mode]" size="small" aria-hidden="true" class="mr-1" />
-                <span class="journey-leg-name">{{ legName(leg) }}</span>
-                <operator-name v-if="leg.operator" :operator="leg.operator" class="journey-leg-operator" />
-                <span class="journey-leg-times text-medium-emphasis">
-                  {{
-                    t('journey.legFromTo', {
-                      departure: formatTime(leg.from.scheduled),
-                      from: leg.from.name,
-                      arrival: formatTime(leg.to.scheduled),
-                      to: leg.to.name,
-                    })
-                  }}
-                </span>
-                <span v-if="leg.from.platform">{{ t('departures.platform', { platform: leg.from.platform }) }}</span>
-                <span
-                  v-if="leg.delay_minutes !== null"
-                  :class="{ 'text-error font-weight-bold': leg.delay_minutes > 0 }"
-                >
-                  {{ delayText(leg.delay_minutes) }}
-                  <template v-if="leg.delay_source">
-                    {{ t('departures.delaySource', { source: t(`departures.sources.${leg.delay_source}`) }) }}
-                  </template>
-                </span>
-                <a v-if="leg.ticket_url" :href="leg.ticket_url" target="_blank" rel="noopener">
-                  {{ t('journey.tickets') }}
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div v-bind="cellAttrs" class="df-grid cell actions journey-cell">
-            <v-btn
-              size="small"
-              :variant="item.id === selectedId ? 'flat' : 'outlined'"
-              :prepend-icon="item.id === selectedId ? 'mdi-map-check' : 'mdi-map-outline'"
-              :aria-pressed="item.id === selectedId ? 'true' : 'false'"
-              :aria-describedby="summaryId(item as Itinerary)"
-              @click="emit('select', item.id)"
-            >
-              {{ t('journey.showOnMap') }}
-            </v-btn>
-            <v-btn
-              size="small"
-              variant="tonal"
-              color="primary"
-              append-icon="mdi-chevron-right"
-              :aria-describedby="summaryId(item as Itinerary)"
-              class="ml-2 journey-details-button"
-              @click="emit('details', item.id)"
-            >
-              {{ t('journey.details') }}
-            </v-btn>
-          </div>
-        </template>
-      </df-grid>
+      />
       <p v-else class="my-2">{{ t('journey.empty') }}</p>
       <v-btn variant="text" prepend-icon="mdi-chevron-down" :disabled="!journeys.later_cursor" @click="emit('later')">
         {{ t('journey.later') }}
@@ -114,18 +33,18 @@
 
 <script setup lang="ts">
 import {
+  type CellRendererTransformer,
   createColumn,
   type ResponsiveColumnDefinitions,
   type RowValue,
   useRecentlyAdded,
 } from '@dynamicforms/vue-grid';
+import { RenderableValue, type RenderContentNonCallable, type SimpleComponentDef } from '@dynamicforms/vuetify-inputs';
 import { nextTick, ref, useId, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import type { Itinerary, Journeys, Leg } from '../api/hopwatch-api';
-import { useTimeFormat } from '../composables/use-time-format';
-
-import OperatorName from './operator-name.vue';
+import { arrivalZone, departureZone, useTimeFormat } from '../composables/use-time-format';
 
 const props = defineProps<{ journeys: Journeys | null; error?: boolean; selectedId: string | null }>();
 const emit = defineEmits<{ select: [id: string]; details: [id: string]; earlier: []; later: [] }>();
@@ -146,6 +65,26 @@ const formatTime = useTimeFormat();
 const headingId = `${useId()}-heading`;
 const root = ref<HTMLElement | null>(null);
 
+type Child = RenderContentNonCallable | null | false | undefined;
+
+/** An element or a globally registered component with its props and the children that are given. */
+function el(
+  componentName: string,
+  componentProps: Record<string, unknown> = {},
+  ...children: Child[]
+): SimpleComponentDef {
+  return {
+    componentName,
+    componentProps,
+    children: children.filter((child): child is RenderContentNonCallable => !!child),
+  };
+}
+
+/** A cell computed from the whole itinerary; the cell element is the returned element. */
+function cell(content: (itinerary: Itinerary) => SimpleComponentDef): CellRendererTransformer {
+  return (_value, row) => new RenderableValue(content(row as Itinerary), 'journey-cell');
+}
+
 /** One record per itinerary; the cells stack in three grid rows (see the styles). */
 const columns: ResponsiveColumnDefinitions = [
   {
@@ -153,9 +92,15 @@ const columns: ResponsiveColumnDefinitions = [
     cssClass: 'journey-grid-stacked',
     rows: 3,
     columns: [
-      createColumn('journey', () => t('journey.columns.journey'), 'plain', { sortable: false }),
-      createColumn('route', () => t('journey.legsLabel'), 'plain', { sortable: false }),
-      createColumn('actions', () => t('journey.columns.actions'), 'plain', { sortable: false }),
+      createColumn('journey', () => t('journey.columns.journey'), cell(summaryCell), {
+        sortable: false,
+        rendererOptions: {},
+      }),
+      createColumn('route', () => t('journey.legsLabel'), cell(routeCell), { sortable: false, rendererOptions: {} }),
+      createColumn('actions', () => t('journey.columns.actions'), cell(actionsCell), {
+        sortable: false,
+        rendererOptions: {},
+      }),
     ],
   },
 ];
@@ -182,20 +127,113 @@ watch(
   { immediate: true },
 );
 
-/** The classes of a row anchor: the ones the grid sets on its own rows, and the selected state. */
-function rowClasses(itinerary: Itinerary, index: number): Record<string, boolean> {
-  return {
-    'journey-grid-stacked': true,
-    even: index % 2 === 0,
-    odd: index % 2 === 1,
-    'state-adding': recentlyAdded.isPendingAdd(itinerary.id),
-    'state-updated': recentlyAdded.isPendingUpdate(itinerary.id),
-    'journey-card--selected': itinerary.id === props.selectedId,
-  };
+function rowClass(item: RowValue): Record<string, boolean> {
+  return { 'journey-card': true, 'journey-card--selected': item.id === props.selectedId };
 }
 
 function summaryId(itinerary: Itinerary): string {
   return `${headingId}-${itinerary.id}`;
+}
+
+function summaryCell(itinerary: Itinerary): SimpleComponentDef {
+  const times = t('journey.times', {
+    departure: formatTime(itinerary.scheduled_departure, departureZone(itinerary)),
+    arrival: formatTime(itinerary.scheduled_arrival, arrivalZone(itinerary)),
+  });
+  const expected = expectedText(itinerary);
+  return el(
+    'div',
+    { tabindex: -1 },
+    el(
+      'p',
+      { id: summaryId(itinerary), class: 'journey-summary' },
+      el('strong', { class: 'journey-times' }, times),
+      el('span', {}, duration(itinerary.duration_minutes)),
+      el('span', {}, t('journey.transfers', { count: itinerary.transfers }, itinerary.transfers)),
+    ),
+    expected && el('p', { class: 'journey-expected text-body-2' }, expected),
+  );
+}
+
+function routeCell(itinerary: Itinerary): SimpleComponentDef {
+  return el(
+    'div',
+    {},
+    el(
+      'ul',
+      { class: 'journey-legs', role: 'list', 'aria-label': t('journey.legsLabel') },
+      ...itinerary.legs.map(legItem),
+    ),
+  );
+}
+
+function legItem(leg: Leg): SimpleComponentDef {
+  const times = t('journey.legFromTo', {
+    departure: formatTime(leg.from.scheduled, leg.from.time_zone),
+    from: leg.from.name,
+    arrival: formatTime(leg.to.scheduled, leg.to.time_zone),
+    to: leg.to.name,
+  });
+  const delay =
+    leg.delay_minutes === null
+      ? null
+      : [
+          delayText(leg.delay_minutes),
+          leg.delay_source && t('departures.delaySource', { source: t(`departures.sources.${leg.delay_source}`) }),
+        ]
+          .filter(Boolean)
+          .join(' ');
+  return el(
+    'li',
+    { class: 'journey-leg text-body-2' },
+    el('VIcon', { icon: LEG_ICONS[leg.mode], size: 'small', 'aria-hidden': 'true', class: 'mr-1' }),
+    el('span', { class: 'journey-leg-name' }, legName(leg)),
+    leg.operator && el('OperatorName', { operator: leg.operator, class: 'journey-leg-operator' }),
+    el('span', { class: 'journey-leg-times text-medium-emphasis' }, times),
+    leg.from.platform && el('span', {}, t('departures.platform', { platform: leg.from.platform })),
+    delay !== null && el('span', { class: { 'text-error font-weight-bold': (leg.delay_minutes ?? 0) > 0 } }, delay),
+    leg.ticket_url && el('a', { href: leg.ticket_url, target: '_blank', rel: 'noopener' }, t('journey.tickets')),
+  );
+}
+
+function actionsCell(itinerary: Itinerary): SimpleComponentDef {
+  const selected = itinerary.id === props.selectedId;
+  const describedBy = summaryId(itinerary);
+  return el(
+    'div',
+    {},
+    el(
+      'VBtn',
+      {
+        size: 'small',
+        variant: selected ? 'flat' : 'outlined',
+        prependIcon: selected ? 'mdi-map-check' : 'mdi-map-outline',
+        'aria-pressed': selected ? 'true' : 'false',
+        'aria-describedby': describedBy,
+        onClick: (event: MouseEvent) => {
+          event.stopPropagation();
+          emit('select', itinerary.id);
+        },
+      },
+      t('journey.showOnMap'),
+    ),
+    el(
+      'VBtn',
+      {
+        size: 'small',
+        variant: 'tonal',
+        color: 'primary',
+        appendIcon: 'mdi-chevron-right',
+        'aria-describedby': describedBy,
+        class: 'ml-2 journey-details-button',
+        onClick: (event: MouseEvent) => {
+          event.stopPropagation();
+          emit('details', itinerary.id);
+        },
+      },
+      t('journey.details'),
+    ),
+  );
 }
 
 function duration(minutes: number): string {
@@ -223,11 +261,12 @@ function legName(leg: Leg): string {
 function expectedText(itinerary: Itinerary): string {
   const parts: string[] = [];
   const { expected_departure: departure, expected_arrival: arrival } = itinerary;
-  if (departure && formatTime(departure) !== formatTime(itinerary.scheduled_departure)) {
-    parts.push(t('journey.expectedDeparture', { time: formatTime(departure) }));
+  const [fromZone, toZone] = [departureZone(itinerary), arrivalZone(itinerary)];
+  if (departure && formatTime(departure, fromZone) !== formatTime(itinerary.scheduled_departure, fromZone)) {
+    parts.push(t('journey.expectedDeparture', { time: formatTime(departure, fromZone) }));
   }
-  if (arrival && formatTime(arrival) !== formatTime(itinerary.scheduled_arrival)) {
-    parts.push(t('journey.expectedArrival', { time: formatTime(arrival) }));
+  if (arrival && formatTime(arrival, toZone) !== formatTime(itinerary.scheduled_arrival, toZone)) {
+    parts.push(t('journey.expectedArrival', { time: formatTime(arrival, toZone) }));
   }
   return parts.join('. ');
 }
@@ -242,8 +281,20 @@ defineExpose({ focusFirst });
 </script>
 
 <style scoped>
-.journey-grid {
-  height: min(36rem, 70dvh);
+.journey-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.journey-list > * {
+  flex: none;
+}
+
+.journey-list > .journey-grid {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 15em;
 }
 
 /* The column headers name the cells for assistive technology; the list shows no header row. */
@@ -270,28 +321,28 @@ defineExpose({ focusFirst });
   grid-row: calc(var(--row-base) + 3);
 }
 
-.journey-grid :deep(.df-anchored .journey-cell) {
+.journey-grid :deep(.journey-cell) {
   padding: 0 4px;
 }
 
-.journey-grid :deep(.df-anchored .journey-cell.journey) {
+.journey-grid :deep(.journey-cell.journey) {
   padding-top: 12px;
 }
 
-.journey-grid :deep(.df-anchored .journey-cell.actions) {
+.journey-grid :deep(.journey-cell.actions) {
   padding-top: 4px;
   padding-bottom: 12px;
 }
 
-.journey-card {
+.journey-grid :deep(.journey-card) {
   border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
 }
 
-.journey-card--selected {
+.journey-grid :deep(.journey-card--selected) {
   border-left: 4px solid rgb(var(--v-theme-primary));
 }
 
-.journey-card--selected ~ .journey-cell {
+.journey-grid :deep(.journey-card--selected ~ .journey-cell) {
   padding-left: 12px;
 }
 
@@ -306,33 +357,33 @@ defineExpose({ focusFirst });
   }
 }
 
-.journey-card.state-adding,
-.journey-card.state-updated {
+.journey-grid :deep(.journey-card.state-adding),
+.journey-grid :deep(.journey-card.state-updated) {
   animation: journey-card-flash 1.5s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .journey-card.state-adding,
-  .journey-card.state-updated {
+  .journey-grid :deep(.journey-card.state-adding),
+  .journey-grid :deep(.journey-card.state-updated) {
     animation: none;
     background-color: rgba(var(--v-theme-primary), 0.08);
   }
 }
 
-.journey-summary {
+.journey-grid :deep(.journey-summary) {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 16px;
   font-size: 1.125rem;
 }
 
-.journey-legs {
+.journey-grid :deep(.journey-legs) {
   list-style: none;
   padding: 0;
   margin: 4px 0;
 }
 
-.journey-leg {
+.journey-grid :deep(.journey-leg) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

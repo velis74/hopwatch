@@ -6,9 +6,9 @@
       <p class="journey-ride-leg-fallback">
         {{
           t('journey.legFromTo', {
-            departure: formatTime(leg.from.scheduled),
+            departure: formatTime(leg.from.scheduled, leg.from.time_zone),
             from: leg.from.name,
-            arrival: formatTime(leg.to.scheduled),
+            arrival: formatTime(leg.to.scheduled, leg.to.time_zone),
             to: leg.to.name,
           })
         }}

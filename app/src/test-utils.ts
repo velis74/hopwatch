@@ -12,6 +12,8 @@ import type { Component } from 'vue';
 import { createMemoryHistory, createRouter, type Router, type RouteRecordRaw } from 'vue-router';
 import { createVuetify } from 'vuetify';
 
+import FavouriteOperatorButton from './components/favourite-operator-button.vue';
+import OperatorName from './components/operator-name.vue';
 import i18n, { type SupportedLocale, VUETIFY_MESSAGES } from './i18n';
 
 export { flushPromises, http, HttpResponse };
@@ -479,6 +481,7 @@ export async function mountApp<C extends Component>(component: C, options: Mount
         [DynamicFormsModalFormKit, { registerComponents: true, registerVuetifyComponents: true }],
         [DynamicFormsVueGrid, { registerComponents: true }],
       ] as never,
+      components: { OperatorName, FavouriteOperatorButton },
     },
   });
   mounted.wrapper = wrapper as never;

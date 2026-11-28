@@ -37,6 +37,9 @@
     },
     "journey": {
       "title": "Podrobnosti potovanja"
+    },
+    "about": {
+      "title": "O aplikaciji Hopwatch"
     }
   },
   "settings": {
@@ -118,7 +121,6 @@
     "empty": "V naslednjih {minutes} minutah ni odhodov.",
     "unavailable": "Odhodi trenutno niso na voljo. Poskusite znova pozneje.",
     "updatedAt": "Posodobljeno ob {time}. Osvežuje se vsakih 30 sekund.",
-    "dataAttribution": "Podatki o voznih redih:",
     "toHeadsign": "proti {headsign}",
     "scheduled": "Po voznem redu {time}",
     "expected": "Pričakovano {time}",
@@ -363,5 +365,18 @@
     "RecordCount": "Zapisov: {count}",
     "RecordCountOfTotal": "{count} od {total} zapisov",
     "NullValue": "prazno"
+  },
+  "about": {
+    "summary": "Hopwatch prikaže naslednje odhode avtobusov in vlakov s postajališč v vaši bližini, postajališča posamezne vožnje in povezave med dvema krajema, z zamudami v realnem času, kjer jih prevozniki objavljajo.",
+    "sourcesHeading": "Viri podatkov in navedbe avtorstva",
+    "timetablesHeading": "Vozni redi in podatki v realnem času",
+    "timetables": "Vozni redi in podatki v realnem času: {dujpp} in {sz}, pod licenco {licence}.",
+    "mapHeading": "Zemljevid",
+    "mapData": "Podatki zemljevida {osm}, na voljo pod licenco {odbl}.",
+    "odbl": "Open Database Licence (ODbL)",
+    "mapTiles": "Vektorske ploščice in slog zemljevida {openmaptiles}, ki jih streže {openfreemap}.",
+    "appHeading": "Licenca aplikacije Hopwatch",
+    "appLicence": "Hopwatch je odprtokodna programska oprema pod licenco MIT: {repository}.",
+    "repository": "Izvorna koda Hopwatch na GitHubu"
   }
 }

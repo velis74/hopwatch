@@ -112,3 +112,21 @@ watch(queryKey, () => {
 
 watch(requestKey, () => scheduler.loadNow(), { immediate: true });
 </script>
+
+<style scoped>
+/* The list fills the height the results get; its grid scrolls inside it. */
+.journey-results {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.journey-results > * {
+  flex: none;
+}
+
+.journey-results > .journey-list {
+  flex: 1 1 0;
+  min-height: 0;
+}
+</style>

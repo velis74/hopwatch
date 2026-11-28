@@ -55,6 +55,7 @@ function departure(overrides: Partial<Departure> = {}): Departure {
     trip_id: 'trip-1',
     stop_id: 'si:1',
     stop_name: 'Ljubljana',
+    time_zone: 'Europe/Ljubljana',
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',
@@ -384,15 +385,12 @@ describe('HomePage', () => {
     expect(journeys.at(-1)?.url.searchParams.get('to_stop_id')).toBe('si:1');
   });
 
-  it('credits the timetable data and its licence', async () => {
+  it('links to the data sources and attributions', async () => {
     const { wrapper } = await render();
 
-    const attribution = wrapper.get('.data-attribution');
-    expect(attribution.text()).toContain('Timetable data:');
-    expect(attribution.text()).toContain('SŽ – Potniški promet');
-    expect(attribution.findAll('a').map((link) => link.attributes('href'))).toEqual([
-      'https://nap.si',
-      'https://creativecommons.org/licenses/by-sa/4.0/',
+    const links = wrapper.get('.data-attribution').findAll('a');
+    expect(links.map((link) => [link.text(), link.attributes('href')])).toEqual([
+      ['Data sources and attributions', '/about'],
     ]);
   });
 });

@@ -1,6 +1,7 @@
 """One ride of a vehicle (a trip) with all its stops, mapped from a MOTIS trip itinerary."""
 
 from datetime import datetime, UTC
+from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, Field
 
@@ -29,6 +30,12 @@ class TripStop(BaseModel):
     )
     expected_departure: datetime | None = Field(
         description="Departure expected from real-time data, in the stop's time zone; null without real-time data."
+    )
+    time_zone: str = Field(
+        description=(
+            "IANA time zone of the stop (`Europe/Ljubljana`), in which the times are local transport time; `UTC` when "
+            "the timetable names no known zone."
+        )
     )
     delay_minutes: int | None = Field(
         description=(
@@ -73,8 +80,8 @@ class Trip(BaseModel):
     stops: list[TripStop] = Field(description="Every stop of the ride, in order.")
 
 
-def _time(value: str | None, zone_name: str | None) -> datetime | None:
-    return datetime.fromisoformat(value).astimezone(stop_zone(zone_name)) if value else None
+def _time(value: str | None, zone: ZoneInfo) -> datetime | None:
+    return datetime.fromisoformat(value).astimezone(zone) if value else None
 
 
 def _minutes(expected: datetime | None, scheduled: datetime | None) -> int | None:
@@ -85,7 +92,7 @@ def _minutes(expected: datetime | None, scheduled: datetime | None) -> int | Non
 
 def trip_stop(place: JsonObject, real_time: bool, now: datetime) -> TripStop:
     """The call at a MOTIS place of a trip leg; `real_time` is whether the leg carries real-time data."""
-    zone = place.get("tz")
+    zone = stop_zone(place.get("tz"))
     scheduled_arrival = _time(place.get("scheduledArrival"), zone)
     scheduled_departure = _time(place.get("scheduledDeparture"), zone)
     expected_arrival = _time(place.get("arrival"), zone) if real_time else None
@@ -103,6 +110,7 @@ def trip_stop(place: JsonObject, real_time: bool, now: datetime) -> TripStop:
         expected_arrival=expected_arrival,
         scheduled_departure=scheduled_departure,
         expected_departure=expected_departure,
+        time_zone=zone.key,
         delay_minutes=delay,
         # The IJPP real-time feed (derp-si) predicts delays from vehicle positions (TransitClock).
         delay_source=DelaySource.ESTIMATE if delay is not None else None,
