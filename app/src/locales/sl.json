@@ -2,12 +2,14 @@
   "app": {
     "title": "Hopwatch",
     "mainNavigation": "Glavna navigacija",
+    "menu": "Meni",
     "home": "Hopwatch, odhodi",
     "settings": "Nastavitve",
     "login": "Prijava",
     "logout": "Odjava",
     "loggedInAs": "Prijavljeni kot",
-    "skipToContent": "Skok na glavno vsebino"
+    "skipToContent": "Skok na glavno vsebino",
+    "about": "O aplikaciji"
   },
   "experience": {
     "dialogTitle": "Izberite način prikaza",

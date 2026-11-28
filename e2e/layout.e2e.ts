@@ -15,6 +15,7 @@ import {
   inServiceHours,
   itineraryItems,
   journeysList,
+  mainNavigation,
   mapRegion,
   NEAR_LJUBLJANA,
   NEAREST_STOP,
@@ -130,6 +131,10 @@ test.describe('wide screen', () => {
     const list = journeysList(page);
     await expect(itineraryItems(list).first()).toBeVisible();
     await expectSideBySide(list, mapRegion(page));
+    const rail = await boxOf(mainNavigation(page));
+    const listBox = await boxOf(list);
+    expect(listBox.x, 'the list starts right of the navigation rail').toBeGreaterThanOrEqual(rail.x + rail.width - 1);
+    await expectNoHorizontalScroll(page);
     await expectNoSeriousViolations(page);
   });
 

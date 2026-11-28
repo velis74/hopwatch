@@ -3,19 +3,22 @@ import { expect, type Page, test } from '@playwright/test';
 import {
   chooseExperience,
   chooseOption,
+  closeNavigation,
   departuresList,
   expectHeadingsInOrder,
   expectNoSeriousViolations,
   inServiceHours,
+  navigateTo,
   NEAR_LJUBLJANA,
   NEAREST_STOP,
+  openNavigation,
   tabTo,
 } from './support';
 
 test.use({ geolocation: NEAR_LJUBLJANA, permissions: ['geolocation'] });
 
 async function openSettings(page: Page): Promise<void> {
-  await page.getByRole('link', { name: 'Settings', exact: true }).click();
+  await navigateTo(page, 'Settings');
   await expect(page.getByRole('heading', { name: 'Settings', exact: true })).toBeVisible();
 }
 
@@ -159,12 +162,16 @@ test('settings change the experience and the language', async ({ page }) => {
 
   await chooseOption(page, page.getByRole('combobox', { name: 'Language', exact: true }), /^(Slovenian|Slovenščina)$/);
   await expect(page.locator('html')).toHaveAttribute('lang', /^sl/);
+  const slovenian = { menu: 'Meni', navigation: 'Glavna navigacija' };
+  const navigation = await openNavigation(page, slovenian);
+  await expect(navigation.getByRole('link', { name: 'Nastavitve', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Settings', exact: true })).toHaveCount(0);
   await expectNoSeriousViolations(page);
+  await closeNavigation(page, slovenian);
 
   await chooseOption(page, page.getByRole('combobox', { name: /^(Language|Jezik)$/ }), /^(English|Angleščina)$/);
   await expect(page.locator('html')).toHaveAttribute('lang', /^en/);
-  await expect(page.getByRole('link', { name: 'Settings', exact: true })).toBeVisible();
+  await expect((await openNavigation(page)).getByRole('link', { name: 'Settings', exact: true })).toBeVisible();
 });
 
 test.describe('with a Slovenian browser', () => {

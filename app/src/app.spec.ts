@@ -21,7 +21,17 @@ function mockLoggedInSession(): void {
 }
 
 function navigation(): HTMLElement {
-  return document.querySelector<HTMLElement>('.v-app-bar nav')!;
+  return document.querySelector<HTMLElement>('nav#app-navigation')!;
+}
+
+function menuButton(): HTMLButtonElement | null {
+  return document.querySelector<HTMLButtonElement>('.v-app-bar button[aria-controls="app-navigation"]');
+}
+
+/** Sets the window width as a resize does. */
+function resizeTo(width: number): void {
+  window.innerWidth = width;
+  window.dispatchEvent(new Event('resize'));
 }
 
 /** Mounts the app and waits until it has loaded the session. */
@@ -39,7 +49,7 @@ function navigationControl(name: string): HTMLElement | undefined {
 }
 
 describe('app', () => {
-  it('offers a skip link, the title linking home and the settings and login in the main navigation', async () => {
+  it('has a skip link, the title linking home, departures, settings, about and login in the navigation', async () => {
     mockAnonymousSession();
     const { router } = await mountApp(App, { route: '/settings' });
 
@@ -53,9 +63,13 @@ describe('app', () => {
     expect(title.getAttribute('href')).toBe('/');
     expect(title.querySelector('img')?.getAttribute('alt')).toBe('');
 
+    expect(navigationControl('Departures')?.getAttribute('href')).toBe('/');
     expect(navigationControl('Settings')?.getAttribute('href')).toBe('/settings');
+    expect(navigationControl('About')?.getAttribute('href')).toBe('/about');
     expect(navigationControl('Log in')?.getAttribute('href')).toBe('/login');
     expect(navigationControl('Log out')).toBeUndefined();
+    expect(navigationControl('Settings')?.getAttribute('aria-current')).toBe('page');
+    expect(navigationControl('Departures')?.hasAttribute('aria-current')).toBe(false);
 
     expect(navigation().getAttribute('aria-label')).toBe('Main navigation');
     navigationControl('Log in')!.click();
@@ -79,14 +93,16 @@ describe('app', () => {
 
     expect(document.getElementById('experience-dialog-title')).toBeNull();
     expect(document.documentElement.classList.contains('experience-simple')).toBe(true);
-    expect(navigationControl('Settings')?.classList.contains('v-btn--size-large')).toBe(true);
+    expect(navigationControl('Settings')?.classList.contains('v-list-item--density-default')).toBe(true);
+    expect(navigation().style.width).toBe('64px');
 
     await wrapper.find('input[type="radio"][value="lively"]').setValue(true);
     await flushPromises();
 
     expect(document.documentElement.classList.contains('experience-lively')).toBe(true);
     expect(document.documentElement.classList.contains('experience-simple')).toBe(false);
-    expect(navigationControl('Settings')?.classList.contains('v-btn--size-large')).toBe(false);
+    expect(navigationControl('Settings')?.classList.contains('v-list-item--density-compact')).toBe(true);
+    expect(navigation().style.width).toBe('56px');
   });
 
   it('shows who is logged in and logs out to the home page', async () => {
@@ -152,27 +168,74 @@ describe('app', () => {
     }
   });
 
-  it('shows only icons in the app bar on a narrow screen, keeping the text as the accessible name', async () => {
-    window.innerWidth = 360;
-    window.dispatchEvent(new Event('resize'));
+  it('opens the navigation from the menu button when narrow, closes it on Escape and on navigation', async () => {
+    resizeTo(360);
+    try {
+      mockAnonymousSession();
+      const { router } = await mountApp(App, { route: '/settings' });
+
+      const button = menuButton()!;
+      expect(button.getAttribute('aria-label')).toBe('Menu');
+      expect(button.getAttribute('aria-expanded')).toBe('false');
+      expect(document.getElementById(button.getAttribute('aria-controls')!)).toBe(navigation());
+      expect(navigation().classList.contains('v-navigation-drawer--active')).toBe(false);
+
+      button.click();
+      await vi.waitFor(() => expect(document.activeElement).toBe(navigationControl('Departures')));
+      expect(button.getAttribute('aria-expanded')).toBe('true');
+      expect(navigation().classList.contains('v-navigation-drawer--active')).toBe(true);
+      expect(navigation().classList.contains('v-navigation-drawer--temporary')).toBe(true);
+
+      navigation().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      await vi.waitFor(() => expect(document.activeElement).toBe(button));
+      expect(button.getAttribute('aria-expanded')).toBe('false');
+      expect(navigation().classList.contains('v-navigation-drawer--active')).toBe(false);
+
+      button.click();
+      await vi.waitFor(() => expect(document.activeElement).toBe(navigationControl('Departures')));
+      navigationControl('Departures')!.click();
+      await vi.waitFor(() => expect(router.currentRoute.value.name).toBe('home'));
+      await vi.waitFor(() => expect(button.getAttribute('aria-expanded')).toBe('false'));
+      expect(navigation().classList.contains('v-navigation-drawer--active')).toBe(false);
+    } finally {
+      resizeTo(1024);
+    }
+  });
+
+  it('closes the navigation on the scrim on a narrow screen', async () => {
+    resizeTo(360);
     try {
       mockAnonymousSession();
       await mountApp(App);
 
-      for (const name of ['Settings', 'Log in']) {
-        expect(navigationControl(name)?.querySelector('.visually-hidden')?.textContent).toBe(name);
-      }
+      const button = menuButton()!;
+      button.click();
+      await vi.waitFor(() => expect(document.querySelector('.v-navigation-drawer__scrim')).not.toBeNull());
+      document.querySelector<HTMLElement>('.v-navigation-drawer__scrim')!.click();
+
+      await vi.waitFor(() => expect(document.activeElement).toBe(button));
+      expect(button.getAttribute('aria-expanded')).toBe('false');
     } finally {
-      window.innerWidth = 1024;
-      window.dispatchEvent(new Event('resize'));
+      resizeTo(1024);
     }
   });
 
-  it('shows the text of the app bar buttons on a wide screen', async () => {
+  it('shows the navigation as a rail on a wide screen that widens while it holds keyboard focus', async () => {
     mockAnonymousSession();
     await mountApp(App);
 
-    expect(navigation().querySelector('.visually-hidden')).toBeNull();
+    expect(menuButton()).toBeNull();
+    expect(navigation().classList.contains('v-navigation-drawer--rail')).toBe(true);
+    expect(navigation().classList.contains('v-navigation-drawer--active')).toBe(true);
+    expect(navigationControl('Settings')?.textContent?.trim()).toBe('Settings');
+
+    navigationControl('Settings')!.focus();
+    await flushPromises();
+    expect(navigation().classList.contains('app-navigation--focused')).toBe(true);
+
+    navigationControl('Settings')!.blur();
+    await flushPromises();
+    expect(navigation().classList.contains('app-navigation--focused')).toBe(false);
   });
 
   it('follows the interface language, also in Vuetify’s own strings', async () => {

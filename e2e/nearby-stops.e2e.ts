@@ -10,6 +10,7 @@ import {
   expectStopShown,
   inServiceHours,
   isApiRequest,
+  navigateTo,
   NEAR_LJUBLJANA,
   NEAREST_STOP,
   STOP_IDS,
@@ -110,7 +111,7 @@ test('checking a nearby stop merges its departures, each named by its stop', asy
 });
 
 test('"Include nearby stops by default" checks the stops of the chosen modes', async ({ page }) => {
-  await page.getByRole('link', { name: 'Settings', exact: true }).click();
+  await navigateTo(page, 'Settings');
   await expect(page.getByRole('heading', { name: 'Settings', exact: true })).toBeVisible();
   const defaults = page.getByRole('group', { name: 'Include nearby stops by default', exact: true });
   await expect(defaults).toBeVisible();

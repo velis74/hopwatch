@@ -6,6 +6,7 @@ import {
   departuresList,
   expectNoSeriousViolations,
   inServiceHours,
+  navigateTo,
   NEAR_LJUBLJANA,
 } from './support';
 
@@ -38,7 +39,7 @@ test('an operator marked as favourite from a departure is tagged, listed in the 
   await expect(remove).toHaveCount(count);
   await expectNoSeriousViolations(page);
 
-  await page.getByRole('link', { name: 'Settings', exact: true }).click();
+  await navigateTo(page, 'Settings');
   await expect(page.getByRole('heading', { name: 'Settings', exact: true })).toBeVisible();
   const favourites = page.getByRole('group', { name: 'Favourite operators', exact: true });
   const box = favourites.getByRole('checkbox', { name: operator, exact: true });

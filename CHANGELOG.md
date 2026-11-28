@@ -4,7 +4,7 @@ All notable changes to this project are documented in this file. The format is b
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.1] - 2026-11-27
+## [0.0.1] - 2026-11-28
 
 ### Added
 
@@ -33,6 +33,8 @@ All notable changes to this project are documented in this file. The format is b
   amenities, ticket link and route line; route lines are simplified and answers compressed.
 - Web app: on wide screens the map beside the list; on narrow screens filter, list and details as successive views
   with browser Back; ride and journey details with a stop timeline, transfers and walks.
+- Web app: the main navigation in a side drawer: a rail of icons on wide screens, a drawer opened from the "Menu"
+  button in the app bar on narrow screens.
 
 ### Changed
 

@@ -2,8 +2,11 @@ import { expect, type Page, test } from '@playwright/test';
 
 import {
   chooseExperience,
+  closeNavigation,
   expectHeadingsInOrder,
   expectNoSeriousViolations,
+  navigateTo,
+  openNavigation,
   randomEmail,
   randomPassword,
   tabTo,
@@ -15,16 +18,17 @@ const SOCIAL = [
 ];
 
 async function openLogin(page: Page): Promise<void> {
-  await page.getByRole('link', { name: 'Log in', exact: true }).click();
+  await navigateTo(page, 'Log in');
   await expect(page).toHaveURL(/\/login$/);
   await expect(page.getByRole('heading', { level: 2, name: 'Log in', exact: true })).toBeVisible();
 }
 
 async function expectLoggedIn(page: Page, email: string): Promise<void> {
-  const appBar = page.getByRole('banner');
-  await expect(appBar.getByText(email, { exact: true })).toBeVisible();
-  await expect(appBar.getByRole('button', { name: 'Log out', exact: true })).toBeVisible();
+  const navigation = await openNavigation(page);
+  await expect(navigation.getByText(email, { exact: true })).toBeVisible();
+  await expect(navigation.getByRole('button', { name: 'Log out', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Log in', exact: true })).toHaveCount(0);
+  await closeNavigation(page);
 }
 
 test.beforeEach(async ({ page }) => {
@@ -55,9 +59,11 @@ test('sign up, log out, a wrong password and log in again', async ({ page }) => 
   await page.getByRole('button', { name: 'Create account', exact: true }).click();
   await expectLoggedIn(page, email);
 
-  await page.getByRole('banner').getByRole('button', { name: 'Log out', exact: true }).click();
-  await expect(page.getByRole('link', { name: 'Log in', exact: true })).toBeVisible();
-  await expect(page.getByRole('banner').getByText(email, { exact: true })).toHaveCount(0);
+  await (await openNavigation(page)).getByRole('button', { name: 'Log out', exact: true }).click();
+  await expect(page.getByText(email, { exact: true })).toHaveCount(0);
+  const navigation = await openNavigation(page);
+  await expect(navigation.getByRole('link', { name: 'Log in', exact: true })).toBeVisible();
+  await expect(navigation.getByText(email, { exact: true })).toHaveCount(0);
 
   await openLogin(page);
   await page.getByLabel('Email', { exact: true }).fill(email);
