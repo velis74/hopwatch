@@ -2,25 +2,13 @@
   <v-container class="settings-page">
     <h1 class="text-h4 mb-6">{{ t('pages.settings.title') }}</h1>
     <experience-choice v-model="experience" />
-    <v-select
+    <df-select
       v-model="locale"
       class="mt-6"
       :label="t('settings.language')"
-      :items="languageItems"
-      item-title="title"
-      item-value="value"
-    >
-      <template #item="{ item, props: itemProps }">
-        <v-list-item v-bind="itemProps">
-          <template #title>
-            <span :lang="LOCALE_TAGS[item.raw.value]">{{ item.title }}</span>
-          </template>
-        </v-list-item>
-      </template>
-      <template #selection="{ item }">
-        <span :lang="LOCALE_TAGS[item.raw.value]">{{ item.title }}</span>
-      </template>
-    </v-select>
+      :choices="languageChoices"
+      :allow-null="false"
+    />
     <fieldset class="settings-fieldset mb-4" aria-describedby="nearby-modes-hint">
       <legend class="text-subtitle-1">{{ t('settings.nearbyLegend') }}</legend>
       <p id="nearby-modes-hint" class="text-body-2 text-medium-emphasis">{{ t('settings.nearbyHint') }}</p>
@@ -53,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { DfCheckbox } from '@dynamicforms/vuetify-inputs';
+import { DfCheckbox, DfSelect, type SelectChoice } from '@dynamicforms/vuetify-inputs';
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -109,7 +97,11 @@ onMounted(async () => {
   }
 });
 
-const languageItems = SUPPORTED_LOCALES.map((value) => ({ value, title: LANGUAGE_NAMES[value] }));
+// Each language is named in itself, marked with its language tag.
+const languageChoices: SelectChoice[] = SUPPORTED_LOCALES.map((value) => ({
+  id: value,
+  text: { componentName: 'span', componentProps: { lang: LOCALE_TAGS[value] }, children: LANGUAGE_NAMES[value] },
+}));
 </script>
 
 <style scoped>

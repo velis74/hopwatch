@@ -37,6 +37,9 @@
     },
     "journey": {
       "title": "Pojedinosti putovanja"
+    },
+    "about": {
+      "title": "O aplikaciji Hopwatch"
     }
   },
   "settings": {
@@ -93,6 +96,10 @@
     },
     "hopwatch": {
       "passwords_mismatch": "Lozinke se ne podudaraju."
+    },
+    "vuetify-inputs": {
+      "invalid_date": "Datum nije valjan.",
+      "invalid_time": "Vrijeme nije valjano."
     }
   },
   "departures": {
@@ -114,7 +121,6 @@
     "empty": "Nema polazaka u sljedećih {minutes} minuta.",
     "unavailable": "Polasci trenutačno nisu dostupni. Pokušajte ponovno kasnije.",
     "updatedAt": "Ažurirano u {time}. Osvježava se svakih 30 sekundi.",
-    "dataAttribution": "Podaci o voznim redovima:",
     "toHeadsign": "za {headsign}",
     "scheduled": "Po voznom redu {time}",
     "expected": "Očekivano {time}",
@@ -139,7 +145,15 @@
     "announceOnTime": "{mode} {line} za {headsign}: sada na vrijeme.",
     "listLabelNearby": "Polasci sa stanice {stop} i obližnjih stanica",
     "atStop": "Sa stanice {stop}",
-    "clearStop": "Očisti polje {field}"
+    "clearStop": "Očisti polje {field}",
+    "columns": {
+      "time": "Vrijeme",
+      "service": "Linija",
+      "delay": "Kašnjenje",
+      "platform": "Peron",
+      "operator": "Prijevoznik",
+      "stop": "Stanica"
+    }
   },
   "map": {
     "title": "Karta",
@@ -152,6 +166,10 @@
     "staleSince": "Nije ažurirano od {time}"
   },
   "journey": {
+    "columns": {
+      "journey": "Veza",
+      "actions": "Radnje"
+    },
     "formLabel": "Putovanje",
     "from": "Od",
     "to": "Do",
@@ -266,7 +284,9 @@
     "Style": "Stil",
     "MediaEmbed": "Umetni medij",
     "MediaEmbedUrl": "URL videozapisa",
-    "MediaEmbedInsert": "Umetni"
+    "MediaEmbedInsert": "Umetni",
+    "NoChoices": "Nema izbora",
+    "MinQuery": "Upišite barem {count} znakova"
   },
   "modal": {
     "Close": "Zatvori",
@@ -329,5 +349,34 @@
     "transfer": "Presjedanje: {stop}, {minutes} min",
     "walkMinutes": "Pješice do {to}, {minutes} min",
     "walkDistanceMinutes": "Pješice {distance} m do {to}, {minutes} min"
+  },
+  "grid": {
+    "Loading": "Učitavanje…",
+    "NoData": "Nema podataka",
+    "FilterColumn": "Filtriraj {column}…",
+    "FilterColumnName": "Filtriraj {column}",
+    "SortByColumn": "Poredaj po {column}",
+    "Sort": "Poredaj",
+    "CancelSelectionMode": "Prekini odabir",
+    "InvertSelection": "Obrni odabir",
+    "SelectionCountSelected": "Odabrano: {count}",
+    "SelectionCountExcluded": "Isključeno: {count}",
+    "ActiveFilters": "Aktivni filtri: {count}",
+    "RecordCount": "Zapisa: {count}",
+    "RecordCountOfTotal": "{count} od {total} zapisa",
+    "NullValue": "prazno"
+  },
+  "about": {
+    "summary": "Hopwatch prikazuje sljedeće polaske autobusa i vlakova sa stajališta u vašoj blizini, stajališta pojedine vožnje i veze između dvaju mjesta, s kašnjenjima u stvarnom vremenu gdje ih prijevoznici objavljuju.",
+    "sourcesHeading": "Izvori podataka i navođenje autorstva",
+    "timetablesHeading": "Vozni redovi i podaci u stvarnom vremenu",
+    "timetables": "Vozni redovi i podaci u stvarnom vremenu: {dujpp} i {sz}, pod licencom {licence}.",
+    "mapHeading": "Karta",
+    "mapData": "Podaci karte {osm}, dostupni pod licencom {odbl}.",
+    "odbl": "Open Database Licence (ODbL)",
+    "mapTiles": "Vektorske pločice i stil karte {openmaptiles}, poslužuje ih {openfreemap}.",
+    "appHeading": "Licenca aplikacije Hopwatch",
+    "appLicence": "Hopwatch je softver otvorenog koda pod licencom MIT: {repository}.",
+    "repository": "Izvorni kod Hopwatcha na GitHubu"
   }
 }

@@ -55,6 +55,7 @@ function departure(overrides: Partial<Departure> = {}): Departure {
     trip_id: 'trip-1',
     stop_id: 'si:1',
     stop_name: 'Ljubljana',
+    time_zone: 'Europe/Ljubljana',
     mode: 'rail',
     line: 'IC 502',
     headsign: 'Koper',
@@ -95,7 +96,9 @@ async function render() {
 }
 
 function departureItems(): string[] {
-  return [...document.body.querySelectorAll('[role="list"] li')].map((item) => item.textContent ?? '');
+  return [...document.body.querySelectorAll('[role="table"] [role="row"].df-anchored')].map(
+    (item) => item.textContent ?? '',
+  );
 }
 
 function stopField(label: string): HTMLInputElement {
@@ -154,7 +157,7 @@ describe('HomePage', () => {
     expect(stopField('To').value).toBe('');
     expect(wrapper.get('h2').text()).toBe('Ljubljana');
     expect(departures[0].url.searchParams.getAll('stop_id')).toEqual(['si:1']);
-    expect(wrapper.get('[role="list"]').attributes('aria-label')).toBe('Departures from Ljubljana');
+    expect(wrapper.get('[role="table"]').attributes('aria-label')).toBe('Departures from Ljubljana');
     expect(departureItems()[0]).toContain('IC 502');
     expect(wrapper.findAll('button').some((entry) => entry.text() === 'Change stop')).toBe(false);
     expect(maplibreFake.maps[0].options.center).toEqual([14.5058, 46.0569]);
@@ -305,6 +308,8 @@ describe('HomePage', () => {
     await settle();
 
     expect(departures.at(-1)?.url.searchParams.getAll('stop_id')).toEqual(['si:1', 'si:3']);
+    // The grid renders an added record once its windowing throttle (100 ms) has passed.
+    await vi.waitFor(() => expect(departureItems()).toHaveLength(2));
     expect(departureItems()[0]).toContain('From Ljubljana');
     expect(departureItems()[1]).toContain('From Ljubljana AP');
   });
@@ -335,9 +340,9 @@ describe('HomePage', () => {
       { from_stop_id: 'si:1', to_stop_id: 'si:2' },
     ]);
     expect(wrapper.find('fieldset').exists()).toBe(false);
-    expect(wrapper.find('[role="list"][aria-label^="Departures"]').exists()).toBe(false);
+    expect(wrapper.find('[role="table"][aria-label^="Departures"]').exists()).toBe(false);
     expect(wrapper.get('h2').text()).toBe('Journeys');
-    expect(wrapper.findAll('ol > li')).toHaveLength(2);
+    expect(wrapper.findAll('[role="row"].df-anchored')).toHaveLength(2);
     const [map] = maplibreFake.maps;
     expect(map.getSource('journey')).toBeTruthy();
     expect(maplibreFake.markers).toHaveLength(2);
@@ -380,15 +385,12 @@ describe('HomePage', () => {
     expect(journeys.at(-1)?.url.searchParams.get('to_stop_id')).toBe('si:1');
   });
 
-  it('credits the timetable data and its licence', async () => {
+  it('links to the data sources and attributions', async () => {
     const { wrapper } = await render();
 
-    const attribution = wrapper.get('.data-attribution');
-    expect(attribution.text()).toContain('Timetable data:');
-    expect(attribution.text()).toContain('SŽ – Potniški promet');
-    expect(attribution.findAll('a').map((link) => link.attributes('href'))).toEqual([
-      'https://nap.si',
-      'https://creativecommons.org/licenses/by-sa/4.0/',
+    const links = wrapper.get('.data-attribution').findAll('a');
+    expect(links.map((link) => [link.text(), link.attributes('href')])).toEqual([
+      ['Data sources and attributions', '/about'],
     ]);
   });
 });
@@ -446,7 +448,7 @@ describe('HomePage views', () => {
     await renderApp();
 
     expect(document.querySelector('.home-page--wide')).not.toBeNull();
-    expect(document.querySelector('.home-list-column [role="list"]')).not.toBeNull();
+    expect(document.querySelector('.home-list-column [role="table"]')).not.toBeNull();
     expect(document.querySelector('.home-map-column section[aria-label="Map"]')).not.toBeNull();
     expect(document.querySelector('button[type="submit"]')).toBeNull();
   });

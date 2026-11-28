@@ -66,12 +66,17 @@ function addOptions(): HTMLElement[] {
   return [...document.body.querySelectorAll<HTMLElement>('.v-overlay-container .v-list-item')];
 }
 
+/** The accessible names of the "Add a stop" options. */
+function addOptionNames(): string[] {
+  return addOptions().map((item) => item.getAttribute('aria-label') ?? (item.textContent ?? '').trim());
+}
+
 /** Searches "Add a stop" for `text` and picks the option starting with `name`. */
 async function addStop(wrapper: Wrapper, text: string, name: string) {
   await typeAdd(wrapper, text);
-  const option = addOptions().find((item) => (item.textContent ?? '').trim().startsWith(name));
-  expect(option, `option ${name}`).toBeDefined();
-  option!.click();
+  const index = addOptionNames().findIndex((option) => option.startsWith(name));
+  expect(index, `option ${name}`).not.toBe(-1);
+  addOptions()[index].click();
   await flushPromises();
 }
 
@@ -209,7 +214,7 @@ describe('NearbyStops', () => {
     await typeAdd(wrapper, ' Ko ');
     expect(searches.map((request) => request.url.searchParams.get('q'))).toEqual(['Ko']);
     // From and the stops shown are not offered.
-    expect(addOptions().map((item) => (item.textContent ?? '').trim())).toEqual(['Koper, Train', 'Kranj']);
+    expect(addOptionNames()).toEqual(['Koper, Train', 'Kranj']);
 
     addOptions()[0].click();
     await flushPromises();
@@ -226,6 +231,18 @@ describe('NearbyStops', () => {
     expect(wrapper.findAll('.nearby-chip__remove')).toHaveLength(1);
     expect(wrapper.get('[role="status"]').text()).toBe('Koper added and checked.');
     expect(stored()).toEqual({ 'si:1': [KOPER] });
+  });
+
+  it('shows an "Add a stop" option with the stop name and its modes on a second line', async () => {
+    mockApi('get', '/stops/nearby', AROUND);
+    mockApi('get', '/stops', [KOPER]);
+    const wrapper = await render();
+
+    await typeAdd(wrapper, 'Ko');
+
+    const lines = addOptions()[0].querySelectorAll('.nearby-add-choice > div');
+    expect([...lines].map((line) => line.textContent)).toEqual(['Koper, ', 'Train']);
+    expect(lines[0].querySelector('.d-sr-only')?.textContent).toBe(', ');
   });
 
   it('names an added stop without modes by its name only', async () => {
@@ -249,6 +266,17 @@ describe('NearbyStops', () => {
     expect(addOptions().map((item) => (item.textContent ?? '').trim())).toEqual([
       'Type at least two letters of the stop name.',
     ]);
+  });
+
+  it('does not search one letter padded with spaces', async () => {
+    mockApi('get', '/stops/nearby', AROUND);
+    const searches = mockApi('get', '/stops', [KOPER]);
+    const wrapper = await render();
+
+    await typeAdd(wrapper, ' K');
+
+    expect(searches).toHaveLength(0);
+    expect(addOptionNames().filter((name) => name.startsWith('Koper'))).toEqual([]);
   });
 
   it('names the progress of a search in the interface language', async () => {

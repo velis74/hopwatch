@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import type { FeatureCollection } from 'geojson';
-import type { GeoJSONSource, LngLatBoundsLike, Map as MapLibreMap, Marker } from 'maplibre-gl';
+import type { GeoJSONSource, LngLatBoundsLike, Map as MapLibreMap, Marker, TransformStyleFunction } from 'maplibre-gl';
 import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -22,13 +22,21 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 const props = defineProps<{ stop: Stop | null; itinerary?: Itinerary | null; route?: MapRoute | null }>();
 
 const STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';
-const OSM_ATTRIBUTION =
-  '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a>';
+/** The map's attribution, in place of the sources' own. */
+const MAP_ATTRIBUTION =
+  '<a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> · ' +
+  '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>';
 const JOURNEY_SOURCE = 'journey';
 const STOPS_SOURCE = 'route-stops';
 /** Line colours by mode; the list of journeys names every mode, so colour is not the only carrier. */
 const MODE_COLOURS = ['match', ['get', 'mode'], 'rail', '#1565c0', 'bus', '#2e7d32', 'tram', '#c62828', '#6a1b9a'];
 const WALK_COLOUR = '#424242';
+
+/** The style with an empty attribution on every source: a source's own attribution overrides its TileJSON's. */
+const withoutSourceAttributions: TransformStyleFunction = (_previous, next) => ({
+  ...next,
+  sources: Object.fromEntries(Object.entries(next.sources).map(([id, source]) => [id, { ...source, attribution: '' }])),
+});
 
 const { t } = useI18n();
 const preferences = usePreferencesStore();
@@ -61,6 +69,7 @@ function markerElement(kind: 'start' | 'end'): HTMLElement {
   const element = document.createElement('div');
   element.className = `stop-map-marker stop-map-marker--${kind}`;
   element.setAttribute('aria-hidden', 'true');
+  if (kind === 'end') element.innerHTML = '<span class="mdi mdi-flag-checkered"></span>';
   return element;
 }
 
@@ -178,11 +187,12 @@ onMounted(async () => {
     const created = new library.Map({
       container: container.value,
       style: STYLE_URL,
+      transformStyle: withoutSourceAttributions,
       center,
       zoom: 15,
       keyboard: false,
       fadeDuration: animate() ? 300 : 0,
-      attributionControl: { compact: false, customAttribution: OSM_ATTRIBUTION },
+      attributionControl: { compact: false, customAttribution: MAP_ATTRIBUTION },
     });
     // The section is the map's region; the canvas is a picture of what the lists say.
     const canvas = created.getCanvas();
@@ -238,8 +248,13 @@ onBeforeUnmount(() => {
 }
 
 :deep(.stop-map-marker--end) {
-  border-radius: 4px;
-  background: rgb(var(--v-theme-on-surface));
-  box-shadow: 0 0 0 2px rgb(var(--v-theme-on-surface));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 16px;
 }
 </style>

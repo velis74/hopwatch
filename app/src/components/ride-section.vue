@@ -14,11 +14,11 @@
         <dt>{{ t('ride.departure') }}</dt>
         <dd>
           <strong>{{ entryStop.name }}</strong>
-          <span>{{ formatTime(departureOf(entryStop)) }}</span>
+          <span>{{ formatTime(departureOf(entryStop), entryStop.time_zone) }}</span>
           <span v-if="expectedDiffers(entryStop, 'departure')">
             {{
               t('departures.expected', {
-                time: formatTime(entryStop.expected_departure as string),
+                time: formatTime(entryStop.expected_departure as string, entryStop.time_zone),
               })
             }}
           </span>
@@ -33,11 +33,11 @@
         <dt>{{ t('ride.arrival') }}</dt>
         <dd>
           <strong>{{ exitStop.name }}</strong>
-          <span>{{ formatTime(arrivalOf(exitStop)) }}</span>
+          <span>{{ formatTime(arrivalOf(exitStop), exitStop.time_zone) }}</span>
           <span v-if="expectedDiffers(exitStop, 'arrival')">
             {{
               t('departures.expected', {
-                time: formatTime(exitStop.expected_arrival as string),
+                time: formatTime(exitStop.expected_arrival as string, exitStop.time_zone),
               })
             }}
           </span>
@@ -161,15 +161,15 @@ function arrivalOf(stop: TripStop): string {
 function expectedDiffers(stop: TripStop, which: 'arrival' | 'departure'): boolean {
   const expected = which === 'arrival' ? stop.expected_arrival : stop.expected_departure;
   const scheduled = which === 'arrival' ? arrivalOf(stop) : departureOf(stop);
-  return expected !== null && formatTime(expected) !== formatTime(scheduled);
+  return expected !== null && formatTime(expected, stop.time_zone) !== formatTime(scheduled, stop.time_zone);
 }
 
 /** The stop's timetable: the departure at the entry, the arrival at the exit, both where they differ. */
 function stopTimes(stop: TripStop, index: number): string {
-  if (index === 0) return formatTime(departureOf(stop));
-  if (index === sectionStops.value.length - 1) return formatTime(arrivalOf(stop));
-  const arrival = stop.scheduled_arrival && formatTime(stop.scheduled_arrival);
-  const departure = stop.scheduled_departure && formatTime(stop.scheduled_departure);
+  if (index === 0) return formatTime(departureOf(stop), stop.time_zone);
+  if (index === sectionStops.value.length - 1) return formatTime(arrivalOf(stop), stop.time_zone);
+  const arrival = stop.scheduled_arrival && formatTime(stop.scheduled_arrival, stop.time_zone);
+  const departure = stop.scheduled_departure && formatTime(stop.scheduled_departure, stop.time_zone);
   if (arrival && departure && arrival !== departure) return t('ride.arrivesDeparts', { arrival, departure });
   return (arrival || departure) ?? '';
 }
@@ -178,7 +178,7 @@ function stopExpected(stop: TripStop, index: number): string {
   const which = index === sectionStops.value.length - 1 ? 'arrival' : 'departure';
   if (!expectedDiffers(stop, which)) return '';
   const expected = (which === 'arrival' ? stop.expected_arrival : stop.expected_departure) as string;
-  return t('departures.expected', { time: formatTime(expected) });
+  return t('departures.expected', { time: formatTime(expected, stop.time_zone) });
 }
 
 function delayClass(minutes: number): string {

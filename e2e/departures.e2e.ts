@@ -55,10 +55,20 @@ test.describe('with location', () => {
     await expectNoSeriousViolations(page);
   });
 
-  test('the map is a secondary region with OpenStreetMap attribution', async ({ page }) => {
+  test('the map is a secondary region attributing OpenMapTiles and OpenStreetMap', async ({ page }) => {
     const map = page.getByRole('region', { name: 'Map', exact: true });
     await expect(map).toBeVisible();
-    await expect(map.getByRole('link', { name: /OpenStreetMap/, includeHidden: true })).not.toHaveCount(0);
+    const attribution = map.locator('.maplibregl-ctrl-attrib');
+    await expect(attribution.getByRole('link', { name: '© OpenMapTiles', exact: true })).toBeVisible();
+    await expect(attribution.getByRole('link', { name: '© OpenStreetMap', exact: true })).toBeVisible();
+    // Tiles are requested only after the tile source's TileJSON, which carries the source's own attribution.
+    await expect
+      .poll(() =>
+        page.evaluate(() => performance.getEntriesByType('resource').some((entry) => entry.name.endsWith('.pbf'))),
+      )
+      .toBe(true);
+    await expect(attribution.getByRole('link')).toHaveCount(2);
+    await expect(attribution).not.toContainText('OpenFreeMap');
 
     test.skip(!inServiceHours(), 'the departures list is empty at this hour');
     const list = departuresList(page);

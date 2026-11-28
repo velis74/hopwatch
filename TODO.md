@@ -80,21 +80,41 @@ semantics (see below).
 - Everything stays on the device; syncing with the account is a later decision. Design goes into
   `docs/design/architecture.md` (User interface).
 
+## "Get moving" reminder
+
+2026-11-28, session 1164b4e8-b9fc-4415-a3b0-91e0f3dba77a.
+
+- For a ride in "My rides" or the current leg of the active journey, the app notifies the rider when it is time to set
+  off for the boarding stop: departure (expected, with the delay) minus the time to reach the stop minus a margin
+  (setting).
+- Optional loud alarm for the same moment (alarm sound, also when the phone is silent where the platform allows it):
+  Capacitor local notifications with an alarm channel on Android, a time-sensitive / critical alert on iOS.
+- The time to reach the stop follows the current position: MOTIS plans from coordinates (`fromPlace` as
+  `lat,lon`) with the first mile on foot (`preTransitModes`), later also with public transport to the boarding stop
+  (a plan from the position to the boarding stop, arriving by the departure). The reminder is rescheduled when the
+  position or the delay changes.
+- UI: a bell button on every ride in "My rides" opens the reminder's settings: on / off, minutes before, reserve
+  time as a percentage of the time to the stop, loud alarm, alarm ringtone, and "set the alarm in the clock app
+  instead" (Android `AlarmClock.ACTION_SET_ALARM`; iOS has no public API for the Clock app). The bell shows whether a
+  reminder is set.
+- To decide: positions while the app is in the background. The architecture allows location only in the foreground;
+  without background location the reminder uses the last position the app saw and a scheduled refresh of the delay.
+
 ## Library work this app waits for
 
 2026-11-27, session 1164b4e8-b9fc-4415-a3b0-91e0f3dba77a.
 
-- `@dynamicforms/vue-grid`: table semantics (roles, `aria-rowcount` / `aria-rowindex` with windowing, `aria-sort`,
-  grid mode with keyboard navigation and selection, name props, item slot attributes). Specification handed to the
-  library's developer. Then the departures list and the journey list move to `df-grid`, with row animations through
-  `useRecentlyAdded`.
-- `@dynamicforms/vuetify-inputs` 0.16.5 (in preparation): `df-select` choice `text` as `RenderContent` (name and
-  modes on two lines, named by its text), `noDataText`, `minQueryLength` / `minQueryText` and `fetchDebounce`. Once
-  released, the stop search (`stop-search.vue`, a Vuetify `v-autocomplete` today), the "Add a stop" field (drop its
-  own debounce and minimum length) and the language select move to `df-select`, the "Time" field to `df-date-time`.
-  `df-select` keeps the chosen value's text when the user types into the field (by design); the stop search's
-  select-on-focus goes with the move. The "When" and "Experience" radio groups
-  stay Vuetify `v-radio-group` bound to vue-forms.
+- `@dynamicforms/vue-grid` (workarounds in `departures-list.vue`, `journey-list.vue`, `app/src/test-setup.ts`): the
+  `#item` slot replaces the row card (measuring ref, `even` / `odd`, `state-*` classes), so the lists draw their own
+  card; the responsive layout is measured without the `#item` slot (own 720 px breakpoint); no height that follows
+  the content up to a maximum; no visually hidden header row; the shadow grid retries `getComputedStyle` every frame
+  while `grid-template-columns` is `none`, also after unmount; added records render after the 100 ms windowing
+  throttle.
+- `@dynamicforms/vuetify-inputs` `df-select` (workarounds in `stop-search.vue`, `nearby-stops.vue`): the clear button
+  is not in the tab order (own "Clear" button); no separate chip text (CSS hides the modes in the chip); no option
+  accessible name (hidden ", " in the content); the chosen chip is not announced on focus (`aria-description`);
+  `minQueryLength` counts untrimmed text (own check). `df-date-time` has no local value format without an offset
+  (conversion in `journey-form.vue`).
 - `dynamicforms-fastapi-viewsets`: the `ApiErrorBody` and `ApiFieldError` schema descriptions name Django and
   pydantic; let the application replace them or word them neutrally. `hopwatch/api/main_test.py` exempts the two
   schemas from the infrastructure check until then.
@@ -103,7 +123,6 @@ semantics (see below).
 
 2026-11-27, session 1164b4e8-b9fc-4415-a3b0-91e0f3dba77a.
 
-- `e2e/experience.e2e.ts:145` times out, on `main` as well.
 - "Support this project" screen (one-time, monthly, yearly support through in-app purchases; a small supporter perk
   so that subscriptions pass store review) belongs to the Capacitor app PR. The app stays free for everyone.
 - The German, Croatian and Serbian texts need a native speaker's review before release.

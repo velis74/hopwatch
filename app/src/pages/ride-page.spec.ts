@@ -6,8 +6,9 @@ import { apiError, flushPromises, HttpResponse, mockApi, mountApp } from '../tes
 
 import RidePage from './ride-page.vue';
 
+/** `local`, a time at the stops of the test ride in Ljubljana, as the page shows it. */
 function time(local: string): string {
-  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' }).format(
+  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Ljubljana' }).format(
     new Date(`2026-11-27T${local}:00+01:00`),
   );
 }
@@ -89,6 +90,20 @@ describe('RidePage', () => {
     expect(departure).toContain(`Expected ${time('10:31')}`);
     expect(departure).toContain('+4 min (estimate)');
     expect(departure).toContain('Platform 2');
+  });
+
+  it('shows the times of a stop as local time of its time zone, not of the device', async () => {
+    const ride = trip();
+    ride.stops = ride.stops.map((stop) => ({ ...stop, time_zone: 'Asia/Tokyo' }));
+    ride.stops[1] = { ...ride.stops[1], expected_departure: '2026-11-27T10:31:00+01:00' };
+    mockApi('get', '/trips/:id', ride);
+    const { wrapper } = await render();
+
+    const facts = wrapper.findAll('.ride-fact').map((fact) => fact.text());
+    expect(facts[0]).toContain('Kranj18:27');
+    expect(facts[0]).toContain('Expected 18:31');
+    expect(facts[1]).toContain('Jesenice18:58');
+    expect(timeline(wrapper)[1]).toContain('arr. 18:45, dep. 18:46');
   });
 
   it('marks passed stops in text, not only by their look', async () => {

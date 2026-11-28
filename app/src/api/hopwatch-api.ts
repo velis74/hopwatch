@@ -38,6 +38,8 @@ export interface Departure {
   operator: Operator | null;
   scheduled_departure: string;
   expected_departure: string | null;
+  /** IANA time zone of the stop; the times are shown as local time in it. */
+  time_zone: string;
   delay_minutes: number | null;
   delay_source: DelaySource | null;
   platform: string | null;
@@ -51,6 +53,8 @@ export interface LegStop {
   lon: number;
   scheduled: string;
   expected: string | null;
+  /** IANA time zone of the stop; the times are shown as local time in it. */
+  time_zone: string;
   platform: string | null;
 }
 
@@ -110,6 +114,8 @@ export interface TripStop {
   /** Null at the last stop. */
   scheduled_departure: string | null;
   expected_departure: string | null;
+  /** IANA time zone of the stop; the times are shown as local time in it. */
+  time_zone: string;
   delay_minutes: number | null;
   delay_source: DelaySource | null;
   platform: string | null;

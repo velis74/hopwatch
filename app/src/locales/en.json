@@ -37,6 +37,9 @@
     },
     "journey": {
       "title": "Journey details"
+    },
+    "about": {
+      "title": "About Hopwatch"
     }
   },
   "settings": {
@@ -93,6 +96,10 @@
     },
     "hopwatch": {
       "passwords_mismatch": "The passwords do not match."
+    },
+    "vuetify-inputs": {
+      "invalid_date": "Not a valid date.",
+      "invalid_time": "Not a valid time."
     }
   },
   "departures": {
@@ -114,7 +121,6 @@
     "empty": "No departures in the next {minutes} minutes.",
     "unavailable": "Departures are not available right now. Please try again later.",
     "updatedAt": "Updated at {time}. Refreshes every 30 seconds.",
-    "dataAttribution": "Timetable data:",
     "toHeadsign": "to {headsign}",
     "scheduled": "Scheduled {time}",
     "expected": "Expected {time}",
@@ -139,7 +145,15 @@
     "announceOnTime": "{mode} {line} to {headsign}: now on time.",
     "listLabelNearby": "Departures from {stop} and nearby stops",
     "atStop": "From {stop}",
-    "clearStop": "Clear {field}"
+    "clearStop": "Clear {field}",
+    "columns": {
+      "time": "Time",
+      "service": "Line",
+      "delay": "Delay",
+      "platform": "Platform",
+      "operator": "Operator",
+      "stop": "Stop"
+    }
   },
   "map": {
     "title": "Map",
@@ -152,6 +166,10 @@
     "staleSince": "Not updated since {time}"
   },
   "journey": {
+    "columns": {
+      "journey": "Journey",
+      "actions": "Actions"
+    },
     "formLabel": "Journey",
     "from": "From",
     "to": "To",
@@ -266,7 +284,9 @@
     "Style": "Style",
     "MediaEmbed": "Insert media",
     "MediaEmbedUrl": "Video URL",
-    "MediaEmbedInsert": "Insert"
+    "MediaEmbedInsert": "Insert",
+    "NoChoices": "No choices",
+    "MinQuery": "Type at least {count} characters"
   },
   "modal": {
     "Close": "Close",
@@ -329,5 +349,34 @@
     "transfer": "Transfer at {stop}, {minutes} min",
     "walkMinutes": "Walk to {to}, {minutes} min",
     "walkDistanceMinutes": "Walk {distance} m to {to}, {minutes} min"
+  },
+  "grid": {
+    "Loading": "Loading…",
+    "NoData": "No data",
+    "FilterColumn": "Filter {column}...",
+    "FilterColumnName": "Filter {column}",
+    "SortByColumn": "Sort by {column}",
+    "Sort": "Sort",
+    "CancelSelectionMode": "Cancel selection mode",
+    "InvertSelection": "Invert selection",
+    "SelectionCountSelected": "{count} items selected",
+    "SelectionCountExcluded": "{count} items excluded",
+    "ActiveFilters": "Active filters: {count}",
+    "RecordCount": "{count} records",
+    "RecordCountOfTotal": "{count} of {total} records",
+    "NullValue": "null"
+  },
+  "about": {
+    "summary": "Hopwatch shows the next departures of buses and trains at the stops near you, the stops of each ride and connections between two places, with real-time delays where the operators publish them.",
+    "sourcesHeading": "Data sources and attributions",
+    "timetablesHeading": "Timetables and real-time data",
+    "timetables": "Timetables and real-time data: {dujpp} and {sz}, licensed under {licence}.",
+    "mapHeading": "Map",
+    "mapData": "Map data {osm}, available under the {odbl}.",
+    "odbl": "Open Database Licence (ODbL)",
+    "mapTiles": "Vector tiles and map style by {openmaptiles}, served by {openfreemap}.",
+    "appHeading": "Licence of Hopwatch",
+    "appLicence": "Hopwatch is open-source software under the MIT licence: {repository}.",
+    "repository": "Hopwatch source code on GitHub"
   }
 }

@@ -37,6 +37,9 @@
     },
     "journey": {
       "title": "Reisedetails"
+    },
+    "about": {
+      "title": "Über Hopwatch"
     }
   },
   "settings": {
@@ -93,6 +96,10 @@
     },
     "hopwatch": {
       "passwords_mismatch": "Die Passwörter stimmen nicht überein."
+    },
+    "vuetify-inputs": {
+      "invalid_date": "Kein gültiges Datum.",
+      "invalid_time": "Keine gültige Uhrzeit."
     }
   },
   "departures": {
@@ -114,7 +121,6 @@
     "empty": "Keine Abfahrten in den nächsten {minutes} Minuten.",
     "unavailable": "Abfahrten sind gerade nicht verfügbar. Bitte versuchen Sie es später erneut.",
     "updatedAt": "Aktualisiert um {time}. Wird alle 30 Sekunden aktualisiert.",
-    "dataAttribution": "Fahrplandaten:",
     "toHeadsign": "nach {headsign}",
     "scheduled": "Planmäßig {time}",
     "expected": "Voraussichtlich {time}",
@@ -139,7 +145,15 @@
     "announceOnTime": "{mode} {line} nach {headsign}: jetzt pünktlich.",
     "listLabelNearby": "Abfahrten ab {stop} und Haltestellen in der Nähe",
     "atStop": "Ab {stop}",
-    "clearStop": "{field} leeren"
+    "clearStop": "{field} leeren",
+    "columns": {
+      "time": "Zeit",
+      "service": "Verbindung",
+      "delay": "Verspätung",
+      "platform": "Gleis",
+      "operator": "Verkehrsunternehmen",
+      "stop": "Haltestelle"
+    }
   },
   "map": {
     "title": "Karte",
@@ -152,6 +166,10 @@
     "staleSince": "Nicht aktualisiert seit {time}"
   },
   "journey": {
+    "columns": {
+      "journey": "Verbindung",
+      "actions": "Aktionen"
+    },
     "formLabel": "Reise",
     "from": "Von",
     "to": "Nach",
@@ -266,7 +284,9 @@
     "Style": "Stil",
     "MediaEmbed": "Medien einfügen",
     "MediaEmbedUrl": "Video-URL",
-    "MediaEmbedInsert": "Einfügen"
+    "MediaEmbedInsert": "Einfügen",
+    "NoChoices": "Keine Auswahl",
+    "MinQuery": "Mindestens {count} Zeichen eingeben"
   },
   "modal": {
     "Close": "Schließen",
@@ -329,5 +349,34 @@
     "transfer": "Umstieg in {stop}, {minutes} min",
     "walkMinutes": "Fußweg nach {to}, {minutes} min",
     "walkDistanceMinutes": "Fußweg {distance} m nach {to}, {minutes} min"
+  },
+  "grid": {
+    "Loading": "Wird geladen …",
+    "NoData": "Keine Daten",
+    "FilterColumn": "{column} filtern …",
+    "FilterColumnName": "{column} filtern",
+    "SortByColumn": "Nach {column} sortieren",
+    "Sort": "Sortieren",
+    "CancelSelectionMode": "Auswahlmodus beenden",
+    "InvertSelection": "Auswahl umkehren",
+    "SelectionCountSelected": "{count} ausgewählt",
+    "SelectionCountExcluded": "{count} ausgeschlossen",
+    "ActiveFilters": "Aktive Filter: {count}",
+    "RecordCount": "{count} Einträge",
+    "RecordCountOfTotal": "{count} von {total} Einträgen",
+    "NullValue": "leer"
+  },
+  "about": {
+    "summary": "Hopwatch zeigt die nächsten Abfahrten von Bussen und Zügen an den Haltestellen in Ihrer Nähe, die Halte jeder Fahrt und Verbindungen zwischen zwei Orten, mit Echtzeit-Verspätungen, wo die Verkehrsunternehmen sie veröffentlichen.",
+    "sourcesHeading": "Datenquellen und Quellenangaben",
+    "timetablesHeading": "Fahrpläne und Echtzeitdaten",
+    "timetables": "Fahrpläne und Echtzeitdaten: {dujpp} und {sz}, lizenziert unter {licence}.",
+    "mapHeading": "Karte",
+    "mapData": "Kartendaten {osm}, verfügbar unter der {odbl}.",
+    "odbl": "Open Database License (ODbL)",
+    "mapTiles": "Vektorkacheln und Kartenstil von {openmaptiles}, bereitgestellt von {openfreemap}.",
+    "appHeading": "Lizenz von Hopwatch",
+    "appLicence": "Hopwatch ist Open-Source-Software unter der MIT-Lizenz: {repository}.",
+    "repository": "Quellcode von Hopwatch auf GitHub"
   }
 }
