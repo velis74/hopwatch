@@ -61,6 +61,7 @@ function markerElement(kind: 'start' | 'end'): HTMLElement {
   const element = document.createElement('div');
   element.className = `stop-map-marker stop-map-marker--${kind}`;
   element.setAttribute('aria-hidden', 'true');
+  if (kind === 'end') element.innerHTML = '<span class="mdi mdi-flag-checkered"></span>';
   return element;
 }
 
@@ -238,8 +239,15 @@ onBeforeUnmount(() => {
 }
 
 :deep(.stop-map-marker--end) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
   border-radius: 4px;
-  background: rgb(var(--v-theme-on-surface));
-  box-shadow: 0 0 0 2px rgb(var(--v-theme-on-surface));
+  background: #1a1a1a;
+  color: #ffffff;
+  font-size: 18px;
+  box-shadow: 0 0 0 2px #1a1a1a;
 }
 </style>
