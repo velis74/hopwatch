@@ -1,6 +1,12 @@
 import { expect, test } from '@playwright/test';
 
-import { chooseExperience, expectHeadingsInOrder, expectNoSeriousViolations, NEAR_LJUBLJANA } from './support';
+import {
+  chooseExperience,
+  expectHeadingsInOrder,
+  expectNoSeriousViolations,
+  NEAR_LJUBLJANA,
+  navigateTo,
+} from './support';
 
 const LINKS: [string, string][] = [
   ['DUJPP, nap.si', 'https://nap.si'],
@@ -41,4 +47,11 @@ test('the About page names every data source and licence with a link', async ({ 
 
   await expectHeadingsInOrder(page);
   await expectNoSeriousViolations(page);
+});
+
+test('the menu opens the About page', async ({ page }) => {
+  await page.goto('/');
+  await chooseExperience(page);
+  await navigateTo(page, 'About');
+  await expect(page.getByRole('heading', { name: 'About Hopwatch', exact: true })).toBeVisible();
 });

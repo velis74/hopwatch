@@ -8,7 +8,8 @@
     "login": "Log in",
     "logout": "Log out",
     "loggedInAs": "Logged in as",
-    "skipToContent": "Skip to main content"
+    "skipToContent": "Skip to main content",
+    "about": "About"
   },
   "experience": {
     "dialogTitle": "Choose your experience",

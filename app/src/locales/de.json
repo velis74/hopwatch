@@ -8,7 +8,8 @@
     "login": "Anmelden",
     "logout": "Abmelden",
     "loggedInAs": "Angemeldet als",
-    "skipToContent": "Zum Hauptinhalt springen"
+    "skipToContent": "Zum Hauptinhalt springen",
+    "about": "Über Hopwatch"
   },
   "experience": {
     "dialogTitle": "Wählen Sie Ihre Darstellung",

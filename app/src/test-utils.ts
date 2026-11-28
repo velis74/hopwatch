@@ -358,6 +358,7 @@ export const STUB_ROUTES: RouteRecordRaw[] = [
   { path: '/login', name: 'login', component: Blank, meta: { titleKey: 'pages.login.title' } },
   { path: '/signup', name: 'signup', component: Blank, meta: { titleKey: 'pages.signup.title' } },
   { path: '/settings', name: 'settings', component: Blank, meta: { titleKey: 'pages.settings.title' } },
+  { path: '/about', name: 'about', component: Blank, meta: { titleKey: 'pages.about.title' } },
 ];
 
 /** The app's routes with their real pages. */
@@ -398,6 +399,12 @@ export const APP_ROUTES: RouteRecordRaw[] = [
     name: 'settings',
     component: () => import('./pages/settings-page.vue'),
     meta: { titleKey: 'pages.settings.title' },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('./pages/about-page.vue'),
+    meta: { titleKey: 'pages.about.title' },
   },
 ];
 

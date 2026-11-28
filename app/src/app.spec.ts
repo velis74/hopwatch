@@ -49,7 +49,7 @@ function navigationControl(name: string): HTMLElement | undefined {
 }
 
 describe('app', () => {
-  it('offers a skip link, the title linking home and departures, settings and login in the navigation', async () => {
+  it('has a skip link, the title linking home, departures, settings, about and login in the navigation', async () => {
     mockAnonymousSession();
     const { router } = await mountApp(App, { route: '/settings' });
 
@@ -65,6 +65,7 @@ describe('app', () => {
 
     expect(navigationControl('Departures')?.getAttribute('href')).toBe('/');
     expect(navigationControl('Settings')?.getAttribute('href')).toBe('/settings');
+    expect(navigationControl('About')?.getAttribute('href')).toBe('/about');
     expect(navigationControl('Log in')?.getAttribute('href')).toBe('/login');
     expect(navigationControl('Log out')).toBeUndefined();
     expect(navigationControl('Settings')?.getAttribute('aria-current')).toBe('page');

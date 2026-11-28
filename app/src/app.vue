@@ -57,6 +57,15 @@
               rounded="lg"
             />
           </li>
+          <li>
+            <v-list-item
+              :to="{ name: 'about' }"
+              prepend-icon="mdi-information-outline"
+              :title="t('app.about')"
+              :density="itemDensity"
+              rounded="lg"
+            />
+          </li>
         </ul>
         <template #append>
           <ul class="app-navigation-list">

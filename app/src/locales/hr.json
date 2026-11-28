@@ -8,7 +8,8 @@
     "login": "Prijava",
     "logout": "Odjava",
     "loggedInAs": "Prijavljeni kao",
-    "skipToContent": "Preskoči na glavni sadržaj"
+    "skipToContent": "Preskoči na glavni sadržaj",
+    "about": "O aplikaciji"
   },
   "experience": {
     "dialogTitle": "Odaberite način prikaza",
