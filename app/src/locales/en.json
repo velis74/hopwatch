@@ -2,6 +2,7 @@
   "app": {
     "title": "Hopwatch",
     "mainNavigation": "Main navigation",
+    "menu": "Menu",
     "home": "Hopwatch, departures",
     "settings": "Settings",
     "login": "Log in",

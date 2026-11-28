@@ -2,6 +2,7 @@
   "app": {
     "title": "Hopwatch",
     "mainNavigation": "Главна навигација",
+    "menu": "Мени",
     "home": "Hopwatch, поласци",
     "settings": "Подешавања",
     "login": "Пријава",

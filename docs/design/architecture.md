@@ -113,6 +113,13 @@ Requests for permission ask for redistribution through the public API, not only 
 - Layout: on wide screens (Vuetify `md` and up) the form is on top and below it the list (departures or journeys) is
   on the left and the map on the right, sticky and as high as the viewport below the app bar. Narrow screens have one
   column with the map below the list or the details.
+- Navigation: the app bar holds the logo and the title, a link to the start page. The main navigation (`nav` landmark
+  "Main navigation") is a Vuetify navigation drawer with Departures and Settings and, at the bottom, the logged-in
+  email with "Log out", or "Log in"; the current page is marked with `aria-current="page"`. From `md` up it is a rail
+  of icons that widens over the page on hover and while it holds keyboard focus. Below `md` it is a temporary drawer
+  opened by the "Menu" button in the app bar (`aria-expanded`, `aria-controls`): opening moves focus to its first
+  item and keeps Tab inside; navigation, Escape and the scrim close it, and focus returns to the button unless the
+  new page has taken it.
 - Narrow screens show the views in succession: form, list, details. The form's submit button ("Show departures",
   "Find journeys") opens the list (`/?view=list`) with the form collapsed to a one-line summary and a "Change"
   button; a departure or a journey's "Details" opens its details. The browser Back returns to the list, then to the

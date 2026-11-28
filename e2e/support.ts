@@ -46,6 +46,52 @@ export async function chooseExperience(page: Page, option: Experience = 'Lively'
   await expect(dialog).toBeHidden();
 }
 
+/** Names of the menu button and the main navigation in the interface language. */
+export interface NavigationNames {
+  menu: string;
+  navigation: string;
+}
+
+const ENGLISH_NAVIGATION: NavigationNames = { menu: 'Menu', navigation: 'Main navigation' };
+
+export function mainNavigation(page: Page, names: NavigationNames = ENGLISH_NAVIGATION): Locator {
+  return page.getByRole('navigation', { name: names.navigation, exact: true });
+}
+
+/** The app bar button that opens the navigation on narrow screens; absent on wide screens. */
+export function menuButton(page: Page, names: NavigationNames = ENGLISH_NAVIGATION): Locator {
+  return page.getByRole('banner').getByRole('button', { name: names.menu, exact: true });
+}
+
+/** Opens the main navigation from the menu button on narrow screens and returns it; wide screens show it always. */
+export async function openNavigation(page: Page, names: NavigationNames = ENGLISH_NAVIGATION): Promise<Locator> {
+  const button = menuButton(page, names);
+  const navigation = mainNavigation(page, names);
+  if (await button.isVisible()) {
+    // A navigation still under way when the drawer opens closes it again.
+    await expect(async () => {
+      if ((await button.getAttribute('aria-expanded')) !== 'true') await button.click();
+      await expect(button).toHaveAttribute('aria-expanded', 'true', { timeout: 1000 });
+      await expect(navigation).toBeInViewport({ ratio: 1, timeout: 1000 });
+    }).toPass();
+  }
+  await expect(navigation).toBeInViewport();
+  return navigation;
+}
+
+/** Closes the navigation drawer of narrow screens with Escape; the rail of wide screens stays. */
+export async function closeNavigation(page: Page, names: NavigationNames = ENGLISH_NAVIGATION): Promise<void> {
+  const button = menuButton(page, names);
+  if (!(await button.isVisible()) || (await button.getAttribute('aria-expanded')) !== 'true') return;
+  await page.keyboard.press('Escape');
+  await expect(button).toHaveAttribute('aria-expanded', 'false');
+}
+
+/** Follows a link of the main navigation. */
+export async function navigateTo(page: Page, link: string): Promise<void> {
+  await (await openNavigation(page)).getByRole('link', { name: link, exact: true }).click();
+}
+
 /**
  * Waits until the page's running finite animations and transitions (e.g. list items fading in) have finished. A paused
  * animation (e.g. a hidden progress bar) does not finish until it plays.

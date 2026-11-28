@@ -2,6 +2,7 @@
   "app": {
     "title": "Hopwatch",
     "mainNavigation": "Hauptnavigation",
+    "menu": "Menü",
     "home": "Hopwatch, Abfahrten",
     "settings": "Einstellungen",
     "login": "Anmelden",
